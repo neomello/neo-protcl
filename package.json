@@ -8,18 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@thirdweb-dev/chains": "^0.1.120",
+    "@thirdweb-dev/react": "^4.9.4",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
-    "@web3modal/wagmi": "^5.1.11",
-    "@web3modal/ethereum": "^2.7.1",
-    "@web3modal/react": "^2.7.1",
-    "wagmi": "^3.0.1",
-    "viem": "^2.40.0",
-    "@thirdweb-dev/react": "^4.9.4",
-    "@thirdweb-dev/sdk": "^4.0.99",
-    "@thirdweb-dev/chains": "^0.1.120",
-    "ethers": "^5.7.2"
+    "thirdweb": "^5.112.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -32,4 +28,3 @@
     "vite-plugin-pwa": "^0.17.4"
   }
 }
-

@@ -9,8 +9,7 @@ WebApp oficial do Protocolo NΞØ com integração Web3 nativa, PWA compatível 
 ## 🚀 Tecnologias
 
 - **React 18** + **Vite** - Framework e build tool
-- **Web3Modal** + **wagmi** + **viem** - Integração Web3 (MCP-friendly)
-- **Thirdweb** (opcional) - SDK para contratos e mint
+- **Thirdweb** - SDK completo para Web3 (wallet connect, contratos, mint, x402 Payments)
 - **React Router** - Roteamento
 - **Tailwind CSS** - Estilização
 - **PWA** - Progressive Web App com suporte iOS
@@ -31,23 +30,9 @@ npm install
 cp .env.example .env
 ```
 
-### 2. Web3Modal (Obrigatório)
+### 2. Thirdweb (Recomendado)
 
-O `VITE_WEB3MODAL_PROJECT_ID` é **OBRIGATÓRIO** para funcionalidade completa de wallet. O app funciona em **modo preview** sem ele, mas com funcionalidades limitadas.
-
-1. Acesse [cloud.walletconnect.com](https://cloud.walletconnect.com)
-2. Crie uma conta ou faça login
-3. Crie um novo projeto
-4. Copie o **Project ID**
-5. Cole no arquivo `.env`:
-
-```env
-VITE_WEB3MODAL_PROJECT_ID=seu-project-id-aqui
-```
-
-### 3. Thirdweb (Opcional)
-
-O `VITE_THIRDWEB_CLIENT_ID` é **OPCIONAL** (só necessário se usar Thirdweb para contratos).
+O `VITE_THIRDWEB_CLIENT_ID` é **RECOMENDADO** para funcionalidade completa de wallet connect. O app funciona em **modo preview** sem ele, mas com funcionalidades limitadas.
 
 1. Acesse [thirdweb.com](https://thirdweb.com)
 2. Crie uma conta ou faça login
@@ -67,7 +52,7 @@ VITE_THIRDWEB_CLIENT_ID=seu-client-id-aqui
 
 > 📖 Veja `docs/THIRDWEB_SETUP.md` para guia completo de configuração de Allowed Domains
 
-### 4. Verificar configuração
+### 3. Verificar configuração
 
 Após criar o `.env`, verifique se as variáveis estão corretas:
 
@@ -177,22 +162,38 @@ Para splash screens personalizados, coloque em `public/splash/`:
 
 Veja `public/splash/README.md` para especificações completas.
 
-## 🔌 Web3Modal vs Thirdweb
+## 🔌 Thirdweb - Solução Completa
 
-- **Web3Modal**: Usado para login/wallet connect (UI/UX superior)
-- **Thirdweb**: Opcional, útil para contratos, mint, SDK
+O projeto usa **Thirdweb** como solução única para:
+- ✅ **Wallet Connect** - Conexão com múltiplas wallets (MetaMask, WalletConnect, Coinbase, etc)
+- ✅ **SDK** - Interação com contratos inteligentes
+- ✅ **x402 Payments** - Sistema de micropagamentos descentralizado
+- ✅ **Mint** - Criação de NFTs e tokens
 
-O projeto usa **Web3Modal** como provider principal. Para usar Thirdweb também, descomente no `main.jsx`:
+### x402 Payments + Thirdweb SDK
 
+Sistema unificado usando o mesmo cliente Thirdweb:
+
+- ✅ **Provider unificado**: `X402Provider` + `ThirdwebProvider`
+- ✅ **x402 Payments**: Hook `useX402Payment`, Componente `PaymentButton`
+- ✅ **Thirdweb SDK**: Hook `useThirdwebSDK`, Serviços `thirdwebSDK.js`
+- ✅ **Mesmo cliente**: Um único cliente Thirdweb para SDK e x402
+
+**Configuração necessária**:
+- `VITE_THIRDWEB_SECRET_KEY` - Secret Key (para x402 e transações server-side)
+- `VITE_THIRDWEB_CLIENT_ID` - Client ID (opcional, para componentes React)
+- `VITE_X402_SERVER_WALLET_ADDRESS` - Endereço da wallet do servidor (para x402)
+
+**Uso do SDK**:
 ```jsx
-import TWProvider from './providers/ThirdwebProvider';
+import { useThirdwebSDK } from "../hooks/useThirdwebSDK";
+import { getContractInstance } from "../services/thirdwebSDK";
 
-<TWProvider>
-  <Web3ModalProvider>
-    <App />
-  </Web3ModalProvider>
-</TWProvider>
+const { client, isConfigured } = useThirdwebSDK();
+const contract = getContractInstance("0x...");
 ```
+
+> 📖 Veja `docs/X402_SETUP.md` para guia completo de configuração
 
 ## 🧠 MCP (Model Context Protocol)
 
@@ -209,6 +210,8 @@ Acesse em: `http://localhost:5173/mcp`
 - `/` - Página principal (NeoProtocol)
 - `/neo-protocol` - Página principal (alias)
 - `/mcp` - Console MCP
+- `/x402` - Exemplo de x402 Payments
+- `/sdk` - Exemplo de Thirdweb SDK
 
 ## 🌐 Build para Produção
 

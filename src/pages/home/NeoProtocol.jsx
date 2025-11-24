@@ -204,7 +204,7 @@ export default function NeoProtocol() {
             to="/"
             className="inline-block mt-4 px-6 py-3 bg-gray-800 active:bg-gray-700 rounded-lg font-medium transition-colors touch-manipulation"
           >
-            ← Voltar ao INTERBØX
+            ← Voltar
           </Link>
         </div>
       </footer>

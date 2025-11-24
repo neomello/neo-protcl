@@ -4,14 +4,13 @@ import App from './App';
 import './index.css';
 
 // Providers
-import Web3ModalProvider from './providers/Web3ModalProvider';
-// import TWProvider from './providers/ThirdwebProvider';
+import TWProvider from './providers/ThirdwebProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Web3ModalProvider>
+    <TWProvider>
       <App />
-    </Web3ModalProvider>
+    </TWProvider>
   </React.StrictMode>
 );
 
