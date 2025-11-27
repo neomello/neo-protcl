@@ -1,24 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import BottomNavigation from '../../components/BottomNavigation';
 import { soundManager } from '../../utils/sounds';
+import NetworkGraph3D from '../../components/NetworkGraph3D';
 
 export default function NosPage() {
+  const [hoveredNode, setHoveredNode] = useState(null);
+  const [selectedNode, setSelectedNode] = useState(null);
+  const infoRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const intro = [
-    "O que são os NÓS?",
-    "",
-    "Os NÓS do Protocolo NΞØ são mais do que metáforas — são pontos vivos de consciência aplicada.",
-    "",
-    "Cada NÓ representa uma camada de entendimento, ação e expansão.",
-    "",
-    "Ao atravessar cada um, você não apenas compreende o protocolo: você o encarna.",
-    "",
-    "Eles não são etapas. São circuitos simultâneos. Estão ativos agora, e te atravessam em silêncio."
-  ];
+  // Scroll para informação quando um nó é selecionado
+  useEffect(() => {
+    if (selectedNode && infoRef.current) {
+      setTimeout(() => {
+        infoRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'nearest' 
+        });
+      }, 100);
+    }
+  }, [selectedNode]);
 
   const nos = [
     {
@@ -79,161 +84,192 @@ export default function NosPage() {
     }
   ];
 
-  const getColorClasses = (color) => {
-    const colors = {
-      cyan: {
-        text: 'text-cyan-300',
-        border: 'border-cyan-400/50',
-        glow: '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3)'
-      },
-      blue: {
-        text: 'text-blue-300',
-        border: 'border-blue-400/50',
-        glow: '0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3)'
-      },
-      purple: {
-        text: 'text-purple-300',
-        border: 'border-purple-400/50',
-        glow: '0 0 10px rgba(168, 85, 247, 0.5), 0 0 20px rgba(168, 85, 247, 0.3)'
+  const handleNodeHover = (node) => {
+    // Só atualizar hover se não houver nó selecionado
+    if (!selectedNode) {
+      setHoveredNode(node);
+      if (node) {
+        soundManager.playHover();
       }
-    };
-    return colors[color] || colors.cyan;
+    }
+  };
+
+  const handleNodeClick = (node) => {
+    // Se clicar no mesmo nó, deselecionar
+    if (selectedNode && selectedNode.number === node.number) {
+      setSelectedNode(null);
+    } else {
+      setSelectedNode(node);
+      setHoveredNode(null); // Limpar hover quando selecionar
+    }
+    soundManager.playClick();
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800 relative scanline">
-      {/* Scanline overlay effect */}
-      <div className="scanline"></div>
-      
-      {/* Header - E-reader style */}
-      <header className="sticky top-0 z-20 bg-gray-800/95 backdrop-blur-sm border-b border-gray-600/50 shadow-lg">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Fundo galáctico com estrelas */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-blue-900/20"></div>
+        {/* Estrelas animadas */}
+        {[...Array(100)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 2 + 1}px`,
+              height: `${Math.random() * 2 + 1}px`,
+              opacity: Math.random(),
+              animation: `twinkle ${Math.random() * 3 + 2}s infinite`
+            }}
+          />
+        ))}
+        {/* Nebulosa */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Header */}
+      <header className="sticky top-0 z-30 bg-black/50 backdrop-blur-md border-b border-cyan-500/20">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link 
             to="/" 
             onClick={() => soundManager.playNavigate()}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-mono flex items-center gap-2 cyber-glow"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-mono flex items-center gap-2"
+            style={{ textShadow: '0 0 10px rgba(0, 255, 255, 0.5)' }}
           >
             <span className="text-lg">←</span>
             <span>VOLTAR</span>
           </Link>
-          <h1 className="text-lg font-bold text-gray-200 font-mono tracking-wider">
+          <h1 className="text-lg font-bold text-cyan-300 font-mono tracking-wider"
+              style={{ textShadow: '0 0 15px rgba(0, 255, 255, 0.8)' }}>
             THE NODES OF NΞØ PROTOCOL
           </h1>
-          <div className="w-16"></div> {/* Spacer for centering */}
+          <div className="w-16"></div>
         </div>
       </header>
 
-      {/* E-reader Content Area */}
-      <main className="container mx-auto px-4 py-6 max-w-2xl relative z-10">
-        {/* Book-like container with paper texture */}
-        <div className="bg-gray-600/40 backdrop-blur-sm rounded-lg shadow-2xl border border-gray-500/30 p-6 md:p-8 min-h-[calc(100vh-200px)] paper-texture ereader-page">
-          
-          {/* Page number indicator (90s style) */}
-          <div className="text-center mb-6 pb-4 border-b border-gray-500/30">
-            <span className="text-xs text-gray-400 font-mono">PÁGINA 1</span>
+      {/* Conteúdo principal */}
+      <main className="relative z-10 container mx-auto px-4 py-8">
+        {/* Container de texto com glassmorphism/HUD */}
+        <div className="mb-8">
+          <div className="bg-black/40 backdrop-blur-lg border border-cyan-500/30 rounded-lg p-6 shadow-2xl"
+               style={{
+                 boxShadow: '0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05)'
+               }}>
+            {/* Pergunta */}
+            <div className="mb-4">
+              <h2 className="text-xl md:text-2xl font-black text-cyan-300 font-mono mb-2"
+                  style={{ textShadow: '0 0 10px rgba(0, 255, 255, 0.8)' }}>
+                O que são os NÓS?
+              </h2>
+            </div>
+            
+            {/* Resposta simplificada */}
+            <div className="text-base md:text-lg text-gray-200 font-mono leading-relaxed"
+                 style={{ textShadow: '0 1px 2px rgba(0,0,0,0.8)' }}>
+              <p className="mb-3">
+                Os NÓS do Protocolo NΞØ são pontos vivos de consciência aplicada. Cada NÓ representa uma camada de entendimento, ação e expansão. Ao atravessar cada um, você não apenas compreende o protocolo: você o encarna.
+              </p>
+              <p className="text-cyan-300/80 italic">
+                Eles não são etapas. São circuitos simultâneos. Estão ativos agora, e te atravessam em silêncio.
+              </p>
+            </div>
           </div>
+        </div>
 
-          {/* Introduction */}
-          <div className="space-y-3 text-gray-100 leading-relaxed mb-8">
-            {intro.map((line, index) => {
-              if (line === "") {
-                return <div key={index} className="h-3"></div>;
-              }
-              
-              const isTitle = line.includes("O que são");
+        {/* Network Graph 3D */}
+        <div className="bg-black/30 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-4 shadow-2xl"
+             style={{
+               height: '600px',
+               minHeight: '600px',
+               boxShadow: '0 0 40px rgba(0, 255, 255, 0.15), inset 0 0 40px rgba(0, 255, 255, 0.05)'
+             }}>
+          <NetworkGraph3D
+            nodes={nos}
+            onNodeHover={handleNodeHover}
+            onNodeClick={handleNodeClick}
+          />
+        </div>
+
+        {/* Info do nó selecionado/hovered */}
+        {(selectedNode || hoveredNode) && (
+          <div 
+            ref={infoRef}
+            className="mt-6 bg-black/70 backdrop-blur-xl border-2 rounded-lg p-6 shadow-2xl transition-all duration-300"
+               style={{
+                 borderColor: selectedNode 
+                   ? (selectedNode.color === 'cyan' ? 'rgba(0, 255, 255, 0.6)' : 
+                      selectedNode.color === 'blue' ? 'rgba(59, 130, 246, 0.6)' : 
+                      'rgba(168, 85, 247, 0.6)')
+                   : 'rgba(0, 255, 255, 0.3)',
+                 boxShadow: selectedNode
+                   ? (selectedNode.color === 'cyan' ? '0 0 40px rgba(0, 255, 255, 0.5), inset 0 0 30px rgba(0, 255, 255, 0.1)' :
+                      selectedNode.color === 'blue' ? '0 0 40px rgba(59, 130, 246, 0.5), inset 0 0 30px rgba(59, 130, 246, 0.1)' :
+                      '0 0 40px rgba(168, 85, 247, 0.5), inset 0 0 30px rgba(168, 85, 247, 0.1)')
+                   : '0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.05)',
+                 transform: selectedNode ? 'scale(1.02)' : 'scale(1)'
+               }}>
+            {(() => {
+              const node = selectedNode || hoveredNode;
+              const isSelected = !!selectedNode;
+              const colors = {
+                cyan: { text: 'text-cyan-300', border: 'border-cyan-400/50', glow: '0 0 10px rgba(0, 255, 255, 0.5)' },
+                blue: { text: 'text-blue-300', border: 'border-blue-400/50', glow: '0 0 10px rgba(59, 130, 246, 0.5)' },
+                purple: { text: 'text-purple-300', border: 'border-purple-400/50', glow: '0 0 10px rgba(168, 85, 247, 0.5)' }
+              };
+              const colorClasses = colors[node.color] || colors.cyan;
               
               return (
-                <p
-                  key={index}
-                  className={`
-                    ${isTitle ? 'text-xl md:text-2xl font-black text-cyan-300 mb-4 tracking-tight graffiti-text cyber-glow' : ''}
-                    ${!isTitle ? 'text-base md:text-lg font-medium text-gray-200 italic' : ''}
-                    font-['Courier_New',monospace]
-                  `}
-                  style={{
-                    textShadow: isTitle 
-                      ? '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3)' 
-                      : '0 1px 2px rgba(0,0,0,0.5)',
-                    letterSpacing: isTitle ? '0.05em' : '0.02em',
-                  }}
-                >
-                  {line}
-                </p>
-              );
-            })}
-          </div>
-
-          {/* Divider */}
-          <div className="border-t border-gray-500/30 my-8"></div>
-
-          {/* The 8 Nós */}
-          <div className="space-y-6">
-            {nos.map((no, index) => {
-              const colorClasses = getColorClasses(no.color);
-              
-              return (
-                <div 
-                  key={index}
-                  className="border-l-4 border-gray-500/30 pl-4 py-3 hover:border-opacity-100 transition-all"
-                  style={{
-                    borderLeftColor: no.color === 'cyan' ? 'rgba(0, 255, 255, 0.5)' : 
-                                    no.color === 'blue' ? 'rgba(59, 130, 246, 0.5)' : 
-                                    'rgba(168, 85, 247, 0.5)'
-                  }}
-                >
-                  {/* Number and Name */}
-                  <div className="mb-3">
-                    <span className="text-xs text-gray-400 font-mono mr-2">NÓ {no.number}</span>
-                    <h2 className={`text-xl md:text-2xl font-black ${colorClasses.text} inline-block graffiti-text cyber-glow`}
-                        style={{
-                          textShadow: colorClasses.glow,
-                          letterSpacing: '0.05em'
-                        }}>
-                      {no.name}
-                    </h2>
+                <>
+                  <div className="mb-4 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs text-gray-400 font-mono mr-2">NÓ {node.number}</span>
+                      <h3 className={`text-xl md:text-2xl font-black ${colorClasses.text} inline-block font-mono`}
+                          style={{ textShadow: colorClasses.glow }}>
+                        {node.name}
+                      </h3>
+                    </div>
+                    {isSelected && (
+                      <button
+                        onClick={() => setSelectedNode(null)}
+                        className="text-gray-400 hover:text-white font-mono text-sm px-3 py-1 border border-gray-600 rounded hover:border-gray-400 transition-colors"
+                      >
+                        ✕ FECHAR
+                      </button>
+                    )}
                   </div>
-                  
-                  {/* Description */}
-                  <p className="text-base md:text-lg font-medium text-gray-200 mb-2 font-['Courier_New',monospace]"
-                     style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
-                    {no.description}
+                  <p className="text-base md:text-lg text-gray-100 font-mono mb-4 leading-relaxed"
+                     style={{ textShadow: '0 1px 3px rgba(0,0,0,0.9)' }}>
+                    {node.description}
                   </p>
-                  
-                  {/* Quote */}
-                  <p className={`text-sm md:text-base font-semibold ${colorClasses.text} italic ml-4 pl-3 border-l-2 ${colorClasses.border} cyber-glow font-['Courier_New',monospace]`}
-                     style={{
+                  <p className={`text-sm md:text-base ${colorClasses.text} italic font-mono border-l-2 ${colorClasses.border} pl-4 py-2`}
+                     style={{ 
                        textShadow: colorClasses.glow,
-                       borderLeftColor: no.color === 'cyan' ? 'rgba(0, 255, 255, 0.5)' : 
-                                      no.color === 'blue' ? 'rgba(59, 130, 246, 0.5)' : 
-                                      'rgba(168, 85, 247, 0.5)'
+                       borderLeftColor: node.color === 'cyan' ? 'rgba(0, 255, 255, 0.6)' : 
+                                       node.color === 'blue' ? 'rgba(59, 130, 246, 0.6)' : 
+                                       'rgba(168, 85, 247, 0.6)'
                      }}>
-                    {no.quote}
+                    "{node.quote}"
                   </p>
-                </div>
+                </>
               );
-            })}
+            })()}
           </div>
-
-          {/* E-reader footer */}
-          <div className="mt-12 pt-6 border-t border-gray-500/30 text-center">
-            <p className="text-xs text-gray-400 font-mono">
-              NΞØ PROTOCOL • 2025
-            </p>
-          </div>
-        </div>
-
-        {/* Reading progress indicator (90s style) */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400 font-mono">
-          <div className="w-32 h-1 bg-gray-600 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-400 w-full"></div>
-          </div>
-          <span>100%</span>
-        </div>
+        )}
       </main>
 
       {/* Bottom Navigation */}
       <BottomNavigation />
+
+      {/* CSS para animação de estrelas */}
+      <style>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
-
