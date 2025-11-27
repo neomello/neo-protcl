@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BottomNavigation from '../../components/BottomNavigation';
+import { soundManager } from '../../utils/sounds';
 
 export default function NosPage() {
   useEffect(() => {
@@ -109,6 +110,7 @@ export default function NosPage() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link 
             to="/" 
+            onClick={() => soundManager.playNavigate()}
             className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-mono flex items-center gap-2 cyber-glow"
           >
             <span className="text-lg">←</span>

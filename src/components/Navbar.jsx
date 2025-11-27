@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { soundManager } from '../utils/sounds';
 
 export default function Navbar() {
   return (
@@ -6,6 +7,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link 
           to="/" 
+          onClick={() => soundManager.playClick()}
           className="text-xl font-black tracking-tighter cyber-glow graffiti-text"
           style={{
             textShadow: '0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4)',
@@ -20,6 +22,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <Link 
               to="/nos" 
+              onClick={() => soundManager.playNavigate()}
               className="text-cyan-400/80 hover:text-cyan-300 transition-colors cyber-glow"
               style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
             >
@@ -27,6 +30,7 @@ export default function Navbar() {
             </Link>
             <Link 
               to="/manifesto" 
+              onClick={() => soundManager.playNavigate()}
               className="text-blue-400/80 hover:text-blue-300 transition-colors cyber-glow"
               style={{ textShadow: '0 0 5px rgba(59, 130, 246, 0.3)' }}
             >

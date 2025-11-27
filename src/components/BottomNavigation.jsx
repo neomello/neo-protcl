@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { soundManager } from '../utils/sounds';
 
 export default function BottomNavigation() {
   const location = useLocation();
@@ -58,6 +59,13 @@ export default function BottomNavigation() {
             <div key={item.path} className="flex items-center flex-1">
               <Link
                 to={item.path}
+                onClick={() => {
+                  if (!isActive) {
+                    soundManager.playNavigate();
+                  } else {
+                    soundManager.playClick();
+                  }
+                }}
                 className={`relative flex flex-col items-center justify-center py-2 px-2 flex-1 transition-all touch-manipulation font-mono border-r ${style.text} ${
                   isActive ? 'scale-105' : 'active:text-gray-400'
                 }`}

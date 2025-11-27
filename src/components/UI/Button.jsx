@@ -1,4 +1,12 @@
-export default function Button({ children, className = '', variant = 'primary', ...props }) {
+import { soundManager } from '../../utils/sounds';
+
+export default function Button({ children, className = '', variant = 'primary', onClick, ...props }) {
+  const handleClick = (e) => {
+    soundManager.playClick();
+    if (onClick) {
+      onClick(e);
+    }
+  };
   const variants = {
     primary: {
       border: 'border-cyan-400/50',
@@ -30,6 +38,7 @@ export default function Button({ children, className = '', variant = 'primary', 
 
   return (
     <button
+      onClick={handleClick}
       className={`px-6 py-3 border-2 ${style.border} ${style.bg} ${style.text} ${style.hover} backdrop-blur-sm font-mono text-sm transition-all cyber-glow ${className}`}
       style={{
         boxShadow: style.glow,

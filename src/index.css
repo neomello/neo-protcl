@@ -583,106 +583,54 @@ body::-webkit-scrollbar {
 }
 
 /* ============================================
-   E-READER / MANIFESTO PAGE - 90s Style
+   IMPRESSORA MATRICIAL - Papel Perfurado
    ============================================ */
 
-/* Graffiti/90s Text Effects */
-@keyframes textGlow {
-  0%, 100% {
-    text-shadow: 
-      0 0 10px rgba(0, 255, 255, 0.5),
-      0 0 20px rgba(0, 255, 255, 0.3),
-      0 0 30px rgba(0, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.8);
-  }
-  50% {
-    text-shadow: 
-      0 0 15px rgba(0, 255, 255, 0.7),
-      0 0 25px rgba(0, 255, 255, 0.5),
-      0 0 35px rgba(0, 255, 255, 0.3),
-      0 1px 2px rgba(0, 0, 0, 0.8);
-  }
+/* Papel de impressora matricial com furos nas bordas */
+.printer-paper {
+  position: relative;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  min-height: calc(100vh - 200px);
 }
 
-/* E-reader page effect */
-.ereader-page {
-  background: 
-    linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 2%),
-    linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 2%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(0,0,0,0.03) 0px,
-      transparent 1px,
-      transparent 2px,
-      rgba(0,0,0,0.03) 3px
-    );
-  background-size: 100% 100%, 100% 100%, 100% 4px;
-}
-
-/* Scanline effect (90s CRT monitor style) */
-@keyframes scanline {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-.scanline::before {
+/* Furos nas bordas laterais (perfuração do papel) */
+.printer-paper::before,
+.printer-paper::after {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0, 255, 255, 0.1),
-    transparent
+  bottom: 0;
+  width: 20px;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 8px,
+    #d0d0d0 8px,
+    #d0d0d0 10px,
+    transparent 10px,
+    transparent 18px
   );
-  animation: scanline 8s linear infinite;
+  background-size: 100% 18px;
   pointer-events: none;
-  z-index: 1000;
 }
 
-/* Graffiti-style text with slight rotation variations */
-.graffiti-text {
-  font-family: 'Courier New', 'Courier', monospace;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  transform: rotate(-0.5deg);
-  display: inline-block;
+.printer-paper::before {
+  left: 0;
 }
 
-.graffiti-text:nth-child(even) {
-  transform: rotate(0.3deg);
+.printer-paper::after {
+  right: 0;
 }
 
-/* 90s terminal/cyberpunk glow */
-.cyber-glow {
-  text-shadow: 
-    0 0 5px currentColor,
-    0 0 10px currentColor,
-    0 0 15px currentColor,
-    0 0 20px currentColor;
-}
-
-/* Paper texture overlay for e-reader */
-.paper-texture {
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(0,0,0,0.02) 0px,
-      transparent 1px,
-      transparent 2px,
-      rgba(0,0,0,0.02) 3px
-    ),
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255,255,255,0.01) 0%,
-      transparent 50%
-    );
-  background-size: 100% 4px, 200% 200%;
+/* Linhas horizontais sutis (como papel de impressora) */
+.printer-paper {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 23px,
+    rgba(0, 0, 0, 0.02) 23px,
+    rgba(0, 0, 0, 0.02) 24px
+  );
+  background-size: 100% 24px;
 }

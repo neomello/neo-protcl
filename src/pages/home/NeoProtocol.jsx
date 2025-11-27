@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
 import ConnectButton from '../../components/WalletConnect/ConnectButton';
+import { soundManager } from '../../utils/sounds';
 
 const phrases = [
-  "nada aqui está pronto. tudo está plugado.",
-  "feito em rede, não em linha de produção.",
-  "isso não é produto. é processo.",
-  "infraestrutura viva em execução.",
-  "sempre em estado beta."
+  "auto custódia.",
+  "liberdade.",
+  "resistência.",
+  "blockchain.",
+  "moralidade."
 ];
 
 export default function NeoProtocol() {
@@ -186,6 +187,7 @@ export default function NeoProtocol() {
               </div>
               <Link
                 to="/nos"
+                onClick={() => soundManager.playNavigate()}
                 className="block w-full max-w-xs mx-auto text-center py-3 px-6 border-2 border-cyan-400/50 bg-gray-800/50 backdrop-blur-sm font-mono text-sm text-cyan-300 hover:border-cyan-400 hover:bg-gray-800/70 transition-all cyber-glow"
                 style={{ 
                   textShadow: '0 0 5px rgba(0, 255, 255, 0.5)',
@@ -208,6 +210,7 @@ export default function NeoProtocol() {
             <div className="space-y-3">
               <Link 
                 to="/nos" 
+                onClick={() => soundManager.playNavigate()}
                 className="block p-4 border-l-4 border-cyan-400/50 bg-gray-800/30 hover:bg-gray-800/50 hover:border-cyan-400 transition-all font-mono"
                 style={{ borderLeftColor: 'rgba(0, 255, 255, 0.5)' }}
               >
@@ -222,6 +225,7 @@ export default function NeoProtocol() {
 
               <Link 
                 to="/manifesto" 
+                onClick={() => soundManager.playNavigate()}
                 className="block p-4 border-l-4 border-blue-400/50 bg-gray-800/30 hover:bg-gray-800/50 hover:border-blue-400 transition-all font-mono"
                 style={{ borderLeftColor: 'rgba(59, 130, 246, 0.5)' }}
               >
