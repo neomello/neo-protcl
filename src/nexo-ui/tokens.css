@@ -1,0 +1,46 @@
+:root {
+  --void-black: #000000;
+  --depth-gray: #0B0D10;
+  --carbon-shade: #13161A;
+
+  --anomaly-blue: #1A9AF7;
+  --glitch-cyan: #34E1FF;
+  --signal-violet: #7B5DFF;
+
+  /* Glassmorphism variants */
+  --anomaly-blue-glass: rgba(26, 154, 247, 0.2);
+  --glitch-cyan-glass: rgba(52, 225, 255, 0.2);
+  --signal-violet-glass: rgba(123, 93, 255, 0.2);
+
+  /* Border opacity variants */
+  --anomaly-border: rgba(26, 154, 247, 0.3);
+  --glitch-border: rgba(52, 225, 255, 0.3);
+  --signal-border: rgba(123, 93, 255, 0.3);
+
+  /* Glow effects */
+  --glow-anomaly: 0 0 15px rgba(26, 154, 247, 0.3), inset 0 0 10px rgba(26, 154, 247, 0.1);
+  --glow-glitch: 0 0 15px rgba(52, 225, 255, 0.3), inset 0 0 10px rgba(52, 225, 255, 0.1);
+  --glow-signal: 0 0 15px rgba(123, 93, 255, 0.3), inset 0 0 10px rgba(123, 93, 255, 0.1);
+
+  /* Text shadow */
+  --text-shadow-anomaly: 0 0 8px rgba(26, 154, 247, 0.6);
+  --text-shadow-glitch: 0 0 8px rgba(52, 225, 255, 0.6);
+  --text-shadow-signal: 0 0 8px rgba(123, 93, 255, 0.6);
+
+  --font-primary: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --u1: 6px;
+  --u2: 12px;
+  --u3: 18px;
+  --u5: 30px;
+  --u8: 48px;
+  --u13: 78px;
+
+  --border-subtle: 1px solid rgba(26, 154, 247, 0.3);
+
+  --t-fast: 90ms;
+  --t-mid: 160ms;
+  --t-slow: 300ms;
+}
+

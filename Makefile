@@ -1,4 +1,4 @@
-.PHONY: help install dev dev-boot build build-boot clean preview start deploy-pinata deploy-boot publish-ipns deploy-full check-env
+.PHONY: help install dev dev-boot build build-boot clean preview start deploy-pinata deploy-boot deploy-lighthouse publish-ipns deploy-full check-env
 
 # Cores para output
 CYAN := \033[0;36m
@@ -57,6 +57,22 @@ deploy-pinata: ## Faz upload do build para Pinata
 deploy-boot: ## Build e deploy do boot ritual para Pinata
 	@echo "$(CYAN)🔨 Construindo e fazendo deploy do boot ritual...$(RESET)"
 	@npm run deploy:boot
+
+deploy-lighthouse: ## Build e deploy do boot ritual para Lighthouse IPFS (retorna CID)
+	@echo "$(CYAN)🚀 Fazendo build e deploy para Lighthouse IPFS...$(RESET)"
+	@npm run deploy:lighthouse
+	@echo "$(GREEN)✅ Deploy para Lighthouse concluído$(RESET)"
+	@echo "$(CYAN)💡 CID salvo em .ipfs-cid - Use para atualizar o ENS$(RESET)"
+
+prepare-lighthouse: ## Prepara ZIP para upload manual no Lighthouse
+	@echo "$(CYAN)📦 Preparando arquivo para upload manual...$(RESET)"
+	@npm run prepare:lighthouse
+	@echo "$(GREEN)✅ Arquivo ZIP criado em dist-boot-for-upload.zip$(RESET)"
+	@echo "$(CYAN)💡 Siga as instruções exibidas ou veja UPLOAD_INSTRUCTIONS.md$(RESET)"
+
+check-ens: ## Verifica status e propagação do ENS
+	@echo "$(CYAN)🔍 Verificando status do ENS...$(RESET)"
+	@npm run check:ens
 
 publish-ipns: ## Publica dist-boot no IPNS
 	@echo "$(CYAN)🌐 Publicando no IPNS...$(RESET)"

@@ -176,16 +176,35 @@ export default function NosPage() {
 
           {/* Network Graph 3D Card - Wide */}
           <div 
-            className="ios-card mb-4 p-4 spring-in" 
+            className="ios-card mb-4 p-4 spring-in relative overflow-hidden" 
             style={{ 
               animationDelay: '0.2s',
               height: '500px',
               minHeight: '500px',
             }}>
+            {/* Controles visuais */}
+            <div className="absolute top-2 right-2 z-10 flex flex-col gap-2">
+              <div className="bg-black/60 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-gray-400 font-mono border border-white/10">
+                <div className="flex items-center gap-1">
+                  <span className="text-glitch">⟡</span>
+                  <span>Mobile: Pinch to zoom</span>
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="text-anomaly">⦾</span>
+                  <span>Drag to rotate</span>
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="text-signal">↯</span>
+                  <span>Move device to rotate</span>
+                </div>
+              </div>
+            </div>
+            
             <NetworkGraph3D
               nodes={nos}
               onNodeHover={handleNodeHover}
               onNodeClick={handleNodeClick}
+              selectedNode={selectedNode}
             />
           </div>
 

@@ -1,0 +1,38 @@
+/* NΞØ.UI Base Styles */
+
+/* Typography */
+.nexo-heading {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  color: var(--glitch-cyan);
+  letter-spacing: -0.02em;
+}
+
+.nexo-body {
+  font-family: var(--font-primary);
+  font-weight: 300;
+  color: #A3AAB5;
+  line-height: 1.6;
+}
+
+.nexo-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+/* Utilities */
+.nexo-glitch {
+  filter: saturate(115%) blur(0.2px);
+}
+
+.nexo-interference {
+  animation: interference var(--t-slow) linear infinite;
+}
+
+@keyframes interference {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(0.5px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(-0.5px); }
+}
+

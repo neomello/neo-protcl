@@ -1,0 +1,332 @@
+# NΞØ.UI v0.1
+
+## Sistema Visual Oficial do Protocolo — Build para React 18 + Vite 5 + Tailwind
+
+---
+
+# ◉ 1. Estrutura de Pastas (cole exatamente assim no seu projeto)
+
+```text
+src/
+  nexo-ui/
+    tokens.css
+    particles.json
+    index.css
+    components/
+      Card.jsx
+      Button.jsx
+      Divider.jsx
+    utils/
+      cn.js        # className merge helper
+      glitch.js    # microinterferência opcional
+```
+
+Isso te dá o **núcleo mínimo** para autoexpansão.
+
+---
+
+# ◉ 2. Configure Tailwind para absorver o NΞØ.UI
+
+Edite seu:
+
+`tailwind.config.js`
+
+Adicione:
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}"
+  ],
+  theme: {
+    extend: {
+      colors: {
+        void: "#000000",
+        depth: "#0B0D10",
+        carbon: "#13161A",
+        anomaly: "#1A9AF7",
+        glitch: "#34E1FF",
+        signal: "#7B5DFF",
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      borderRadius: {
+        neo: "14px"
+      },
+      spacing: {
+        u1: "6px",
+        u2: "12px",
+        u3: "18px",
+        u5: "30px",
+        u8: "48px",
+        u13: "78px",
+      }
+    }
+  },
+  plugins: []
+}
+```
+
+Você acabou de fundir Tailwind + NΞØ.UI num único organismo.
+
+---
+
+# ◉ 3. NΞØ Tokens (fundação do sistema)
+
+Crie:
+
+`src/nexo-ui/tokens.css`
+
+```css
+:root {
+  --void-black: #000000;
+  --depth-gray: #0B0D10;
+  --carbon-shade: #13161A;
+
+  --anomaly-blue: #1A9AF7;
+  --glitch-cyan: #34E1FF;
+  --signal-violet: #7B5DFF;
+
+  --font-primary: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --u1: 6px;
+  --u2: 12px;
+  --u3: 18px;
+  --u5: 30px;
+  --u8: 48px;
+  --u13: 78px;
+
+  --border-subtle: 1px solid #1A9AF7;
+
+  --t-fast: 90ms;
+  --t-mid: 160ms;
+  --t-slow: 300ms;
+}
+```
+
+---
+
+# ◉ 4. Partículas (a linguagem visual do protocolo)
+
+Crie:
+
+`src/nexo-ui/particles.json`
+
+```json
+{
+  "nucleus": "⟡",
+  "focus": "⦾",
+  "null": "⊘",
+  "active": "⊚",
+  "interference": "⌁",
+  "event": "✶",
+  "propagation": "⟴",
+  "loop_in": "⟲",
+  "loop_out": "⟳",
+  "divider": "⦙"
+}
+```
+
+---
+
+# ◉ 5. Import global
+
+No seu `src/index.css` ou `main.css`:
+
+```css
+@import "./nexo-ui/tokens.css";
+@import "./nexo-ui/index.css";
+```
+
+---
+
+# ◉ 6. Utilitários essenciais
+
+### `cn.js` (className merge)
+
+`src/nexo-ui/utils/cn.js`
+
+```js
+export function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+```
+
+### `glitch.js` (interferência opcional)
+
+`src/nexo-ui/utils/glitch.js`
+
+```js
+export const glitch = () => {
+  const amount = Math.random() * 1.2;
+  return {
+    transform: `translateX(${amount}px)`
+  };
+};
+```
+
+---
+
+# ◉ 7. COMPONENTES BASE (Atoms)
+
+Esses 3 componentes já transformam todo seu frontend.
+
+---
+
+# A) Card.jsx
+
+`src/nexo-ui/components/Card.jsx`
+
+```jsx
+import { cn } from "../utils/cn";
+import particles from "../particles.json";
+
+export function Card({ title, subtitle, icon = particles.nucleus, children }) {
+  return (
+    <div className={cn(
+      "bg-depth border border-anomaly/40 rounded-neo p-u3",
+      "text-white font-sans shadow-none"
+    )}>
+      <div className="flex items-center gap-u2 mb-u2">
+        <span className="text-glitch">{icon}</span>
+        <h3 className="text-lg tracking-tight">{title}</h3>
+      </div>
+
+      {subtitle && (
+        <p className="text-sm opacity-60 mb-u2">{subtitle}</p>
+      )}
+
+      {children}
+    </div>
+  );
+}
+```
+
+---
+
+# B) Button.jsx
+
+`src/nexo-ui/components/Button.jsx`
+
+```jsx
+import { cn } from "../utils/cn";
+
+export function Button({ children, className, ...props }) {
+  return (
+    <button
+      {...props}
+      className={cn(
+        "px-u3 py-u2 rounded-neo border border-anomaly text-anomaly",
+        "bg-depth hover:brightness-110 transition-all",
+        "font-sans tracking-wide",
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+---
+
+# C) Divider.jsx
+
+`src/nexo-ui/components/Divider.jsx`
+
+```jsx
+import particles from "../particles.json";
+
+export function Divider() {
+  return (
+    <div className="flex justify-center my-u3">
+      <span className="text-glitch opacity-70">{particles.divider}</span>
+    </div>
+  );
+}
+```
+
+---
+
+# ◉ 8. Integração com Thirdweb (UI Strategy)
+
+O Thirdweb já funciona bem em dark mode.
+Você só precisa **wrap**:
+
+```jsx
+<div className="font-sans bg-void text-white min-h-screen">
+  <YourApp />
+</div>
+```
+
+Os componentes Thirdweb podem receber classes Tailwind para alinhamento ao NΞØ.UI.
+
+---
+
+# ◉ 9. PWA / Mobile iOS
+
+Adicione no root:
+
+```jsx
+<div className="pt-safe-top pb-safe-bottom">
+  {children}
+</div>
+```
+
+E configure **Vite PWA Plugin** com:
+
+```json
+{
+  "theme_color": "#000000",
+  "background_color": "#000000"
+}
+```
+
+---
+
+# ◉ 10. Agora sim: sua pergunta
+
+**“Como colocar isso na primeira plataforma?”**
+
+Aqui está o passo real:
+
+### DIA 1
+
+• Adicionar pasta `/nexo-ui/`
+• Importar tokens e index.css
+• Configurar Tailwind
+• Trocar seus Cards atuais → `<Card>`
+• Trocar botões → `<Button>`
+
+### DIA 2
+
+• Aplicar Divider na DOCS
+• Aplicar partículas nos headers
+• Recolher todo texto do NHIP-000 em Card/Divider (fica lindo)
+
+### DIA 3
+
+• Ajustar nav bar
+• Ajustar bottom bar do mobile
+• Aplicar profundidade e fractal spacing
+
+### DIA 4–7
+
+Seu app inteiro já estará com estética NΞØ
+sem reescrever página nenhuma.
+
+---
+
+# ◉ 11. Resultado
+
+Você passa de "site bonito" para **plataforma institucional de protocolo**.
+
+Você deixa de parecer um dev solo
+e começa a parecer **um laboratório autônomo com equipe de 12 especialistas**.
+
+E isso é só o NΞØ.UI v0.1.

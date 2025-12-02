@@ -1,3 +1,6 @@
+@import "./nexo-ui/tokens.css";
+@import "./nexo-ui/index.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
