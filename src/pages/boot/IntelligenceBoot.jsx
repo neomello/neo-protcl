@@ -26,7 +26,7 @@ export default function IntelligenceBoot() {
     "[OK] Varrendo padrões comportamentais",
     "[OK] Interface neural reconhecida",
     "",
-    "⚠ Nenhum nó identificado neste terminal.",
+    "✶ Nenhum nó identificado neste terminal.",
     "⟶ Deseja registrar este ambiente como um nó ativo? (Y/n)"
   ];
 
@@ -156,7 +156,7 @@ export default function IntelligenceBoot() {
             }
 
             // Linha de aviso
-            if (line.includes("⚠")) {
+            if (line.includes("✶")) {
               return (
                 <div key={index} className="text-yellow-400">
                   {isComplete ? line : isCurrentLine ? (

@@ -147,7 +147,7 @@ export default function NeoProtocol() {
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center mb-3 ios-shadow-sm">
-                  <span className="text-2xl">🔗</span>
+                  <span className="text-2xl font-mono">⦾</span>
                 </div>
                 <h3 className="text-base font-semibold text-white mb-2">Nodes</h3>
                 <p className="ios-caption text-gray-400">Explore os circuitos simultâneos da rede</p>
@@ -167,7 +167,7 @@ export default function NeoProtocol() {
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-3 ios-shadow-sm">
-                  <span className="text-2xl">📖</span>
+                  <span className="text-2xl font-mono">⦙</span>
                 </div>
                 <h3 className="text-base font-semibold text-white mb-2">Manifesto</h3>
                 <p className="ios-caption text-gray-400">Leia o documento público</p>
@@ -207,7 +207,7 @@ export default function NeoProtocol() {
             {/* Feature 1 */}
             <div className="ios-card p-4 text-center spring-in" style={{ animationDelay: '0.4s' }}>
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center mx-auto mb-2">
-                <span className="text-xl">🔐</span>
+                <span className="text-xl font-mono">⊚</span>
               </div>
               <p className="ios-caption text-gray-300 font-medium">Auto Custódia</p>
             </div>
@@ -215,7 +215,7 @@ export default function NeoProtocol() {
             {/* Feature 2 */}
             <div className="ios-card p-4 text-center spring-in" style={{ animationDelay: '0.5s' }}>
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center mx-auto mb-2">
-                <span className="text-xl">⚡</span>
+                <span className="text-xl font-mono">↯</span>
               </div>
               <p className="ios-caption text-gray-300 font-medium">Blockchain</p>
             </div>
@@ -223,7 +223,7 @@ export default function NeoProtocol() {
             {/* Feature 3 */}
             <div className="ios-card p-4 text-center spring-in" style={{ animationDelay: '0.6s' }}>
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center mx-auto mb-2">
-                <span className="text-xl">🧠</span>
+                <span className="text-xl font-mono">⧉</span>
               </div>
               <p className="ios-caption text-gray-300 font-medium">IA Neural</p>
             </div>
@@ -233,7 +233,7 @@ export default function NeoProtocol() {
           <div className="ios-card p-5 mb-4 spring-in" style={{ animationDelay: '0.7s' }}>
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">⚙️</span>
+                <span className="text-2xl font-mono">⟲</span>
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-white mb-2">Ecossistema Autônomo</h3>

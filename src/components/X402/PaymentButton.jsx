@@ -44,7 +44,7 @@ export default function PaymentButton({
   if (!isConfigured) {
     return (
       <div className="text-xs text-gray-400 p-4 text-center">
-        ⚠️ x402 Payments não configurado
+        ✶ x402 Payments não configurado
       </div>
     );
   }

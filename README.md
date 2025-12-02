@@ -31,7 +31,8 @@ Este nó contém:
 - Layouts visuais baseados em estados da rede
 - Templates para novos nós (com ou sem wallet)
 
-📐 **Arquitetura Geral do Ecossistema**: 
+📐 **Arquitetura Geral do Ecossistema**:
+
 - [`docs/ARQUITETURA_GERAL.md`](docs/ARQUITETURA_GERAL.md) — Estrutura completa do NΞØ em suas 4 camadas
 - [`docs/ARQUITETURA_GERAL_MAP.md`](docs/ARQUITETURA_GERAL_MAP.md) — **Guia de Implementação Visual** — Mapeamento direto das camadas para componentes React
 - [`docs/PROPOSTA_FRONTEND_ARQUITETURA.md`](docs/PROPOSTA_FRONTEND_ARQUITETURA.md) — Proposta técnica detalhada com exemplos e fluxos
@@ -53,10 +54,24 @@ Este nó contém:
 ```bash
 git clone https://github.com/neoprotocol/genesis-node.git
 cd genesis-node
-npm install
-✦ Execute npm run dev para iniciar o nó local.
-✦ Personalize sua assinatura no MCP.
-✦ Crie uma identidade visual e simbólica.
+make install  # ou npm install
+make dev      # ou npm run dev
+```
+
+**Comandos disponíveis via Makefile:**
+
+```bash
+make help          # Lista todos os comandos disponíveis
+make dev           # Inicia servidor de desenvolvimento (app principal)
+make dev-boot      # Inicia servidor de desenvolvimento (boot ritual)
+make build         # Constrói app principal para produção
+make build-boot    # Constrói boot ritual para produção
+make deploy-full   # Deploy completo: build + Pinata + IPNS
+make clean         # Remove builds e node_modules
+```
+
+✦ Personalize sua assinatura no MCP.  
+✦ Crie uma identidade visual e simbólica.  
 ✦ Propague com responsabilidade.
 
 🛠 CONTRIBUIR SEM QUEBRAR
@@ -86,16 +101,13 @@ Um terminal simbólico que desperta novos nós.
 
 Você pode explorá-lo em:
 
-arduino
-Copiar código
+```arduino
 https://neoprotocol.eth.limo
+```
+
 ∴ ÚLTIMA INSTRUÇÃO
 Se você entende isso tudo como código...
 Não é seu momento ainda.
 
 Se você sentiu que isso é linguagem viva...
 Bem-vinde ao NΞØ.
-
-yaml
-Copiar código
-
