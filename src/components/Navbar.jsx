@@ -4,45 +4,44 @@ import WalletIconButton from './WalletConnect/WalletIconButton';
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-gray-800/95 backdrop-blur-sm border-b border-gray-600/50 shadow-lg">
+    <nav className="sticky top-0 z-50 ios-navbar ios-shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link 
           to="/" 
           onClick={() => soundManager.playClick()}
-          className="flex items-center"
+          className="flex items-center haptic-light"
         >
           <img
             src="https://gateway.lighthouse.storage/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm"
             alt="NΞØ Protocol"
-            className="h-8 md:h-10 w-auto drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]"
+            className="h-7 md:h-9 w-auto"
+            style={{
+              filter: 'drop-shadow(0 0 12px rgba(0, 255, 255, 0.3))'
+            }}
             loading="eager"
           />
         </Link>
-        <div className="flex items-center gap-4 font-mono text-xs">
-          <div className="hidden md:flex items-center gap-3">
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <Link 
               to="/nos" 
               onClick={() => soundManager.playNavigate()}
-              className="text-cyan-400/80 hover:text-cyan-300 transition-colors cyber-glow"
-              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
+              className="ios-button-secondary ios-compact-xs text-xs haptic-light"
             >
-              &gt; NÓS
+              Nodes
             </Link>
             <Link 
               to="/manifesto" 
               onClick={() => soundManager.playNavigate()}
-              className="text-blue-400/80 hover:text-blue-300 transition-colors cyber-glow"
-              style={{ textShadow: '0 0 5px rgba(59, 130, 246, 0.3)' }}
+              className="ios-button-secondary ios-compact-xs text-xs haptic-light"
             >
-              &gt; MANIFESTO
+              Manifesto
             </Link>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="text-green-400/60 font-mono text-xs flex items-center gap-1.5">
-              <span className="text-green-500" style={{ fontSize: '16px', lineHeight: '1', fontFamily: 'monospace' }}>
-                {'\u23DA'}
-              </span>
-              <span>STATUS: SYNCED</span>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-lg bg-green-500/10 border border-green-500/20">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+              <span className="text-[10px] font-medium text-green-400 uppercase tracking-wide">Synced</span>
             </div>
             <WalletIconButton />
           </div>
