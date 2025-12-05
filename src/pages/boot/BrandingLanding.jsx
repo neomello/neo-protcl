@@ -380,7 +380,7 @@ export default function BrandingLanding() {
         }
       `}</style>
 
-      <a href="https://neo-node.vercel.app" target="_blank" rel="noreferrer" className="web-app-badge">WEB APP</a>
+      <a href="https://neoprotocol.space" target="_blank" rel="noreferrer" className="web-app-badge">WEB APP</a>
       
       <div className="grid-background"></div>
       <div ref={glowRef} className="glow"></div>

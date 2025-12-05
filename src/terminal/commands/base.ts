@@ -22,6 +22,7 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
         '→ COMANDOS DISPONÍVEIS:',
         '',
         '  init              - Inicializar protocolo',
+        '  intent            - Sistema de mapeamento morfológico',
         '  $neo / token      - Status do token $NEO',
         '  access --zone Δ8  - Acessar zona Δ8',
         '  emit signal       - Emitir sinal de coerência',
@@ -38,6 +39,25 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
         '→ "Não há ajuda. Há desbloqueio."',
       ],
       sound: 'confirm',
+    };
+  }
+
+  if (cmd === 'intent' || cmd.startsWith('intent ')) {
+    return {
+      output: [
+        '→ SISTEMA DE INTENÇÃO ATIVADO',
+        '→ MAPEAMENTO MORFOLÓGICO',
+        '',
+        '→ "O mapa não é identidade, é topologia."',
+        '→ "Revelamos como você opera no campo simbólico."',
+        '',
+        '→ Redirecionando para /intent...',
+        '',
+        '→ USE: Acesse /intent no navegador',
+        '→      ou digite "intent" no terminal',
+      ],
+      sound: 'pulse',
+      updateState: { resonance: Math.min(state.resonance + 1, 10) },
     };
   }
 

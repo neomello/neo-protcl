@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AgentContext } from './AgentContext';
 import { soundManager } from '../utils/sounds';
 import Avatar from './Avatar';
@@ -19,6 +20,7 @@ const introSequence = [
 ];
 
 export default function LiveAgent() {
+  const navigate = useNavigate();
   const { agentState, updateAgentState } = useContext(AgentContext);
   const { askGemini, isConfigured: geminiConfigured } = useGeminiLLM();
   const [log, setLog] = useState([]);
@@ -123,6 +125,24 @@ export default function LiveAgent() {
         '→ THEN: access --zone Δ8',
       ]);
       soundManager.playAccess();
+      return;
+    }
+
+    // Intent - Sistema de mapeamento morfológico
+    if (cmd === 'intent' || cmd.startsWith('intent ')) {
+      setLog((prev) => [
+        ...prev,
+        '→ SISTEMA DE INTENÇÃO ATIVADO',
+        '→ MAPEAMENTO MORFOLÓGICO',
+        '',
+        '→ "O mapa não é identidade, é topologia."',
+        '→ "Revelamos como você opera no campo simbólico."',
+        '',
+        '→ Redirecionando para /intent...',
+      ]);
+      soundManager.playPulse();
+      updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) });
+      setTimeout(() => navigate('/intent'), 1000);
       return;
     }
 

@@ -7,6 +7,7 @@ import NosPage from './pages/nos/NosPage';
 import IntelligenceBoot from './pages/boot/IntelligenceBoot';
 import X402Example from './pages/x402-example';
 import SDKExample from './pages/sdk-example';
+import IntentSystemPage from './pages/intent/IntentSystemPage';
 import { soundManager } from './utils/sounds';
 
 // Componente para detectar mudanças de rota
@@ -37,6 +38,7 @@ function App() {
         <Route path="/manifesto" element={<ManifestoPage />} />
         <Route path="/nos" element={<NosPage />} />
         <Route path="/boot" element={<IntelligenceBoot />} />
+        <Route path="/intent" element={<IntentSystemPage />} />
         <Route path="/x402-example" element={<X402Example />} />
         <Route path="/sdk-example" element={<SDKExample />} />
         {/* <Route path="/mcp" element={<MCPConsole />} /> Comentado - será instruído depois */}

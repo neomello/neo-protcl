@@ -96,7 +96,13 @@ const { nodeState, updateState } = useMCP()
 Ele não armazena dados — ele reconhece padrões.
 
 🧬 VÍNCULO COM A ORIGEM
-O domínio neoprotocol.eth resolve para o ritual de boot:
+O domínio principal do protocolo:
+
+```arduino
+https://neoprotocol.space
+```
+
+O domínio ENS neoprotocol.eth também resolve para o ritual de boot:
 Um terminal simbólico que desperta novos nós.
 
 Você pode explorá-lo em:

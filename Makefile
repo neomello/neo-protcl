@@ -26,7 +26,16 @@ help: ## Mostra esta mensagem de ajuda
 
 install: ## Instala dependências do projeto
 	@echo "$(CYAN)📦 Instalando dependências...$(RESET)"
+	@if [ -d "$(NODE_MODULES)" ]; then \
+		echo "$(YELLOW)🧹 Removendo node_modules antigo...$(RESET)"; \
+		rm -rf $(NODE_MODULES); \
+	fi
+	@if [ -f "package-lock.json" ]; then \
+		echo "$(YELLOW)🧹 Removendo package-lock.json antigo...$(RESET)"; \
+		rm -f package-lock.json; \
+	fi
 	@npm install
+	@echo "$(GREEN)✅ Dependências instaladas com sucesso!$(RESET)"
 
 dev: ## Inicia servidor de desenvolvimento (app principal)
 	@echo "$(CYAN)🚀 Iniciando nó local (modo desenvolvimento)...$(RESET)"
@@ -133,7 +142,21 @@ audit: ## Verifica vulnerabilidades nas dependências
 	@echo "$(CYAN)🔒 Verificando vulnerabilidades...$(RESET)"
 	@npm audit
 
-audit-fix: ## Tenta corrigir vulnerabilidades automaticamente
-	@echo "$(CYAN)🔧 Corrigindo vulnerabilidades...$(RESET)"
+audit-fix: ## Tenta corrigir vulnerabilidades automaticamente (SEM breaking changes)
+	@echo "$(CYAN)🔧 Corrigindo vulnerabilidades (modo seguro)...$(RESET)"
+	@echo "$(YELLOW)⚠️  Este comando NÃO aplica atualizações major que podem quebrar o código$(RESET)"
 	@npm audit fix
+	@echo "$(GREEN)✅ Correções aplicadas (apenas patches e minor updates)$(RESET)"
+
+audit-fix-force: ## ⚠️  CORRIGE vulnerabilidades FORÇANDO atualizações major (PODE QUEBRAR CÓDIGO)
+	@echo "$(RED)⚠️  ATENÇÃO: Este comando pode quebrar seu código!$(RESET)"
+	@echo "$(YELLOW)💡 Recomendado: Teste bem após executar e tenha um backup do package.json$(RESET)"
+	@echo "$(YELLOW)💡 Execute manualmente: npm audit fix --force$(RESET)"
+	@echo "$(RED)❌ Comando desabilitado por segurança. Use manualmente se necessário.$(RESET)"
+
+audit-report: ## Gera relatório detalhado de vulnerabilidades
+	@echo "$(CYAN)📊 Gerando relatório detalhado...$(RESET)"
+	@npm audit --json > audit-report.json 2>/dev/null || true
+	@echo "$(GREEN)✅ Relatório salvo em audit-report.json$(RESET)"
+	@echo "$(CYAN)💡 Use 'make audit-fix' para correções seguras$(RESET)"
 
