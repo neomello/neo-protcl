@@ -190,7 +190,7 @@ export const synergyTable = {
     power: 'Eficiência Adaptativa. Sistemas que são robustos e flexíveis.',
     alert: 'Sufocamento. O foco no sistema perfeito pode matar a espontaneidade orgânica.',
     metaphor: 'Um engenheiro de ecossistemas, que projeta com regras rígidas para gerar vida adaptativa.',
-  },
+ },
 };
 
 /**
@@ -200,37 +200,133 @@ export function analyzeText(text, dimensionId) {
   const archetypes = archetypeDatabase[dimensionId];
   if (!archetypes) return null;
 
+  const normalize = (str) =>
+    str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+  const tokens = normalize(text || '')
+    .split(/[^a-z0-9áéíóúâêîôûãõç]+/i)
+    .filter(Boolean);
+  const bag = new Set(tokens);
+
+  const archetypeNames = Object.keys(archetypes);
   const scores = {};
-  const lowerText = text.toLowerCase();
 
   Object.entries(archetypes).forEach(([archetype, data]) => {
-    const matchCount = data.keywords.filter((kw) => lowerText.includes(kw)).length;
-    scores[archetype] = matchCount;
+    const normalizedKeywords = data.keywords.map(normalize);
+
+    let score = 0;
+    normalizedKeywords.forEach((kw) => {
+      // Pondera matches completos e parciais
+      if (bag.has(kw)) score += 2; // match exato de token
+      tokens.forEach((t) => {
+        if (t.includes(kw) && !bag.has(kw)) score += 1; // match parcial
+      });
+    });
+
+    scores[archetype] = score;
   });
 
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  return sorted[0] && sorted[0][1] > 0 ? sorted[0][0] : Object.keys(archetypes)[0];
+  const topScore = sorted[0]?.[1] ?? 0;
+  const topArchetypes = sorted.filter(([, sc]) => sc === topScore).map(([name]) => name);
+
+  // Se houve match, desempata de forma determinística
+  if (topScore > 0) {
+    if (topArchetypes.length === 1) return topArchetypes[0];
+    // hash do texto para escolher sempre a mesma dentro do empate
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+      hash = (hash << 5) - hash + text.charCodeAt(i);
+      hash |= 0;
+    }
+    const idx = Math.abs(hash) % topArchetypes.length;
+    return topArchetypes[idx];
+  }
+
+  // Se não houver palavras-chave, escolher um arquétipo de forma determinística baseada no texto
+  if (text && text.trim().length > 0) {
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+      hash = (hash << 5) - hash + text.charCodeAt(i);
+      hash |= 0; // 32bit
+    }
+    const idx = Math.abs(hash) % archetypeNames.length;
+    return archetypeNames[idx];
+  }
+
+  // Se não há texto, volta para o primeiro arquétipo como fallback
+  return archetypeNames[0];
 }
 
 /**
  * Gera o padrão integrado (sinergia) baseado nos arquétipos
  */
-export function generateSynergy(profileData, selectedDimensions) {
+export function generateSynergy(profileData, selectedDimensions, seed = null) {
+  const archetypeNames = selectedDimensions
+    .map((dimId) => profileData[dimId]?.archetype)
+    .filter(Boolean);
+
   const archetypeKey = selectedDimensions
     .map((dimId) => profileData[dimId]?.archetype)
     .filter(Boolean)
     .sort()
     .join('-');
 
-  return (
-    synergyTable[archetypeKey] || {
-      name: 'Padrão Único Emergente',
-      intent: 'Uma combinação rara que revela arquitetura estratégica singular.',
-      power: 'Criatividade em intersecção. Opera onde ninguém mais consegue.',
-      alert: 'Risco de dispersão. Pode ser tudo para todos.',
-      metaphor: 'Um navegador de dimensões, operando na intersecção do improvável.',
-    }
-  );
+  if (synergyTable[archetypeKey]) {
+    return synergyTable[archetypeKey];
+  }
+
+  // Gerar sinergia custom com variação determinística
+  const seedSource = (seed || '') + (archetypeNames.join('-') || 'default-seed');
+  let hash = 0;
+  for (let i = 0; i < seedSource.length; i++) {
+    hash = (hash << 5) - hash + seedSource.charCodeAt(i);
+    hash |= 0;
+  }
+  const seededRand = () => {
+    hash = (hash * 1664525 + 1013904223) % 4294967296;
+    return Math.abs(hash) / 4294967296;
+  };
+  const pick = (arr) => arr[Math.floor(seededRand() * arr.length)];
+  const archetypeList = archetypeNames.length ? archetypeNames.join(' + ') : 'Arquétipos raros';
+
+  const nameOptions = [
+    `Interseção ${archetypeList}`,
+    `Arquitetura ${archetypeList}`,
+    `Padrão Singular (${archetypeList})`,
+    `Constelação ${archetypeList}`,
+  ];
+  const intentOptions = [
+    `Orquestrar ${archetypeList} para operar onde poucos conseguem.`,
+    `Combinar ${archetypeList} para gerar soluções fora do óbvio.`,
+    `Fazer ${archetypeList} convergirem em uma estratégia única.`,
+  ];
+  const powerOptions = [
+    `Conexões improváveis entre ${archetypeList} produzem alavancas raras.`,
+    `Capacidade de alternar entre ${archetypeList} conforme o contexto.`,
+    `Sintetiza ${archetypeList} em um movimento coordenado.`,
+  ];
+  const alertOptions = [
+    `Risco de dispersão ao alternar demais entre ${archetypeList}.`,
+    `Excesso de complexidade ao combinar ${archetypeList}.`,
+    `Perder foco ao tentar equilibrar ${archetypeList}.`,
+  ];
+  const metaphorOptions = [
+    `Um hub onde ${archetypeList} colidem e criam faíscas.`,
+    `Um condutor que sincroniza ${archetypeList} em uma só melodia.`,
+    `Um navegador cruzando camadas onde ${archetypeList} se sobrepõem.`,
+  ];
+
+  return {
+    name: pick(nameOptions),
+    intent: pick(intentOptions),
+    power: pick(powerOptions),
+    alert: pick(alertOptions),
+    metaphor: pick(metaphorOptions),
+  };
 }
 
 /**
@@ -267,4 +363,3 @@ export function generateMermaidDiagram(profileData, synergy, selectedDimensions)
 
   return diagram;
 }
-

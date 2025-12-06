@@ -70,6 +70,11 @@ function IntentSystemContent() {
 
     await new Promise((resolve) => setTimeout(resolve, 1200));
 
+    const timestamp = Date.now();
+    const runId =
+      (typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID()) ||
+      `run-${timestamp}-${Math.random().toString(36).slice(2, 8)}`;
+
     const profileData = {};
     selectedDimensions.forEach((dimId) => {
       const archetype = analyzeText(responses[dimId] || '', dimId);
@@ -79,10 +84,26 @@ function IntentSystemContent() {
       };
     });
 
-    const synergy = generateSynergy(profileData, selectedDimensions);
+    const synergy = generateSynergy(profileData, selectedDimensions, runId);
     const mermaidDiagram = generateMermaidDiagram(profileData, synergy, selectedDimensions);
+    const prompts = selectedDimensions.reduce((acc, dimId) => {
+      const dim = dimensions.find((d) => d.id === dimId);
+      if (dim?.prompt) acc[dimId] = dim.prompt;
+      return acc;
+    }, {});
 
-    setResult({ profileData, synergy, selectedDimensions, mermaidDiagram });
+    const assembledResult = {
+      profileData,
+      synergy,
+      selectedDimensions,
+      mermaidDiagram,
+      responses,
+      prompts,
+      runId,
+      timestamp,
+    };
+
+    setResult(assembledResult);
     setPhase('result');
     setLoading(false);
     soundManager.playConfirm();
@@ -101,7 +122,7 @@ function IntentSystemContent() {
     // Salvar no IPFS (se configurado e com consentimento)
     if (isLighthouseConfigured()) {
       // Salvar automaticamente (dados anonimizados)
-      handleSaveToIPFS({ profileData, synergy, selectedDimensions, mermaidDiagram });
+      handleSaveToIPFS(assembledResult);
     }
   };
 
@@ -512,6 +533,9 @@ function IntentSystemContent() {
               }}
             >
               <h2 className="ios-headline text-[#111827] text-center text-4xl font-bold">Seu Mapa Integrado</h2>
+              {result.runId && (
+                <p className="text-center text-xs text-[#9CA3AF] mt-2">Run ID: {result.runId}</p>
+              )}
             </div>
 
             {/* Pattern Card - Large */}
@@ -527,6 +551,7 @@ function IntentSystemContent() {
                   <span className="ios-caption text-[#06B6D4] uppercase tracking-widest font-bold">Padrão Integrado</span>
                   {isLighthouseConfigured() && (
                     <div className="flex items-center gap-2">
+                      <span className="text-xs text-[#4B5563]">Inclui respostas completas</span>
                       {savingToIPFS && (
                         <span className="text-xs text-[#9CA3AF] flex items-center gap-1">
                           <div className="w-3 h-3 border-2 border-[#3B82F6] border-t-transparent rounded-full animate-spin" />
@@ -591,7 +616,13 @@ function IntentSystemContent() {
                 >
                   <p className="ios-caption text-[#06B6D4] uppercase font-bold mb-2">Dimensão {idx + 1}</p>
                   <p className="ios-body text-[#111827] font-semibold mb-2 text-lg">{dimLabels[dimId]}</p>
-                  <p className="ios-caption text-[#22D3EE]">→ {result.profileData[dimId]?.archetype}</p>
+                  <p className="ios-caption text-[#22D3EE] mb-2">→ {result.profileData[dimId]?.archetype}</p>
+                  {result.responses?.[dimId] && (
+                    <p className="ios-caption text-[#4B5563]">
+                      “{result.responses[dimId].slice(0, 160)}
+                      {result.responses[dimId].length > 160 ? '…' : ''}”
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
@@ -774,26 +805,28 @@ function IntentSystemContent() {
 
                 <div>
                   <label className="block text-sm font-semibold text-[#111827] mb-2">
-                    Telefone (opcional)
+                    Telefone *
                   </label>
                   <input
                     type="tel"
                     value={userData.phone}
                     onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
                     placeholder="+55 11 99999-9999"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6] transition-all text-[#111827]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#111827] mb-2">
-                    Perfil GitHub (opcional)
+                    Perfil GitHub *
                   </label>
                   <input
                     type="text"
                     value={userData.github}
                     onChange={(e) => setUserData({ ...userData, github: e.target.value })}
                     placeholder="username ou github.com/username"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6] transition-all text-[#111827]"
                   />
                 </div>
@@ -808,8 +841,8 @@ function IntentSystemContent() {
                 </button>
                 <button
                   onClick={async () => {
-                    if (!userData.email) {
-                      alert('Por favor, informe seu email');
+                    if (!userData.email || !userData.phone || !userData.github) {
+                      alert('Preencha email, telefone e perfil GitHub para acessar completo.');
                       return;
                     }
                     
@@ -818,10 +851,11 @@ function IntentSystemContent() {
                       // Salvar dados completos no IPFS (com email, telefone, GitHub)
                       const completeData = {
                         ...result,
+                        responses,
                         userData: {
                           email: userData.email,
-                          phone: userData.phone || null,
-                          github: userData.github || null,
+                          phone: userData.phone,
+                          github: userData.github,
                         },
                         timestamp: Date.now(),
                       };
@@ -841,7 +875,7 @@ function IntentSystemContent() {
                       setSavingToIPFS(false);
                     }
                   }}
-                  disabled={!userData.email || savingToIPFS}
+                  disabled={!userData.email || !userData.phone || !userData.github || savingToIPFS}
                   className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] text-white font-semibold hover:from-[#2563EB] hover:to-[#0891B2] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {savingToIPFS ? (

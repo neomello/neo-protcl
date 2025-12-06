@@ -43,24 +43,27 @@ function hashMermaid(mermaidCode) {
 }
 
 /**
- * Anonimiza dados do Intent antes de salvar no IPFS
- * Remove texto livre e mantém apenas padrões identificados
+ * Formata dados do Intent antes de salvar no IPFS
+ * Mantém padrões identificados e pode incluir texto bruto se solicitado
  * @param {Object} intentData - Dados completos do Intent
  * @param {string} walletAddress - Endereço da wallet (opcional)
  * @param {boolean} complete - Indica se é um mapeamento completo (com dados de contato)
  * @param {Object} contactData - Dados de contato (email, phone, github) se for completo
+ * @param {boolean} includeRawText - Se true, inclui respostas em texto livre
  * @returns {Object} Dados anonimizados
  */
-export function anonymizeIntentData(intentData, walletAddress = null, complete = false, contactData = null) {
+export function anonymizeIntentData(intentData, walletAddress = null, complete = false, contactData = null, includeRawText = true) {
+  const timestamp = intentData?.timestamp || Date.now();
+
   const anonymized = {
     version: '1.0',
-    timestamp: Date.now(),
+    timestamp,
     privacy: {
-      textResponses: false, // Nunca salvar texto livre
-      anonymized: true,
+      textResponses: includeRawText,
+      anonymized: !includeRawText,
       consentGiven: true,
       completeMapping: complete,
-    }
+    },
   };
 
   // Hash do wallet (anonimizado)
@@ -112,6 +115,20 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
     anonymized.mermaidHash = hashMermaid(intentData.mermaidDiagram);
   }
 
+  // Dados crus (somente se permitido)
+  if (includeRawText) {
+    anonymized.raw = {
+      responses: intentData.responses || null,
+      prompts: intentData.prompts || null,
+      profileData: intentData.profileData || null,
+      synergy: intentData.synergy || null,
+      mermaidDiagram: intentData.mermaidDiagram || null,
+      selectedDimensions: intentData.selectedDimensions || [],
+      runId: intentData.runId || null,
+      timestamp,
+    };
+  }
+
   return anonymized;
 }
 
@@ -121,9 +138,10 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
  * @param {string} walletAddress - Endereço da wallet (opcional, para anonimização)
  * @param {boolean} complete - Indica se é um mapeamento completo (com dados de contato)
  * @param {Object} contactData - Dados de contato (email, phone, github) se for completo
+ * @param {boolean} includeRawText - Se true, inclui respostas em texto livre
  * @returns {Promise<string>} CID do IPFS
  */
-export async function saveIntentToIPFS(intentData, walletAddress = null, complete = false, contactData = null) {
+export async function saveIntentToIPFS(intentData, walletAddress = null, complete = false, contactData = null, includeRawText = true) {
   const lighthouseApiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY;
 
   if (!lighthouseApiKey) {
@@ -133,8 +151,8 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
   try {
     console.log('📤 Iniciando upload para IPFS...');
     
-    // Anonimizar dados
-    const anonymizedData = anonymizeIntentData(intentData, walletAddress, complete, contactData);
+    // Anonimizar ou não, conforme flag
+    const anonymizedData = anonymizeIntentData(intentData, walletAddress, complete, contactData, includeRawText);
 
     // Converter para JSON
     const jsonData = JSON.stringify(anonymizedData, null, 2);
