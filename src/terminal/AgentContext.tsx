@@ -7,6 +7,7 @@ const defaultState: AgentState = {
   memory: [],
   zone: null,
   coherence: 0,
+  alignment: 0,
 };
 
 const AgentContext = createContext<{
@@ -32,6 +33,8 @@ export function AgentProvider({ children }: { children: ReactNode }) {
           ...parsed,
           zonesUnlocked: Array.isArray(parsed.zonesUnlocked) ? parsed.zonesUnlocked : [],
           memory: Array.isArray(parsed.memory) ? parsed.memory : [],
+          coherence: typeof parsed.coherence === 'number' ? parsed.coherence : defaultState.coherence,
+          alignment: typeof parsed.alignment === 'number' ? parsed.alignment : defaultState.alignment,
         };
         setAgentState(restoredState);
       } catch (e) {
@@ -70,4 +73,3 @@ export function AgentProvider({ children }: { children: ReactNode }) {
 }
 
 export { AgentContext };
-

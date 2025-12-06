@@ -129,6 +129,22 @@ class SoundManager {
     this.playBeep(500, 100, 'sine');
   }
 
+  // Som temático de descoberta
+  playDiscovery() {
+    if (!this.enabled) return;
+    if (!this.ensureContext()) return;
+    this.playBeep(880, 120, 'triangle');
+    setTimeout(() => this.playBeep(720, 80, 'sine'), 120);
+  }
+
+  // Som de integração sistêmica
+  playIntegration() {
+    if (!this.enabled) return;
+    if (!this.ensureContext()) return;
+    this.playBeep(520, 180, 'sine');
+    setTimeout(() => this.playBeep(640, 100, 'triangle'), 160);
+  }
+
   // Método genérico para tocar sons por nome
   play(soundName) {
     switch (soundName) {
@@ -263,8 +279,9 @@ export function useSounds() {
     playHover: () => soundManager.playHover(),
     playPrinterHead: () => soundManager.playPrinterHead(),
     playPaperAdvance: () => soundManager.playPaperAdvance(),
+    playDiscovery: () => soundManager.playDiscovery(),
+    playIntegration: () => soundManager.playIntegration(),
     toggle: () => soundManager.toggle(),
     enabled: soundManager.enabled
   };
 }
-

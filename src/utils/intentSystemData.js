@@ -9,26 +9,32 @@ import { particles } from '../nexo-ui';
 export const dimensions = [
   {
     id: 'problem_solving',
-    title: 'Resolução de Problemas',
-    subtitle: '[ Como você navega no caos? ]',
-    particle: particles.null, 
-    prompt: 'Imagine que você se depara com um quebra-cabeça crítico, algo que parece não ter uma solução óbvia. Não me conte sobre o problema. Em vez disso, descreva a cena interna. O que acontece dentro de você nos primeiros momentos? Quais impulsos, imagens, raciocínios ou sensações surgem? Como a engrenagem começa a girar?',
+    title: 'NAVEGAÇÃO NO CAOS',
+    subtitle: 'Como você estrutura o imprevisível',
+    icon: '⊚',
+    particle: particles.null,
+    prompt:
+      'Descreva sua estratégia interna quando enfrenta um labirinto sem saída óbvia. Não conte sobre o problema – sinta o que acontece dentro de você nos três primeiros segundos. Quais imagens, impulsos ou instrumentos interiores se acendem para reorganizar o caos?',
     color: 'from-blue-600/20 to-cyan-600/10',
   },
   {
     id: 'collaboration',
-    title: 'Conexão & Colaboração',
-    subtitle: '[ Como você se vincula? ]',
-    particle: particles.null, 
-    prompt: 'Pense na última vez que você precisou trabalhar ou criar algo com outras pessoas para um objetivo comum. Não me fale sobre o projeto. Descreva seu papel natural nessa teia. O que você automaticamente faz para que a conexão funcione? Você observa, catalisa, estrutura, protege, desafia? Como você se move nesse campo de energias múltiplas?',
+    title: 'INTERAÇÃO NO CAMPO',
+    subtitle: 'Como você se move no tecido social',
+    icon: '⦾',
+    particle: particles.null,
+    prompt:
+      'Qual é o seu papel automático quando você faz parte de um grupo alinhado a um objetivo comum? Não descreva a missão. Descreva o que se move dentro de você: o que você faz sem pensar? Você traduz, catalisa, protege, provoca? Que microgestos ativam a intenção coletiva?',
     color: 'from-emerald-600/20 to-teal-600/10',
   },
   {
     id: 'creation',
-    title: 'Criação & Geração',
-    subtitle: '[ Como você manifesta? ]',
-    particle: particles.null, 
-    prompt: 'Pense em um momento em que você gerou algo que sentiu como verdadeiramente seu – uma ideia, um projeto, uma solução, uma arte. Ignore o resultado final. Descreva a fagulha e o combustível. De onde veio o impulso inicial? E, mais importante, como ele cresceu? Foi uma explosão, uma montagem lenta, uma decantação? O que o processo pediu de você?',
+    title: 'MANIFESTAÇÃO DO INVISÍVEL',
+    subtitle: 'Como você traz o novo ao mundo',
+    icon: '↯',
+    particle: particles.null,
+    prompt:
+      'Comece pelo momento da centelha. Como a ideia aparece? Qual é o impulso, o ritual interno, a cadência que transforma o invisível em algo tangível? Descreva a sequência de sensações, movimentos e micro decisões que levam esse impulso do vácuo à forma concreta.',
     color: 'from-purple-600/20 to-pink-600/10',
   },
 ];
@@ -333,33 +339,63 @@ export function generateSynergy(profileData, selectedDimensions, seed = null) {
  * Gera diagrama Mermaid do padrão integrado
  */
 export function generateMermaidDiagram(profileData, synergy, selectedDimensions) {
-  const dimLabels = {
-    problem_solving: 'Resolução',
-    collaboration: 'Colaboração',
-    creation: 'Criação',
-  };
+  const dimLabels = dimensions.reduce((acc, dim) => {
+    acc[dim.id] = dim.title;
+    return acc;
+  }, {});
 
-  let diagram = 'graph TD\n';
-  diagram += '    subgraph NUCLEOS["Seus Núcleos Estratégicos"]\n';
+  const sanitize = (value) =>
+    (value || '')
+      .replace(/"/g, '\\"')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br/>');
 
-  selectedDimensions.forEach((dimId, idx) => {
-    const archetype = profileData[dimId]?.archetype || 'Desconhecido';
-    diagram += `        D${idx + 1}["<b>${dimLabels[dimId]}</b><br/>${archetype}"]\n`;
+  const dimensionNodes = selectedDimensions.map((dimId, index) => {
+    const label = dimLabels[dimId] || dimId;
+    const archetype = profileData[dimId]?.archetype || 'Arquétipo em fluxo';
+    return {
+      id: `D${index + 1}`,
+      label: `${label}<br/><small>${archetype}</small>`,
+    };
   });
 
-  diagram += '    end\n\n';
+  const hasDimensions = dimensionNodes.length > 0;
 
-  selectedDimensions.forEach((_, idx) => {
-    diagram += `    D${idx + 1} -->|Converge| INTEGRADO\n`;
-  });
+  const dimensionEntries = hasDimensions
+    ? dimensionNodes.map((node) => `        ${node.id}["${sanitize(node.label)}"]`).join('\n')
+    : '        D0["Sem dimensões selecionadas"]';
 
-  diagram += `    INTEGRADO["<b>PADRÃO INTEGRADO</b><br/>${synergy.name}<br/><br/><i>${synergy.intent}</i>"]\n`;
-  diagram += `    INTEGRADO -->|Potência| POW["${synergy.power}"]\n`;
-  diagram += `    INTEGRADO -->|Alerta| ALT["${synergy.alert}"]\n`;
+  const dimensionConnections = hasDimensions
+    ? dimensionNodes.map((node) => `    ${node.id} -->|alimenta| CORE`).join('\n')
+    : '    D0 -->|alimenta| CORE';
 
-  diagram += '    style INTEGRADO fill:#00CFFF,stroke:#00FF99,stroke-width:3px,color:#0A0A0A,font-weight:bold\n';
-  diagram += '    style POW fill:#00FF99,stroke:#00CFFF,color:#0A0A0A\n';
-  diagram += '    style ALT fill:#FF6B6B,stroke:#00CFFF,color:#fff\n';
+  const dimensionStyles = hasDimensions
+    ? dimensionNodes.map((node) => `    style ${node.id} fill:#1e293b,stroke:#64748b,color:#cbd5e1`).join('\n')
+    : '    style D0 fill:#1e293b,stroke:#64748b,color:#cbd5e1';
 
-  return diagram;
+  return `
+graph TD
+    subgraph "NÚCLEO INTEGRADO"
+        CORE["${sanitize(synergy.name)}"]
+        CORE --> INTENT["${sanitize(synergy.intent)}"]
+    end
+
+    subgraph "DIMENSÕES OPERACIONAIS"
+${dimensionEntries}
+    end
+
+${dimensionConnections}
+
+    CORE --> MANIFEST["EXPRESSÃO NO MUNDO"]
+
+    style CORE fill:#7c3aed,stroke:#fff,stroke-width:2px,color:#fff
+    style INTENT fill:#0ea5e9,stroke:#fff,stroke-width:1px,color:#fff
+${dimensionStyles}
+    style MANIFEST fill:#10b981,stroke:#fff,color:#fff
+
+    classDef dimension fill:#1e293b,stroke:#475569,color:#e2e8f0
+    classDef core fill:#7c3aed,stroke:#fff,color:#fff
+    classDef intent fill:#0ea5e9,stroke:#fff,color:#fff
+`;
 }

@@ -16,6 +16,94 @@ import {
 import MermaidDiagram from '../../components/MermaidDiagram';
 import { saveIntentToIPFS, isLighthouseConfigured, getIPFSGatewayUrl } from '../../services/intentDataCapture';
 
+const dimensionLabelMap = dimensions.reduce((acc, dim) => {
+  acc[dim.id] = dim.title;
+  return acc;
+}, {});
+
+const countInsightLevel = (text) => {
+  if (!text || !text.trim()) return 'Comece a escrever...';
+  const words = text.trim().split(/\s+/).length;
+  if (words < 30) return '◍ Superficial';
+  if (words < 100) return '◍ Emergindo';
+  if (words < 200) return '◍ Profundo';
+  return '◍ Nuclear';
+};
+
+const calculateCompatibility = (result) => {
+  if (!result || !result.selectedDimensions?.length) return 0;
+  const totalChars = result.selectedDimensions.reduce(
+    (sum, dimId) => sum + (result.responses?.[dimId]?.length || 0),
+    0
+  );
+  const maxChars = Math.max(result.selectedDimensions.length * 220, 1);
+  const raw = Math.round((totalChars / maxChars) * 100);
+  return Math.min(100, Math.max(40, raw));
+};
+
+const calculateAlignmentScore = (result) => {
+  if (!result || !result.selectedDimensions?.length) return 0;
+  const totalChars = result.selectedDimensions.reduce(
+    (sum, dimId) => sum + (result.responses?.[dimId]?.length || 0),
+    0
+  );
+  const base = Math.max(result.selectedDimensions.length * 160, 1);
+  const score = Math.round((totalChars / base) * 10);
+  return Math.min(10, Math.max(2, score));
+};
+
+const DiscoveryProgress = ({ selectedDimensions, responses }) => {
+  const total = selectedDimensions.length;
+  if (total === 0) return null;
+  const completed = selectedDimensions.filter((dimId) => responses[dimId]?.trim()).length;
+  return (
+    <div className="mb-6">
+      <div className="flex justify-between text-sm text-gray-600 mb-2">
+        <span>ALGORITMO ATIVO</span>
+        <span>
+          {completed}/{total} sistemas
+        </span>
+      </div>
+      <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500"
+          style={{ width: `${(completed / total) * 100}%` }}
+        />
+      </div>
+      {completed === total && (
+        <p className="mt-2 text-sm text-cyan-600 font-medium">⟡ Todos os sistemas prontos para integração</p>
+      )}
+    </div>
+  );
+};
+
+const exportOptions = [
+  {
+    name: 'CÓDIGO-FONTE',
+    format: 'json',
+    description: 'Dados brutos para análise',
+    icon: '⯈',
+  },
+  {
+    name: 'DOCUMENTAÇÃO',
+    format: 'md',
+    description: 'Relatório em Markdown',
+    icon: '⧉',
+  },
+  {
+    name: 'ARQUITETURA',
+    format: 'mermaid',
+    description: 'Diagrama editável',
+    icon: '▤',
+  },
+  {
+    name: 'INSIGHT',
+    format: 'txt',
+    description: 'Principais descobertas',
+    icon: 'Ø',
+  },
+];
+
 function IntentSystemContent() {
   useDesktopBlock();
   const { agentState, updateAgentState } = useContext(AgentContext);
@@ -106,17 +194,29 @@ function IntentSystemContent() {
     setResult(assembledResult);
     setPhase('result');
     setLoading(false);
+    soundManager.playDiscovery();
     soundManager.playConfirm();
+    setTimeout(() => soundManager.playIntegration(), 250);
 
-    // Integrar com AgentContext
-    const intentText = `Padrão Integrado: ${synergy.name} - ${synergy.intent}`;
     const currentMemory = Array.isArray(agentState.memory) ? agentState.memory : [];
-    const newMemory = [...currentMemory, intentText];
+    const memoryEntry = {
+      type: 'intent_profile',
+      data: {
+        integrated: synergy.name,
+        timestamp,
+        dimensions: selectedDimensions.map((dimId) => ({
+          dimension: dimId,
+          archetype: profileData[dimId]?.archetype,
+          intent: profileData[dimId]?.intent,
+        })),
+      },
+    };
 
     updateAgentState({
-      memory: newMemory,
-      resonance: Math.min(agentState.resonance + 2, 10),
-      coherence: Math.min((agentState.coherence || 0) + 1, 10),
+      memory: [...currentMemory, memoryEntry],
+      resonance: Math.min(agentState.resonance + 3, 10),
+      coherence: Math.min((agentState.coherence || 0) + 2, 10),
+      alignment: calculateAlignmentScore(assembledResult),
     });
 
     // Salvar no IPFS (se configurado e com consentimento)
@@ -144,6 +244,58 @@ function IntentSystemContent() {
     }
   };
 
+  const buildExportContent = (format) => {
+    if (!result) return '';
+
+    switch (format) {
+      case 'json':
+        return JSON.stringify(result, null, 2);
+      case 'md': {
+        const detailSections = result.selectedDimensions
+          .map((dimId) => {
+            const label = dimensionLabelMap[dimId] || dimId;
+            const archetype = result.profileData[dimId]?.archetype || 'Arquétipo não identificado';
+            const excerpt = result.responses?.[dimId] || 'Sem resposta registrada.';
+            return `## ${label}\n**Arquétipo:** ${archetype}\n\n${excerpt}`;
+          })
+          .join('\n\n');
+        return `# ${result.synergy.name}\n\n${result.synergy.intent}\n\n${detailSections}`;
+      }
+      case 'mermaid':
+        return result.mermaidDiagram;
+      case 'txt': {
+        const lines = [
+          `Padrão Integrado: ${result.synergy.name}`,
+          `Intent: ${result.synergy.intent}`,
+          '',
+          ...result.selectedDimensions.map((dimId) => {
+            const label = dimensionLabelMap[dimId] || dimId;
+            const response = result.responses?.[dimId] || '—';
+            return `${label}: ${response}`;
+          }),
+        ];
+        return lines.join('\n');
+      }
+      default:
+        return '';
+    }
+  };
+
+  const handleExport = (option) => {
+    if (!result) return;
+    const content = buildExportContent(option.format);
+    const extension = option.format || 'txt';
+    const fileName = `neo-intent-${extension}-${result.runId || Date.now()}.${extension}`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.click();
+    URL.revokeObjectURL(url);
+    soundManager.playConfirm();
+  };
+
   // INTRO PHASE
   if (phase === 'intro') {
     return (
@@ -160,32 +312,50 @@ function IntentSystemContent() {
 
           <main className="container mx-auto px-4 py-8 pt-safe">
             {/* Hero Card - Mapeie sua arquitetura interna (TOP) */}
-            <div 
-              className="mb-6 p-8 spring-in rounded-3xl bg-white"
+            <div
+              className="mb-6 p-8 spring-in rounded-3xl bg-gradient-to-br from-blue-50 to-white border border-white/60 shadow-xl"
               style={{
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-                border: '1px solid #E5E7EB',
+                boxShadow: '0 25px 60px rgba(15, 23, 42, 0.15)',
               }}
             >
               <div className="flex flex-col items-center text-center">
-                <img 
-                  src="/splash/intent_box.png" 
-                  alt="NΞØ Intent" 
-                  className="w-70 h-70 object-contain"
-                  style={{ marginBottom: '-20px' }}
-                />
-                <p className="ios-body text-[#111827] mb-6 leading-relaxed max-w-lg text-lg font-medium">
-                  Mapeie sua arquitetura interna.
+                <div className="w-24 h-24 mb-6 relative">
+                  <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-30 blur-3xl"></div>
+                  <div className="absolute inset-4 flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-2xl font-bold">
+                    Ξ
+                  </div>
+                </div>
+
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                  Descubra seu{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+                    Algoritmo
+                  </span>
+                </h1>
+
+                <p className="text-lg text-gray-600 mb-3 max-w-2xl leading-relaxed">
+                  Não é sobre quem você <em>quer</em> ser.
+                  É sobre como você <strong>já opera</strong>.
+                  Mapeamos a arquitetura do seu <span className="font-semibold text-cyan-600">intent</span>.
                 </p>
-                <p className="ios-body text-[#4B5563] leading-relaxed max-w-lg mb-4 text-base">
-                  Através de narrativas livres, revelamos os algoritmos profundos que dirigem suas{' '}
-                  <span className="text-[#3B82F6] font-semibold">decisões</span>,{' '}
-                  <span className="text-[#3B82F6] font-semibold">conexões</span> e{' '}
-                  <span className="text-[#3B82F6] font-semibold">criações</span>.
+                <p className="text-sm text-gray-500 mb-6 max-w-xl">
+                  Cada resposta acende um circuito. Cada padrão revela um núcleo que só você pode ativar. Se entregue ao processo.
                 </p>
-                <p className="ios-caption text-[#9CA3AF] italic max-w-lg">
-                  Você não receberá rótulos. Receberá um diagrama vivo da sua estratégia de existência.
-                </p>
+
+                <div className="flex gap-6 text-sm text-gray-500">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">3</div>
+                    <div>Dimensões Nucleares</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-cyan-600">125+</div>
+                    <div>Padrões de Intent</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-indigo-600">∞</div>
+                    <div>Combinações Únicas</div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -274,7 +444,7 @@ function IntentSystemContent() {
             </div>
 
             {/* CTA Button Card */}
-            <div 
+            <div
               className="p-6 mb-6 spring-in rounded-2xl bg-white"
               style={{
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
@@ -292,7 +462,8 @@ function IntentSystemContent() {
                   boxShadow: '0 8px 24px rgba(34, 211, 238, 0.25)',
                 }}
               >
-                <span className="text-base">Iniciar Mapeamento</span>
+                <Sparkles size={20} />
+                <span className="text-base">DECIFRAR ALGORITMO</span>
                 <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>
@@ -353,6 +524,8 @@ function IntentSystemContent() {
               </div>
             </div>
 
+            <DiscoveryProgress selectedDimensions={selectedDimensions} responses={responses} />
+
             {/* Dimensions Grid */}
             <div className="space-y-4 mb-6">
               {dimensions.map((dim, idx) => (
@@ -372,19 +545,14 @@ function IntentSystemContent() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div 
-                          className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 relative inline-flex"
-                          style={{
-                            background: '#0A1929',
-                            border: '1px solid #1E3A5F',
-                            boxShadow: '0 0 12px rgba(37, 99, 235, 0.4), inset 0 0 8px rgba(37, 99, 235, 0.2)',
-                          }}
+                        <div
+                          className={`w-12 h-12 rounded-3xl flex items-center justify-center mb-4 relative inline-flex bg-gradient-to-br ${dim.color} text-white text-2xl font-semibold border border-white/20`}
                         >
-                          <span className="text-xl text-[#60A5FA]">{particles.theta}</span>
-                          <img 
-                            src="/splash/box_intent.png" 
-                            alt="NΞØ" 
-                            className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-60"
+                          <span>{dim.icon || '⊚'}</span>
+                          <img
+                            src="/splash/box_intent.png"
+                            alt="NΞØ"
+                            className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-50"
                           />
                         </div>
                         {!selectedDimensions.includes(dim.id) ? (
@@ -421,17 +589,20 @@ function IntentSystemContent() {
                       <textarea
                         value={responses[dim.id] || ''}
                         onChange={(e) => handleResponseChange(dim.id, e.target.value)}
-                        placeholder="Escreva livremente. Sem filtros. Fluxo de consciência puro..."
+                        placeholder={`Não pense na resposta "certa".\nDescreva o que acontece nas engrenagens internas.\nEx: "Meu cérebro automaticamente busca..." \n    "Sinto primeiro..." \n    "Meu movimento instintivo é..."`}
                         className="w-full h-40 p-5 rounded-2xl text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#06B6D4] focus:border-[#06B6D4] transition-all resize-none font-light leading-relaxed text-base bg-[#F9FAFB] border border-[#E5E7EB]"
                       />
-                      <div className="flex justify-between items-center mt-4">
+                      <div className="mt-4 flex flex-col gap-3 text-sm text-gray-500 md:flex-row md:items-center md:justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-cyan-600">{countInsightLevel(responses[dim.id])}</span>
+                          <span>{(responses[dim.id] || '').length} caracteres</span>
+                        </div>
                         <button
                           onClick={() => handleRemoveDimension(dim.id)}
                           className="ios-button-secondary ios-compact-xs text-xs"
                         >
                           Remover
                         </button>
-                        <span className="ios-caption text-[#9CA3AF]">{(responses[dim.id] || '').length} caracteres</span>
                       </div>
                     </div>
                   )}
@@ -440,57 +611,66 @@ function IntentSystemContent() {
             </div>
 
             {/* Action Bar */}
-            <div 
+            <div
               className="p-6 mb-6 rounded-2xl bg-white"
               style={{
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                 border: '1px solid #E5E7EB',
               }}
             >
-              <div className="flex justify-between items-center flex-wrap gap-4">
-                <div>
-                  <p className="ios-caption text-[#4B5563]">{selectedDimensions.length} dimensão(ões) selecionada(s)</p>
-                  <p className="text-[#06B6D4] font-semibold text-base mt-1">
-                    {selectedDimensions.every((d) => responses[d]?.trim())
-                      ? '✓ Pronto para mapear'
-                      : 'Preencha para continuar'}
-                  </p>
+              <div className="flex flex-col gap-4">
+                <div className="flex justify-between items-center flex-wrap gap-4">
+                  <div>
+                    <p className="ios-caption text-[#4B5563]">{selectedDimensions.length} sistema(s) selecionado(s)</p>
+                    <p className="text-[#06B6D4] font-semibold text-base mt-1">
+                      {selectedDimensions.every((d) => responses[d]?.trim())
+                        ? '✓ Pronto para integrar'
+                        : 'Preencha para continuar'}
+                    </p>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => {
+                        setPhase('intro');
+                        setSelectedDimensions([]);
+                        setResponses({});
+                        soundManager.playClick();
+                      }}
+                      className="ios-button-secondary ios-compact"
+                    >
+                      ⟲ REINICIAR
+                    </button>
+                    <button
+                      onClick={handleGenerateMap}
+                      disabled={
+                        selectedDimensions.length === 0 ||
+                        !selectedDimensions.every((d) => responses[d]?.trim()) ||
+                        loading
+                      }
+                      className="ios-button-primary ios-compact disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {loading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-[#9CA3AF] border-t-[#06B6D4] rounded-full animate-spin" />
+                          Decodificando...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles size={16} />
+                          DECIFRAR ALGORITMO
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      setPhase('intro');
-                      setSelectedDimensions([]);
-                      setResponses({});
-                      soundManager.playClick();
-                    }}
-                    className="ios-button-secondary ios-compact"
-                  >
-                    Voltar
-                  </button>
-                  <button
-                    onClick={handleGenerateMap}
-                    disabled={
-                      selectedDimensions.length === 0 ||
-                      !selectedDimensions.every((d) => responses[d]?.trim()) ||
-                      loading
-                    }
-                    className="ios-button-primary ios-compact disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-[#9CA3AF] border-t-[#06B6D4] rounded-full animate-spin" />
-                        Processando...
-                      </>
-                    ) : (
-                      <>
-                        Gerar Mapa
-                        <Sparkles size={16} />
-                      </>
-                    )}
-                  </button>
-                </div>
+                {loading && (
+                  <div className="flex items-center gap-2 text-sm text-cyan-600">
+                    <div className="w-4 h-4 border-2 border-cyan-200 border-t-cyan-500 rounded-full animate-spin" />
+                    Decodificando padrões profundos...
+                  </div>
+                )}
               </div>
             </div>
 
@@ -505,11 +685,8 @@ function IntentSystemContent() {
 
   // RESULT PHASE
   if (phase === 'result' && result) {
-    const dimLabels = {
-      problem_solving: 'Resolução de Problemas',
-      collaboration: 'Conexão & Colaboração',
-      creation: 'Criação & Geração',
-    };
+    const compatibility = calculateCompatibility(result);
+    const alignmentValue = agentState.alignment ?? 0;
 
     return (
       <div
@@ -536,26 +713,30 @@ function IntentSystemContent() {
               {result.runId && (
                 <p className="text-center text-xs text-[#9CA3AF] mt-2">Run ID: {result.runId}</p>
               )}
+              <p className="text-center text-xs text-[#6B7280] mt-1">Alinhamento simbólico: {alignmentValue}/10</p>
             </div>
 
             {/* Pattern Card - Large */}
-            <div 
-              className="mb-6 p-8 spring-in rounded-3xl bg-white border-2 border-[#06B6D4]"
-              style={{
-                boxShadow: '0 8px 24px rgba(34, 211, 238, 0.25)',
-                animationDelay: '0.1s',
-              }}
-            >
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="ios-caption text-[#06B6D4] uppercase tracking-widest font-bold">Padrão Integrado</span>
+            <div className="mb-6 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-black p-8 text-white spring-in">
+              <div className="absolute inset-0 opacity-20 pointer-events-none">
+                <svg className="w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="none">
+                  <circle cx="200" cy="200" r="180" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none" />
+                  <circle cx="200" cy="200" r="120" stroke="rgba(255,255,255,0.05)" strokeWidth="1" fill="none" />
+                  <path d="M50 300 L350 100" stroke="rgba(14,165,233,0.3)" strokeWidth="1" />
+                  <path d="M50 100 L350 300" stroke="rgba(2,132,199,0.2)" strokeWidth="1" />
+                </svg>
+              </div>
+              <div className="relative space-y-6">
+                <div className="flex items-center justify-between">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-500">
+                    ARQUITETURA INTEGRADA
+                  </span>
                   {isLighthouseConfigured() && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-[#4B5563]">Inclui respostas completas</span>
+                    <div className="flex items-center gap-2 text-xs text-white/70">
                       {savingToIPFS && (
-                        <span className="text-xs text-[#9CA3AF] flex items-center gap-1">
-                          <div className="w-3 h-3 border-2 border-[#3B82F6] border-t-transparent rounded-full animate-spin" />
-                          Salvando no IPFS...
+                        <span className="flex items-center gap-1">
+                          <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Salvando nodo
                         </span>
                       )}
                       {ipfsCid && (
@@ -563,7 +744,7 @@ function IntentSystemContent() {
                           href={getIPFSGatewayUrl(ipfsCid)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-[#3B82F6] flex items-center gap-1 hover:underline"
+                          className="flex items-center gap-1 text-white/80 hover:text-white"
                           title="Ver no IPFS"
                         >
                           <Upload size={12} />
@@ -571,42 +752,65 @@ function IntentSystemContent() {
                         </a>
                       )}
                       {ipfsError && (
-                        <span className="text-xs text-red-500" title={ipfsError}>
+                        <span className="text-red-400" title={ipfsError}>
                           Erro IPFS
                         </span>
                       )}
                     </div>
                   )}
                 </div>
-                <h3 className="ios-headline text-[#111827] mt-3 text-3xl font-bold">{result.synergy.name}</h3>
-              </div>
 
-              <div className="space-y-4 border-t border-[#E5E7EB] pt-6">
-                <p className="ios-body text-[#111827] leading-relaxed text-lg">{result.synergy.intent}</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-[#E5E7EB]">
                 <div>
-                  <p className="ios-caption text-[#06B6D4] uppercase font-bold mb-3">Superpoder</p>
-                  <p className="ios-body text-[#111827]">{result.synergy.power}</p>
+                  <h3 className="text-3xl font-bold">{result.synergy.name}</h3>
+                  {result.runId && (
+                    <p className="text-xs uppercase tracking-wider text-white/70 mt-1">
+                      Run ID {result.runId}
+                    </p>
+                  )}
                 </div>
-                <div>
-                  <p className="ios-caption text-[#EF4444] uppercase font-bold mb-3">Alerta</p>
-                  <p className="ios-body text-[#111827]">{result.synergy.alert}</p>
-                </div>
-              </div>
 
-              <div className="mt-8 pt-8 border-t border-[#E5E7EB]">
-                <p className="ios-caption text-[#06B6D4] uppercase font-bold mb-3">Metáfora Operacional</p>
-                <p className="ios-body text-[#4B5563] italic text-base">{result.synergy.metaphor}</p>
+                <div className="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+                  <p className="text-lg italic text-white/90">"{result.synergy.intent}"</p>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between text-sm text-white/70 mb-1">
+                    <span>Compatibilidade Interna</span>
+                    <span className="font-semibold text-cyan-200">
+                      {compatibility}%
+                    </span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/10">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-500"
+                      style={{ width: `${compatibility}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10 text-white/80">
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-white/60">Superpoder</p>
+                    <p className="font-semibold text-sm mt-1 text-white">{result.synergy.power}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-white/60">Alerta</p>
+                    <p className="font-semibold text-sm mt-1 text-white">{result.synergy.alert}</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-white/10">
+                  <p className="text-xs uppercase tracking-widest text-white/50">Metáfora Operacional</p>
+                  <p className="text-sm text-cyan-100 italic mt-1">{result.synergy.metaphor}</p>
+                </div>
               </div>
             </div>
 
             {/* Núcleos Dimensionais - Grid */}
             <div className="grid grid-cols-1 gap-4 mb-6">
               {result.selectedDimensions.map((dimId, idx) => (
-                <div 
-                  key={dimId} 
+                <div
+                  key={dimId}
                   className="p-5 spring-in rounded-2xl bg-white"
                   style={{
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
@@ -615,10 +819,10 @@ function IntentSystemContent() {
                   }}
                 >
                   <p className="ios-caption text-[#06B6D4] uppercase font-bold mb-2">Dimensão {idx + 1}</p>
-                  <p className="ios-body text-[#111827] font-semibold mb-2 text-lg">{dimLabels[dimId]}</p>
-                  <p className="ios-caption text-[#22D3EE] mb-2">→ {result.profileData[dimId]?.archetype}</p>
+                  <p className="text-2xl font-semibold text-[#111827] mb-2">{dimensionLabelMap[dimId] || dimId}</p>
+                  <p className="ios-caption text-[#22D3EE] mb-2">Arquétipo: {result.profileData[dimId]?.archetype || '—'}</p>
                   {result.responses?.[dimId] && (
-                    <p className="ios-caption text-[#4B5563]">
+                    <p className="text-[#4B5563] text-sm italic">
                       “{result.responses[dimId].slice(0, 160)}
                       {result.responses[dimId].length > 160 ? '…' : ''}”
                     </p>
@@ -678,6 +882,22 @@ function IntentSystemContent() {
               </div>
             </div>
 
+            {/* Export Options */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+              {exportOptions.map((option) => (
+                <button
+                  key={option.format}
+                  type="button"
+                  onClick={() => handleExport(option)}
+                  className="p-4 rounded-2xl border border-[#E5E7EB] bg-white flex flex-col gap-2 text-left hover:border-cyan-500 transition-colors"
+                >
+                  <span className="text-2xl">{option.icon}</span>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-[#4B5563]">{option.name}</span>
+                  <p className="text-[11px] text-[#6B7280] leading-snug">{option.description}</p>
+                </button>
+              ))}
+            </div>
+
             {/* Action Buttons */}
             <div 
               className="p-6 mb-6 rounded-2xl bg-white"
@@ -687,6 +907,13 @@ function IntentSystemContent() {
               }}
             >
               <div className="flex flex-col gap-3">
+                <div className="text-sm text-[#4B5563] bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3">
+                  <p className="font-semibold text-[#111827] mb-1">Por que acessar o completo?</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Receber o mapa inteiro (respostas, padrões e diagrama) vinculado a você.</li>
+                    <li>Receber insights personalizados.</li>
+                  </ul>
+                </div>
                 <button
                   onClick={() => {
                     setShowCompleteForm(true);
@@ -723,7 +950,7 @@ function IntentSystemContent() {
                     }}
                     className="flex-1 ios-button-secondary ios-compact"
                   >
-                    Voltar
+                    ⟲ REINICIAR
                   </button>
                 </div>
               </div>
@@ -788,6 +1015,15 @@ function IntentSystemContent() {
               <p className="text-sm text-[#4B5563] mb-6">
                 Para acessar seu mapa completo e receber insights adicionais, compartilhe seus dados de contato.
               </p>
+
+              <div className="mb-6 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] p-4 text-sm text-[#4B5563] space-y-2">
+                <p className="font-semibold text-[#111827]">Você recebe:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Mapa completo com suas respostas, padrões e diagrama (CID dedicado).</li>
+                  <li>Vaga prioritária para próximas fases e convites do NΞØ.</li>
+                  <li>Seguimento com insights personalizados a partir do seu mapeamento.</li>
+                </ul>
+              </div>
 
               <div className="space-y-4">
                 <div>

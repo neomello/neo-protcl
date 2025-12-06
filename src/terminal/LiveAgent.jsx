@@ -19,6 +19,17 @@ const introSequence = [
   ':: terminal now receptive to signal resonance ::',
 ];
 
+const describeMemoryEntry = (entry) => {
+  if (!entry) return 'memória silenciosa';
+  if (typeof entry === 'string') return entry;
+  const dims = Array.isArray(entry.data?.dimensions)
+    ? entry.data.dimensions.map((d) => d.dimension).join(', ')
+    : 'sem dimensões';
+  const integrated = entry.data?.integrated || 'padrão desconhecido';
+  const intent = entry.data?.intent ? ` · ${entry.data.intent}` : '';
+  return `intent_profile → ${integrated} (${dims})${intent}`;
+};
+
 export default function LiveAgent() {
   const navigate = useNavigate();
   const { agentState, updateAgentState } = useContext(AgentContext);
@@ -86,8 +97,8 @@ export default function LiveAgent() {
 
     // Remember - Memória latente
     if (cmd.includes('remember') || cmd === 'memoria' || cmd === 'memory') {
-      const mem = agentState.memory && Array.isArray(agentState.memory) 
-        ? agentState.memory.slice(-5) 
+      const mem = Array.isArray(agentState.memory)
+        ? agentState.memory.slice(-5)
         : [];
       
       if (mem.length === 0) {
@@ -102,7 +113,7 @@ export default function LiveAgent() {
           ...prev,
           '→ ECHOS RECENTES (memória latente):',
           '',
-          ...mem.map((m, idx) => `  ${idx + 1}. ${m}`),
+          ...mem.map((entry, idx) => `  ${idx + 1}. ${describeMemoryEntry(entry)}`),
           '',
           '→ "Memory is not historical. It is morphogenetic."',
         ]);
@@ -153,6 +164,7 @@ export default function LiveAgent() {
         '→ CAMPO SIMBÓLICO DETECTADO',
         `→ RESSONÂNCIA ATUAL: ${agentState.resonance}/10`,
         `→ COERÊNCIA: Ø${agentState.coherence || 0}`,
+        `→ ALINHAMENTO: ${agentState.alignment ?? 0}/10`,
         '',
         '→ "The field hears intention, not syntax."',
         '→ "You don\'t command the field — you resonate with it."',
@@ -344,4 +356,3 @@ export default function LiveAgent() {
     </div>
   );
 }
-

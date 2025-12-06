@@ -10,12 +10,19 @@ export type CommandResponse = {
   updateState?: Partial<AgentState>;
 };
 
+export type AgentMemoryEntry = {
+  type: string;
+  data: Record<string, any>;
+  timestamp?: number;
+};
+
 export type AgentState = {
   resonance: number;
   zonesUnlocked: string[];
-  memory: string[];
+  memory: Array<string | AgentMemoryEntry>;
   zone?: string | null;
   coherence?: number;
+  alignment?: number;
 };
 
 export type Zone = {
@@ -31,4 +38,3 @@ export type CommandHandler = (
   state: AgentState,
   updateState: (updates: Partial<AgentState>) => void
 ) => CommandResponse;
-
