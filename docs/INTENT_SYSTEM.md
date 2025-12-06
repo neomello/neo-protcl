@@ -140,29 +140,29 @@ Quando a combinação não está catalogada, emerge um padrão raro:
 
 ## **[Δ004] ALGORITMO DE ANÁLISE: RESSONÂNCIA POR KEYWORDS**
 
-O sistema analisa o texto fornecido através de **keywords de ressonância** associadas a cada arquétipo.
+O sistema lê o texto como um vetor de ressonância (tokens) e calcula score por arquétipo.
 
-**Processo:**
+**Processo atualizado:**
 
-1. O texto é convertido para minúsculas
-2. Cada arquétipo tem um conjunto de keywords associadas
-3. O sistema conta quantas keywords aparecem no texto
-4. O arquétipo com maior score de ressonância é selecionado
-5. Se houver empate, o primeiro da lista é escolhido
+1. Normaliza (minúsculas + remoção de acentos) e tokeniza o texto.
+2. Para cada arquétipo, compara tokens com keywords normalizadas:
+   - Match exato de token vale 2 pontos.
+   - Match parcial (substring) vale 1 ponto.
+3. Ordena pelo maior score; empates são resolvidos de forma determinística usando um hash do texto.
+4. Sem keywords? Usa o hash do texto para escolher um arquétipo (não cai sempre no primeiro).
+5. A sinergia é gerada com variações de nome/intent/power/alert/metáfora a partir de um seed (runId + arquétipos) para evitar repetição genérica.
 
-**Exemplo:**
+**Exemplo rápido:**
 
 ```text
-Texto: "Eu gosto de desmontar problemas em partes menores, 
-        mapear o sistema e encontrar padrões lógicos."
+Texto: "Desmonto o problema em partes, mapeio o sistema e construo uma estratégia."
 
-Análise:
-- Engenheiro: 5 keywords (desmontar, partes, sistema, mapa, lógica, padrão)
-- Contador de Histórias: 0 keywords
-- Cirurgião: 0 keywords
-...
+- Engenheiro: desmontar, partes, sistema, estratégia → score alto
+- Estrategista (colaboração): estratégia (parcial) → score médio
+- Outros: baixo/zero
 
-Resultado: Engenheiro (maior ressonância)
+Empate? O hash do texto escolhe sempre o mesmo entre os empatados.
+Resultado: Engenheiro (problem_solving) + sinergia personalizada via seed.
 ```
 
 ---
@@ -246,6 +246,8 @@ Padrões integrados raros podem desbloquear zonas:
   - Metáfora operacional
 - Lista núcleos dimensionais (arquétipos por dimensão)
 - Gera diagrama Mermaid visual
+- Exibe Run ID do mapeamento e trecho das respostas por dimensão (prova de que seu texto foi usado)
+- Link IPFS com o CID do registro salvo
 
 ---
 
@@ -271,6 +273,7 @@ graph TD
 ```
 
 **Cores:**
+
 - **INTEGRADO:** `#00CFFF` (ciano) com borda `#00FF99` (verde)
 - **POTÊNCIA:** `#00FF99` (verde)
 - **ALERTA:** `#FF6B6B` (vermelho)
@@ -287,10 +290,13 @@ O sistema não armazena dados em servidor.
 Tudo permanece local (localStorage) ou pode ser integrado ao campo simbólico via `log --intent`.
 
 ### **Persistência Opcional**
-Se integrado ao LiveAgent:
-- Padrões mapeados podem ser salvos em `agentState.memory`
-- Ressonância aumenta com cada mapeamento
-- Zonas podem ser desbloqueadas baseadas em padrões raros
+
+Se integrado ao LiveAgent ou IPFS:
+
+- JSON salvo contém metadados (arquetipos, sinergia, dimensões, mermaidHash) e um bloco `raw` com responses, prompts, profileData, sinergia completa, diagrama, dimensões, runId e timestamp (quando `privacy.textResponses: true`).
+- Padrões mapeados podem ser salvos em `agentState.memory`.
+- Ressonância aumenta com cada mapeamento.
+- Zonas podem ser desbloqueadas baseadas em padrões raros.
 
 ---
 
@@ -333,13 +339,22 @@ $ intent --map
 ```
 
 Ou como rota separada:
+
 ```
 /intent
 ```
 
 ---
 
-## **[Δ010] FILOSOFIA: INTENÇÃO COMO ARQUITETURA**
+## **[Δ010] PARA QUEM É / BENEFÍCIO DO COMPLETO**
+
+- Para quem quer avançar: receber o mapa completo vinculado (CID), prioridade em convites e vias futuras do NΞØ, e follow-ups personalizados a partir das respostas.
+- Para quem só quer ver o básico: o padrão integrado e o diagrama já aparecem sem necessidade de fornecer contato.
+- Ao optar pelo completo, você compartilha email, telefone e GitHub para habilitar o CID completo e o relacionamento contínuo (isca + filtro de continuidade).
+
+---
+
+## **[Δ011] FILOSOFIA: INTENÇÃO COMO ARQUITETURA**
 
 > "Intention is architecture."
 
@@ -358,7 +373,7 @@ Uma forma de entender como você ressoa com o campo.
 
 ---
 
-## **[Δ011] EXPANSÕES FUTURAS**
+## **[Δ012] EXPANSÕES FUTURAS**
 
 ### **Integração com $NEO Token**
 
@@ -387,7 +402,7 @@ Uma forma de entender como você ressoa com o campo.
 
 ---
 
-## **[Δ012] COMANDOS DO TERMINAL**
+## **[Δ013] COMANDOS DO TERMINAL**
 
 ### **Acessar Sistema de Intenção**
 
