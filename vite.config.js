@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    include: ['buffer', '@lighthouse-web3/sdk'],
     esbuildOptions: {
       define: {
         global: 'globalThis',
@@ -23,7 +24,8 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicons/favicon.svg', 'favicons/favicon-96x96.png', 'favicons/web-app-manifest-192x192.png', 'favicons/web-app-manifest-512x512.png'],
+      minify: false, // evita falha do Terser na geração do service worker
+      includeAssets: ['favicon.ico', 'favicons/favicon-96x96.png', 'favicons/web-app-manifest-192x192.png', 'favicons/web-app-manifest-512x512.png'],
       manifest: {
         name: 'NΞØ Protocol',
         short_name: 'NEO',
@@ -48,6 +50,7 @@ export default defineConfig({
         ]
       },
       workbox: {
+        mode: 'development', // evita minificação do SW pelo Terser
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,webp}'],
         runtimeCaching: [
           {
@@ -82,4 +85,3 @@ export default defineConfig({
     })
   ],
 })
-

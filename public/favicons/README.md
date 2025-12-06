@@ -9,7 +9,7 @@ Você já possui os seguintes arquivos configurados:
 
 ### ✅ Arquivos Presentes
 
-- `favicon.svg` - Favicon SVG (moderno, escalável)
+- `favicon.ico` - Favicon ICO tradicional (16x16, 32x32, 48x48)
 - `favicon-96x96.png` - Favicon PNG 96x96px
 - `apple-touch-icon.png` - Ícone iOS (180x180px)
 - `web-app-manifest-192x192.png` - Ícone PWA 192x192px
@@ -20,7 +20,6 @@ Você já possui os seguintes arquivos configurados:
 
 Se quiser adicionar mais tamanhos:
 
-- **`favicon.ico`** - Favicon ICO tradicional (16x16, 32x32, 48x48)
 - **`favicon-16x16.png`** - 16x16px
 - **`favicon-32x32.png`** - 32x32px
 - **`android-chrome-192x192.png`** - 192x192px (Android)
@@ -55,5 +54,5 @@ O ENS domain **neoprotocol.eth** pode ser configurado para:
 - [x] Favicon PNG 96x96px configurado
 - [x] Apple Touch Icon configurado
 - [x] PWA Icons configurados (192x192 e 512x512)
-- [ ] Favicon ICO (opcional, para compatibilidade antiga)
+- [x] Favicon ICO
 - [ ] Favicons 16x16 e 32x32 (opcional)

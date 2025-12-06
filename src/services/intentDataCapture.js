@@ -146,6 +146,12 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
       complete: anonymizedData.complete || false
     });
 
+    // Garantir polyfill do Buffer para o SDK no browser (Vite externaliza o módulo nativo)
+    if (typeof globalThis.Buffer === 'undefined') {
+      const { Buffer } = await import('buffer');
+      globalThis.Buffer = Buffer;
+    }
+
     // Importar SDK do Lighthouse
     const lighthouse = await import('@lighthouse-web3/sdk');
     console.log('✅ SDK do Lighthouse importado');
@@ -159,8 +165,9 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
 
     // Fazer upload para IPFS
     console.log('🚀 Fazendo upload para Lighthouse...');
+    // SDK no browser espera um FileList/array; enviar array evita erro "files2 is not iterable"
     const response = await lighthouse.upload(
-      file,
+      [file],
       lighthouseApiKey
     );
 
@@ -195,6 +202,8 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
     
     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
       errorMessage = 'API Key inválida ou expirada. Verifique VITE_LIGHTHOUSE_API_KEY';
+    } else if (error.message.toLowerCase().includes('trial')) {
+      errorMessage = 'Trial do Lighthouse expirou. Gere uma nova API Key em lighthouse.storage e atualize VITE_LIGHTHOUSE_API_KEY';
     } else if (error.message.includes('Network') || error.message.includes('fetch')) {
       errorMessage = 'Erro de conexão. Verifique sua internet e tente novamente';
     } else if (error.message.includes('CID não encontrado')) {
@@ -223,4 +232,3 @@ export function isLighthouseConfigured() {
 export function getIPFSGatewayUrl(cid) {
   return `https://gateway.lighthouse.storage/ipfs/${cid}`;
 }
-
