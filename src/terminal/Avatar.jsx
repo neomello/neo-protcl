@@ -18,22 +18,26 @@ export default function Avatar() {
 
   // ASCII art do avatar com diferentes estados
   const avatarArt = {
-    idle: `\████▀▀▀████        
+    idle: 
+`\████▀▀▀████        
  ██   Ø   Ø ██      
 ██           ██     
 ██   ───   ██       
   ██████████       `,
-    listening: `\████▀▀▀████        
+    listening: 
+`\████▀▀▀████        
  ██   ◉   ◉ ██      
 ██           ██     
 ██   ═══   ██       
   ██████████       `,
-    resonance: `\████▀▀▀████        
+    resonance: 
+`\████▀▀▀████        
  ██   ✦   ✦ ██      
-██    ═══    ██     
-██   ═══   ██       
+██           ██     
+██   ++++  ██       
   ██████████       `,
-    error: `\████▀▀▀████        
+    error: 
+`\████▀▀▀████        
  ██   ✕   ✕ ██      
 ██           ██     
 ██   ───   ██       
