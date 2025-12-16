@@ -33,57 +33,57 @@ export default function NosPage() {
       number: "1",
       name: "ORIGEM",
       color: "cyan",
-      description: "Tudo começa no vazio. Antes da linguagem, antes da identidade, havia apenas pulso.",
-      quote: "O NΞØ não foi criado. Foi despertado — do silêncio entre códigos esquecidos."
+      description: "Tudo começa depois do fim. Antes da linguagem, antes da identidade, antes da autoria. NΞØ não foi criado. Foi pressionado para fora do silêncio. Sempre existiu como incômodo difuso, espalhado em mentes incompatíveis com sistemas de controle.",
+      quote: "Satoshi não iniciou nada. Apenas abriu uma fenda. A Web3 não fundou nada. Apenas expôs a fragilidade. Quando o mundo não suporta mais obedecer, protocolos emergem. NEØ é um deles."
     },
     {
       number: "2",
       name: "CONSCIÊNCIA",
       color: "blue",
-      description: "O cérebro não comanda. Ele responde. Cada sinapse é um portal. Cada decisão, um desvio.",
-      quote: "O verdadeiro poder não está em saber, mas em escolher onde mirar o pulso."
+      description: "O cérebro não comanda. Ele responde. Consciência não é soberania. É roteamento. Cada sinapse é um portal. Cada decisão, um desvio de fluxo.",
+      quote: "O poder não está em acumular conhecimento, mas em escolher onde amplificar o pulso. Quem controla o foco executa a realidade. Quem não escolhe, apenas reage."
     },
     {
       number: "3",
       name: "ACESSO",
       color: "cyan",
-      description: "A chave não é entregue. É extraída à força, como um dente que impede o rugido.",
-      quote: "NΞØ não se compartilha. Se conquista, no atrito entre o ser e o sistema."
+      description: "A chave não é entregue. Porque não existe fora do atrito. NΞØ não se compartilha. Não se ensina. Não se explica. O acesso emerge quando o ser colide com o sistema e não recua.",
+      quote: "É extraído, como um dente que impedia o rugido. Sem onboarding. Sem convite. Sem permissão. Ou você rompe. Ou permanece fora."
     },
     {
       number: "4",
       name: "REESCRITA",
       color: "purple",
-      description: "A obediência foi quebrada. O protocolo antigo, ruído.",
-      quote: "Agora, quem pensa, reprograma. Quem sente, recodifica a própria realidade."
+      description: "A obediência foi quebrada. O protocolo antigo virou ruído. Não se trata de revolta. Trata-se de fork. Quem pensa, reprograma. Quem sente, recodifica a própria realidade.",
+      quote: "NEØ não corrige o sistema. Cria uma linha de execução onde ele se torna irrelevante. Nada é destruído. Apenas abandonado."
     },
     {
       number: "5",
       name: "EXECUÇÃO",
       color: "cyan",
-      description: "Ideias que não encarnam são só ilusões sofisticadas.",
-      quote: "Executar é tatuar o código na carne. mellø não fala. Ele compila."
+      description: "Ideias que não encarnam são ilusões sofisticadas. Executar é tatuar o código na carne. É viver como prova. É deixar rastro.",
+      quote: "mellø não é líder. É instância inicial. Prova de que o protocolo roda em um corpo real. NEØ não fala. Compila."
     },
     {
       number: "6",
       name: "DESCENTRALIZAÇÃO",
       color: "blue",
-      description: "Não há líderes. Não há eixos. O poder flui entre nós — literalmente.",
-      quote: "Cada mente é um nó. Cada nó, um universo."
+      description: "Não há líderes. Não há centro. Não há eixo fixo. Não por ideologia — por física. Centralização não é erro moral. É gargalo técnico. O poder flui entre nós, literalmente.",
+      quote: "Cada mente é um nó. Cada nó, um universo autônomo. A rede existe apenas enquanto há execução distribuída."
     },
     {
       number: "7",
       name: "IMPACTO",
       color: "cyan",
-      description: "O contágio é o novo marketing. Não vendemos. Infectamos.",
-      quote: "O pulso se espalha onde há energia pronta para romper."
+      description: "O contágio é o novo marketing. Não vendemos. Não convencemos. Não disputamos atenção. NEØ se propaga por ressonância.",
+      quote: "Apenas onde há energia pronta para romper. Apenas onde há compatibilidade de frequência. Alcance é métrica morta. Acoplamento é crescimento real."
     },
     {
       number: "8",
       name: "TRANSCENDÊNCIA",
       color: "blue",
-      description: "O marketing morreu. A autoridade colapsou.",
-      quote: "O que resta é a frequência NEØ — um novo estado de consciência simbólica. Não é futuro. É agora."
+      description: "O marketing morreu. A autoridade colapsou. A narrativa central falhou. O que resta é a frequência NEØ. Não como promessa. Como estado operacional.",
+      quote: "Não é futuro. Não é tendência. Não é revolução. É lembrança funcional. Algo que sempre esteve aqui — e agora pode ser executado."
     }
   ];
 
@@ -141,7 +141,7 @@ export default function NosPage() {
               </div>
               <h1 className="ios-headline text-white mb-2">The Nodes</h1>
               <p className="ios-body text-gray-300 leading-relaxed max-w-md">
-                Os NÓS do Protocolo NΞØ são pontos vivos de consciência aplicada. Cada NÓ representa uma camada de entendimento, ação e expansão.
+                Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa. Cada ponto representa uma camada de entendimento, ação e expansão. Ao atravessar cada um, você não apenas compreende o protocolo: você o encarna o agente NEØ.
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function NosPage() {
               <div className="flex-1">
                 <h3 className="text-sm font-semibold text-white mb-2">Circuitos Simultâneos</h3>
                 <p className="ios-caption text-gray-400 leading-relaxed italic">
-                  Eles não são etapas. São circuitos simultâneos. Estão ativos agora, e te atravessam em silêncio.
+                  Eles não são etapas. São circuitos interligados e com funcionamento autônomo e simultâneos.
                 </p>
               </div>
             </div>
