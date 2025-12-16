@@ -80,7 +80,7 @@ export default defineConfig({
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'google-fonts-cache-v2.0.0',
+              cacheName: 'google-fonts-cache-v3.0.0',
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
@@ -94,7 +94,7 @@ export default defineConfig({
             urlPattern: /\.(?:png|jpg|jpeg|svg|webp|gif)$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'images-cache-v2.0.0',
+              cacheName: 'images-cache-v3.0.0',
               expiration: {
                 maxEntries: 50,
                 maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
@@ -105,7 +105,7 @@ export default defineConfig({
             urlPattern: /^https:\/\/gateway\.lighthouse\.storage\/.*/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'ipfs-cache-v2.0.0',
+              cacheName: 'ipfs-cache-v3.0.0',
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
