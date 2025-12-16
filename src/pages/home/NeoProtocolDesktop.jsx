@@ -151,7 +151,11 @@ export default function NeoProtocolDesktop() {
             >
               <div>
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-4 ios-shadow-sm overflow-hidden group-hover:shadow-lg transition-shadow">
-                  <span className="text-3xl font-mono">◉</span>
+                  <img
+                    src="/images/NFT/vfsfv.webp"
+                    alt="NODE_001 NFT"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">NODE_001</h3>
                 <p className="text-sm text-gray-400 mb-3">Entry Point</p>

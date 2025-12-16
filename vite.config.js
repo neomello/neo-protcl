@@ -12,6 +12,22 @@ export default defineConfig({
       buffer: 'buffer',
     },
   },
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Suprimir avisos conhecidos do Lighthouse SDK sobre eval()
+        if (warning.code === 'EVAL' && warning.id?.includes('@lighthouse-web3')) {
+          return;
+        }
+        // Suprimir aviso sobre /*#__PURE__*/ do thirdweb
+        if (warning.message?.includes('/*#__PURE__*/')) {
+          return;
+        }
+        // Usar o handler padrão para outros avisos
+        warn(warning);
+      },
+    },
+  },
   optimizeDeps: {
     include: ['buffer', '@lighthouse-web3/sdk'],
     esbuildOptions: {

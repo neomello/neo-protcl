@@ -22,12 +22,19 @@ const introSequence = [
 const describeMemoryEntry = (entry) => {
   if (!entry) return 'memória silenciosa';
   if (typeof entry === 'string') return entry;
-  const dims = Array.isArray(entry.data?.dimensions)
-    ? entry.data.dimensions.map((d) => d.dimension).join(', ')
-    : 'sem dimensões';
-  const integrated = entry.data?.integrated || 'padrão desconhecido';
-  const intent = entry.data?.intent ? ` · ${entry.data.intent}` : '';
-  return `intent_profile → ${integrated} (${dims})${intent}`;
+  try {
+    const dims = Array.isArray(entry.data?.dimensions)
+      ? entry.data.dimensions
+          .map((d) => d?.dimension || String(d || ''))
+          .filter(Boolean)
+          .join(', ')
+      : 'sem dimensões';
+    const integrated = entry.data?.integrated || 'padrão desconhecido';
+    const intent = entry.data?.intent ? ` · ${entry.data.intent}` : '';
+    return `intent_profile → ${integrated} (${dims})${intent}`;
+  } catch (error) {
+    return 'memória corrompida';
+  }
 };
 
 export default function LiveAgent() {
@@ -266,7 +273,7 @@ export default function LiveAgent() {
         setLog((prev) => [
           ...prev,
           '',
-          geminiResponse,
+          geminiResponse || '... resposta vazia do campo simbólico ...',
           '',
         ]);
         soundManager.playPulse();
@@ -339,22 +346,28 @@ export default function LiveAgent() {
 
         {/* Terminal Log */}
         <div className="space-y-1 text-sm">
-          {log.map((line, i) => (
-            <div 
-              key={i} 
-              className="whitespace-pre-wrap"
-              style={{
-                color: line.includes('██') ? '#00ff66' : 
-                       line.includes('>') ? '#00eaff' : 
-                       line.includes('::') ? '#7b5dff' : 
-                       line.startsWith('→') ? '#34e1ff' : 
-                       line.startsWith('"') ? '#00ff66' : 
-                       '#00ff66'
-              }}
-            >
-              {line}
-            </div>
-          ))}
+          {log
+            .filter((line) => line != null) // Filtrar valores null/undefined
+            .map((line, i) => {
+              // Garantir que line seja string
+              const lineStr = String(line || '');
+              return (
+                <div 
+                  key={i} 
+                  className="whitespace-pre-wrap"
+                  style={{
+                    color: lineStr.includes('██') ? '#00ff66' : 
+                           lineStr.includes('>') ? '#00eaff' : 
+                           lineStr.includes('::') ? '#7b5dff' : 
+                           lineStr.startsWith('→') ? '#34e1ff' : 
+                           lineStr.startsWith('"') ? '#00ff66' : 
+                           '#00ff66'
+                  }}
+                >
+                  {lineStr}
+                </div>
+              );
+            })}
 
           {/* Input Line */}
           <div className="flex items-center mt-4 text-cyan-400">

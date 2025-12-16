@@ -211,7 +211,11 @@ export default function NeoProtocolMobile() {
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-3 ios-shadow-sm overflow-hidden">
-                  <span className="text-2xl font-mono">◉</span>
+                  <img
+                    src="/images/NFT/vfsfv.webp"
+                    alt="NODE_001 NFT"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-base font-semibold text-white mb-1">NODE_001</h3>
                 <p className="ios-caption text-gray-400 mb-2">Entry Point</p>
