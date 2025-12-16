@@ -1,6 +1,7 @@
-// Service Worker para PWA Mobile - NΞØ Protocol (2025)
-const CACHE_NAME = 'neo-protocol-mobile-v1';
-const RUNTIME_CACHE = 'neo-protocol-runtime-v1';
+// Service Worker para PWA - NΞØ Protocol (2025)
+// Suporta Mobile e Desktop
+const CACHE_NAME = 'neo-protocol-v1.0.1';
+const RUNTIME_CACHE = 'neo-protocol-runtime-v1.0.1';
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [

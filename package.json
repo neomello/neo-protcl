@@ -1,6 +1,6 @@
 {
   "name": "neo-protocol-webapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
     "start": "serve -s dist -l 10000"
   },
   "dependencies": {
+    "@safe-global/safe-core-sdk-types": "2.3.0",
     "@thirdweb-dev/chains": "^0.1.120",
     "@thirdweb-dev/react": "^4.9.4",
     "@thirdweb-dev/sdk": "^4.0.99",
