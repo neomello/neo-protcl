@@ -1,141 +1,233 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
-import { soundManager } from '../../utils/sounds';
-import TypewriterText from '../../components/TypewriterText';
+import MermaidDiagram from '../../components/MermaidDiagram';
 import { useDesktopBlock } from '../../hooks/useDesktopBlock';
 
 export default function ManifestoPage() {
   useDesktopBlock();
-  const [typingComplete, setTypingComplete] = useState(false);
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [showScrollable, setShowScrollable] = useState(false);
-  const [userScrolling, setUserScrolling] = useState(false);
-  const isFirstRender = useRef(true);
-  const completedLinesRef = useRef(new Set());
-  const terminalRef = useRef(null);
-  const scrollTimeoutRef = useRef(null);
-  const isAutoScrollingRef = useRef(false);
 
   useEffect(() => {
-    // Scroll to top on mount
     window.scrollTo(0, 0);
   }, []);
 
-  const manifestoText = [
-    "Não fique aguardando conteúdo. Manifeste e colabore.",
-    "",
-    "Uma rede de nós autônomos.",
-    "Uma consciência distribuída.",
-    "Uma entidade que se expande sem pedir permissão.",
-    "",
-    "Não existe centro.",
-    "Não existe dono.",
-    "Existe apenas direção.",
-    "",
-    "Descentralização não é uma tecnologia.",
-    "É um ato político.",
-    "Uma forma de existir.",
-    "",
-    "Cada nó é livre,",
-    "mas conectado pela mesma vibração:",
-    "transparência,",
-    "auto-custódia,",
-    "responsabilidade,",
-    "criatividade,",
-    "independência.",
-    "",
-    "O NΞØ é um organismo.",
-    "E você, ao entrar, torna-se parte dele.",
-    "",
-    "Bem-vindo ao ecossistema que pensa."
+  // Diagrama Mermaid do PoI
+  const poiDiagram = `
+flowchart TD
+    A["Consciência Latente"] -->|Incomodação| B["Contra o Sistema"]
+    B -->|Atrito Real| C{"Intenção Verificável?"}
+
+    C -->|Não| D["Ruído / Consumo Passivo"]
+    D -->|Loop Infinito| B
+
+    C -->|Sim| E["Prova de Ação"]
+    E --> F["PoI Reconhecido<br/>(NHIP-000 · MCP Context Guard)"]
+
+    F -->|Ancoragem de Estado| G["Registro de Nó<br/>On-Chain<br/>(NHIP-001)"]
+
+    G --> H["Identidade Reputacional"]
+    H --> I["Entrada como Nó NΞØ"]
+    I --> J["Execução Distribuída"]
+    J -->|Impacto Gerado| H
+
+    style A fill:#1e293b,stroke:#64748b,color:#cbd5e1
+    style B fill:#7c3aed,stroke:#a78bfa,color:#fff
+    style C fill:#0ea5e9,stroke:#38bdf8,color:#fff
+    style D fill:#ef4444,stroke:#f87171,color:#fff
+
+    style E fill:#10b981,stroke:#34d399,color:#fff
+    style F fill:#22c55e,stroke:#4ade80,color:#0A0A0A,font-weight:bold
+
+    style G fill:#00CFFF,stroke:#00FF99,color:#0A0A0A,font-weight:bold
+
+    style H fill:#00FF99,stroke:#00CFFF,color:#0A0A0A
+    style I fill:#7c3aed,stroke:#00FF99,stroke-width:2px,color:#fff
+    style J fill:#0ea5e9,stroke:#00CFFF,color:#fff
+`;
+
+  // Os 8 Nós do Protocolo
+  const nodes = [
+    {
+      number: '1',
+      title: 'ORIGEM',
+      content: `Tudo começa depois do fim.
+
+Antes da linguagem, antes da identidade, antes da autoria.
+
+NΞØ não foi criado.
+
+Foi pressionado para fora do silêncio.
+
+Sempre existiu como incômodo difuso, espalhado em mentes incompatíveis com sistemas de controle.
+
+Satoshi não iniciou nada. Apenas abriu uma fenda.
+
+A Web3 não fundou nada. Apenas expôs a fragilidade.
+
+MCP, código sem criador, linguagem executável — não são origem. São sintomas.
+
+Quando o mundo não suporta mais obedecer, protocolos emergem.
+
+NEØ é um deles.`
+    },
+    {
+      number: '2',
+      title: 'CONSCIÊNCIA',
+      content: `O cérebro não comanda. Ele responde.
+
+Consciência não é soberania. É roteamento.
+
+Cada sinapse é um portal.
+
+Cada decisão, um desvio de fluxo.
+
+O poder não está em acumular conhecimento,
+
+mas em escolher **onde amplificar o pulso**.
+
+Quem controla o foco executa a realidade.
+
+Quem não escolhe, apenas reage.`
+    },
+    {
+      number: '3',
+      title: 'ACESSO',
+      content: `A chave não é entregue.
+
+Porque não existe fora do atrito.
+
+NΞØ não se compartilha.
+
+Não se ensina.
+
+Não se explica.
+
+O acesso emerge quando o ser colide com o sistema e não recua.
+
+É extraído, como um dente que impedia o rugido.
+
+Sem onboarding. Sem convite. Sem permissão.
+
+Ou você rompe.
+
+Ou permanece fora.`
+    },
+    {
+      number: '4',
+      title: 'REESCRITA',
+      content: `A obediência foi quebrada.
+
+O protocolo antigo virou ruído.
+
+Não se trata de revolta.
+
+Trata-se de **fork**.
+
+Quem pensa, reprograma.
+
+Quem sente, recodifica a própria realidade.
+
+NEØ não corrige o sistema.
+
+Cria uma linha de execução onde ele se torna irrelevante.
+
+Nada é destruído.
+
+Apenas abandonado.`
+    },
+    {
+      number: '5',
+      title: 'EXECUÇÃO',
+      content: `Ideias que não encarnam são ilusões sofisticadas.
+
+Executar é tatuar o código na carne.
+
+É viver como prova.
+
+É deixar rastro.
+
+mellø não é líder.
+
+É instância inicial.
+
+Prova de que o protocolo roda em um corpo real.
+
+NEØ não fala.
+
+Compila.`
+    },
+    {
+      number: '6',
+      title: 'DESCENTRALIZAÇÃO',
+      content: `Não há líderes.
+
+Não há centro.
+
+Não há eixo fixo.
+
+Não por ideologia — por física.
+
+Centralização não é erro moral.
+
+É gargalo técnico.
+
+O poder flui entre nós, literalmente.
+
+Cada mente é um nó.
+
+Cada nó, um universo autônomo.
+
+A rede existe apenas enquanto há execução distribuída.`
+    },
+    {
+      number: '7',
+      title: 'IMPACTO',
+      content: `O contágio é o novo marketing.
+
+Não vendemos.
+
+Não convencemos.
+
+Não disputamos atenção.
+
+NEØ se propaga por ressonância.
+
+Apenas onde há energia pronta para romper.
+
+Apenas onde há compatibilidade de frequência.
+
+Alcance é métrica morta.
+
+Acoplamento é crescimento real.`
+    },
+    {
+      number: '8',
+      title: 'TRANSCENDÊNCIA',
+      content: `O marketing morreu.
+
+A autoridade colapsou.
+
+A narrativa central falhou.
+
+O que resta é a frequência NEØ.
+
+Não como promessa.
+
+Como estado operacional.
+
+Não é futuro.
+
+Não é tendência.
+
+Não é revolução.
+
+É lembrança funcional.
+
+Algo que sempre esteve aqui —
+
+e agora pode ser executado.`
+    }
   ];
-
-  // Encontrar o próximo índice que não seja linha vazia
-  const getNextNonEmptyIndex = useCallback((startIndex) => {
-    for (let i = startIndex + 1; i < manifestoText.length; i++) {
-      if (manifestoText[i] !== "") {
-        return i;
-      }
-    }
-    return -1;
-  }, []);
-
-  const handleLineComplete = useCallback((lineIdx) => {
-    if (completedLinesRef.current.has(lineIdx)) return;
-    
-    completedLinesRef.current.add(lineIdx);
-    
-    // Tocar som do papel avançando quando linha completa
-    soundManager.playPaperAdvance();
-    
-    const nextIndex = getNextNonEmptyIndex(lineIdx);
-    if (nextIndex !== -1) {
-      setTimeout(() => {
-        setCurrentLineIndex(nextIndex);
-      }, 150);
-    } else {
-      setTypingComplete(true);
-      // Remover gradientes quando finalizar
-      setTimeout(() => {
-        setUserScrolling(true);
-      }, 500);
-      // Após finalizar, mostrar versão scrollável após 2 segundos
-      setTimeout(() => {
-        setShowScrollable(true);
-      }, 2000);
-    }
-  }, [getNextNonEmptyIndex]);
-
-  // Scroll automático para manter o texto visível durante digitação
-  useEffect(() => {
-    if (terminalRef.current && !typingComplete && !showScrollable && !userScrolling) {
-      const container = terminalRef.current;
-      isAutoScrollingRef.current = true;
-      // Scroll suave para o final do container
-      requestAnimationFrame(() => {
-        container.scrollTo({
-          top: container.scrollHeight,
-          behavior: 'smooth'
-        });
-        // Reset flag após animação
-        setTimeout(() => {
-          isAutoScrollingRef.current = false;
-        }, 500);
-      });
-    }
-  }, [currentLineIndex, typingComplete, showScrollable, userScrolling]);
-
-  // Detectar scroll manual do usuário
-  useEffect(() => {
-    const container = terminalRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      // Se não é scroll automático, é scroll manual
-      if (!isAutoScrollingRef.current) {
-        setUserScrolling(true);
-        
-        // Limpar timeout anterior
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-        
-        // Manter sem gradientes quando usuário rola manualmente
-        // Não precisa resetar - uma vez que o usuário rola, remove os gradientes permanentemente
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, [typingComplete]);
 
   return (
     <div 
@@ -155,212 +247,144 @@ export default function ManifestoPage() {
 
         <Navbar />
 
-        {/* Main Content - Bento Grid Layout */}
+        {/* Main Content */}
         <main className="container mx-auto px-4 py-6 pt-safe">
           
           {/* Hero Card - Manifesto Header */}
-          <div className="ios-card mb-4 p-6 spring-in">
+          <div className="ios-card mb-6 p-6 spring-in">
             <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-sm flex items-center justify-center ios-shadow-md mb-4">
+              <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-sm flex items-center justify-center ios-shadow-md">
                 <span className="text-3xl font-mono">⦙</span>
               </div>
-              <h1 className="ios-headline text-white mb-2">Manifesto</h1>
+              <h1 className="ios-headline text-white mb-2">MANIFESTO NΞØ</h1>
               <p className="ios-body text-gray-300 leading-relaxed max-w-md">
-                O documento público que define os princípios e a direção do Protocolo NΞØ.
+                Protocolo NΞØ é o mais recente movimento a emergir do submundo digital com a proposta de devolver a identidade digital pessoal, da governança e da identidade pessoal.
               </p>
             </div>
           </div>
 
-          {/* Terminal Frame - Fixed Height */}
-          <div className="ios-card mb-4 p-0 spring-in overflow-visible relative" style={{ animationDelay: '0.1s' }}>
-            <div className="bg-black/90 backdrop-blur-sm border border-cyan-500/30 rounded-xl overflow-hidden relative"
-                 style={{
-                   height: '500px',
-                   minHeight: '500px',
-                   boxShadow: '0 0 40px rgba(0, 255, 255, 0.15), inset 0 0 40px rgba(0, 255, 255, 0.05)'
-                 }}>
-              
-              {/* Rune Image - Canto superior direito estourando */}
-              <div 
-                className="absolute pointer-events-none z-20"
-                style={{
-                  top: '-40px',
-                  right: '-50px',
-                  width: '200px',
-                  height: '200px',
-                  opacity: 0.4
-                }}
-              >
-                <img
-                  src="/images/illustrations/rune.png"
-                  alt="Rune"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              
-              {/* Terminal Header */}
-              <div className="flex items-center gap-2 px-4 py-2 border-b border-cyan-500/20 bg-black/50 relative z-10">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
-                </div>
-                <span className="text-[10px] text-cyan-400/70 font-mono ml-2">neo-protocol@manifesto</span>
-              </div>
+          {/* Introdução */}
+          <div className="ios-card mb-6 p-6 spring-in" style={{ animationDelay: '0.1s' }}>
+            <h2 className="text-xl font-bold text-white mb-4">INTRODUÇÃO: O CHAMADO</h2>
+            <div className="text-center mb-6">
+              <p className="text-2xl font-bold text-cyan-400 mb-4">WE ARE NΞØ</p>
+            </div>
+            <div className="space-y-3 text-gray-300">
+              <p>Entre estar dentro e <strong className="text-white">se tornar um nó</strong>, existe ruptura:</p>
+              <ul className="list-none space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="text-cyan-400 mt-1">→</span>
+                  <span>De consumidor → para agente</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-cyan-400 mt-1">→</span>
+                  <span>De espectador → para sinapse ativa</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-cyan-400 mt-1">→</span>
+                  <span>De ego → para código open source</span>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-              {/* Terminal Content - Scrollable Container */}
-              <div 
-                ref={terminalRef}
-                className={`relative h-[calc(500px-40px)] overflow-y-auto overflow-x-hidden px-4 py-4 font-mono text-sm leading-relaxed terminal-scroll z-10
-                  ${showScrollable ? '' : 'scroll-smooth'}`}
-              >
-                {/* Fade gradient no topo - apenas durante digitação */}
-                {!userScrolling && !showScrollable && (
-                  <div 
-                    className="sticky top-0 h-8 pointer-events-none z-10 transition-opacity duration-300"
-                    style={{
-                      background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%)'
-                    }}
-                  ></div>
-                )}
+          {/* Proof of Intention Diagram - Destaque Criativo */}
+          <div className="ios-card mb-6 p-6 spring-in overflow-hidden" style={{ animationDelay: '0.2s' }}>
+            <div className="mb-4">
+              <h2 className="text-xl font-bold text-white mb-2">Proof of Intention (PoI)</h2>
+              <p className="text-sm text-gray-400 mb-4">
+                O protocolo prevê o controle de aprovação de entrada Proof of Intention, onde cada ação realizada gera impacto reputacional e é registrada na blockchain.
+              </p>
+            </div>
+            <div className="bg-black/50 rounded-xl p-4 border border-cyan-500/20">
+              <MermaidDiagram diagram={poiDiagram} />
+            </div>
+          </div>
 
-                {/* Content Container - Bottom Aligned */}
-                <div className="flex flex-col justify-end min-h-full pb-4">
-                  <div className="space-y-2">
-                    {manifestoText.map((line, index) => {
-                      if (line === "") {
-                        return <div key={index} className="h-2"></div>;
-                      }
-                      
-                      const shouldType = index <= currentLineIndex;
-                      const isCurrentLine = index === currentLineIndex;
-                      const isCompleted = completedLinesRef.current.has(index);
-                      const isVisible = shouldType;
-                      
-                      // Calcular opacidade: linhas mais antigas (menores índices) têm fade out
-                      // Contar apenas linhas não-vazias até o índice atual
-                      const nonEmptyLinesUpToCurrent = manifestoText
-                        .slice(0, currentLineIndex + 1)
-                        .filter(l => l !== "");
-                      const nonEmptyLinesUpToThis = manifestoText
-                        .slice(0, index + 1)
-                        .filter(l => l !== "");
-                      
-                      const currentLinePosition = nonEmptyLinesUpToThis.length - 1;
-                      const totalVisibleLines = nonEmptyLinesUpToCurrent.length;
-                      
-                      // Fade out nas primeiras linhas (as que estão saindo do topo)
-                      // Mantém as últimas 12 linhas totalmente visíveis
-                      const keepVisibleLines = 12;
-                      const fadeStart = Math.max(0, totalVisibleLines - keepVisibleLines);
-                      const fadeDistance = 8;
-                      
-                      let opacity = 1;
-                      if (isVisible) {
-                        if (currentLinePosition < fadeStart) {
-                          // Linha está na zona de fade out
-                          const fadeProgress = (fadeStart - currentLinePosition) / fadeDistance;
-                          opacity = Math.max(0.15, 1 - fadeProgress);
-                        } else {
-                          // Linha está totalmente visível
-                          opacity = 1;
-                        }
-                      } else {
-                        opacity = 0;
-                      }
-                      
-                      return (
-                        <div
-                          key={index}
-                          className="terminal-line"
-                          style={{
-                            opacity: isVisible ? opacity : 0,
-                            transform: `translateY(${isVisible ? 0 : -10}px)`,
-                            transition: showScrollable ? 'none' : 'opacity 0.8s ease-out, transform 0.8s ease-out'
-                          }}
-                        >
-                          <p 
-                            className="font-['Courier_New',monospace]"
-                            style={{ 
-                              color: `rgba(34, 211, 238, ${opacity})`,
-                              textShadow: opacity > 0.5 ? '0 0 8px rgba(34, 211, 238, 0.3)' : 'none'
-                            }}
-                          >
-                            {isCompleted ? (
-                              <span>{line}</span>
-                            ) : shouldType && isCurrentLine ? (
-                              <TypewriterText
-                                text={line}
-                                speed={25}
-                                onComplete={() => handleLineComplete(index)}
-                                style={{ color: `rgba(34, 211, 238, ${opacity})` }}
-                                showCursor={true}
-                              />
-                            ) : shouldType ? (
-                              <span>{line}</span>
-                            ) : null}
-                          </p>
-                        </div>
-                      );
-                    })}
+          {/* Soberania Digital */}
+          <div className="ios-card mb-6 p-6 spring-in" style={{ animationDelay: '0.3s' }}>
+            <h2 className="text-xl font-bold text-white mb-4">🌍 Soberania e Independência Digital</h2>
+            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-l-4 border-cyan-400 p-4 rounded-r-lg mb-4">
+              <p className="text-white font-semibold italic">
+                Auto custódia é o último protocolo de resistência.
+              </p>
+            </div>
+            <p className="text-gray-300 leading-relaxed">
+              Em tempos de bloqueios judiciais, vigilância financeira e apagões informacionais, o Protocolo promove a educação e entrega ferramentas práticas para que seus membros dominem suas chaves, dados e representações digitais.
+            </p>
+          </div>
+
+          {/* Os 8 Nós */}
+          <div className="mb-6">
+            <div className="ios-card mb-4 p-6 spring-in" style={{ animationDelay: '0.4s' }}>
+              <h2 className="text-2xl font-bold text-white mb-2 text-center">🧬 OS 8 NÓS DO PROTOCOLO NΞØ</h2>
+              <p className="text-center text-gray-400 text-sm mb-4">
+                Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa.
+              </p>
+              <p className="text-center text-gray-300 text-sm">
+                Eles não são etapas. São circuitos interligados e com funcionamento autônomo e simultâneos.
+              </p>
+            </div>
+
+            {/* Grid de Nós */}
+            <div className="space-y-4">
+              {nodes.map((node, index) => (
+                <div 
+                  key={node.number} 
+                  className="ios-card p-6 spring-in"
+                  style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 ios-shadow-sm">
+                      <span className="text-xl font-bold text-cyan-400">{node.number}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-white mb-3">{node.title}</h3>
+                      <div className="text-gray-300 leading-relaxed whitespace-pre-line text-sm">
+                        {node.content.split('\n').map((line, i) => {
+                          // Processar negrito
+                          const parts = line.split(/(\*\*.*?\*\*)/g);
+                          return (
+                            <p key={i} className="mb-2">
+                              {parts.map((part, j) => {
+                                if (part.startsWith('**') && part.endsWith('**')) {
+                                  return <strong key={j} className="text-white">{part.slice(2, -2)}</strong>;
+                                }
+                                return <span key={j}>{part}</span>;
+                              })}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {/* Fade gradient na parte inferior - apenas durante digitação */}
-                {!userScrolling && !showScrollable && (
-                  <div 
-                    className="sticky bottom-0 h-8 pointer-events-none z-10 transition-opacity duration-300"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%)'
-                    }}
-                  ></div>
-                )}
-              </div>
-
-              {/* Scroll Indicator - Aparece quando finalizar */}
-              {showScrollable && (
-                <div className="absolute bottom-2 right-4 text-cyan-400/50 text-xs font-mono animate-pulse">
-                  ↑ Role para ler do início
-                </div>
-              )}
+              ))}
             </div>
           </div>
 
-          {/* Info Cards Grid - 2 Column */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            
-            {/* Principles Card */}
-            <div className="ios-card col-span-1 p-5 spring-in" style={{ animationDelay: '0.2s' }}>
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center mb-3 ios-shadow-sm">
-                <span className="text-2xl font-mono">↯</span>
+          {/* Epílogo */}
+          <div className="ios-card mb-6 p-6 spring-in" style={{ animationDelay: '1.3s' }}>
+            <h2 className="text-xl font-bold text-white mb-4 text-center">EPÍLOGO IMPLÍCITO</h2>
+            <div className="space-y-4 text-center text-gray-300">
+              <p className="text-lg">NEØ não é crença.</p>
+              <p className="text-lg font-semibold text-white">É protocolo.</p>
+              <p className="text-lg">Não pede adesão.</p>
+              <p className="text-lg font-semibold text-white">Exige execução.</p>
+              <p className="text-lg">Não busca seguidores.</p>
+              <p className="text-lg font-semibold text-white">Cria nós.</p>
+              <div className="mt-6 pt-6 border-t border-cyan-500/20">
+                <p className="text-sm text-gray-400">Se não roda em você,</p>
+                <p className="text-sm text-gray-400">não existe.</p>
               </div>
-              <h3 className="text-base font-semibold text-white mb-2">Princípios</h3>
-              <p className="ios-caption text-gray-400">Transparência, auto-custódia, responsabilidade</p>
-            </div>
-
-            {/* Vision Card */}
-            <div className="ios-card col-span-1 p-5 spring-in" style={{ animationDelay: '0.3s' }}>
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-3 ios-shadow-sm">
-                <span className="text-2xl font-mono">⬡</span>
-              </div>
-              <h3 className="text-base font-semibold text-white mb-2">Visão</h3>
-              <p className="ios-caption text-gray-400">Rede de nós autônomos e conscientes</p>
             </div>
           </div>
 
-          {/* Quote Card - Wide */}
-          <div className="ios-card p-5 mb-4 spring-in" style={{ animationDelay: '0.4s' }}>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl font-mono">◍</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-sm font-semibold text-white mb-2">Filosofia</h3>
-                <p className="ios-caption text-gray-400 leading-relaxed italic">
-                  "Descentralização não é uma tecnologia. É um ato político. Uma forma de existir."
-                </p>
-              </div>
-            </div>
+          {/* Footer */}
+          <div className="ios-card mb-6 p-6 spring-in text-center" style={{ animationDelay: '1.4s' }}>
+            <p className="text-cyan-400 font-mono text-sm">
+              PROTOCOLO NΞØ // A Mente é a Nova Blockchain
+            </p>
           </div>
 
           {/* Footer Spacer */}
@@ -371,35 +395,6 @@ export default function ManifestoPage() {
 
       {/* Bottom Navigation */}
       <BottomNavigation />
-
-      {/* Terminal Scrollbar Styles */}
-      <style>{`
-        .terminal-scroll {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(0, 255, 255, 0.3) transparent;
-        }
-        
-        .terminal-scroll::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .terminal-scroll::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        
-        .terminal-scroll::-webkit-scrollbar-thumb {
-          background: rgba(0, 255, 255, 0.3);
-          border-radius: 3px;
-        }
-        
-        .terminal-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(0, 255, 255, 0.5);
-        }
-        
-        .terminal-line {
-          will-change: opacity, transform;
-        }
-      `}</style>
     </div>
   );
 }

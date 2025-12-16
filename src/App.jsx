@@ -8,6 +8,7 @@ import IntelligenceBoot from './pages/boot/IntelligenceBoot';
 // import X402Example from './pages/x402-example'; // Removido - Thirdweb não está em uso
 // import SDKExample from './pages/sdk-example'; // Removido - Thirdweb não está em uso
 import IntentSystemPage from './pages/intent/IntentSystemPage';
+import DocumentationPage from './pages/docs/DocumentationPage';
 import { soundManager } from './utils/sounds';
 import PWAUpdatePrompt from './components/PWAUpdatePrompt';
 
@@ -40,6 +41,8 @@ function App() {
         <Route path="/nos" element={<NosPage />} />
         <Route path="/boot" element={<IntelligenceBoot />} />
         <Route path="/intent" element={<IntentSystemPage />} />
+        <Route path="/docs" element={<DocumentationPage />} />
+        <Route path="/documentacao" element={<DocumentationPage />} />
         {/* <Route path="/x402-example" element={<X402Example />} /> Removido - Thirdweb não está em uso */}
         {/* <Route path="/sdk-example" element={<SDKExample />} /> Removido - Thirdweb não está em uso */}
         {/* <Route path="/mcp" element={<MCPConsole />} /> Comentado - será instruído depois */}

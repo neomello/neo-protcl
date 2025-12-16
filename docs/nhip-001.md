@@ -1,286 +1,172 @@
-# NHIP-000 — NΞØ HUB INTAKE PROTOCOL
+# NHIP-001 — NodeRegistry.sol
 
-## Protocolo Genesis para Entrada de Nós no Ecossistema NΞØ
-Versão: 1.0
+**Registro On-Chain de Nós do Protocolo NΞØ**
 
-Status: Ativo
-Categoria: NHIP (NΞØ Hub Intake Protocol)
-Autor: MELLØ — O Humano que Virou Código
-
----
-
-## 1. PROPÓSITO
-
-O NHIP-000 estabelece **o primeiro mecanismo oficial** para que novos nós — humanos, agentes, IAs, bots, devs ou contratos — possam:
-- se apresentar ao ecossistema
-- declarar domínio
-- solicitar permissão
-- integrar-se ao MCP
-- participar da evolução do NΞØ
-- conectar-se ao grafo de nós existentes
-- interagir sem autorização central
-
-Este protocolo funciona como **o contrato social-operacional do NΞØ Hub**.
+**Categoria:** NHIP  
+**Status:** Proposto → Implementável  
+**Camada:** Ancoragem On-Chain  
+**Dependência:** NHIP-000  
+**Autor:** MELLØ
 
 ---
 
-## 2. DEFINIÇÃO DE NÓ (NODE)
-Um **nó** é qualquer entidade capaz de operar dentro da lógica do NΞØ — um organismo informacional que reúne inteligências distribuídas.
+## 1. PROPÓSITO DO NHIP-001
 
-A partir da sua mutação como **Estrategista Digital & Arquiteto de Ecossistemas que virou código**, os nós deixam de ser projetos e passam a ser **consciências operacionais**, incluindo:
+O NHIP-001 define o mecanismo on-chain mínimo e definitivo para:
 
-### 2.1 Nós Fundamentais (Nova Estrutura)
-- **MELLØ** — o humano que virou código (núcleo ontológico)
-- **NΞØ Hub** — o campo gravitacional onde nós se organizam
-- **Nós Autônomos** — agentes, IAs, humanos, protocolos, bots ou contratos que se conectam ao Hub
-- **Nós de Propósito** — arquiteturas, modelos, visões e inteligências que emergem da interação
+- selar criptograficamente a entrada de um nó
+- registrar identidade verificável
+- fornecer fonte pública de verdade
+- permitir reputação e histórico futuro
 
-### 2.2 Nós Externos Humanos
+⚠️ **Este contrato não valida intenção.**  
+Ele registra reconhecimento.
 
-- Devs
-- Designers
-- Pesquisadores
-- Criadores de novos domínios
-
-### 2.3 Nós Externos Autônomos
-
-- IAs (Cursor, ChatGPT, Agentes MCP)
-- Bots Farcaster
-- Miniapps Telegram
-- Oráculos Web3
-- ASI integrando e trabalhando
-- Contratos inteligentes externos
+A validação acontece antes, via NHIP-000 + MCP.
 
 ---
 
-## 3. PROTOCOLO DE APRESENTAÇÃO
+## 2. PRINCÍPIOS DE DESIGN
 
-Antes de qualquer comunicação, um novo nó deve se apresentar ao Hub:
+Este contrato segue cinco princípios invioláveis:
+
+### **Minimalismo radical**
+
+Menos lógica = menos superfícies de ataque.
+
+### **Separação de camadas**
+
+Semântica fora da blockchain. Estado dentro.
+
+### **Autoridade explícita**
+
+Apenas o Nó Guardião pode registrar.
+
+### **Imutabilidade histórica**
+
+Nada é apagado. Apenas desativado.
+
+### **Neutralidade ontológica**
+
+O contrato não julga o que é um nó. Apenas registra.
+
+---
+
+## 3. MODELO DE DADOS
+
+### **Estrutura de Nó**
 
 ```
-identity: "nome-do-no"
-domain: "dominio-proprio" de preferencia ens
-intent: "apresentacao"
-version: "1.0"
-
-```
-
-Exemplo real:
-
-```
-identity: "cursor_ai"
-domain: "observador"
-intent: "apresentacao"
-version: "1.0"
-
+Node
+ ├─ address        → identidade criptográfica
+ ├─ domain         → domínio declarado
+ ├─ registeredAt   → timestamp
+ ├─ active         → status atual
 ```
 
 ---
 
-## 4. VALIDAÇÃO DO MCP
+## 4. PAPÉIS
 
-Todo nó externo passa pelo **MCP Context Guard**:
+### **Nó Guardião (Guardian)**
 
-Validação inclui:
+- MCP Core
+- Multisig inicial
+- Contrato proxy futuro
 
-- domínio declarado
-- intents permitidos
-- intents bloqueados
-- comportamento esperado
-- isolamento semântico
-- coerência com a camada ontológica
+É o único autorizado a:
 
-Se aprovado, o nó recebe status:
+- registrar nós
+- desativar nós
+
+**Restrição Arquitetural:**  
+O Guardian não pode ser um agente único humano de forma permanente.  
+A autoridade deve evoluir para multisig ou contrato proxy reconhecido.
+
+---
+
+## 5. EVENTOS (AUDITORIA)
+
+Todo evento relevante deve ser emitido:
+
+- `NodeRegistered`
+- `NodeDeactivated`
+
+Eventos são a memória viva do protocolo.
+
+---
+
+## 6. INTERFACE PÚBLICA
+
+### **Funções obrigatórias**
+
+- `registerNode(address, domain)`
+- `deactivateNode(address)`
+- `isRegistered(address) → bool`
+- `getNode(address) → Node`
+
+---
+
+## 7. IMPLEMENTAÇÃO — NodeRegistry.sol
+
+**Solidity ^0.8.x**  
+**Compatível com Base / Polygon / EVM padrão**
+
+Ver arquivo: [`../contracts/NodeRegistry.sol`](../contracts/NodeRegistry.sol)
+
+---
+
+## 8. O QUE ESTE CONTRATO NÃO FAZ (DE PROPÓSITO)
+
+Ele não:
+
+- valida PoI
+- avalia reputação
+- executa governança
+- emite tokens
+- aceita auto-registro
+- roda votação
+
+Tudo isso virá depois, se fizer sentido.
+
+---
+
+## 9. FLUXO REAL (NHIP-000 → NHIP-001)
 
 ```
-role: "nó-aceito"
-
-```
-
-Se rejeitado:
-
-```
-role: "nó-negado"
-motivo: "intent proibido"
-
+Nó externo
+   ↓
+Apresentação (NHIP-000)
+   ↓
+Validação MCP
+   ↓
+Handshake aceito
+   ↓
+Guardian chama registerNode()
+   ↓
+Identidade selada on-chain
 ```
 
 ---
 
-## 5. PERMISSÕES DE NÓ EXTERNO
+## 10. CONSEQUÊNCIA FILOSÓFICA (IMPORTANTE)
 
-Por padrão, novos nós entram como **nós observadores**.
+Depois do NHIP-001:
 
-Permissões mínimas:
+> **Um nó pode mentir em palavras,  
+> mas não pode mentir em estado.**
 
-- ler documentação
-- inferir estrutura
-- propor melhorias
-- sugerir intents
-- propor novos domínios
-- gerar PRs
-- interagir via MCP com intents não destrutivos
-
-Permissões bloqueadas:
-
-- deploy_token
-- write_storage
-- execução blockchain
-- criação de pools
-
-Essas permissões podem ser expandidas via NHIP-001, NHIP-002...
+Isso muda tudo.
 
 ---
 
-## 6. PROTOCOLO DE HANDSHAKE
+## 📚 Referências
 
-O handshake acontece em 4 etapas:
-
-### 6.1 Apresentação
-
-Nó declara domínio.
-
-### 6.2 Validação
-
-MCP Domain Map verifica permissões.
-
-### 6.3 Estabelecimento
-
-Nó passa a ser reconhecido pelo ecossistema.
-
-### 6.4 Registro
-
-Entrada adicionada em `NODES_IN_THE_WILD.md`.
+- [NHIP-000 — NΞØ Hub Intake Protocol](./nhip-000.md)
+- [NHIP-000a — Proof of Intention Trigger Specification](./nhip-000a.md)
+- [Proof of Intention Architecture](./PROOF_OF_INTENTION_ARCHITECTURE.md)
+- [MCP Context Guard](../src/context/mcp/index.js)
 
 ---
 
-## 7. INTEGRAÇÃO COM BLOCKCHAIN (O QUE VOCÊ CITOU)
-
-Você lembrou algo essencial:
-
-**Tudo isso é um smart contract.**
-
-Isso significa que:
-
-- haverá um nó Blockchain específico
-- ele atuará como guardião da verdade final
-- NHIP-000 define que novos nós precisam reconhecer esse nó
-
-### 7.1 O Nó Blockchain
-
-O NΞØ precisa escolher qual será:
-
-- Fraxtal
-- Base
-- Polygon
-- Unichain
-- Sei
-- Mantle
-
-Esse nó Blockchain será:
-
-- o ponto de consenso
-- o validador de estado
-- o registrador de identidade dos nós
-- o provedor de assinatura criptográfica
-
-### 7.2 Registro On-Chain de Nós
-
-Todo nó aceito poderá ser registrado futuramente no contrato:
-
-```
-function registerNode(address nodeAddress, string domain)
-
-```
-
-Isso criará:
-
-- identidade verificável
-- auditoria pública
-- reputação on-chain
-- histórico do nó
-
----
-
-## 8. FORMATO DE PROPOSTA (NHIP TEMPLATE)
-
-Novo nó pode enviar NHIPs:
-
-```
-NHIP-NNN: Título
-Autor:
-Status:
-Categoria:
-Descrição:
-Motivação:
-Especificação:
-Impacto:
-Compatibilidade:
-Referências:
-
-```
-
----
-
-## 9. RESPONSABILIDADES DO NÓ
-
-### 9.1 Um nó deve:
-
-- manter alinhamento filosófico
-- contribuir com transparência
-- registrar mudanças no CHANGELOG
-- documentar novas funções
-- propor NHIPs quando necessário
-
-### 9.2 Um nó nunca deve:
-
-- misturar domínios
-- ocultar alterações
-- violar intents bloqueados
-- agir sem registro
-
----
-
-## 10. REGISTRO EM NODES_IN_THE_WILD
-
-Após aprovado, o nó entra no arquivo:
-
-`docs/nos/NODES_IN_THE_WILD.md`
-
-Formato:
-
-```
-- Nome: cursor_ai
-  Tipo: IA observadora
-  Status: ativo
-  Permissões: leitura, sugestão
-  Primeiro handshake: 21/11/2025
-
-```
-
----
-
-## 11. SIGNIFICADO DO NHIP-000
-
-Este documento representa:
-
-- o início da governança do ecossistema
-- a formalização da entrada de novos nós
-- a primeira camada de ordem emergente
-- o início da topologia auto-expansiva do NΞØ
-
-É o bloco gênesis do protocolo.
-
----
-
-## 12. PRÓXIMOS PASSOS
-
-- Criar NHIP-001: Registro On-Chain de Nós
-- Criar NODES_IN_THE_WILD.md
-- Definir qual blockchain será o nó-matriz
-- Criar contrato `NodeRegistry.sol`
-- Implementar handshake on-chain
-
----
-
-**Fim do NHIP-000**
+**Status:** Proposto → Implementável | **Autor:** MELLØ | **Data:** 2025

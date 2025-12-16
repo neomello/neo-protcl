@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   initMCP,
-  registerNode,
+  acknowledgeNodeOffChain,
   readNodes,
   getMCPState,
   registerInteraction,
@@ -44,9 +44,9 @@ export function useMCP() {
     return interaction;
   };
 
-  // Registrar evento
+  // Registrar evento (acknowledge off-chain)
   const registerEvent = (eventType, handler) => {
-    const eventNode = registerNode(`event_${Date.now()}`, {
+    const eventNode = acknowledgeNodeOffChain(`event_${Date.now()}`, {
       type: 'event',
       eventType,
       handler: handler.toString()

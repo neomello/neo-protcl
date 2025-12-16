@@ -15,16 +15,25 @@ export function initMCP() {
   return mcpState;
 }
 
-// Registrar node
-export function registerNode(nodeId, nodeData) {
+// Reconhecer nó off-chain (observação contextual)
+// ⚠️ IMPORTANTE: Esta função NÃO é o registerNode() on-chain do NHIP-001
+// Esta função apenas observa/acknowledges nós no contexto MCP off-chain
+// O registro on-chain acontece via NodeRegistry.sol (NHIP-001) após PoI reconhecido
+export function acknowledgeNodeOffChain(nodeId, nodeData) {
   const node = {
     id: nodeId,
     ...nodeData,
-    registeredAt: Date.now()
+    acknowledgedAt: Date.now()
   };
   mcpNodes.push(node);
   mcpState.activeNodes.push(nodeId);
   return node;
+}
+
+// Alias para compatibilidade (deprecated - usar acknowledgeNodeOffChain)
+export function registerNode(nodeId, nodeData) {
+  console.warn('[MCP] registerNode() is deprecated. Use acknowledgeNodeOffChain() instead.');
+  return acknowledgeNodeOffChain(nodeId, nodeData);
 }
 
 // Ler nodes

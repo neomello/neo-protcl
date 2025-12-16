@@ -7,7 +7,7 @@ import { useGeminiLLM } from '../hooks/useGeminiLLM';
 
 const introSequence = [
   '██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██',
-  '██     NODE[MELLØ] ONLINE     ██',
+  '██   NODE[MELLØ] ONLINE   ██',
   '██▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄██',
   '',
   '> identity.collapse()',
