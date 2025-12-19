@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { soundManager } from '../utils/sounds';
-// import WalletIconButton from './WalletConnect/WalletIconButton'; // Comentado - wallet não está sendo usada
+import ConnectButton from './WalletConnect/ConnectButton';
 
 export default function Navbar() {
   return (
@@ -44,13 +44,22 @@ export default function Navbar() {
             >
               Docs
             </Link>
+            <Link 
+              to="/project" 
+              onClick={() => soundManager.playNavigate()}
+              className="ios-button-secondary ios-compact-xs text-xs haptic-light"
+            >
+              Project
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-lg bg-green-500/10 border border-green-500/20">
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
               <span className="text-[10px] font-medium text-green-400 uppercase tracking-wide">Synced</span>
             </div>
-            {/* <WalletIconButton /> Comentado - wallet não está sendo usada */}
+            <div className="hidden md:block">
+              <ConnectButton compact={true} />
+            </div>
           </div>
         </div>
       </div>

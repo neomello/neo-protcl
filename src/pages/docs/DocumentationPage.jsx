@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
+import Footer from '../../components/Footer';
 import MermaidDiagram from '../../components/MermaidDiagram';
 
 export default function DocumentationPage() {
@@ -43,6 +44,7 @@ flowchart TD
 
   const sections = [
     { id: 'overview', title: 'Visão Geral', icon: '📋' },
+    { id: 'token', title: 'Token', icon: '🪙' },
     { id: 'nhips', title: 'NHIPs', icon: '📜' },
     { id: 'architecture', title: 'Arquitetura', icon: '🏗️' },
     { id: 'proof-of-intention', title: 'Proof of Intention', icon: '🧬' },
@@ -124,6 +126,140 @@ flowchart TD
                   <li>• <Link to="#guides" onClick={() => setActiveSection('guides')} className="text-cyan-400 hover:text-cyan-300">Mermaid Usage</Link></li>
                   <li>• <Link to="#guides" onClick={() => setActiveSection('guides')} className="text-cyan-400 hover:text-cyan-300">Intent System</Link></li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'token':
+        return (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-4">NEØ Token</h1>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Documentation about the ERC-20 token of the NEØ Protocol.
+              </p>
+            </div>
+
+            {/* What is the token */}
+            <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">What is the token</h2>
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                The NEØ token is a verified ERC-20 on the Ethereum Mainnet. It is a reference token 
+                of the NEØ Protocol, actively maintained with verified source code on Etherscan.
+              </p>
+              <div className="bg-black/50 rounded p-3 border border-gray-700">
+                <div className="font-mono text-xs text-gray-300 space-y-1">
+                  <div><span className="text-cyan-400">Contract Address:</span> <span className="text-gray-400">0x53c407bdea9b336b2b15995d0765876e702f16af</span></div>
+                  <div><span className="text-cyan-400">Network:</span> <span className="text-gray-400">Ethereum Mainnet</span></div>
+                  <div><span className="text-cyan-400">Standard:</span> <span className="text-gray-400">ERC-20</span></div>
+                  <div><span className="text-cyan-400">Status:</span> <span className="text-green-400">Verified</span></div>
+                </div>
+              </div>
+            </div>
+
+            {/* What it is not */}
+            <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">What it is not</h2>
+              <ul className="space-y-3 text-gray-300 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span><strong className="text-white">Not a utility token:</strong> The token does not confer usage rights or access to protocol functionalities.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span><strong className="text-white">Not a governance token:</strong> The token does not confer voting rights or governance over the protocol.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span><strong className="text-white">No on-chain ownership model:</strong> The contract does not implement ownership or control functions.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Current usage */}
+            <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Current usage</h2>
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                The NEØ token serves as an on-chain reference for the NEØ Protocol. Currently:
+              </p>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 mt-1">•</span>
+                  <span>Project identification and verification on the blockchain</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 mt-1">•</span>
+                  <span>Identity anchoring via ENS (neoprotocol.eth)</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 mt-1">•</span>
+                  <span>Public reference for documentation and metadata</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 mt-1">•</span>
+                  <span>Proof of active project maintenance</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Next steps */}
+            <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Next steps</h2>
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                Technical roadmap for the token and protocol:
+              </p>
+              <ul className="space-y-3 text-gray-300 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-400 mt-1">→</span>
+                  <span>Continuous maintenance of documentation and public references</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-400 mt-1">→</span>
+                  <span>Metadata updates as needed</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-400 mt-1">→</span>
+                  <span>Expansion of on-chain and off-chain references</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-400 mt-1">→</span>
+                  <span>Integration with verification and auditing systems</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Useful links */}
+            <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">References</h2>
+              <div className="space-y-2">
+                <a
+                  href="https://etherscan.io/address/0x53c407bdea9b336b2b15995d0765876e702f16af"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between py-2 px-3 bg-black/50 rounded border border-gray-700 hover:border-cyan-500/30 transition-colors"
+                >
+                  <span className="text-sm text-white">Etherscan Contract</span>
+                  <span className="text-cyan-400 text-xs">→</span>
+                </a>
+                <a
+                  href="https://app.ens.domains/neoprotocol.eth"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between py-2 px-3 bg-black/50 rounded border border-gray-700 hover:border-cyan-500/30 transition-colors"
+                >
+                  <span className="text-sm text-white">ENS Profile</span>
+                  <span className="text-cyan-400 text-xs">→</span>
+                </a>
+                <a
+                  href="https://www.neoprotocol.space"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between py-2 px-3 bg-black/50 rounded border border-gray-700 hover:border-cyan-500/30 transition-colors"
+                >
+                  <span className="text-sm text-white">Official Site</span>
+                  <span className="text-cyan-400 text-xs">→</span>
+                </a>
               </div>
             </div>
           </div>
@@ -827,6 +963,9 @@ console.log('Intenção:', result.intent);`}
           </main>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
 
       <BottomNavigation />
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
+import Footer from '../../components/Footer';
 import { soundManager } from '../../utils/sounds';
 import NetworkGraph3D from '../../components/NetworkGraph3D';
 import { useDesktopBlock } from '../../hooks/useDesktopBlock';
@@ -110,7 +111,7 @@ export default function NosPage() {
 
   return (
     <div 
-      className="min-h-screen bg-black relative overflow-hidden pb-16 safe-area-inset"
+      className="min-h-screen bg-black relative pb-16 safe-area-inset"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
       {/* Fundo simples sem estrelas */}
@@ -163,14 +164,16 @@ export default function NosPage() {
 
           {/* Network Graph 3D Card - Wide */}
           <div 
-            className="ios-card mb-4 p-4 spring-in relative overflow-hidden" 
+            className="ios-card mb-4 spring-in relative" 
             style={{ 
               animationDelay: '0.2s',
               height: '500px',
               minHeight: '500px',
+              overflow: 'hidden',
+              padding: 0, // Remover padding para canvas ocupar toda área
             }}>
-            {/* Controles visuais */}
-            <div className="absolute top-2 right-2 z-10 flex flex-col gap-2">
+            {/* Controles visuais - pointer-events-none para não bloquear interações */}
+            <div className="absolute top-2 right-2 z-20 flex flex-col gap-2 pointer-events-none">
               <div className="bg-black/60 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-gray-400 font-mono border border-white/10">
                 <div className="flex items-center gap-1">
                   <span className="text-glitch">⟡</span>
@@ -187,12 +190,22 @@ export default function NosPage() {
               </div>
             </div>
             
-            <NetworkGraph3D
-              nodes={nos}
-              onNodeHover={handleNodeHover}
-              onNodeClick={handleNodeClick}
-              selectedNode={selectedNode}
-            />
+            {/* Canvas container - ocupar toda área e receber eventos */}
+            <div 
+              className="absolute inset-0 w-full h-full" 
+              style={{ 
+                zIndex: 10,
+                pointerEvents: 'auto',
+                touchAction: 'none'
+              }}
+            >
+              <NetworkGraph3D
+                nodes={nos}
+                onNodeHover={handleNodeHover}
+                onNodeClick={handleNodeClick}
+                selectedNode={selectedNode}
+              />
+            </div>
           </div>
 
           {/* Node Info Card - Wide (quando selecionado/hovered) */}
@@ -288,6 +301,9 @@ export default function NosPage() {
           <div className="h-4"></div>
 
         </main>
+
+        {/* Footer */}
+        <Footer />
       </div>
 
       {/* Bottom Navigation */}

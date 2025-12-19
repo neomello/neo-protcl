@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
+import Footer from '../../components/Footer';
 import MermaidDiagram from '../../components/MermaidDiagram';
 import { useDesktopBlock } from '../../hooks/useDesktopBlock';
 
@@ -392,6 +393,9 @@ e agora pode ser executado.`
 
         </main>
       </div>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Bottom Navigation */}
       <BottomNavigation />

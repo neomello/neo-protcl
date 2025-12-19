@@ -5,6 +5,7 @@ import { AgentProvider, AgentContext } from '../../terminal/AgentContext';
 import { soundManager } from '../../utils/sounds';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
+import Footer from '../../components/Footer';
 import { particles } from '../../nexo-ui';
 import {
   dimensions,
@@ -488,6 +489,8 @@ function IntentSystemContent() {
           </main>
         </div>
 
+        <Footer />
+
         <BottomNavigation />
       </div>
     );
@@ -677,6 +680,8 @@ function IntentSystemContent() {
             <div className="h-4"></div>
           </main>
         </div>
+
+        <Footer />
 
         <BottomNavigation />
       </div>
@@ -986,6 +991,8 @@ function IntentSystemContent() {
             <div className="h-4"></div>
           </main>
         </div>
+
+        <Footer />
 
         <BottomNavigation />
 

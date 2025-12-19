@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
+import Footer from '../../components/Footer';
 import { soundManager } from '../../utils/sounds';
 
 const phrases = [
@@ -307,6 +308,9 @@ export default function NeoProtocolMobile() {
 
         </main>
       </div>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Bottom Navigation */}
       <BottomNavigation />

@@ -1,26 +1,24 @@
-// Comentado - wallet não está sendo usada
-// import { ConnectWallet, useAddress, useDisconnect } from "@thirdweb-dev/react";
-// import { useEffect } from "react";
+import { ConnectButton as ThirdwebConnectButton, useActiveAccount, useDisconnect } from "thirdweb/react";
+import { useEffect } from "react";
 
 /**
- * Botão de conexão de wallet usando Thirdweb
- * O Thirdweb já inclui suporte para múltiplas wallets (MetaMask, WalletConnect, Coinbase, etc)
+ * Botão de conexão de wallet usando Thirdweb Embedded Wallets
+ * 
+ * Suporta:
+ * - Embedded Wallets (email, social login, passkey) - Self-custodial via MPC
+ * - Wallets tradicionais (MetaMask, WalletConnect, Coinbase) - Fallback
  * 
  * Fix para acessibilidade: Adiciona DialogTitle ao modal do ConnectWallet
  * 
- * COMENTADO - Wallet não está sendo usada no momento
+ * @param {boolean} compact - Se true, renderiza versão compacta para Navbar
  */
-export default function ConnectButton() {
-  // Componente desabilitado - wallet não está sendo usada
-  return null;
-
-  /* Código original comentado:
-  const address = useAddress();
-  const disconnect = useDisconnect();
+export default function ConnectButton({ compact = false }) {
+  const account = useActiveAccount();
+  const { disconnect } = useDisconnect();
 
   // Fix para acessibilidade: Garantir que o modal tenha um DialogTitle acessível
   useEffect(() => {
-    // O ConnectWallet do Thirdweb usa Radix UI internamente
+    // O ConnectButton do Thirdweb usa Radix UI internamente
     // O Radix UI requer um DialogTitle para acessibilidade
     const fixDialogTitle = () => {
       const dialogs = document.querySelectorAll('[role="dialog"]');
@@ -79,7 +77,37 @@ export default function ConnectButton() {
     return () => observer.disconnect();
   }, []);
 
-  if (address) {
+  // Se já conectado, mostrar informações da conta
+  if (account) {
+    if (compact) {
+      // Versão compacta para Navbar
+      return (
+        <div className="flex items-center gap-2">
+          <div className="px-3 py-1.5 border border-green-400/50 bg-gray-800/50 backdrop-blur-sm font-mono text-xs text-green-300 rounded-lg"
+            style={{
+              borderColor: 'rgba(34, 197, 94, 0.5)',
+              boxShadow: '0 0 10px rgba(34, 197, 94, 0.2)',
+              textShadow: '0 0 5px rgba(34, 197, 94, 0.4)'
+            }}
+          >
+            <span className="text-green-400">●</span> {account.address.slice(0, 4)}...{account.address.slice(-4)}
+          </div>
+          <button
+            onClick={disconnect}
+            className="px-2 py-1.5 border border-red-400/50 bg-gray-800/50 hover:bg-gray-800/70 hover:border-red-400 text-red-300 font-mono text-xs transition-all rounded-lg"
+            style={{
+              textShadow: '0 0 3px rgba(239, 68, 68, 0.4)',
+              boxShadow: '0 0 8px rgba(239, 68, 68, 0.15)'
+            }}
+            title="Desconectar"
+          >
+            ✕
+          </button>
+        </div>
+      );
+    }
+    
+    // Versão completa
     return (
       <div className="flex flex-col items-center my-6 space-y-3 w-full">
         <div 
@@ -90,7 +118,7 @@ export default function ConnectButton() {
             textShadow: '0 0 8px rgba(34, 197, 94, 0.6)'
           }}
         >
-          <span className="text-green-400">●</span> CONECTADO: <span className="text-cyan-300 font-bold">{address.slice(0, 6)}...{address.slice(-4)}</span>
+          <span className="text-green-400">●</span> CONECTADO: <span className="text-cyan-300 font-bold">{account.address.slice(0, 6)}...{account.address.slice(-4)}</span>
         </div>
         <button
           onClick={disconnect}
@@ -106,20 +134,62 @@ export default function ConnectButton() {
     );
   }
 
+  // Botão de conexão com Embedded Wallets
+  if (compact) {
+    // Versão compacta para Navbar
+    return (
+      <div className="flex items-center">
+        <ThirdwebConnectButton
+          connectModal={{
+            size: "wide",
+            title: "Conectar Wallet",
+            welcomeScreen: {
+              title: "Bem-vindo ao NΞØ Protocol",
+              subtitle: "Conecte sua wallet para começar"
+            }
+          }}
+          connectButton={{
+            label: "Wallet",
+            className: "px-3 py-1.5 text-xs"
+          }}
+        />
+        <style>{`
+          [data-theme="dark"] button {
+            font-family: 'Courier New', monospace !important;
+            border: 1px solid rgba(0, 255, 255, 0.5) !important;
+            background: rgba(31, 41, 55, 0.5) !important;
+            backdrop-filter: blur(8px) !important;
+            color: #00ffff !important;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.4) !important;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2) !important;
+            transition: all 0.3s ease !important;
+            border-radius: 0.5rem !important;
+          }
+          [data-theme="dark"] button:hover {
+            border-color: rgba(0, 255, 255, 0.8) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4) !important;
+          }
+        `}</style>
+      </div>
+    );
+  }
+  
+  // Versão completa
   return (
     <div className="flex justify-center my-6 w-full">
       <div className="w-full">
-        <ConnectWallet
-          theme="dark"
-          btnTitle="&gt; CONECTAR WALLET"
-          modalTitle="Conectar Wallet"
-          modalSize="wide"
-          welcomeScreen={{
-            title: "Bem-vindo ao NΞØ Protocol",
-            subtitle: "Conecte sua wallet para começar"
+        <ThirdwebConnectButton
+          connectModal={{
+            size: "wide",
+            title: "Conectar Wallet",
+            welcomeScreen: {
+              title: "Bem-vindo ao NΞØ Protocol",
+              subtitle: "Conecte sua wallet para começar"
+            }
           }}
-          style={{
-            width: "100%"
+          connectButton={{
+            label: "> CONECTAR WALLET",
+            className: "w-full"
           }}
         />
         <style>{`
@@ -141,5 +211,4 @@ export default function ConnectButton() {
       </div>
     </div>
   );
-  */
 }

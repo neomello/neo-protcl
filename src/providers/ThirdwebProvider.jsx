@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ThirdwebProvider } from "thirdweb/react";
 import { createThirdwebClient } from "thirdweb";
 import { base } from "thirdweb/chains";
@@ -19,14 +20,61 @@ export default function TWProvider({ children }) {
   const clientId = import.meta.env.VITE_THIRDWEB_CLIENT_ID;
   const secretKey = import.meta.env.VITE_THIRDWEB_SECRET_KEY;
   
-  // Use existing client or create new one if needed
-  const client = thirdwebClient || (secretKey 
-    ? createThirdwebClient({ secretKey })
-    : clientId && clientId !== "SEU_CLIENT_ID_THIRDWEB" && clientId !== "your-thirdweb-client-id-here"
-    ? createThirdwebClient({ clientId })
-    : null);
+  // Validate clientId/secretKey
+  const isValidClientId = clientId && 
+    clientId !== "SEU_CLIENT_ID_THIRDWEB" && 
+    clientId !== "your-thirdweb-client-id-here" &&
+    clientId.trim().length > 0;
+  
+  const isValidSecretKey = secretKey && secretKey.trim().length > 0;
+  
+  // Always create client in this component to ensure it's available
+  // Use useMemo to ensure client is stable and not recreated on every render
+  const client = useMemo(() => {
+    // Try to use existing client first (if it exists and is valid)
+    if (thirdwebClient && typeof thirdwebClient === 'object' && Object.keys(thirdwebClient).length > 0) {
+      return thirdwebClient;
+    }
+    
+    // Create new client if not available
+    if (isValidSecretKey) {
+      try {
+        return createThirdwebClient({ secretKey });
+      } catch (error) {
+        console.error('[ThirdwebProvider] Failed to create client with secretKey:', error);
+        return null;
+      }
+    } else if (isValidClientId) {
+      try {
+        return createThirdwebClient({ clientId });
+      } catch (error) {
+        console.error('[ThirdwebProvider] Failed to create client with clientId:', error);
+        return null;
+      }
+    }
+    
+    return null;
+  }, [thirdwebClient, isValidSecretKey, isValidClientId, secretKey, clientId]);
 
-  const hasClient = Boolean(client);
+  // Validate client exists and is properly structured
+  const hasClient = Boolean(
+    client && 
+    typeof client === 'object' &&
+    // Ensure client has the expected structure (thirdweb client objects have internal properties)
+    Object.keys(client).length > 0
+  );
+
+  // Debug in dev mode
+  if (import.meta.env.DEV) {
+    if (!hasClient) {
+      console.warn('[ThirdwebProvider] Client not configured. Using X402Provider fallback.');
+      console.warn('[ThirdwebProvider] clientId:', isValidClientId ? 'valid' : 'invalid/missing');
+      console.warn('[ThirdwebProvider] secretKey:', isValidSecretKey ? 'valid' : 'invalid/missing');
+      console.warn('[ThirdwebProvider] thirdwebClient from X402Provider:', thirdwebClient ? 'exists' : 'null');
+    } else {
+      console.log('[ThirdwebProvider] Client configured successfully');
+    }
+  }
 
   // Setup Embedded Wallet (if ready)
   const wallets = hasClient
@@ -58,9 +106,12 @@ export default function TWProvider({ children }) {
 
   // Fallback: Remove thirdweb if not configured
   if (!hasClient) {
-    if (import.meta.env.DEV) {
-      console.warn('[ThirdwebProvider] Client not configured. Using X402Provider fallback.');
-    }
+    return <X402Provider>{children}</X402Provider>;
+  }
+
+  // Ensure client is never undefined when passed to ThirdwebProvider
+  if (!client) {
+    console.error('[ThirdwebProvider] CRITICAL: Client is undefined but hasClient is true. This should not happen.');
     return <X402Provider>{children}</X402Provider>;
   }
 

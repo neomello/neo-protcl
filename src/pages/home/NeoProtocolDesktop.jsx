@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import { soundManager } from '../../utils/sounds';
 
 const phrases = [
@@ -244,6 +245,9 @@ export default function NeoProtocolDesktop() {
 
         </main>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

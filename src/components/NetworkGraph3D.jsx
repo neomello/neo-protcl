@@ -628,19 +628,38 @@ export default function NetworkGraph3D({ nodes, onNodeHover, onNodeClick, select
   }, [nodes, onNodeHover, onNodeClick, selectedNode]);
 
   return (
-    <div className="relative w-full h-full">
+    <div 
+      className="relative w-full h-full" 
+      style={{ 
+        pointerEvents: 'auto', 
+        zIndex: 10,
+        touchAction: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none'
+      }}
+    >
       <canvas
         ref={canvasRef}
-        className="w-full h-full touch-none"
+        className="w-full h-full"
         style={{ 
           cursor: 'grab',
           touchAction: 'none',
           userSelect: 'none',
-          WebkitUserSelect: 'none'
+          WebkitUserSelect: 'none',
+          pointerEvents: 'auto',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 1
         }}
       />
       {motionEnabled && (
-        <div className="absolute bottom-2 left-2 bg-green-500/20 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-green-400 font-mono border border-green-500/30 flex items-center gap-1 animate-pulse">
+        <div 
+          className="absolute bottom-2 left-2 bg-green-500/20 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-green-400 font-mono border border-green-500/30 flex items-center gap-1 animate-pulse pointer-events-none"
+          style={{ zIndex: 2 }}
+        >
           <span className="w-2 h-2 rounded-full bg-green-400"></span>
           <span>Motion Active</span>
         </div>
