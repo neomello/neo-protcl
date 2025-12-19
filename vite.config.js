@@ -19,8 +19,15 @@ export default defineConfig(({ mode }) => ({
         if (warning.code === 'EVAL' && warning.id?.includes('@lighthouse-web3')) {
           return;
         }
-        // Suprimir aviso sobre /*#__PURE__*/ do thirdweb
-        if (warning.message?.includes('/*#__PURE__*/')) {
+        // Suprimir avisos sobre comentários @__PURE__ do thirdweb
+        // Rollup não consegue interpretar esses comentários em certas posições
+        // São apenas anotações de otimização, não erros
+        if (
+          warning.message?.includes('@__PURE__') ||
+          warning.message?.includes('/*#__PURE__*/') ||
+          warning.message?.includes('/* @__PURE__ */') ||
+          (warning.code === 'PLUGIN_WARNING' && warning.plugin === 'vite:react-babel' && warning.message?.includes('@__PURE__'))
+        ) {
           return;
         }
         // Usar o handler padrão para outros avisos
