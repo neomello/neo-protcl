@@ -12,7 +12,7 @@ export default function Navbar() {
           className="flex items-center haptic-light"
         >
           <img
-            src="https://gateway.lighthouse.storage/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm"
+            src="https://cloudflare-ipfs.com/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm"
             alt="NΞØ Protocol"
             className="h-7 md:h-9 w-auto"
             style={{

@@ -49,7 +49,7 @@ export default function NeoProtocolDesktop() {
                      boxShadow: '0 0 40px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05)'
                    }}>
                 <img
-                  src="https://gateway.lighthouse.storage/ipfs/bafybeicwktbd4bpuey7w5efaqqzgtrul43hlwn4ison5l4vn37b3cklzdi"
+                  src="https://cloudflare-ipfs.com/ipfs/bafybeicwktbd4bpuey7w5efaqqzgtrul43hlwn4ison5l4vn37b3cklzdi"
                   alt="NΞØ Protocol Symbol"
                   className="w-full h-full object-cover"
                   loading="eager"

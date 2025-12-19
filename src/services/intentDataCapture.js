@@ -205,7 +205,7 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
     }
 
     console.log('✅ Intent salvo no IPFS:', cid);
-    console.log('🔗 Acesse:', `https://gateway.lighthouse.storage/ipfs/${cid}`);
+    console.log('🔗 Acesse:', `https://cloudflare-ipfs.com/ipfs/${cid}`);
 
     return cid;
 
@@ -241,9 +241,11 @@ export function isLighthouseConfigured() {
 
 /**
  * Obtém link do gateway IPFS para um CID
+ * Usa Cloudflare IPFS gateway (melhor CORS support)
  * @param {string} cid - CID do IPFS
  * @returns {string} URL do gateway
  */
 export function getIPFSGatewayUrl(cid) {
-  return `https://gateway.lighthouse.storage/ipfs/${cid}`;
+  // Cloudflare IPFS gateway tem melhor suporte a CORS
+  return `https://cloudflare-ipfs.com/ipfs/${cid}`;
 }

@@ -395,7 +395,7 @@ export default function BrandingLanding() {
 
         <div className="title-section">
           <img 
-            src="https://gateway.lighthouse.storage/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm" 
+            src="https://cloudflare-ipfs.com/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm" 
             alt="NΞØ" 
             className="neo-logo"
           />
