@@ -13,6 +13,15 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    cssCodeSplit: true,
+    cssMinify: true, // Minificação padrão do Vite (esbuild)
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        drop_debugger: true,
+      },
+    },
     rollupOptions: {
       output: {
         // Agrupar imagens do Thirdweb em chunks maiores para reduzir número de arquivos
@@ -41,6 +50,13 @@ export default defineConfig(({ mode }) => ({
         },
         // Limitar número de chunks para evitar muitos arquivos pequenos
         chunkSizeWarningLimit: 1000,
+        // Otimizar nomes de arquivos CSS
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'assets/css/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
       },
       onwarn(warning, warn) {
         // Suprimir avisos conhecidos do Lighthouse SDK sobre eval()
