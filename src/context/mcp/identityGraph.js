@@ -449,6 +449,11 @@ export function getIdentityGraph() {
 }
 
 /**
+ * Exportação direta da instância para uso simplificado (Singleton)
+ */
+export const identityGraph = getIdentityGraph();
+
+/**
  * Reseta a instância singleton (útil para testes)
  */
 export function resetIdentityGraph() {

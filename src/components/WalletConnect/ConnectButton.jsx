@@ -1,5 +1,6 @@
-import { ConnectButton as ThirdwebConnectButton, useActiveAccount, useDisconnect } from "thirdweb/react";
+import { ConnectButton as ThirdwebConnectButton, useActiveAccount, useActiveWallet, useDisconnect } from "thirdweb/react";
 import { useEffect } from "react";
+import { useThirdwebClient } from "../../providers/X402Provider";
 
 /**
  * Botão de conexão de wallet usando Thirdweb Embedded Wallets
@@ -14,7 +15,15 @@ import { useEffect } from "react";
  */
 export default function ConnectButton({ compact = false }) {
   const account = useActiveAccount();
-  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
+  const disconnect = useDisconnect();
+  const client = useThirdwebClient();
+
+  const handleDisconnect = () => {
+    if (wallet) {
+      disconnect(wallet);
+    }
+  };
 
   // Fix para acessibilidade: Garantir que o modal tenha um DialogTitle acessível
   useEffect(() => {
@@ -93,7 +102,7 @@ export default function ConnectButton({ compact = false }) {
             <span className="text-green-400">●</span> {account.address.slice(0, 4)}...{account.address.slice(-4)}
           </div>
           <button
-            onClick={disconnect}
+            onClick={handleDisconnect}
             className="px-2 py-1.5 border border-red-400/50 bg-gray-800/50 hover:bg-gray-800/70 hover:border-red-400 text-red-300 font-mono text-xs transition-all rounded-lg"
             style={{
               textShadow: '0 0 3px rgba(239, 68, 68, 0.4)',
@@ -121,7 +130,7 @@ export default function ConnectButton({ compact = false }) {
           <span className="text-green-400">●</span> CONECTADO: <span className="text-cyan-300 font-bold">{account.address.slice(0, 6)}...{account.address.slice(-4)}</span>
         </div>
         <button
-          onClick={disconnect}
+          onClick={handleDisconnect}
           className="px-4 py-2 border-2 border-red-400/50 bg-gray-800/50 hover:bg-gray-800/70 hover:border-red-400 text-red-300 font-mono text-xs transition-all w-full cyber-glow"
           style={{
             textShadow: '0 0 5px rgba(239, 68, 68, 0.5)',
@@ -135,11 +144,14 @@ export default function ConnectButton({ compact = false }) {
   }
 
   // Botão de conexão com Embedded Wallets
+  if (!client) return null;
+
   if (compact) {
     // Versão compacta para Navbar
     return (
       <div className="flex items-center">
         <ThirdwebConnectButton
+          client={client}
           connectModal={{
             size: "wide",
             title: "Conectar Wallet",
@@ -179,6 +191,7 @@ export default function ConnectButton({ compact = false }) {
     <div className="flex justify-center my-6 w-full">
       <div className="w-full">
         <ThirdwebConnectButton
+          client={client}
           connectModal={{
             size: "wide",
             title: "Conectar Wallet",

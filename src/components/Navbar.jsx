@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { soundManager } from '../utils/sounds';
 import ConnectButton from './WalletConnect/ConnectButton';
+import { getIPFSGatewayUrl } from '../services/intentDataCapture';
 
 export default function Navbar() {
+  const logoCid = 'bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm';
+  
   return (
     <nav className="sticky top-0 z-50 ios-navbar ios-shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -12,7 +15,7 @@ export default function Navbar() {
           className="flex items-center haptic-light"
         >
           <img
-            src="https://cloudflare-ipfs.com/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm"
+            src={getIPFSGatewayUrl(logoCid)}
             alt="NΞØ Protocol"
             className="h-7 md:h-9 w-auto"
             style={{

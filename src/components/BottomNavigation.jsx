@@ -2,13 +2,22 @@ import { Link, useLocation } from 'react-router-dom';
 import { soundManager } from '../utils/sounds';
 import { useDeviceDetection } from '../hooks/useDeviceDetection';
 import { useActiveAccount } from 'thirdweb/react';
-import { ConnectButton as ThirdwebConnectButton, useDisconnect } from 'thirdweb/react';
+import { ConnectButton as ThirdwebConnectButton, useDisconnect, useActiveWallet } from 'thirdweb/react';
+import { useThirdwebClient } from '../providers/X402Provider';
 
 export default function BottomNavigation() {
   const location = useLocation();
   const { isMobile } = useDeviceDetection();
   const account = useActiveAccount();
-  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
+  const disconnect = useDisconnect();
+  const client = useThirdwebClient();
+  
+  const handleDisconnect = () => {
+    if (wallet) {
+      disconnect(wallet);
+    }
+  };
   
   // Não renderizar em desktop
   if (!isMobile) {
@@ -127,7 +136,7 @@ export default function BottomNavigation() {
             {account ? (
               // Conectado: mostrar ícone de wallet conectada (clicável para desconectar)
               <button
-                onClick={disconnect}
+                onClick={handleDisconnect}
                 className="flex flex-col items-center w-full"
                 style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
               >
@@ -165,11 +174,12 @@ export default function BottomNavigation() {
                   }}
                 ></div>
               </button>
-            ) : (
+            ) : client ? (
               // Desconectado: ícone minimalista que abre modal
               <div className="flex flex-col items-center w-full">
                 <div className="mb-3 flex items-center justify-center" style={{ minHeight: '18px' }}>
                   <ThirdwebConnectButton
+                    client={client}
                     connectModal={{
                       size: "wide",
                       title: "Conectar Wallet",
@@ -211,6 +221,12 @@ export default function BottomNavigation() {
                 >
                   WALLET
                 </span>
+              </div>
+            ) : (
+              // Fallback se não houver cliente configurado
+              <div className="flex flex-col items-center w-full opacity-30">
+                <span style={{ fontSize: '18px', marginBottom: '3px' }}>⦿</span>
+                <span style={{ fontSize: '9px', color: '#6B7280' }}>WALLET</span>
               </div>
             )}
           </div>

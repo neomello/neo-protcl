@@ -117,6 +117,6 @@ export function loadMCPState() {
   }
 }
 
-// PRIORIDADE ZERO: Exporta funções do Identity Graph
-export { getIdentityGraph } from './identityGraph';
+// PRIORIDADE ZERO: Exporta funções e instância do Identity Graph
+export { getIdentityGraph, identityGraph } from './identityGraph';
 

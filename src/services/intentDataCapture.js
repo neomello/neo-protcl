@@ -241,11 +241,23 @@ export function isLighthouseConfigured() {
 
 /**
  * Obtém link do gateway IPFS para um CID
- * Usa Cloudflare IPFS gateway (melhor CORS support)
+ * Prioriza o Gateway Dedicado do .env (Pinata) e usa Cloudflare como fallback
  * @param {string} cid - CID do IPFS
  * @returns {string} URL do gateway
  */
 export function getIPFSGatewayUrl(cid) {
-  // Cloudflare IPFS gateway tem melhor suporte a CORS
-  return `https://cloudflare-ipfs.com/ipfs/${cid}`;
+  if (!cid) return '';
+  
+  // Limpar CID se vier com prefixo ipfs://
+  const cleanCid = cid.replace('ipfs://', '');
+  
+  const pinataGateway = import.meta.env.VITE_PINATA_GATEWAY;
+  
+  // Se houver gateway dedicado configurado, usa ele
+  if (pinataGateway && pinataGateway.trim().length > 0) {
+    return `https://${pinataGateway}/ipfs/${cleanCid}`;
+  }
+  
+  // Fallback para Cloudflare (Público)
+  return `https://cloudflare-ipfs.com/ipfs/${cleanCid}`;
 }

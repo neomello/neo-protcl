@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDesktopBlock } from '../../hooks/useDesktopBlock';
+import { getIPFSGatewayUrl } from '../../services/intentDataCapture';
 
 /**
  * NΞØ HUB — INTAKE PROTOCOL
@@ -395,7 +396,7 @@ export default function BrandingLanding() {
 
         <div className="title-section">
           <img 
-            src="https://cloudflare-ipfs.com/ipfs/bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm" 
+            src={getIPFSGatewayUrl('bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm')} 
             alt="NΞØ" 
             className="neo-logo"
           />
