@@ -16,10 +16,17 @@ import { processCommand } from '../../utils/commandProcessor';
 export default function NeoProtocolMobile() {
   const account = useActiveAccount();
   const [mcp, setMcp] = useState(getMCPState());
-  const [events, setEvents] = useState([
-    { id: 1, text: 'Bootstrap complete.' },
-    { id: 2, text: 'Shell active.' }
-  ]);
+  const [events, setEvents] = useState(() => {
+    const saved = localStorage.getItem('neo_shell_events_mobile');
+    return saved ? JSON.parse(saved) : [
+      { id: 1, text: 'Bootstrap complete.' },
+      { id: 2, text: 'Shell active.' }
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('neo_shell_events_mobile', JSON.stringify(events));
+  }, [events]);
   const [pullDistance, setPullDistance] = useState(0);
   const touchStartY = useRef(0);
   const containerRef = useRef(null);
@@ -102,12 +109,16 @@ export default function NeoProtocolMobile() {
       className="min-h-screen bg-black text-gray-100 overflow-x-hidden pb-16 safe-area-inset relative font-mono"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
-      {/* Background Layer: Minimal/Static */}
-      <div className="fixed inset-0 z-0 opacity-20 pointer-events-none">
+      {/* Background Layer: Infrastructure Grid */}
+      <div className="fixed inset-0 z-0 opacity-[0.12] pointer-events-none">
         <div className="absolute inset-0" style={{ 
-          backgroundImage: 'radial-gradient(circle at 1px 1px, #333 1px, transparent 0)',
+          backgroundImage: `
+            linear-gradient(to right, #444 1px, transparent 1px),
+            linear-gradient(to bottom, #444 1px, transparent 1px)
+          `,
           backgroundSize: '30px 30px' 
         }}></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">

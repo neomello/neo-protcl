@@ -15,10 +15,17 @@ import { processCommand } from '../../utils/commandProcessor';
 export default function NeoProtocolDesktop() {
   const account = useActiveAccount();
   const [mcp, setMcp] = useState(getMCPState());
-  const [events, setEvents] = useState([
-    { id: 1, text: 'Bootstrap sequence completed.' },
-    { id: 2, text: 'Protocol shell active.' }
-  ]);
+  const [events, setEvents] = useState(() => {
+    const saved = localStorage.getItem('neo_shell_events');
+    return saved ? JSON.parse(saved) : [
+      { id: 1, text: 'Bootstrap sequence completed.' },
+      { id: 2, text: 'Protocol shell active.' }
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('neo_shell_events', JSON.stringify(events));
+  }, [events]);
 
   useEffect(() => {
     const state = initMCP();
@@ -55,12 +62,16 @@ export default function NeoProtocolDesktop() {
 
   return (
     <div className="min-h-screen bg-black text-gray-100 overflow-hidden relative font-mono">
-      {/* Background Layer: Minimal/Static */}
-      <div className="fixed inset-0 z-0 opacity-20 pointer-events-none">
+      {/* Background Layer: Infrastructure Grid */}
+      <div className="fixed inset-0 z-0 opacity-[0.15] pointer-events-none">
         <div className="absolute inset-0" style={{ 
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #333 1px, transparent 0)',
+          backgroundImage: `
+            linear-gradient(to right, #333 1px, transparent 1px),
+            linear-gradient(to bottom, #333 1px, transparent 1px)
+          `,
           backgroundSize: '40px 40px' 
         }}></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
       </div>
 
       <div className="relative z-10 flex flex-col h-screen">
