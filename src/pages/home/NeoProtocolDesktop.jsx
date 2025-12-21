@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import CommandInput from '../../components/CommandInput';
 
 /**
  * NeoProtocolDesktop - Protocol Shell Frame
- * Fase 0: Corte e Limpeza Radical
+ * Fase 1: Protocol Shell Mínimo
  * Alvo: Home Desktop
  */
 export default function NeoProtocolDesktop() {
+  const [events, setEvents] = useState([
+    { id: 1, text: 'Bootstrap sequence completed.' },
+    { id: 2, text: 'Protocol shell active.' }
+  ]);
+
+  const handleCommand = (cmd) => {
+    const timestamp = new Date().toLocaleTimeString();
+    setEvents(prev => [
+      ...prev,
+      { id: Date.now(), text: `CMD: ${cmd.toUpperCase()}` },
+      { id: Date.now() + 1, text: `SYS: [${timestamp}] NOT_IMPLEMENTED` }
+    ]);
+  };
+
   return (
     <div className="min-h-screen bg-black text-gray-100 overflow-hidden relative font-mono">
       {/* Background Layer: Minimal/Static */}
@@ -42,24 +57,23 @@ export default function NeoProtocolDesktop() {
             </div>
           </div>
 
-          {/* Central Action Area (Placeholder for Command Input - Phase 1) */}
+          {/* Central Action Area (Protocol Input) */}
           <div className="flex-1 flex items-center justify-center">
             <div className="max-w-2xl w-full border border-gray-800 p-8 bg-gray-900/20 backdrop-blur-sm">
-              <div className="mb-4 text-xs text-gray-600">
+              <div className="mb-4 text-xs text-gray-600 uppercase tracking-widest">
                 [SYSTEM READY] - INPUT REQUIRED
               </div>
-              <div className="text-2xl text-gray-400">
-                <span className="text-cyan-500 animate-pulse">_</span>
-              </div>
+              <CommandInput onCommand={handleCommand} />
             </div>
           </div>
 
-          {/* Bottom Event Stream (Placeholder for Phase 2) */}
+          {/* Bottom Event Stream (Phase 2 state binding) */}
           <div className="mt-8 border-t border-gray-900 pt-4">
-            <div className="text-[10px] text-gray-700 uppercase mb-2">System Events</div>
-            <div className="space-y-1 font-mono text-[11px] text-gray-600">
-              <div>> Bootstrap sequence completed.</div>
-              <div>> Protocol shell active.</div>
+            <div className="text-[10px] text-gray-700 uppercase mb-2 tracking-[0.2em]">System Events</div>
+            <div className="space-y-1 font-mono text-[11px] text-gray-600 h-24 overflow-y-auto">
+              {events.map(event => (
+                <div key={event.id}>&gt; {event.text}</div>
+              ))}
             </div>
           </div>
 

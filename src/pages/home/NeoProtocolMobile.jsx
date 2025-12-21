@@ -2,13 +2,27 @@ import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
 import Footer from '../../components/Footer';
+import CommandInput from '../../components/CommandInput';
 
 /**
  * NeoProtocolMobile - Protocol Shell Frame
- * Fase 0: Corte e Limpeza Radical
+ * Fase 1: Protocol Shell Mínimo
  * Alvo: Home Mobile
  */
 export default function NeoProtocolMobile() {
+  const [events, setEvents] = useState([
+    { id: 1, text: 'Bootstrap complete.' },
+    { id: 2, text: 'Shell active.' }
+  ]);
+
+  const handleCommand = (cmd) => {
+    const timestamp = new Date().toLocaleTimeString();
+    setEvents(prev => [
+      ...prev,
+      { id: Date.now(), text: `CMD: ${cmd.toUpperCase()}` },
+      { id: Date.now() + 1, text: `SYS: [${timestamp}] NOT_IMPLEMENTED` }
+    ]);
+  };
   const [pullDistance, setPullDistance] = useState(0);
   const touchStartY = useRef(0);
   const containerRef = useRef(null);
@@ -96,21 +110,20 @@ export default function NeoProtocolMobile() {
           {/* Central Action Area (Touch Optimized) */}
           <div className="flex-1 flex items-center justify-center py-4">
             <div className="w-full border border-gray-800 p-6 bg-gray-900/20 backdrop-blur-sm">
-              <div className="mb-3 text-[10px] text-gray-600">
+              <div className="mb-3 text-[10px] text-gray-600 uppercase tracking-widest">
                 [SYSTEM READY] - COMMAND REQUIRED
               </div>
-              <div className="text-xl text-gray-400">
-                <span className="text-cyan-500 animate-pulse">_</span>
-              </div>
+              <CommandInput onCommand={handleCommand} placeholder="COMMAND..." />
             </div>
           </div>
 
-          {/* Bottom Event Log (Minimal for Mobile) */}
+          {/* Bottom Event Log (Phase 2 state binding) */}
           <div className="mt-6 border-t border-gray-900 pt-3 mb-4">
-            <div className="text-[9px] text-gray-700 uppercase mb-2">System Stream</div>
-            <div className="space-y-1 text-[10px] text-gray-600">
-              <div>> Bootstrap complete.</div>
-              <div>> Shell active.</div>
+            <div className="text-[9px] text-gray-700 uppercase mb-2 tracking-[0.15em]">System Stream</div>
+            <div className="space-y-1 text-[10px] text-gray-600 h-20 overflow-y-auto">
+              {events.map(event => (
+                <div key={event.id}>&gt; {event.text}</div>
+              ))}
             </div>
           </div>
 
