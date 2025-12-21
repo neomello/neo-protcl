@@ -1,19 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useActiveAccount } from 'thirdweb/react';
 import Navbar from '../../components/Navbar';
 import BottomNavigation from '../../components/BottomNavigation';
 import Footer from '../../components/Footer';
 import CommandInput from '../../components/CommandInput';
+import { getMCPState, initMCP } from '../../context/mcp';
+import { thirdwebClient } from '../../providers/X402Provider';
 
 /**
  * NeoProtocolMobile - Protocol Shell Frame
- * Fase 1: Protocol Shell Mínimo
+ * Fase 2: Estado e Telemetria
  * Alvo: Home Mobile
  */
 export default function NeoProtocolMobile() {
+  const account = useActiveAccount();
+  const [mcp, setMcp] = useState(getMCPState());
   const [events, setEvents] = useState([
     { id: 1, text: 'Bootstrap complete.' },
     { id: 2, text: 'Shell active.' }
   ]);
+  const [pullDistance, setPullDistance] = useState(0);
+  const touchStartY = useRef(0);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const state = initMCP();
+    setMcp({ ...state });
+  }, []);
 
   const handleCommand = (cmd) => {
     const timestamp = new Date().toLocaleTimeString();
@@ -23,9 +36,10 @@ export default function NeoProtocolMobile() {
       { id: Date.now() + 1, text: `SYS: [${timestamp}] NOT_IMPLEMENTED` }
     ]);
   };
-  const [pullDistance, setPullDistance] = useState(0);
-  const touchStartY = useRef(0);
-  const containerRef = useRef(null);
+
+  const networkStatus = thirdwebClient ? 'OK' : 'OFF';
+  const identityStatus = account ? `${account.address.slice(0, 4)}..${account.address.slice(-2)}` : 'NONE';
+  const mcpStatus = mcp.connected ? 'ACTIVE' : 'OFF';
 
   // Pull to Refresh logic (infrastructure maintained)
   useEffect(() => {
@@ -87,23 +101,23 @@ export default function NeoProtocolMobile() {
         {/* Main Operational Area */}
         <main className="flex-1 flex flex-col p-4 pt-safe overflow-hidden">
           
-          {/* Mobile Telemetry Grid (Placeholder for Phase 2) */}
+          {/* Mobile Telemetry Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6 text-[9px] uppercase tracking-widest text-gray-500">
             <div className="flex flex-col border-l border-gray-800 pl-2">
-              <span>Network</span>
-              <span className="text-gray-700">Waiting...</span>
+              <span className="text-gray-700 mb-0.5">network</span>
+              <span className={thirdwebClient ? "text-cyan-500" : "text-red-900"}>{networkStatus}</span>
             </div>
             <div className="flex flex-col border-l border-gray-800 pl-2">
-              <span>MCP</span>
-              <span className="text-gray-700">Offline</span>
+              <span className="text-gray-700 mb-0.5">mcp</span>
+              <span className={mcp.connected ? "text-cyan-500" : "text-gray-800"}>{mcpStatus}</span>
             </div>
             <div className="flex flex-col border-l border-gray-800 pl-2">
-              <span>Node</span>
-              <span className="text-gray-700">Unknown</span>
+              <span className="text-gray-700 mb-0.5">identity</span>
+              <span className={account ? "text-cyan-500" : "text-gray-800"}>{identityStatus}</span>
             </div>
             <div className="flex flex-col border-l border-gray-800 pl-2">
-              <span>Local</span>
-              <span className="text-gray-700">No Key</span>
+              <span className="text-gray-700 mb-0.5">events</span>
+              <span className="text-gray-600">{events.length}</span>
             </div>
           </div>
 
@@ -117,9 +131,14 @@ export default function NeoProtocolMobile() {
             </div>
           </div>
 
-          {/* Bottom Event Log (Phase 2 state binding) */}
+          {/* Bottom Event Log */}
           <div className="mt-6 border-t border-gray-900 pt-3 mb-4">
-            <div className="text-[9px] text-gray-700 uppercase mb-2 tracking-[0.15em]">System Stream</div>
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-[9px] text-gray-700 uppercase tracking-[0.15em]">System Stream</div>
+              <div className="text-[8px] text-gray-800 uppercase">
+                last: {events[events.length - 1]?.text.slice(0, 15)}..
+              </div>
+            </div>
             <div className="space-y-1 text-[10px] text-gray-600 h-20 overflow-y-auto">
               {events.map(event => (
                 <div key={event.id}>&gt; {event.text}</div>

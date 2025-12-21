@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useActiveAccount } from 'thirdweb/react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CommandInput from '../../components/CommandInput';
+import { getMCPState, initMCP } from '../../context/mcp';
+import { thirdwebClient } from '../../providers/X402Provider';
 
 /**
  * NeoProtocolDesktop - Protocol Shell Frame
- * Fase 1: Protocol Shell Mínimo
+ * Fase 2: Estado e Telemetria
  * Alvo: Home Desktop
  */
 export default function NeoProtocolDesktop() {
+  const account = useActiveAccount();
+  const [mcp, setMcp] = useState(getMCPState());
   const [events, setEvents] = useState([
     { id: 1, text: 'Bootstrap sequence completed.' },
     { id: 2, text: 'Protocol shell active.' }
   ]);
 
+  useEffect(() => {
+    // Initialize MCP on mount if not already
+    const state = initMCP();
+    setMcp({ ...state });
+  }, []);
+
   const handleCommand = (cmd) => {
     const timestamp = new Date().toLocaleTimeString();
-    setEvents(prev => [
-      ...prev,
-      { id: Date.now(), text: `CMD: ${cmd.toUpperCase()}` },
-      { id: Date.now() + 1, text: `SYS: [${timestamp}] NOT_IMPLEMENTED` }
-    ]);
+    const newEvent = { id: Date.now(), text: `CMD: ${cmd.toUpperCase()}` };
+    const feedback = { id: Date.now() + 1, text: `SYS: [${timestamp}] NOT_IMPLEMENTED` };
+    
+    setEvents(prev => [...prev, newEvent, feedback]);
   };
+
+  const networkStatus = thirdwebClient ? 'CONNECTED (BASE)' : 'DISCONNECTED';
+  const identityStatus = account ? `${account.address.slice(0, 6)}...${account.address.slice(-4)}` : 'NOT_INITIALIZED';
+  const mcpStatus = mcp.connected ? 'ACTIVE / ROUTING' : 'OFFLINE';
 
   return (
     <div className="min-h-screen bg-black text-gray-100 overflow-hidden relative font-mono">
@@ -39,21 +53,21 @@ export default function NeoProtocolDesktop() {
         {/* Main Operational Area */}
         <main className="flex-1 flex flex-col p-6 overflow-hidden">
           
-          {/* Top Telemetry Bar (Placeholder for Phase 2) */}
+          {/* Top Telemetry Bar */}
           <div className="flex justify-between items-start mb-8 text-[10px] uppercase tracking-widest text-gray-500">
-            <div className="flex gap-6">
+            <div className="flex gap-10">
               <div className="flex flex-col">
-                <span>Network Status</span>
-                <span className="text-gray-700">Waiting initialization...</span>
+                <span className="text-gray-700 mb-1">network_status</span>
+                <span className={thirdwebClient ? "text-cyan-500" : "text-red-900"}>{networkStatus}</span>
               </div>
               <div className="flex flex-col">
-                <span>MCP Router</span>
-                <span className="text-gray-700">Offline</span>
+                <span className="text-gray-700 mb-1">mcp_status</span>
+                <span className={mcp.connected ? "text-cyan-500" : "text-gray-800"}>{mcpStatus}</span>
               </div>
             </div>
             <div className="text-right flex flex-col">
-              <span>Local Identity</span>
-              <span className="text-gray-700">Not Detected</span>
+              <span className="text-gray-700 mb-1">local_identity_state</span>
+              <span className={account ? "text-cyan-500" : "text-gray-800"}>{identityStatus}</span>
             </div>
           </div>
 
@@ -67,9 +81,14 @@ export default function NeoProtocolDesktop() {
             </div>
           </div>
 
-          {/* Bottom Event Stream (Phase 2 state binding) */}
+          {/* Bottom Event Stream */}
           <div className="mt-8 border-t border-gray-900 pt-4">
-            <div className="text-[10px] text-gray-700 uppercase mb-2 tracking-[0.2em]">System Events</div>
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-[10px] text-gray-700 uppercase tracking-[0.2em]">System Events</div>
+              <div className="text-[10px] text-gray-800 uppercase tracking-[0.1em]">
+                last_event: <span className="text-gray-600">{events[events.length - 1]?.text.slice(0, 30)}...</span>
+              </div>
+            </div>
             <div className="space-y-1 font-mono text-[11px] text-gray-600 h-24 overflow-y-auto">
               {events.map(event => (
                 <div key={event.id}>&gt; {event.text}</div>
