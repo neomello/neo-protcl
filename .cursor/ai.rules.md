@@ -36,12 +36,6 @@ Conteúdo aqui.
 Conteúdo aqui.
 ```
 
-**CRITICAL**: NUNCA use emojis. Use caracteres Unicode quando necessário:
-
-- ⟁ ⟠ ⧉ ⧇ ⧖ ⧗ ⍟
-- ◬ ◭ ◮ ◯ ⨀ ⨂ ⨷
-- ◱ ◲ ◳ ◴ ◵ ◶ ◷ ⦿ ꙮ
-
 ### Assinatura
 
 Ao criar arquivos de documentação, inclua:
