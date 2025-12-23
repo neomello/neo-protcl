@@ -2,7 +2,7 @@
 
 Guia completo para ativar, proteger e preparar a organização para colaborações.
 
-## 📋 Checklist de Configuração
+## ◭ Checklist de Configuração
 
 ### 1. Configurações da Organização
 
@@ -68,8 +68,12 @@ Each mint is a signal. Powered by $NEO
      - [x] Require review from Code Owners (se configurado)
    
    - [x] Require status checks to pass before merging
-     - [ ] Require branches to be up to date before merging
-     - Adicionar status checks (quando Actions estiverem configuradas)
+     - [x] Require branches to be up to date before merging
+     - Adicionar status checks específicos:
+       - `lint` - Verificação de lint e formatação
+       - `build` - Build do projeto
+       - `compile-contracts` - Compilação de contratos Hardhat
+       - `security` - Verificação de segurança
    
    - [x] Require conversation resolution before merging
    
@@ -82,8 +86,8 @@ Each mint is a signal. Powered by $NEO
 3. **Restrict who can push to matching branches:**
    - Deixar vazio (permitir via PR apenas)
 
-4. **Allow force pushes:** ❌ NÃO
-5. **Allow deletions:** ❌ NÃO
+4. **Allow force pushes:** ⨷ NÃO
+5. **Allow deletions:** ⨷ NÃO
 
 ### 4. Security Settings
 
@@ -137,6 +141,21 @@ Each mint is a signal. Powered by $NEO
 - [x] Read and write permissions (para deploy automático)
 - [x] Allow GitHub Actions to create and approve pull requests
 
+#### C. Configurar CI Workflow
+Criar `.github/workflows/ci.yml` com jobs para:
+- Lint & Format Check
+- Build Check (app principal + boot ritual)
+- Compile Smart Contracts
+- Security Check (npm audit)
+
+**Status checks gerados pelo workflow:**
+- `lint` - Verificação de código e formatação
+- `build` - Build do projeto
+- `compile-contracts` - Compilação de contratos
+- `security` - Verificação de segurança
+
+**Importante:** Após criar o workflow, aguardar primeira execução para que os status checks apareçam nas Branch Protection Rules.
+
 ### 7. CODEOWNERS File
 
 Criar arquivo `.github/CODEOWNERS`:
@@ -171,7 +190,7 @@ Criar `CONTRIBUTING.md` na raiz do repositório.
 
 Criar `SECURITY.md` na raiz do repositório.
 
-## 🔐 Segurança Adicional
+## ⧉ Segurança Adicional
 
 ### Two-Factor Authentication
 - [ ] Exigir 2FA para todos os membros da organização
@@ -181,13 +200,13 @@ Criar `SECURITY.md` na raiz do repositório.
 - Configurar webhooks para integrações externas
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/hooks
 
-## 📊 Monitoring & Insights
+## ⨀ Monitoring & Insights
 
 ### Insights
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/insights
 - Monitorar: Traffic, Commits, Contributors, Community
 
-## ✅ Próximos Passos
+## ⦿ Próximos Passos
 
 1. Executar checklist acima
 2. Configurar branch protection
