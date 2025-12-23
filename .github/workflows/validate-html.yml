@@ -1,0 +1,29 @@
+name: Validate HTML
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - '*.html'
+      - '**/*.html'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '*.html'
+      - '**/*.html'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate HTML Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate HTML
+        uses: anishathalye/proof-html@v1.1.0
+        with:
+          directory: ./
+          # Valida todos os arquivos HTML no projeto
+          # Inclui: index.html, boot.html, branding.html, etc.
+
