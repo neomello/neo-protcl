@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "dev:boot": "vite --config vite.config.boot.js",
+    "validate-env": "node scripts/validate-env.js",
+    "prebuild": "node scripts/validate-env.js --production || true",
     "build": "vite build",
+    "prebuild:boot": "node scripts/validate-env.js --production || true",
     "build:boot": "vite build --config vite.config.boot.js && node scripts/post-build-boot.js",
     "publish:ipns": "./scripts/publish-to-ipns.sh",
     "deploy:pinata": "node scripts/upload-to-pinata.js",

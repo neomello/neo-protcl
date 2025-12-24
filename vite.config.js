@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: false,
+        drop_console: true, // Remove todos os console.log em produção
         drop_debugger: true,
         pure_funcs: ['console.debug', 'console.trace'], // Remove console.debug e console.trace
         passes: 2, // Múltiplas passadas para melhor compressão
