@@ -28,6 +28,7 @@ out
 *.njsproj
 *.sln
 *.sw?
+*.code-workspace
 
 # OS
 .DS_Store
