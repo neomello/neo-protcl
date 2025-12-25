@@ -4,10 +4,10 @@ Sistema de design consistente para o NΞØ Protocol, alinhado com o estilo atual
 
 ## Princípios
 
--  **Consistência**: Padrão único para evolução do projeto
--  **Glassmorphism**: Efeitos de vidro e blur
--  **Glow Effects**: Brilhos sutis para elementos interativos
--  **Partículas**: Símbolos únicos incluindo Ξ e Ø
+- **Consistência**: Padrão único para evolução do projeto
+- **Glassmorphism**: Efeitos de vidro e blur
+- **Glow Effects**: Brilhos sutis para elementos interativos
+- **Partículas**: Símbolos únicos incluindo Ξ e Ø
 
 ## Componentes
 
@@ -75,29 +75,29 @@ particles.neo // NΞØ
 
 ### Cores Principais
 
--  `bg-void` / `text-void` - Preto absoluto
--  `bg-depth` / `text-depth` - Cinza escuro (#0B0D10)
--  `bg-carbon` / `text-carbon` - Cinza médio (#13161A)
--  `bg-anomaly` / `text-anomaly` - Azul (#1A9AF7)
--  `bg-glitch` / `text-glitch` - Ciano (#34E1FF)
--  `bg-signal` / `text-signal` - Violeta (#7B5DFF)
+- `bg-void` / `text-void` - Preto absoluto
+- `bg-depth` / `text-depth` - Cinza escuro (#0B0D10)
+- `bg-carbon` / `text-carbon` - Cinza médio (#13161A)
+- `bg-anomaly` / `text-anomaly` - Azul (#1A9AF7)
+- `bg-glitch` / `text-glitch` - Ciano (#34E1FF)
+- `bg-signal` / `text-signal` - Violeta (#7B5DFF)
 
 ### Variantes Glassmorphism
 
--  `bg-anomaly-glass` - Azul com opacity
--  `bg-glitch-glass` - Ciano com opacity
--  `bg-signal-glass` - Violeta com opacity
+- `bg-anomaly-glass` - Azul com opacity
+- `bg-glitch-glass` - Ciano com opacity
+- `bg-signal-glass` - Violeta com opacity
 
 ## Spacing Fractal
 
 Use as unidades do sistema:
 
--  `p-u1` / `m-u1` - 6px
--  `p-u2` / `m-u2` - 12px
--  `p-u3` / `m-u3` - 18px
--  `p-u5` / `m-u5` - 30px
--  `p-u8` / `m-u8` - 48px
--  `p-u13` / `m-u13` - 78px
+- `p-u1` / `m-u1` - 6px
+- `p-u2` / `m-u2` - 12px
+- `p-u3` / `m-u3` - 18px
+- `p-u5` / `m-u5` - 30px
+- `p-u8` / `m-u8` - 48px
+- `p-u13` / `m-u13` - 78px
 
 ## Utilitários
 
@@ -121,16 +121,16 @@ import { glitch } from '@/nexo-ui'
 
 **Card:**
 
--  `default`: Cards informativos, listas
--  `glass`: Cards principais, hero sections
--  `minimal`: Cards secundários, backgrounds
+- `default`: Cards informativos, listas
+- `glass`: Cards principais, hero sections
+- `minimal`: Cards secundários, backgrounds
 
 **Button:**
 
--  `primary`: Ações principais (com glow)
--  `secondary`: Ações secundárias
--  `signal`: Ações especiais/sinais
--  `minimal`: Ações discretas (sem glow)
+- `primary`: Ações principais (com glow)
+- `secondary`: Ações secundárias
+- `signal`: Ações especiais/sinais
+- `minimal`: Ações discretas (sem glow)
 
 ## Migração
 

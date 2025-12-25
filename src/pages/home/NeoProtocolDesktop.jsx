@@ -108,12 +108,18 @@ export default function NeoProtocolDesktop() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Base gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"></div>
-        
+
         {/* Animated radial glows */}
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
-        
+        <div
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse"
+          style={{ animationDelay: '1s', animationDuration: '4s' }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-[80px] animate-pulse"
+          style={{ animationDelay: '2s', animationDuration: '5s' }}
+        ></div>
+
         {/* Network pattern - connected nodes */}
         <div
           className="absolute inset-0 opacity-[0.15]"
@@ -126,7 +132,7 @@ export default function NeoProtocolDesktop() {
             backgroundPosition: '0 0, 30px 30px',
           }}
         ></div>
-        
+
         {/* Connection lines - subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.08]"
@@ -138,12 +144,13 @@ export default function NeoProtocolDesktop() {
             backgroundSize: '80px 80px',
           }}
         ></div>
-        
+
         {/* Vignette effect */}
-        <div 
-          className="absolute inset-0" 
+        <div
+          className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)'
+            background:
+              'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)',
           }}
         ></div>
       </div>

@@ -19,15 +19,36 @@ export default function ManifestoPage() {
 
   // Texto do terminal dividido em partes para typewriter
   const terminalLines = [
-    { text: 'Uma DAO (Organização Autônoma Descentralizada) é um novo tipo de estrutura coletiva comum entre redes jovens, entusiastas da tecnologia ou não, já perceberam que existem alternativas.', color: 'text-gray-300' },
-    { text: '፨ | Outras plataformas. Outros jeitos de colaborar, existir, sentir pertencimento e liberdade.', color: 'text-cyan-400' },
-    { text: 'NΞØ não é comandada por uma pessoa ou empresa. É controlada por contratos inteligentes (smart contract): códigos que operam sozinhos, sem chefe, sem intermediários, com base em regras públicas, Blockchain e open source.', color: 'text-gray-300' },
-    { text: '፨ Cada nó tem voz. Não existe poder. Não há hierarquia vertical. O que pulsa é uma inteligência viva distribuída entre todos os participantes.', color: 'text-cyan-400' },
+    {
+      text: 'Uma DAO (Organização Autônoma Descentralizada) é um novo tipo de estrutura coletiva comum entre redes jovens, entusiastas da tecnologia ou não, já perceberam que existem alternativas.',
+      color: 'text-gray-300',
+    },
+    {
+      text: '፨ | Outras plataformas. Outros jeitos de colaborar, existir, sentir pertencimento e liberdade.',
+      color: 'text-cyan-400',
+    },
+    {
+      text: 'NΞØ não é comandada por uma pessoa ou empresa. É controlada por contratos inteligentes (smart contract): códigos que operam sozinhos, sem chefe, sem intermediários, com base em regras públicas, Blockchain e open source.',
+      color: 'text-gray-300',
+    },
+    {
+      text: '፨ Cada nó tem voz. Não existe poder. Não há hierarquia vertical. O que pulsa é uma inteligência viva distribuída entre todos os participantes.',
+      color: 'text-cyan-400',
+    },
     { text: '◍ Cada decisão emerge da rede como um organismo coletivo.', color: 'text-cyan-400' },
     { text: 'Protocolo NΞØ:', color: 'text-white font-semibold' },
-    { text: 'Um sistema que aprende, se adapta e evolui com quem o habita. Organização sem dono. Movimento sem fronteira.', color: 'text-gray-300' },
-    { text: 'Isso não é um convite. O protocolo NΞØ já existe. Está presente pelas redes, em ideias, interações, colaborações invisíveis.', color: 'text-gray-300' },
-    { text: '⛃ Sim, haverá uma DAPP (aplicação descentralizada WEB3) para acesso. Mas quem não entende, seguirá sem entender.', color: 'text-cyan-400' },
+    {
+      text: 'Um sistema que aprende, se adapta e evolui com quem o habita. Organização sem dono. Movimento sem fronteira.',
+      color: 'text-gray-300',
+    },
+    {
+      text: 'Isso não é um convite. O protocolo NΞØ já existe. Está presente pelas redes, em ideias, interações, colaborações invisíveis.',
+      color: 'text-gray-300',
+    },
+    {
+      text: '⛃ Sim, haverá uma DAPP (aplicação descentralizada WEB3) para acesso. Mas quem não entende, seguirá sem entender.',
+      color: 'text-cyan-400',
+    },
   ]
 
   const handleLineComplete = () => {
@@ -100,12 +121,18 @@ class X danger
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Base gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"></div>
-        
+
         {/* Animated radial glows */}
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
-        
+        <div
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse"
+          style={{ animationDelay: '1s', animationDuration: '4s' }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-[80px] animate-pulse"
+          style={{ animationDelay: '2s', animationDuration: '5s' }}
+        ></div>
+
         {/* Network pattern - connected nodes */}
         <div
           className="absolute inset-0 opacity-[0.15]"
@@ -118,7 +145,7 @@ class X danger
             backgroundPosition: '0 0, 30px 30px',
           }}
         ></div>
-        
+
         {/* Connection lines - subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.08]"
@@ -130,12 +157,13 @@ class X danger
             backgroundSize: '80px 80px',
           }}
         ></div>
-        
+
         {/* Vignette effect */}
-        <div 
-          className="absolute inset-0" 
+        <div
+          className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)'
+            background:
+              'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)',
           }}
         ></div>
       </div>
@@ -210,10 +238,11 @@ class X danger
 
           {/* Soberania Digital */}
           <div className="ios-card mb-6 p-6 spring-in" style={{ animationDelay: '0.3s' }}>
-            
             {/* Terminal ASCII com Typewriter */}
             <div className="bg-black/80 border border-cyan-500/30 rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <div className="text-cyan-400 mb-2">┌─ NΞØ PROTOCOL ────────────────────────────────┐</div>
+              <div className="text-cyan-400 mb-2">
+                ┌─ NΞØ PROTOCOL ────────────────────────────────┐
+              </div>
               <div className="space-y-1 text-green-400">
                 <div className="text-gray-400">$ cat manifesto.txt</div>
                 {showTerminal && (

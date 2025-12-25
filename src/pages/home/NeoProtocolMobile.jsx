@@ -155,11 +155,14 @@ export default function NeoProtocolMobile() {
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Base gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"></div>
-        
+
         {/* Animated radial glows - mobile optimized */}
         <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[100px] animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-blue-500/5 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-        
+        <div
+          className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-blue-500/5 rounded-full blur-[80px] animate-pulse"
+          style={{ animationDelay: '1s', animationDuration: '4s' }}
+        ></div>
+
         {/* Network pattern - connected nodes */}
         <div
           className="absolute inset-0 opacity-[0.12]"
@@ -172,7 +175,7 @@ export default function NeoProtocolMobile() {
             backgroundPosition: '0 0, 25px 25px',
           }}
         ></div>
-        
+
         {/* Connection lines - subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.06]"
@@ -184,12 +187,13 @@ export default function NeoProtocolMobile() {
             backgroundSize: '60px 60px',
           }}
         ></div>
-        
+
         {/* Vignette effect */}
-        <div 
-          className="absolute inset-0" 
+        <div
+          className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)'
+            background:
+              'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)',
           }}
         ></div>
       </div>
