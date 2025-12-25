@@ -58,19 +58,25 @@ dev-boot: ## Inicia servidor de desenvolvimento (boot ritual)
 
 ##@ Build
 
-build: ## Constrói o app principal para produção
+build: ## Constrói o app principal para produção e faz deploy para IPFS
 	@echo "$(CYAN)🎨 Formatando código com Prettier...$(RESET)"
 	@npx prettier --write "**/*.{js,jsx,ts,tsx,json,md}" || true
 	@echo "$(CYAN)🔨 Construindo app principal...$(RESET)"
 	@npm run build
 	@echo "$(GREEN)✅ Build concluído em $(DIST)/$(RESET)"
+	@echo "$(CYAN)📤 Fazendo deploy para IPFS (Pinata)...$(RESET)"
+	@npm run deploy:pinata
+	@echo "$(GREEN)✅ Deploy para IPFS concluído$(RESET)"
 
-build-boot: ## Constrói o boot ritual para produção
+build-boot: ## Constrói o boot ritual para produção e faz deploy para IPFS
 	@echo "$(CYAN)🎨 Formatando código com Prettier...$(RESET)"
 	@npx prettier --write "**/*.{js,jsx,ts,tsx,json,md}" || true
 	@echo "$(CYAN)🔨 Construindo boot ritual...$(RESET)"
 	@npm run build:boot
 	@echo "$(GREEN)✅ Build concluído em $(DIST_BOOT)/$(RESET)"
+	@echo "$(CYAN)📤 Fazendo deploy para IPFS (Pinata)...$(RESET)"
+	@npm run deploy:pinata
+	@echo "$(GREEN)✅ Deploy para IPFS concluído$(RESET)"
 
 build-release: version-patch build ## Build com atualização automática de versão (patch)
 	@echo "$(GREEN)✅ Build de release concluído$(RESET)"
