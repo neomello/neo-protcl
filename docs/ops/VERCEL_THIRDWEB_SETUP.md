@@ -44,12 +44,14 @@ O Client ID precisa ter os domínios da Vercel configurados:
 ## ✅ Passo 3: Verificar Valor do Client ID
 
 O Client ID deve:
+
 - ✅ Ter pelo menos 32 caracteres
 - ✅ Não ser `your-thirdweb-client-id-here`
 - ✅ Não ser `SEU_CLIENT_ID_THIRDWEB`
 - ✅ Estar no formato correto (geralmente hexadecimal)
 
 ### Exemplo de Client ID válido:
+
 ```
 223d53b50916d72d63cc00ceaaba7ec0
 ```

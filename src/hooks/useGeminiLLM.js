@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { generateResponse, isGeminiConfigured } from '../services/geminiLLM';
+import { useState } from 'react'
+import { generateResponse, isGeminiConfigured } from '../services/geminiLLM'
 
 /**
  * Hook para usar Gemini LLM no LiveAgent
  */
 export function useGeminiLLM() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   /**
    * Gerar resposta inteligente usando Gemini
@@ -16,28 +16,27 @@ export function useGeminiLLM() {
    */
   const askGemini = async (prompt, agentState = {}) => {
     if (!isGeminiConfigured()) {
-      throw new Error('Gemini API não configurada. Configure VITE_GEMINI_API_KEY no .env');
+      throw new Error('Gemini API não configurada. Configure VITE_GEMINI_API_KEY no .env')
     }
 
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
 
     try {
-      const response = await generateResponse(prompt, agentState);
-      return response;
+      const response = await generateResponse(prompt, agentState)
+      return response
     } catch (err) {
-      setError(err.message);
-      throw err;
+      setError(err.message)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return {
     askGemini,
     loading,
     error,
     isConfigured: isGeminiConfigured(),
-  };
+  }
 }
-

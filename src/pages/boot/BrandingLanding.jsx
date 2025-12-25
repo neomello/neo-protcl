@@ -1,64 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDesktopBlock } from '../../hooks/useDesktopBlock';
-import { getIPFSGatewayUrl } from '../../services/intentDataCapture';
+import { useEffect, useRef, useState } from 'react'
+import { useDesktopBlock } from '../../hooks/useDesktopBlock'
+import { getIPFSGatewayUrl } from '../../services/intentDataCapture'
 
 /**
  * NΞØ HUB — INTAKE PROTOCOL
  * Landing page minimalista para IPFS/ENS
  */
 export default function BrandingLanding() {
-  useDesktopBlock();
-  
-  const glowRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const mousePosRef = useRef({ x: 0, y: 0 });
-  const glowPosRef = useRef({ x: 0, y: 0 });
+  useDesktopBlock()
+
+  const glowRef = useRef(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const mousePosRef = useRef({ x: 0, y: 0 })
+  const glowPosRef = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
-    setIsLoaded(true);
-    
-    const handleMouseMove = (e) => {
-      mousePosRef.current.x = e.clientX;
-      mousePosRef.current.y = e.clientY;
-    };
+    setIsLoaded(true)
 
-    window.addEventListener('mousemove', handleMouseMove);
+    const handleMouseMove = e => {
+      mousePosRef.current.x = e.clientX
+      mousePosRef.current.y = e.clientY
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
 
     const animate = () => {
-      glowPosRef.current.x += (mousePosRef.current.x - glowPosRef.current.x) * 0.15;
-      glowPosRef.current.y += (mousePosRef.current.y - glowPosRef.current.y) * 0.15;
-      
-      if (glowRef.current) {
-        glowRef.current.style.left = glowPosRef.current.x + 'px';
-        glowRef.current.style.top = glowPosRef.current.y + 'px';
-      }
-      
-      requestAnimationFrame(animate);
-    };
+      glowPosRef.current.x += (mousePosRef.current.x - glowPosRef.current.x) * 0.15
+      glowPosRef.current.y += (mousePosRef.current.y - glowPosRef.current.y) * 0.15
 
-    const animationId = requestAnimationFrame(animate);
+      if (glowRef.current) {
+        glowRef.current.style.left = glowPosRef.current.x + 'px'
+        glowRef.current.style.top = glowPosRef.current.y + 'px'
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    const animationId = requestAnimationFrame(animate)
 
     // Smooth scroll for anchor links
-    const handleClick = (e) => {
-      const anchor = e.target.closest('a[href^="#"]');
+    const handleClick = e => {
+      const anchor = e.target.closest('a[href^="#"]')
       if (anchor) {
-        e.preventDefault();
-        const targetId = anchor.getAttribute('href').substring(1);
-        const target = document.getElementById(targetId);
+        e.preventDefault()
+        const targetId = anchor.getAttribute('href').substring(1)
+        const target = document.getElementById(targetId)
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
+          target.scrollIntoView({ behavior: 'smooth' })
         }
       }
-    };
+    }
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener('click', handleClick)
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationId);
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
+      window.removeEventListener('mousemove', handleMouseMove)
+      cancelAnimationFrame(animationId)
+      document.removeEventListener('click', handleClick)
+    }
+  }, [])
 
   return (
     <>
@@ -381,8 +381,15 @@ export default function BrandingLanding() {
         }
       `}</style>
 
-      <a href="https://neoprotocol.space" target="_blank" rel="noreferrer" className="web-app-badge">WEB APP</a>
-      
+      <a
+        href="https://neoprotocol.space"
+        target="_blank"
+        rel="noreferrer"
+        className="web-app-badge"
+      >
+        WEB APP
+      </a>
+
       <div className="grid-background"></div>
       <div ref={glowRef} className="glow"></div>
 
@@ -390,31 +397,26 @@ export default function BrandingLanding() {
         <div className="accent">
           <div className="genesis-text">
             <span className="particle">⟡</span>
-            <span className="genesis-label" style={{ marginRight: '9rem' }}>Genesis Block</span>
+            <span className="genesis-label" style={{ marginRight: '9rem' }}>
+              Genesis Block
+            </span>
           </div>
         </div>
 
         <div className="title-section">
-          <img 
-            src={getIPFSGatewayUrl('bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm')} 
-            alt="NΞØ" 
+          <img
+            src={getIPFSGatewayUrl('bafkreifm3hzdhem47tfzzqxm4274t3rqkzrgsa2zi2bc72nzjecxaixsxm')}
+            alt="NΞØ"
             className="neo-logo"
           />
           <h2>Protocolo de Admissão</h2>
         </div>
 
         <div className="message-section">
-          <p className="message-primary">
-            Quando o centro desaparece, a direção vira linguagem.
-          </p>
-          <p className="message-primary">
-            E a linguagem vira rede. E a rede vira organismo.
-          </p>
-          <p className="message-secondary">
-            Assim você descobre que é livre.
-          </p>
+          <p className="message-primary">Quando o centro desaparece, a direção vira linguagem.</p>
+          <p className="message-primary">E a linguagem vira rede. E a rede vira organismo.</p>
+          <p className="message-secondary">Assim você descobre que é livre.</p>
         </div>
-
       </div>
 
       <footer className="footer">
@@ -425,13 +427,26 @@ export default function BrandingLanding() {
             <span className="coding-status">øcoding</span>
           </div>
           <div className="footer-links">
-            <a href="https://github.com/NEO-PROTOCOL" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.instagram.com/neoprotocol.eth/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://github.com/NEO-PROTOCOL" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a href="https://www.instagram.com/neoprotocol.eth/" target="_blank" rel="noreferrer">
+              Instagram
+            </a>
           </div>
         </div>
       </footer>
 
-      <div id="protocol" style={{ position: 'absolute', top: '100vh', width: '100%', height: '0', visibility: 'hidden' }}></div>
+      <div
+        id="protocol"
+        style={{
+          position: 'absolute',
+          top: '100vh',
+          width: '100%',
+          height: '0',
+          visibility: 'hidden',
+        }}
+      ></div>
     </>
-  );
+  )
 }

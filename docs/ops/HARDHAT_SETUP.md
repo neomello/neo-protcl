@@ -76,6 +76,7 @@ npx hardhat run scripts/acceptReview.js --network base
 **Nota:** Deploy direto em **Base Mainnet** (produção).
 
 **O script verifica automaticamente:**
+
 - ✅ Se está conectado
 - ✅ Se está em status `INVITED`
 - ✅ Executa `acceptReview()`
@@ -90,6 +91,7 @@ npx hardhat run scripts/acceptReview.js --network base
 Cria convite on-chain para revisor.
 
 **Variáveis de ambiente:**
+
 - `NODE_DESIGNER_REVIEW_ADDRESS` - Endereço do contrato
 - `REVIEWER_ADDRESS` - Endereço do revisor
 - `REVIEW_SCOPE` - Escopo da revisão
@@ -104,6 +106,7 @@ Cria convite on-chain para revisor.
 Aceita revisão on-chain.
 
 **Variáveis de ambiente:**
+
 - `NODE_DESIGNER_REVIEW_ADDRESS` - Endereço do contrato
 - `PRIVATE_KEY` - Private key do revisor
 

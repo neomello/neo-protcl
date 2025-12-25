@@ -70,6 +70,7 @@ ipfs name publish /ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
 
 **Resposta esperada:**
+
 ```
 Published to k51qzi5uqu5d...: /ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
@@ -89,6 +90,7 @@ ipfs name resolve k51qzi5uqu5d...
 ### Passo 4: Configurar no ENS
 
 No ENS, configure o contenthash como:
+
 ```
 ipns://k51qzi5uqu5d...
 ```
@@ -122,40 +124,37 @@ ipfs name publish --key=neo-protocol-key /ipfs/NOVO_CID_AQUI
 Crie um script `scripts/publish-ipns.js`:
 
 ```javascript
-import { execSync } from 'child_process';
-import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { execSync } from 'child_process'
+import { readFileSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // Ler CID do arquivo .pinata-cid ou usar o CID conhecido
-const CID = process.argv[2] || 'Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1';
-const KEY_NAME = process.env.IPNS_KEY_NAME || 'neo-protocol-key';
+const CID = process.argv[2] || 'Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1'
+const KEY_NAME = process.env.IPNS_KEY_NAME || 'neo-protocol-key'
 
-console.log(`📌 Publicando CID ${CID} no IPNS...`);
+console.log(`📌 Publicando CID ${CID} no IPNS...`)
 
 try {
   // Publicar no IPNS
-  const output = execSync(
-    `ipfs name publish --key=${KEY_NAME} /ipfs/${CID}`,
-    { encoding: 'utf-8' }
-  );
-  
-  console.log('✅ Publicado com sucesso!');
-  console.log(output);
-  
+  const output = execSync(`ipfs name publish --key=${KEY_NAME} /ipfs/${CID}`, { encoding: 'utf-8' })
+
+  console.log('✅ Publicado com sucesso!')
+  console.log(output)
+
   // Extrair o IPNS hash
-  const ipnsMatch = output.match(/Published to ([^:]+)/);
+  const ipnsMatch = output.match(/Published to ([^:]+)/)
   if (ipnsMatch) {
-    const ipnsHash = ipnsMatch[1];
-    console.log(`\n📋 IPNS Hash: ${ipnsHash}`);
-    console.log(`🌐 Acesse em: https://ipfs.io/ipns/${ipnsHash}`);
-    console.log(`📝 Configure no ENS como: ipns://${ipnsHash}`);
+    const ipnsHash = ipnsMatch[1]
+    console.log(`\n📋 IPNS Hash: ${ipnsHash}`)
+    console.log(`🌐 Acesse em: https://ipfs.io/ipns/${ipnsHash}`)
+    console.log(`📝 Configure no ENS como: ipns://${ipnsHash}`)
   }
 } catch (error) {
-  console.error('❌ Erro ao publicar:', error.message);
-  process.exit(1);
+  console.error('❌ Erro ao publicar:', error.message)
+  process.exit(1)
 }
 ```
 
@@ -169,4 +168,3 @@ Para o caso do **neoprotocol.eth**, recomendo usar **CID direto** no ENS porque:
 4. ✅ O conteúdo do boot não muda frequentemente
 
 Use IPNS apenas se você planeja atualizar o conteúdo frequentemente sem querer atualizar o ENS toda vez.
-

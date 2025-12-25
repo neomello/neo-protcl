@@ -170,4 +170,3 @@ Atualmente, `/boot` usa **LiveAgent** para encarnar MELLØ como protocolo vivo.
 - [`MELLO_MEMORY.md`](./MELLO_MEMORY.md) - Integração das memórias de MELLØ
 - [`no-ex-human.md`](./no-ex-human.md) - Protocolo vivo NODE[MELLØ]
 - [`latent=memory.md`](./latent=memory.md) - Memória latente [∆mnemosyne.core]
-

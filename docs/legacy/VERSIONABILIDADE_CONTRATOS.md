@@ -212,11 +212,13 @@ Manter documentação de:
 
 ```markdown
 ## Versão 1.0
+
 - **Endereço:** 0xABC...
 - **Deploy:** 2025-01-27
 - **Eventos:** NodeInvited, NodeAccepted, NodeSubmitted, NodeValidated, NodeExpired
 
 ## Versão 2.0
+
 - **Endereço:** 0xXYZ...
 - **Deploy:** 2025-02-15
 - **Mudanças:** Adicionado suporte a múltiplos tipos de nó

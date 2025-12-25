@@ -1,19 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
         // NΞØ.UI Core Colors
-        void: "#000000",
-        depth: "#0B0D10",
-        carbon: "#13161A",
-        anomaly: "#1A9AF7",
-        glitch: "#34E1FF",
-        signal: "#7B5DFF",
+        void: '#000000',
+        depth: '#0B0D10',
+        carbon: '#13161A',
+        anomaly: '#1A9AF7',
+        glitch: '#34E1FF',
+        signal: '#7B5DFF',
         // Glassmorphism variants
         'anomaly-glass': 'rgba(26, 154, 247, 0.2)',
         'glitch-glass': 'rgba(52, 225, 255, 0.2)',
@@ -28,16 +25,16 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
-        neo: "14px"
+        neo: '14px',
       },
       spacing: {
         // NΞØ.UI Fractal Spacing
-        u1: "6px",
-        u2: "12px",
-        u3: "18px",
-        u5: "30px",
-        u8: "48px",
-        u13: "78px",
+        u1: '6px',
+        u2: '12px',
+        u3: '18px',
+        u5: '30px',
+        u8: '48px',
+        u13: '78px',
         // iOS Safe Area
         'safe-top': 'env(safe-area-inset-top)',
         'safe-bottom': 'env(safe-area-inset-bottom)',
@@ -45,7 +42,7 @@ export default {
         'safe-right': 'env(safe-area-inset-right)',
       },
       padding: {
-        'safe': 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
+        safe: 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
       },
       transitionDuration: {
         't-fast': '90ms',
@@ -56,4 +53,3 @@ export default {
   },
   plugins: [],
 }
-

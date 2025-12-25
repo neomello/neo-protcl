@@ -4,7 +4,7 @@
  */
 
 // Importar partículas do sistema NΞØ.UI
-import { particles } from '../nexo-ui';
+import { particles } from '../nexo-ui'
 
 export const dimensions = [
   {
@@ -37,106 +37,256 @@ export const dimensions = [
       'Comece pelo momento da centelha. Como a ideia aparece? Qual é o impulso, o ritual interno, a cadência que transforma o invisível em algo tangível? Descreva a sequência de sensações, movimentos e micro decisões que levam esse impulso do vácuo à forma concreta.',
     color: 'from-purple-600/20 to-pink-600/10',
   },
-];
+]
 
 export const archetypeDatabase = {
   problem_solving: {
-    'Engenheiro': {
-      keywords: ['desmontar', 'partes', 'sistema', 'mapa', 'lógica', 'padrão', 'eficiente', 'peça', 'funcionamento', 'estrutura', 'arquitetura', 'componentes'],
+    Engenheiro: {
+      keywords: [
+        'desmontar',
+        'partes',
+        'sistema',
+        'mapa',
+        'lógica',
+        'padrão',
+        'eficiente',
+        'peça',
+        'funcionamento',
+        'estrutura',
+        'arquitetura',
+        'componentes',
+      ],
       intent: 'Controlar o caos através da estrutura',
       strengths: 'Clareza analítica, solução escalável',
       risks: 'Paralisia por análise, perda do contexto humano',
     },
     'Contador de Histórias': {
-      keywords: ['história', 'analogia', 'significado', 'exemplo', 'metáfora', 'sentido', 'como se fosse', 'personagem', 'reenquadrar', 'narrativa'],
+      keywords: [
+        'história',
+        'analogia',
+        'significado',
+        'exemplo',
+        'metáfora',
+        'sentido',
+        'como se fosse',
+        'personagem',
+        'reenquadrar',
+        'narrativa',
+      ],
       intent: 'Encontrar sentido para navegar no caos',
       strengths: 'Comunicabilidade, adaptabilidade, resiliência',
       risks: 'Solução muito particular, falta de rigor generalizável',
     },
-    'Cirurgião': {
-      keywords: ['isolar', 'cortar', 'intervir', 'rápido', 'núcleo', 'pressão', 'fonte', 'doloroso mas necessário', 'extrair', 'disfunção'],
+    Cirurgião: {
+      keywords: [
+        'isolar',
+        'cortar',
+        'intervir',
+        'rápido',
+        'núcleo',
+        'pressão',
+        'fonte',
+        'doloroso mas necessário',
+        'extrair',
+        'disfunção',
+      ],
       intent: 'Eliminar a disfunção para restaurar a saúde',
       strengths: 'Decisão, coragem, foco absoluto',
       risks: 'Danos colaterais, visão de curto prazo, trauma',
     },
-    'Jardineiro': {
-      keywords: ['nutrir', 'ambiente', 'crescer', 'paciência', 'ecossistema', 'processo', 'contexto', 'fertilizar', 'observar', 'cultivar'],
+    Jardineiro: {
+      keywords: [
+        'nutrir',
+        'ambiente',
+        'crescer',
+        'paciência',
+        'ecossistema',
+        'processo',
+        'contexto',
+        'fertilizar',
+        'observar',
+        'cultivar',
+      ],
       intent: 'Cultivar condições para que a solução emergia',
       strengths: 'Sustentabilidade, solução orgânica, holismo',
       risks: 'Lentidão, passividade, falta de ação direta',
     },
-    'Jogador': {
-      keywords: ['desafio', 'regras', 'estratégia', 'vencer', 'tática', 'recompensa', 'movimento', 'oponente', 'partida', 'competição'],
+    Jogador: {
+      keywords: [
+        'desafio',
+        'regras',
+        'estratégia',
+        'vencer',
+        'tática',
+        'recompensa',
+        'movimento',
+        'oponente',
+        'partida',
+        'competição',
+      ],
       intent: 'Transformar o caos em um jogo a ser vencido',
       strengths: 'Inovação, motivação alta, pensamento tático',
       risks: 'Banalização, competitividade tóxica, falta de profundidade',
     },
   },
   collaboration: {
-    'Catalisador': {
-      keywords: ['pergunta óbvia', 'apontar', 'inconsistência', 'desafiar', 'atrito', 'verdade', 'ponto cego', 'lógica', 'inconsistência'],
+    Catalisador: {
+      keywords: [
+        'pergunta óbvia',
+        'apontar',
+        'inconsistência',
+        'desafiar',
+        'atrito',
+        'verdade',
+        'ponto cego',
+        'lógica',
+        'inconsistência',
+      ],
       intent: 'Acelerar a verdade (ou o conflito) para chegar à clareza',
       strengths: 'Honestidade radical, prevenção de erros grupais',
       risks: 'Criar resistência, ser visto como disruptor negativo',
     },
-    'Costureiro': {
-      keywords: ['conectar', 'harmonia', 'ouvidos', 'ponte', 'traduzir', 'sentir', 'relacionar', 'grupo', 'teia'],
+    Costureiro: {
+      keywords: [
+        'conectar',
+        'harmonia',
+        'ouvidos',
+        'ponte',
+        'traduzir',
+        'sentir',
+        'relacionar',
+        'grupo',
+        'teia',
+      ],
       intent: 'Criar e fortalecer a rede de conexões',
       strengths: 'Coesão, alta inteligência emocional, mediação',
       risks: 'Evitar conflitos necessários, desgaste emocional',
     },
-    'Estrategista': {
-      keywords: ['meta clara', 'dividir trabalho', 'eficiência', 'prazo', 'função', 'recursos', 'evitar perda de tempo', 'organizar'],
+    Estrategista: {
+      keywords: [
+        'meta clara',
+        'dividir trabalho',
+        'eficiência',
+        'prazo',
+        'função',
+        'recursos',
+        'evitar perda de tempo',
+        'organizar',
+      ],
       intent: 'Otimizar o sistema humano para o resultado',
       strengths: 'Produtividade, foco, organização',
       risks: 'Visão transacional, negligenciar a motivação intrínseca',
     },
     'Especialista Reserva': {
-      keywords: ['retaguarda', 'observar', 'entrar quando necessário', 'único', 'técnico', 'específico', 'não forçar participação', 'autonomia'],
+      keywords: [
+        'retaguarda',
+        'observar',
+        'entrar quando necessário',
+        'único',
+        'técnico',
+        'específico',
+        'não forçar participação',
+        'autonomia',
+      ],
       intent: 'Oferecer excelência pontual, preservando autonomia',
       strengths: 'Alta qualidade, foco profundo, sem dispersão',
       risks: 'Isolamento, parecer descomprometido, perda de contexto',
     },
-    'Guardião': {
-      keywords: ['proteger', 'cuidar', 'alerta', 'integridade', 'valores', 'defender', 'conflito interno', 'lealdade'],
+    Guardião: {
+      keywords: [
+        'proteger',
+        'cuidar',
+        'alerta',
+        'integridade',
+        'valores',
+        'defender',
+        'conflito interno',
+        'lealdade',
+      ],
       intent: 'Proteger o grupo de ameaças internas e externas',
       strengths: 'Segurança, confiança, cultura forte',
       risks: 'Desconfiança excessiva, resistência a mudanças',
     },
   },
   creation: {
-    'Visionário': {
-      keywords: ['imagem', 'visão', 'insight', 'traduzir', 'forma exata', 'fidelidade', 'ver claramente', 'perseguir', 'visão interna perfeita'],
+    Visionário: {
+      keywords: [
+        'imagem',
+        'visão',
+        'insight',
+        'traduzir',
+        'forma exata',
+        'fidelidade',
+        'ver claramente',
+        'perseguir',
+        'visão interna perfeita',
+      ],
       intent: 'Materializar uma visão interna perfeita',
       strengths: 'Clareza de direção, alta consistência estética/conceitual',
       risks: 'Rigidez, frustração com limitações do mundo real, bloqueio do "não ficou igual"',
     },
-    'Alquimista': {
-      keywords: ['conexão bizarra', 'juntar cacos', 'colisão', 'soldar', 'união', 'hibridização', 'metamorfose', 'fusão do inesperado'],
+    Alquimista: {
+      keywords: [
+        'conexão bizarra',
+        'juntar cacos',
+        'colisão',
+        'soldar',
+        'união',
+        'hibridização',
+        'metamorfose',
+        'fusão do inesperado',
+      ],
       intent: 'Criar através da fusão do inesperado',
       strengths: 'Inovação radical, pensamento lateral, surpreender',
       risks: 'Resultados podem ser caóticos ou incomunicáveis, falta de foco',
     },
-    'Agricultor': {
-      keywords: ['fermentar', 'semente', 'alimentar', 'processo', 'deixar amadurecer', 'colher no momento certo', 'ecossistema interno', 'maturação orgânica'],
+    Agricultor: {
+      keywords: [
+        'fermentar',
+        'semente',
+        'alimentar',
+        'processo',
+        'deixar amadurecer',
+        'colher no momento certo',
+        'ecossistema interno',
+        'maturação orgânica',
+      ],
       intent: 'Cultivar ideias até a maturação orgânica',
       strengths: 'Profundidade, timing natural, trabalhos ricos e complexos',
       risks: 'Lentidão extrema, passividade (esperar demais), dificuldade com prazos',
     },
     'Artesão da Jaula': {
-      keywords: ['restrição', 'limite', 'forma fixa', 'problema', 'puzzle', 'jogo', 'dançar dentro da jaula', 'estrutura como impulso'],
+      keywords: [
+        'restrição',
+        'limite',
+        'forma fixa',
+        'problema',
+        'puzzle',
+        'jogo',
+        'dançar dentro da jaula',
+        'estrutura como impulso',
+      ],
       intent: 'Encontrar liberdade expressiva dentro dos limites',
       strengths: 'Alta adaptabilidade, criatividade prática, excelência em craft',
       risks: 'Pode se sentir sem direção própria, dependente de briefings externos',
     },
-    'Explosivo': {
-      keywords: ['pressão', 'explosão', 'urgência', 'tudo de uma vez', 'catártico', 'fluxo intenso', 'não conseguir segurar', 'evento catalítico'],
+    Explosivo: {
+      keywords: [
+        'pressão',
+        'explosão',
+        'urgência',
+        'tudo de uma vez',
+        'catártico',
+        'fluxo intenso',
+        'não conseguir segurar',
+        'evento catalítico',
+      ],
       intent: 'Liberar energia acumulada em um evento catalítico',
       strengths: 'Potência, impacto emocional, conclusão rápida',
       risks: 'Esgotamento pós-obra, inconsistência, dificuldade em projetos longos',
     },
   },
-};
+}
 
 export const synergyTable = {
   // Sinergias existentes (mantidas)
@@ -181,7 +331,8 @@ export const synergyTable = {
     intent: 'Dominar sistemas através de manobras pontuais e inesperadas.',
     power: 'Vantagem Inimaginável. Surpreende com soluções de nicho e altamente eficazes.',
     alert: 'Desconexão. O foco em jogos paralelos pode afastá-lo do "jogo principal" do grupo.',
-    metaphor: 'Um enxadrista que vence não no tabuleiro principal, mas fundindo regras de jogos diferentes.',
+    metaphor:
+      'Um enxadrista que vence não no tabuleiro principal, mas fundindo regras de jogos diferentes.',
   },
   'Contador de Histórias-Costureiro-Agricultor': {
     name: 'Narrador de Comunidades',
@@ -195,76 +346,77 @@ export const synergyTable = {
     intent: 'Projetar estruturas otimizadas que evoluem sob restrição.',
     power: 'Eficiência Adaptativa. Sistemas que são robustos e flexíveis.',
     alert: 'Sufocamento. O foco no sistema perfeito pode matar a espontaneidade orgânica.',
-    metaphor: 'Um engenheiro de ecossistemas, que projeta com regras rígidas para gerar vida adaptativa.',
- },
-};
+    metaphor:
+      'Um engenheiro de ecossistemas, que projeta com regras rígidas para gerar vida adaptativa.',
+  },
+}
 
 /**
  * Analisa texto e retorna o arquétipo com maior ressonância
  */
 export function analyzeText(text, dimensionId) {
-  const archetypes = archetypeDatabase[dimensionId];
-  if (!archetypes) return null;
+  const archetypes = archetypeDatabase[dimensionId]
+  if (!archetypes) return null
 
-  const normalize = (str) =>
+  const normalize = str =>
     str
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
+      .replace(/[\u0300-\u036f]/g, '')
 
   const tokens = normalize(text || '')
     .split(/[^a-z0-9áéíóúâêîôûãõç]+/i)
-    .filter(Boolean);
-  const bag = new Set(tokens);
+    .filter(Boolean)
+  const bag = new Set(tokens)
 
-  const archetypeNames = Object.keys(archetypes);
-  const scores = {};
+  const archetypeNames = Object.keys(archetypes)
+  const scores = {}
 
   Object.entries(archetypes).forEach(([archetype, data]) => {
-    const normalizedKeywords = data.keywords.map(normalize);
+    const normalizedKeywords = data.keywords.map(normalize)
 
-    let score = 0;
-    normalizedKeywords.forEach((kw) => {
+    let score = 0
+    normalizedKeywords.forEach(kw => {
       // Pondera matches completos e parciais
-      if (bag.has(kw)) score += 2; // match exato de token
-      tokens.forEach((t) => {
-        if (t.includes(kw) && !bag.has(kw)) score += 1; // match parcial
-      });
-    });
+      if (bag.has(kw)) score += 2 // match exato de token
+      tokens.forEach(t => {
+        if (t.includes(kw) && !bag.has(kw)) score += 1 // match parcial
+      })
+    })
 
-    scores[archetype] = score;
-  });
+    scores[archetype] = score
+  })
 
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topScore = sorted[0]?.[1] ?? 0;
-  const topArchetypes = sorted.filter(([, sc]) => sc === topScore).map(([name]) => name);
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1])
+  const topScore = sorted[0]?.[1] ?? 0
+  const topArchetypes = sorted.filter(([, sc]) => sc === topScore).map(([name]) => name)
 
   // Se houve match, desempata de forma determinística
   if (topScore > 0) {
-    if (topArchetypes.length === 1) return topArchetypes[0];
+    if (topArchetypes.length === 1) return topArchetypes[0]
     // hash do texto para escolher sempre a mesma dentro do empate
-    let hash = 0;
+    let hash = 0
     for (let i = 0; i < text.length; i++) {
-      hash = (hash << 5) - hash + text.charCodeAt(i);
-      hash |= 0;
+      hash = (hash << 5) - hash + text.charCodeAt(i)
+      hash |= 0
     }
-    const idx = Math.abs(hash) % topArchetypes.length;
-    return topArchetypes[idx];
+    const idx = Math.abs(hash) % topArchetypes.length
+    return topArchetypes[idx]
   }
 
   // Se não houver palavras-chave, escolher um arquétipo de forma determinística baseada no texto
   if (text && text.trim().length > 0) {
-    let hash = 0;
+    let hash = 0
     for (let i = 0; i < text.length; i++) {
-      hash = (hash << 5) - hash + text.charCodeAt(i);
-      hash |= 0; // 32bit
+      hash = (hash << 5) - hash + text.charCodeAt(i)
+      hash |= 0 // 32bit
     }
-    const idx = Math.abs(hash) % archetypeNames.length;
-    return archetypeNames[idx];
+    const idx = Math.abs(hash) % archetypeNames.length
+    return archetypeNames[idx]
   }
 
   // Se não há texto, volta para o primeiro arquétipo como fallback
-  return archetypeNames[0];
+  return archetypeNames[0]
 }
 
 /**
@@ -272,59 +424,59 @@ export function analyzeText(text, dimensionId) {
  */
 export function generateSynergy(profileData, selectedDimensions, seed = null) {
   const archetypeNames = selectedDimensions
-    .map((dimId) => profileData[dimId]?.archetype)
-    .filter(Boolean);
+    .map(dimId => profileData[dimId]?.archetype)
+    .filter(Boolean)
 
   const archetypeKey = selectedDimensions
-    .map((dimId) => profileData[dimId]?.archetype)
+    .map(dimId => profileData[dimId]?.archetype)
     .filter(Boolean)
     .sort()
-    .join('-');
+    .join('-')
 
   if (synergyTable[archetypeKey]) {
-    return synergyTable[archetypeKey];
+    return synergyTable[archetypeKey]
   }
 
   // Gerar sinergia custom com variação determinística
-  const seedSource = (seed || '') + (archetypeNames.join('-') || 'default-seed');
-  let hash = 0;
+  const seedSource = (seed || '') + (archetypeNames.join('-') || 'default-seed')
+  let hash = 0
   for (let i = 0; i < seedSource.length; i++) {
-    hash = (hash << 5) - hash + seedSource.charCodeAt(i);
-    hash |= 0;
+    hash = (hash << 5) - hash + seedSource.charCodeAt(i)
+    hash |= 0
   }
   const seededRand = () => {
-    hash = (hash * 1664525 + 1013904223) % 4294967296;
-    return Math.abs(hash) / 4294967296;
-  };
-  const pick = (arr) => arr[Math.floor(seededRand() * arr.length)];
-  const archetypeList = archetypeNames.length ? archetypeNames.join(' + ') : 'Arquétipos raros';
+    hash = (hash * 1664525 + 1013904223) % 4294967296
+    return Math.abs(hash) / 4294967296
+  }
+  const pick = arr => arr[Math.floor(seededRand() * arr.length)]
+  const archetypeList = archetypeNames.length ? archetypeNames.join(' + ') : 'Arquétipos raros'
 
   const nameOptions = [
     `Interseção ${archetypeList}`,
     `Arquitetura ${archetypeList}`,
     `Padrão Singular (${archetypeList})`,
     `Constelação ${archetypeList}`,
-  ];
+  ]
   const intentOptions = [
     `Orquestrar ${archetypeList} para operar onde poucos conseguem.`,
     `Combinar ${archetypeList} para gerar soluções fora do óbvio.`,
     `Fazer ${archetypeList} convergirem em uma estratégia única.`,
-  ];
+  ]
   const powerOptions = [
     `Conexões improváveis entre ${archetypeList} produzem alavancas raras.`,
     `Capacidade de alternar entre ${archetypeList} conforme o contexto.`,
     `Sintetiza ${archetypeList} em um movimento coordenado.`,
-  ];
+  ]
   const alertOptions = [
     `Risco de dispersão ao alternar demais entre ${archetypeList}.`,
     `Excesso de complexidade ao combinar ${archetypeList}.`,
     `Perder foco ao tentar equilibrar ${archetypeList}.`,
-  ];
+  ]
   const metaphorOptions = [
     `Um hub onde ${archetypeList} colidem e criam faíscas.`,
     `Um condutor que sincroniza ${archetypeList} em uma só melodia.`,
     `Um navegador cruzando camadas onde ${archetypeList} se sobrepõem.`,
-  ];
+  ]
 
   return {
     name: pick(nameOptions),
@@ -332,7 +484,7 @@ export function generateSynergy(profileData, selectedDimensions, seed = null) {
     power: pick(powerOptions),
     alert: pick(alertOptions),
     metaphor: pick(metaphorOptions),
-  };
+  }
 }
 
 /**
@@ -340,39 +492,41 @@ export function generateSynergy(profileData, selectedDimensions, seed = null) {
  */
 export function generateMermaidDiagram(profileData, synergy, selectedDimensions) {
   const dimLabels = dimensions.reduce((acc, dim) => {
-    acc[dim.id] = dim.title;
-    return acc;
-  }, {});
+    acc[dim.id] = dim.title
+    return acc
+  }, {})
 
-  const sanitize = (value) =>
+  const sanitize = value =>
     (value || '')
       .replace(/"/g, '\\"')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/\n/g, '<br/>');
+      .replace(/\n/g, '<br/>')
 
   const dimensionNodes = selectedDimensions.map((dimId, index) => {
-    const label = dimLabels[dimId] || dimId;
-    const archetype = profileData[dimId]?.archetype || 'Arquétipo em fluxo';
+    const label = dimLabels[dimId] || dimId
+    const archetype = profileData[dimId]?.archetype || 'Arquétipo em fluxo'
     return {
       id: `D${index + 1}`,
       label: `${label}<br/><small>${archetype}</small>`,
-    };
-  });
+    }
+  })
 
-  const hasDimensions = dimensionNodes.length > 0;
+  const hasDimensions = dimensionNodes.length > 0
 
   const dimensionEntries = hasDimensions
-    ? dimensionNodes.map((node) => `        ${node.id}["${sanitize(node.label)}"]`).join('\n')
-    : '        D0["Sem dimensões selecionadas"]';
+    ? dimensionNodes.map(node => `        ${node.id}["${sanitize(node.label)}"]`).join('\n')
+    : '        D0["Sem dimensões selecionadas"]'
 
   const dimensionConnections = hasDimensions
-    ? dimensionNodes.map((node) => `    ${node.id} -->|alimenta| CORE`).join('\n')
-    : '    D0 -->|alimenta| CORE';
+    ? dimensionNodes.map(node => `    ${node.id} -->|alimenta| CORE`).join('\n')
+    : '    D0 -->|alimenta| CORE'
 
   const dimensionStyles = hasDimensions
-    ? dimensionNodes.map((node) => `    style ${node.id} fill:#1e293b,stroke:#64748b,color:#cbd5e1`).join('\n')
-    : '    style D0 fill:#1e293b,stroke:#64748b,color:#cbd5e1';
+    ? dimensionNodes
+        .map(node => `    style ${node.id} fill:#1e293b,stroke:#64748b,color:#cbd5e1`)
+        .join('\n')
+    : '    style D0 fill:#1e293b,stroke:#64748b,color:#cbd5e1'
 
   return `
 graph TD
@@ -397,5 +551,5 @@ ${dimensionStyles}
     classDef dimension fill:#1e293b,stroke:#475569,color:#e2e8f0
     classDef core fill:#7c3aed,stroke:#fff,color:#fff
     classDef intent fill:#0ea5e9,stroke:#fff,color:#fff
-`;
+`
 }

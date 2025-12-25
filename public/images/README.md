@@ -62,6 +62,7 @@ images/
 ## 🔗 Referência ENS
 
 O ENS domain `neoprotocol.eth` pode hospedar:
+
 - Assets via IPFS
 - Metadados de imagens
 - CDN descentralizado
@@ -72,4 +73,3 @@ O ENS domain `neoprotocol.eth` pode hospedar:
 2. Forneça fallback PNG/JPG para compatibilidade
 3. Use `srcset` para diferentes resoluções
 4. Considere usar `picture` element para art direction
-

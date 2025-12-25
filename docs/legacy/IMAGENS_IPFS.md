@@ -55,7 +55,11 @@ Novos estilos em `src/index.css`:
 ### index.html
 
 ```html
-<link rel="icon" type="image/png" href="https://cloudflare-ipfs.com/ipfs/bafybeicwktbd4bpuey7w5efaqqzgtrul43hlwn4ison5l4vn37b3cklzdi" />
+<link
+  rel="icon"
+  type="image/png"
+  href="https://cloudflare-ipfs.com/ipfs/bafybeicwktbd4bpuey7w5efaqqzgtrul43hlwn4ison5l4vn37b3cklzdi"
+/>
 ```
 
 ### NeoProtocol.jsx (Hero)

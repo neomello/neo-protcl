@@ -21,6 +21,7 @@ O projeto NΞØ Protocol usa **Base** como rede principal, **NÃO Ethereum Mainn
 - **Explorer:** [basescan.org](https://sepolia.basescan.org)
 
 **Quando usar:**
+
 - ✅ Desenvolvimento
 - ✅ Testes de contratos
 - ✅ Testes de gasless
@@ -35,6 +36,7 @@ O projeto NΞØ Protocol usa **Base** como rede principal, **NÃO Ethereum Mainn
 - **Explorer:** [basescan.org](https://basescan.org)
 
 **Quando usar:**
+
 - ✅ Produção
 - ✅ Contratos finais
 - ✅ Usuários reais
@@ -46,6 +48,7 @@ O projeto NΞØ Protocol usa **Base** como rede principal, **NÃO Ethereum Mainn
 ### **❌ NÃO há Token Sendo Criado**
 
 Os contratos do NΞØ Protocol **NÃO são tokens**:
+
 - ❌ Não é ERC-20 (token fungível)
 - ❌ Não é ERC-721 (NFT)
 - ✅ São **smart contracts do protocolo**
@@ -59,6 +62,7 @@ Os contratos do NΞØ Protocol **NÃO são tokens**:
 ### **Gasless Transactions:**
 
 O Thirdweb patrocina o **ETH** necessário para gas:
+
 - ✅ Usuário não paga
 - ✅ Thirdweb paga o ETH do gas
 - ✅ Funciona na rede onde os contratos estão deployados
@@ -77,12 +81,14 @@ npx hardhat run scripts/deploy.js --network base
 ```
 
 **Filosofia do Projeto:**
+
 - ✅ Deploy direto em produção
 - ✅ Planejamento e decisões fundamentadas
 - ✅ Desenvolvimento com liberdade e responsabilidade
 - ✅ Sem necessidade de testnet (plataforma em desenvolvimento, sem usuários ainda)
 
 **Vantagens:**
+
 - ✅ Rede de produção desde o início
 - ✅ Transações reais
 - ✅ Preparado para quando houver usuários
@@ -104,14 +110,14 @@ Quando configurar "Restrict to specific contract addresses", os endereços devem
 
 ## 📊 Comparação: Base vs Ethereum Mainnet
 
-| Característica | Base | Ethereum Mainnet |
-|----------------|------|------------------|
-| **Chain ID** | 8453 | 1 |
-| **Moeda Nativa** | ETH | ETH |
-| **Custo de Gas** | Muito menor | Alto |
-| **Velocidade** | Rápida | Mais lenta |
-| **L2/L1** | L2 (Optimistic Rollup) | L1 |
-| **Compatibilidade** | EVM (100%) | EVM (nativo) |
+| Característica      | Base                   | Ethereum Mainnet |
+| ------------------- | ---------------------- | ---------------- |
+| **Chain ID**        | 8453                   | 1                |
+| **Moeda Nativa**    | ETH                    | ETH              |
+| **Custo de Gas**    | Muito menor            | Alto             |
+| **Velocidade**      | Rápida                 | Mais lenta       |
+| **L2/L1**           | L2 (Optimistic Rollup) | L1               |
+| **Compatibilidade** | EVM (100%)             | EVM (nativo)     |
 
 ---
 

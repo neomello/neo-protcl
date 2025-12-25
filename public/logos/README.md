@@ -43,4 +43,3 @@ O ENS domain `neoprotocol.eth` pode ser usado para:
 - Metadados do protocolo
 - Links diretos via IPFS/IPNS
 - Identidade Web3
-

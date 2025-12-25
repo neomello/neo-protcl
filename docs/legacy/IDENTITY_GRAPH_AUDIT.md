@@ -51,6 +51,7 @@ PoI Reconhecido → Registro On-Chain → Identidade Reputacional → Execução
    - ❌ Nenhuma função de relacionamento entre nós
 
 2. **Busca no código:**
+
    ```bash
    # Resultado: 0 arquivos encontrados
    glob_file_search: **/*identity*
@@ -73,6 +74,7 @@ PoI Reconhecido → Registro On-Chain → Identidade Reputacional → Execução
 **Evidência:**
 
 1. **NodeRegistry.sol:**
+
    ```solidity
    struct Node {
        address nodeAddress;
@@ -86,16 +88,18 @@ PoI Reconhecido → Registro On-Chain → Identidade Reputacional → Execução
    ```
 
 2. **NHIP-001 menciona mas não implementa:**
+
    > "permitir reputação e histórico futuro"
-   
+
    **Problema:** Apenas menciona, não implementa estrutura de dados.
 
 3. **NHIP-000a define threshold com Reputation Delta:**
+
    ```
    PoI_Threshold = A + C + R
    Onde R (Reputation Delta) = Histórico prévio de execução consistente
    ```
-   
+
    **Problema:** Não há onde armazenar ou calcular `R`.
 
 ---
@@ -109,12 +113,12 @@ PoI Reconhecido → Registro On-Chain → Identidade Reputacional → Execução
 
 ```javascript
 // Estado atual (linhas 4-9)
-let mcpNodes = [];  // ❌ Array simples, não grafo
+let mcpNodes = [] // ❌ Array simples, não grafo
 let mcpState = {
   connected: false,
   activeNodes: [],
-  interactions: []  // ❌ Apenas lista, sem relacionamentos
-};
+  interactions: [], // ❌ Apenas lista, sem relacionamentos
+}
 ```
 
 **Problemas:**
@@ -154,8 +158,9 @@ let identityGraph = {
    - ❌ Eventos de atualização de reputação
 
 2. **Documentação promete:**
+
    > "Identidade Reputacional (On-Chain)" (PROOF_OF_INTENTION_ARCHITECTURE.md, linha 213)
-   
+
    **Realidade:** Não existe no contrato.
 
 3. **Fluxo documentado vs. implementação:**
@@ -172,11 +177,13 @@ let identityGraph = {
 **Severidade:** 🔴 **CRÍTICA**
 
 **Fluxo esperado (documentação):**
+
 ```
 Execução Distribuída → Impacto Gerado → Identidade Reputacional → Loop
 ```
 
 **Realidade:**
+
 ```
 Execução Distribuída → [VAZIO] → Sem feedback → Sem loop
 ```
@@ -267,13 +274,21 @@ function getReputation(address node) external view returns (uint256);
 ```javascript
 // ❌ FALTA: Estrutura de grafo
 export class IdentityGraph {
-  nodes = new Map();
-  edges = new Map();
-  
-  addNode(nodeId, nodeData) { /* ... */ }
-  addEdge(from, to, edgeData) { /* ... */ }
-  getRelationships(nodeId) { /* ... */ }
-  calculateReputation(nodeId) { /* ... */ }
+  nodes = new Map()
+  edges = new Map()
+
+  addNode(nodeId, nodeData) {
+    /* ... */
+  }
+  addEdge(from, to, edgeData) {
+    /* ... */
+  }
+  getRelationships(nodeId) {
+    /* ... */
+  }
+  calculateReputation(nodeId) {
+    /* ... */
+  }
 }
 ```
 
@@ -329,18 +344,27 @@ export class IdentityGraph {
 **Ação:** Criar `IdentityGraph` em `src/context/mcp/identityGraph.js`
 
 **Estrutura mínima:**
+
 ```javascript
 export class IdentityGraph {
   constructor() {
-    this.nodes = new Map();
-    this.edges = new Map();
-    this.reputation = new Map();
+    this.nodes = new Map()
+    this.edges = new Map()
+    this.reputation = new Map()
   }
-  
-  addNode(nodeId, nodeData) { /* ... */ }
-  addEdge(from, to, type, metadata) { /* ... */ }
-  getRelationships(nodeId) { /* ... */ }
-  calculateReputation(nodeId) { /* ... */ }
+
+  addNode(nodeId, nodeData) {
+    /* ... */
+  }
+  addEdge(from, to, type, metadata) {
+    /* ... */
+  }
+  getRelationships(nodeId) {
+    /* ... */
+  }
+  calculateReputation(nodeId) {
+    /* ... */
+  }
 }
 ```
 
@@ -349,12 +373,14 @@ export class IdentityGraph {
 **Ação:** Estender `Node` struct com campos de reputação
 
 **Consideração:** Manter minimalismo, mas adicionar:
+
 - `uint256 reputation` (inicial: 0)
 - `uint256 lastReputationUpdate` (timestamp)
 
 ### **PRIORIDADE 3: Implementar Loop Reputacional**
 
 **Ação:** Criar mecanismo para:
+
 1. Registrar ações executadas
 2. Calcular impacto
 3. Atualizar reputação
@@ -369,6 +395,7 @@ O **Identity Graph** é um componente **crítico e ausente** do Protocolo NΞØ.
 **Status Geral:** ⚠️ **INCOMPLETO**
 
 **Próximos Passos:**
+
 1. Implementar estrutura de grafo off-chain
 2. Estender NodeRegistry.sol com reputação
 3. Implementar loop reputacional

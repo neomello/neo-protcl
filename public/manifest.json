@@ -10,19 +10,8 @@
   "scope": "/",
   "dir": "ltr",
   "lang": "pt-BR",
-  "categories": [
-    "finance",
-    "utilities",
-    "productivity",
-    "web3",
-    "blockchain"
-  ],
-  "display_override": [
-    "window-controls-overlay",
-    "standalone",
-    "minimal-ui",
-    "browser"
-  ],
+  "categories": ["finance", "utilities", "productivity", "web3", "blockchain"],
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
   "ens-domain": "neoprotocol.eth",
   "domain": "neoprotocol.space",
   "version": "3.0.0",

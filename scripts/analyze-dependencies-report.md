@@ -25,7 +25,7 @@
 ### 4. **ethers** ✅ USADO (Indiretamente)
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - Dependência transitiva de várias libs blockchain
   - Comentado em `src/main.jsx:7` como necessário para libs blockchain
 - **Motivo**: Usado por dependências transitivas (Safe SDK, etc.)
@@ -33,7 +33,7 @@
 ### 5. **@lighthouse-web3/sdk** ✅ USADO
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - `src/services/intentDataCapture.js:174`
   - `scripts/upload-to-lighthouse.js:49`
   - `scripts/test-lighthouse-upload.js:30`
@@ -44,7 +44,7 @@
 ### 6. **archiver** ✅ USADO
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - `scripts/upload-to-pinata.js:22,69`
   - `scripts/prepare-for-lighthouse.js:11,36`
 - **Uso**: Criar arquivos ZIP para deploy
@@ -60,7 +60,7 @@
 ### 8. **node-fetch** ✅ USADO
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - `scripts/check-ens-status.js:10`
   - `scripts/upload-to-pinata.js:21`
 - **Uso**: Requisições HTTP em scripts Node.js
@@ -69,7 +69,7 @@
 ### 9. **dotenv** ✅ USADO
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - `scripts/upload-to-pinata.js:20,28`
   - `scripts/upload-to-lighthouse.js:11,18`
   - `scripts/check-ens-status.js:11,18`
@@ -87,7 +87,7 @@
 ### 11. **thirdweb** ✅ USADO
 
 - **Status**: ✅ **MANTER**
-- **Onde**: 
+- **Onde**:
   - `src/providers/X402Provider.jsx:1-3`
   - `src/services/thirdwebSDK.js:2-3`
   - `src/hooks/useThirdwebSDK.js:2`
@@ -157,13 +157,13 @@
 ### 1. **@safe-global/safe-core-sdk-types** ❌ REMOVER
 
 - **Status**: ❌ **PODE SER REMOVIDO**
-- **Análise**: 
+- **Análise**:
   - Não encontrado uso direto no código fonte
   - Já é fornecido como dependência transitiva via `@thirdweb-dev/react`
   - Versão instalada: `2.3.0` (diretamente)
   - Versão transitiva: `1.10.1` (via @thirdweb-dev/wallets → @safe-global/safe-core-sdk)
   - A versão direta não está sendo usada
-- **Recomendação**: 
+- **Recomendação**:
   - ✅ **PODE SER REMOVIDO** - já está disponível como dependência transitiva
   - Comando: `npm uninstall @safe-global/safe-core-sdk-types`
   - **AÇÃO**: Remover do package.json

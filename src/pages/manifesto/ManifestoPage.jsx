@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import Navbar from '../../components/Navbar';
-import BottomNavigation from '../../components/BottomNavigation';
-import Footer from '../../components/Footer';
-import MermaidDiagram from '../../components/MermaidDiagram';
-import { useDesktopBlock } from '../../hooks/useDesktopBlock';
+import { useEffect } from 'react'
+import Navbar from '../../components/Navbar'
+import BottomNavigation from '../../components/BottomNavigation'
+import Footer from '../../components/Footer'
+import MermaidDiagram from '../../components/MermaidDiagram'
+import { useDesktopBlock } from '../../hooks/useDesktopBlock'
 
 export default function ManifestoPage() {
-  useDesktopBlock();
+  useDesktopBlock()
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   // Diagrama Mermaid do NEØ (NMVL v1)
   const poiDiagram = `
@@ -63,7 +63,7 @@ class D decision
 class A agent
 class M memory
 class X danger
-`;
+`
 
   // Os 8 Nós do Protocolo
   const nodes = [
@@ -88,7 +88,7 @@ MCP, código sem criador, linguagem executável — não são origem. São sinto
 
 Quando o mundo não suporta mais obedecer, protocolos emergem.
 
-NEØ é um deles.`
+NEØ é um deles.`,
     },
     {
       number: '2',
@@ -107,7 +107,7 @@ mas em escolher **onde amplificar o pulso**.
 
 Quem controla o foco executa a realidade.
 
-Quem não escolhe, apenas reage.`
+Quem não escolhe, apenas reage.`,
     },
     {
       number: '3',
@@ -130,7 +130,7 @@ Sem onboarding. Sem convite. Sem permissão.
 
 Ou você rompe.
 
-Ou permanece fora.`
+Ou permanece fora.`,
     },
     {
       number: '4',
@@ -153,7 +153,7 @@ Cria uma linha de execução onde ele se torna irrelevante.
 
 Nada é destruído.
 
-Apenas abandonado.`
+Apenas abandonado.`,
     },
     {
       number: '5',
@@ -174,7 +174,7 @@ Prova de que o protocolo roda em um corpo real.
 
 NEØ não fala.
 
-Compila.`
+Compila.`,
     },
     {
       number: '6',
@@ -197,7 +197,7 @@ Cada mente é um nó.
 
 Cada nó, um universo autônomo.
 
-A rede existe apenas enquanto há execução distribuída.`
+A rede existe apenas enquanto há execução distribuída.`,
     },
     {
       number: '7',
@@ -218,7 +218,7 @@ Apenas onde há compatibilidade de frequência.
 
 Alcance é métrica morta.
 
-Acoplamento é crescimento real.`
+Acoplamento é crescimento real.`,
     },
     {
       number: '8',
@@ -245,12 +245,12 @@ Não é revolução.
 
 Algo que sempre esteve aqui —
 
-e agora pode ser executado.`
-    }
-  ];
+e agora pode ser executado.`,
+    },
+  ]
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-black text-gray-100 overflow-x-hidden pb-16 safe-area-inset relative"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
@@ -269,7 +269,6 @@ e agora pode ser executado.`
 
         {/* Main Content */}
         <main className="container mx-auto px-4 py-6 pt-safe">
-          
           {/* Hero Card - Manifesto Header */}
           <div className="ios-card mb-6 p-6 spring-in">
             <div className="flex flex-col items-center text-center">
@@ -278,7 +277,9 @@ e agora pode ser executado.`
               </div>
               <h1 className="ios-headline text-white mb-2">MANIFESTO NΞØ</h1>
               <p className="ios-body text-gray-300 leading-relaxed max-w-md">
-                Protocolo NΞØ é o mais recente movimento a emergir do submundo digital com a proposta de devolver a identidade digital pessoal, da governança e da identidade pessoal.
+                Protocolo NΞØ é o mais recente movimento a emergir do submundo digital com a
+                proposta de devolver a identidade digital pessoal, da governança e da identidade
+                pessoal.
               </p>
             </div>
           </div>
@@ -290,7 +291,10 @@ e agora pode ser executado.`
               <p className="text-2xl font-bold text-cyan-400 mb-4">WE ARE NΞØ</p>
             </div>
             <div className="space-y-3 text-gray-300">
-              <p>Entre estar dentro e <strong className="text-white">se tornar um nó</strong>, existe ruptura:</p>
+              <p>
+                Entre estar dentro e <strong className="text-white">se tornar um nó</strong>, existe
+                ruptura:
+              </p>
               <ul className="list-none space-y-2 ml-4">
                 <li className="flex items-start gap-2">
                   <span className="text-cyan-400 mt-1">→</span>
@@ -309,11 +313,15 @@ e agora pode ser executado.`
           </div>
 
           {/* Proof of Intention Diagram - Destaque Criativo */}
-          <div className="ios-card mb-6 p-6 spring-in overflow-hidden" style={{ animationDelay: '0.2s' }}>
+          <div
+            className="ios-card mb-6 p-6 spring-in overflow-hidden"
+            style={{ animationDelay: '0.2s' }}
+          >
             <div className="mb-4">
               <h2 className="text-xl font-bold text-white mb-2">Proof of Intention (PoI)</h2>
               <p className="text-sm text-gray-400 mb-4">
-                O protocolo prevê o controle de aprovação de entrada Proof of Intention, onde cada ação realizada gera impacto reputacional e é registrada na blockchain.
+                O protocolo prevê o controle de aprovação de entrada Proof of Intention, onde cada
+                ação realizada gera impacto reputacional e é registrada na blockchain.
               </p>
             </div>
             <div className="bg-black/50 rounded-xl p-4 border border-cyan-500/20">
@@ -323,34 +331,42 @@ e agora pode ser executado.`
 
           {/* Soberania Digital */}
           <div className="ios-card mb-6 p-6 spring-in" style={{ animationDelay: '0.3s' }}>
-            <h2 className="text-xl font-bold text-white mb-4">🌍 Soberania e Independência Digital</h2>
+            <h2 className="text-xl font-bold text-white mb-4">
+              🌍 Soberania e Independência Digital
+            </h2>
             <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-l-4 border-cyan-400 p-4 rounded-r-lg mb-4">
               <p className="text-white font-semibold italic">
                 Auto custódia é o último protocolo de resistência.
               </p>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Em tempos de bloqueios judiciais, vigilância financeira e apagões informacionais, o Protocolo promove a educação e entrega ferramentas práticas para que seus membros dominem suas chaves, dados e representações digitais.
+              Em tempos de bloqueios judiciais, vigilância financeira e apagões informacionais, o
+              Protocolo promove a educação e entrega ferramentas práticas para que seus membros
+              dominem suas chaves, dados e representações digitais.
             </p>
           </div>
 
           {/* Os 8 Nós */}
           <div className="mb-6">
             <div className="ios-card mb-4 p-6 spring-in" style={{ animationDelay: '0.4s' }}>
-              <h2 className="text-2xl font-bold text-white mb-2 text-center">🧬 OS 8 NÓS DO PROTOCOLO NΞØ</h2>
+              <h2 className="text-2xl font-bold text-white mb-2 text-center">
+                🧬 OS 8 NÓS DO PROTOCOLO NΞØ
+              </h2>
               <p className="text-center text-gray-400 text-sm mb-4">
-                Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa.
+                Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência
+                descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa.
               </p>
               <p className="text-center text-gray-300 text-sm">
-                Eles não são etapas. São circuitos interligados e com funcionamento autônomo e simultâneos.
+                Eles não são etapas. São circuitos interligados e com funcionamento autônomo e
+                simultâneos.
               </p>
             </div>
 
             {/* Grid de Nós */}
             <div className="space-y-4">
               {nodes.map((node, index) => (
-                <div 
-                  key={node.number} 
+                <div
+                  key={node.number}
                   className="ios-card p-6 spring-in"
                   style={{ animationDelay: `${0.5 + index * 0.1}s` }}
                 >
@@ -363,17 +379,21 @@ e agora pode ser executado.`
                       <div className="text-gray-300 leading-relaxed whitespace-pre-line text-sm">
                         {node.content.split('\n').map((line, i) => {
                           // Processar negrito
-                          const parts = line.split(/(\*\*.*?\*\*)/g);
+                          const parts = line.split(/(\*\*.*?\*\*)/g)
                           return (
                             <p key={i} className="mb-2">
                               {parts.map((part, j) => {
                                 if (part.startsWith('**') && part.endsWith('**')) {
-                                  return <strong key={j} className="text-white">{part.slice(2, -2)}</strong>;
+                                  return (
+                                    <strong key={j} className="text-white">
+                                      {part.slice(2, -2)}
+                                    </strong>
+                                  )
                                 }
-                                return <span key={j}>{part}</span>;
+                                return <span key={j}>{part}</span>
                               })}
                             </p>
-                          );
+                          )
                         })}
                       </div>
                     </div>
@@ -401,7 +421,10 @@ e agora pode ser executado.`
           </div>
 
           {/* Footer */}
-          <div className="ios-card mb-6 p-6 spring-in text-center" style={{ animationDelay: '1.4s' }}>
+          <div
+            className="ios-card mb-6 p-6 spring-in text-center"
+            style={{ animationDelay: '1.4s' }}
+          >
             <p className="text-cyan-400 font-mono text-sm">
               PROTOCOLO NΞØ // A Mente é a Nova Blockchain
             </p>
@@ -409,7 +432,6 @@ e agora pode ser executado.`
 
           {/* Footer Spacer */}
           <div className="h-4"></div>
-
         </main>
       </div>
 
@@ -419,5 +441,5 @@ e agora pode ser executado.`
       {/* Bottom Navigation */}
       <BottomNavigation />
     </div>
-  );
+  )
 }

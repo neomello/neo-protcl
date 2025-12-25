@@ -90,7 +90,6 @@ Este documento identifica arquivos obsoletos, não utilizados ou que precisam de
 - ⚠️ `scripts/test-lighthouse-upload.js` - Script de teste
   - **Status**: Útil para debug, mas não usado em produção
   - **Ação**: Manter para debug ou mover para `scripts/dev/`
-  
 - ⚠️ `scripts/prepare-for-lighthouse.js` - Preparação manual
   - **Status**: Usado apenas para upload manual
   - **Ação**: Manter se necessário para uploads manuais
@@ -114,7 +113,7 @@ Este documento identifica arquivos obsoletos, não utilizados ou que precisam de
 ### 3. Diretórios Vazios (Apenas .gitkeep)
 
 - ⚠️ `public/images/backgrounds/` - Vazio (apenas .gitkeep)
-- ⚠️ `public/images/hero/` - Vazio (apenas .gitkeep)  
+- ⚠️ `public/images/hero/` - Vazio (apenas .gitkeep)
 - ⚠️ `public/images/sections/` - Vazio (apenas .gitkeep)
   - **Status**: Preparados para uso futuro
   - **Ação**: Manter se planeja usar, ou remover se não
@@ -134,7 +133,6 @@ Este documento identifica arquivos obsoletos, não utilizados ou que precisam de
 
 - ❓ `docs/instrucoes.json` - Formato JSON de instruções
   - **Ação**: Verificar se ainda é usado
-  
 - ❓ Múltiplos docs sobre ENS/IPFS podem estar desatualizados
   - **Ação**: Revisar e consolidar documentação
 
@@ -154,6 +152,7 @@ Este documento identifica arquivos obsoletos, não utilizados ou que precisam de
 ### Ações Imediatas (Remover)
 
 1. **Remover MainLayout não usado**
+
    ```bash
    rm src/components/Layout/MainLayout.jsx
    rm -rf src/components/Layout  # Se ficar vazio
@@ -170,6 +169,7 @@ Este documento identifica arquivos obsoletos, não utilizados ou que precisam de
 ### Ações de Verificação
 
 3. **Executar script de verificação**
+
    ```bash
    node scripts/check-unused-files.js
    ```

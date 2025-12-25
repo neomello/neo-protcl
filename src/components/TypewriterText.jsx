@@ -1,136 +1,131 @@
-import { useState, useEffect, useRef } from 'react';
-import { soundManager } from '../utils/sounds';
+import { useState, useEffect, useRef } from 'react'
+import { soundManager } from '../utils/sounds'
 
 /**
  * Componente de texto com efeito typewriter (digitação)
  * Inclui som de impressora matricial dos anos 90
  */
-export default function TypewriterText({ 
-  text, 
+export default function TypewriterText({
+  text,
   speed = 30, // ms por caractere
   onComplete,
   className = '',
   style = {},
-  showCursor = true
+  showCursor = true,
 }) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const indexRef = useRef(0);
-  const timeoutRef = useRef(null);
+  const [displayedText, setDisplayedText] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+  const indexRef = useRef(0)
+  const timeoutRef = useRef(null)
 
   useEffect(() => {
     // Reset quando o texto mudar
-    setDisplayedText('');
-    indexRef.current = 0;
-    setIsTyping(true);
-    
+    setDisplayedText('')
+    indexRef.current = 0
+    setIsTyping(true)
+
     // Não iniciar som aqui - será gerenciado pelo componente pai
 
     const typeNextChar = () => {
       if (indexRef.current < text.length) {
-        setDisplayedText(text.slice(0, indexRef.current + 1));
+        setDisplayedText(text.slice(0, indexRef.current + 1))
         // Tocar som da cabeça da impressora a cada caractere (exceto espaços)
-        const char = text[indexRef.current];
+        const char = text[indexRef.current]
         if (char && char !== ' ') {
-          soundManager.playPrinterHead();
+          soundManager.playPrinterHead()
         }
-        indexRef.current++;
-        timeoutRef.current = setTimeout(typeNextChar, speed);
+        indexRef.current++
+        timeoutRef.current = setTimeout(typeNextChar, speed)
       } else {
         // Terminou de digitar
-        setIsTyping(false);
+        setIsTyping(false)
         if (onComplete) {
-          onComplete();
+          onComplete()
         }
       }
-    };
+    }
 
     // Iniciar digitação após um pequeno delay
-    timeoutRef.current = setTimeout(typeNextChar, 100);
+    timeoutRef.current = setTimeout(typeNextChar, 100)
 
     // Cleanup
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+        clearTimeout(timeoutRef.current)
       }
       // Não parar o som no cleanup - será gerenciado pelo componente pai
-    };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, speed]); // Removido onComplete das dependências para evitar loops
+  }, [text, speed]) // Removido onComplete das dependências para evitar loops
 
   return (
     <span className={className} style={style}>
       {displayedText}
-      {showCursor && isTyping && (
-        <span className="animate-pulse text-gray-600">|</span>
-      )}
+      {showCursor && isTyping && <span className="animate-pulse text-gray-600">|</span>}
     </span>
-  );
+  )
 }
 
 /**
  * Componente para múltiplas linhas com typewriter
  */
-export function TypewriterLines({ 
-  lines, 
+export function TypewriterLines({
+  lines,
   speed = 30,
   lineDelay = 200, // delay entre linhas
   onComplete,
   className = '',
-  renderLine
+  renderLine,
 }) {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [lineStates, setLineStates] = useState({});
-  const isFirstLine = useRef(true);
+  const [currentLineIndex, setCurrentLineIndex] = useState(0)
+  const [lineStates, setLineStates] = useState({})
+  const isFirstLine = useRef(true)
 
   useEffect(() => {
     if (currentLineIndex < lines.length) {
       if (isFirstLine.current) {
-        soundManager.startPrinterSound();
-        isFirstLine.current = false;
+        soundManager.startPrinterSound()
+        isFirstLine.current = false
       }
     } else {
-      soundManager.stopPrinterSound();
+      soundManager.stopPrinterSound()
       if (onComplete) {
-        onComplete();
+        onComplete()
       }
     }
-  }, [currentLineIndex, lines.length, onComplete]);
+  }, [currentLineIndex, lines.length, onComplete])
 
-  const handleLineComplete = (lineIndex) => {
-    setLineStates(prev => ({ ...prev, [lineIndex]: 'complete' }));
+  const handleLineComplete = lineIndex => {
+    setLineStates(prev => ({ ...prev, [lineIndex]: 'complete' }))
     if (lineIndex < lines.length - 1) {
       setTimeout(() => {
-        setCurrentLineIndex(lineIndex + 1);
-      }, lineDelay);
+        setCurrentLineIndex(lineIndex + 1)
+      }, lineDelay)
     } else {
-      soundManager.stopPrinterSound();
+      soundManager.stopPrinterSound()
     }
-  };
+  }
 
   return (
     <div className={className}>
       {lines.map((line, index) => {
-        if (line === "") {
-          return <div key={index} className="h-4"></div>;
+        if (line === '') {
+          return <div key={index} className="h-4"></div>
         }
 
-        const state = lineStates[index];
-        const isTyping = index === currentLineIndex;
-        const isComplete = state === 'complete' || index < currentLineIndex;
+        const state = lineStates[index]
+        const isTyping = index === currentLineIndex
+        const isComplete = state === 'complete' || index < currentLineIndex
 
         if (renderLine) {
           if (isComplete) {
-            return renderLine(line, index, true);
+            return renderLine(line, index, true)
           } else if (isTyping) {
-            const styledLine = renderLine(line, index, false);
+            const styledLine = renderLine(line, index, false)
             // Se renderLine retornou um elemento, precisamos substituir o texto pelo TypewriterText
             if (styledLine && styledLine.type) {
               return (
-                <styledLine.type
-                  key={index}
-                  {...styledLine.props}
-                >
+                <styledLine.type key={index} {...styledLine.props}>
                   <TypewriterText
                     text={line}
                     speed={speed}
@@ -140,19 +135,22 @@ export function TypewriterLines({
                     showCursor={true}
                   />
                 </styledLine.type>
-              );
+              )
             }
           }
-          return null;
+          return null
         }
 
         // Fallback sem renderLine
         if (isComplete) {
           return (
-            <p key={index} className="text-base md:text-lg font-medium text-gray-200 font-['Courier_New',monospace]">
+            <p
+              key={index}
+              className="text-base md:text-lg font-medium text-gray-200 font-['Courier_New',monospace]"
+            >
               {line}
             </p>
-          );
+          )
         } else if (isTyping) {
           return (
             <TypewriterText
@@ -163,11 +161,10 @@ export function TypewriterLines({
               className="text-base md:text-lg font-medium text-gray-200 font-['Courier_New',monospace]"
               showCursor={true}
             />
-          );
+          )
         }
-        return null;
+        return null
       })}
     </div>
-  );
+  )
 }
-

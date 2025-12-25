@@ -67,6 +67,7 @@ NodeRegistry deployed to: 0x1111111111111111111111111111111111111111
 ```
 
 **⚠️ IMPORTANTE:**
+
 - ✅ Use os endereços **reais** que você copiou do deploy
 - ❌ **NÃO** use placeholders como `0x[ENDEREÇO_NODE_DESIGNER_REVIEW]`
 - ✅ Um endereço por linha
@@ -117,6 +118,7 @@ NodeRegistry deployed to: 0x1111111111111111111111111111111111111111
 **Causa:** O endereço do contrato não está na lista de permitidos.
 
 **Solução:**
+
 - Verifique se o endereço está correto no Dashboard
 - Verifique se está na rede correta (Base Mainnet - chainId: 8453)
 - Adicione o endereço se estiver faltando

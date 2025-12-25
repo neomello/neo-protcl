@@ -8,11 +8,13 @@
 ## Comandos Úteis
 
 ### Verificar status de ambos
+
 ```bash
 git remote -v
 ```
 
 ### Push para organização profissional (padrão)
+
 ```bash
 git push origin main
 # ou simplesmente
@@ -20,11 +22,13 @@ git push
 ```
 
 ### Push para repositório pessoal (se necessário)
+
 ```bash
 git push personal main
 ```
 
 ### Verificar permissões
+
 ```bash
 # Testar acesso ao repositório profissional
 git ls-remote origin
@@ -34,6 +38,7 @@ git ls-remote personal
 ```
 
 ### Sincronizar ambos (se necessário)
+
 ```bash
 # Push para profissional
 git push origin main
@@ -52,6 +57,7 @@ git push personal main
 ## Troubleshooting
 
 ### Se não conseguir fazer push:
+
 1. Verifique se está autenticado: `gh auth status`
 2. Verifique permissões na organização
 3. Use SSH se HTTPS falhar: `git remote set-url origin git@github.com:NEO-PROTOCOL/neo-protcl.git`

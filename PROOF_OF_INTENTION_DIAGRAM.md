@@ -40,7 +40,7 @@ flowchart TD
 ```mermaid
 flowchart TD
 A[Consciência Latente] -->|Incomodação| B[Contra o Sistema]
-B -->|Atrito Real| C{Intenção Verificável?} 
+B -->|Atrito Real| C{Intenção Verificável?}
 C -->|Não| D[Ruído / Consumo Passivo]
 D -->|Loop Infinito| B
 
@@ -59,7 +59,7 @@ I -->|Impacto Gerado| G
 ## 🔧 Correções e Melhorias Aplicadas
 
 1. **Aspas duplas nos labels**: Todos os nós agora usam aspas duplas `["texto"]` para garantir compatibilidade com caracteres especiais e Unicode (incluindo "Ø" e "Ξ")
-2. **Alinhamento com Arquitetura PoI**: 
+2. **Alinhamento com Arquitetura PoI**:
    - **PoI Reconhecido (NHIP-000 · MCP Context Guard)**: Reflete a camada semântica off-chain, deixando explícito quem reconhece
    - **Registro de Nó On-Chain (NHIP-001)**: Reflete a ancoragem on-chain
    - Separação clara entre reconhecimento (off-chain) e ancoragem de estado (on-chain)
@@ -89,7 +89,7 @@ I -->|Impacto Gerado| G
 ## 🚀 Como Usar
 
 ```jsx
-import MermaidDiagram from '../components/MermaidDiagram';
+import MermaidDiagram from '../components/MermaidDiagram'
 
 const poiDiagram = `
 flowchart TD
@@ -122,16 +122,14 @@ flowchart TD
     style H fill:#00FF99,stroke:#00CFFF,color:#0A0A0A
     style I fill:#7c3aed,stroke:#00FF99,stroke-width:2px,color:#fff
     style J fill:#0ea5e9,stroke:#00CFFF,color:#fff
-`;
+`
 
 function ProofOfIntentionPage() {
   return (
     <div className="p-6 bg-[#0A0A0A] rounded-xl">
-      <h2 className="text-2xl font-bold text-[#F0F0F0] mb-4">
-        Proof of Intention (PoI)
-      </h2>
+      <h2 className="text-2xl font-bold text-[#F0F0F0] mb-4">Proof of Intention (PoI)</h2>
       <MermaidDiagram diagram={poiDiagram} />
     </div>
-  );
+  )
 }
 ```

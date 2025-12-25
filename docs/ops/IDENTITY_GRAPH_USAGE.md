@@ -20,9 +20,9 @@ O **Identity Graph** é a estrutura de dados off-chain que mantém relacionament
 ### **Importar**
 
 ```javascript
-import { getIdentityGraph } from '../context/mcp/identityGraph';
+import { getIdentityGraph } from '../context/mcp/identityGraph'
 
-const graph = getIdentityGraph();
+const graph = getIdentityGraph()
 ```
 
 ### **Adicionar Nó**
@@ -31,8 +31,8 @@ const graph = getIdentityGraph();
 const node = graph.addNode('node_123', {
   address: '0x1234...',
   domain: 'developer',
-  metadata: { role: 'validator' }
-});
+  metadata: { role: 'validator' },
+})
 ```
 
 ### **Criar Relacionamento**
@@ -40,28 +40,29 @@ const node = graph.addNode('node_123', {
 ```javascript
 // Cria edge entre dois nós
 const edge = graph.addEdge(
-  'node_123',        // from
-  'node_456',        // to
-  'collaboration',   // type
-  {                  // metadata
+  'node_123', // from
+  'node_456', // to
+  'collaboration', // type
+  {
+    // metadata
     actionHash: '0xabc...',
-    impact: 10
+    impact: 10,
   },
-  0.8                // weight (0-1)
-);
+  0.8 // weight (0-1)
+)
 ```
 
 ### **Consultar Relacionamentos**
 
 ```javascript
 // Obter todos os relacionamentos de um nó
-const edges = graph.getEdges('node_123');
+const edges = graph.getEdges('node_123')
 
 // Obter nós conectados
-const connected = graph.getConnectedNodes('node_123');
+const connected = graph.getConnectedNodes('node_123')
 
 // Verificar se dois nós estão conectados
-const connected = graph.areConnected('node_123', 'node_456');
+const connected = graph.areConnected('node_123', 'node_456')
 ```
 
 ---
@@ -73,19 +74,19 @@ O Identity Graph está integrado automaticamente com o MCP Context Guard:
 ### **Ao reconhecer um nó:**
 
 ```javascript
-import { acknowledgeNodeOffChain } from '../context/mcp/index';
+import { acknowledgeNodeOffChain } from '../context/mcp/index'
 
 // Isso automaticamente adiciona ao Identity Graph
 acknowledgeNodeOffChain('node_123', {
   address: '0x1234...',
-  domain: 'developer'
-});
+  domain: 'developer',
+})
 ```
 
 ### **Ao registrar interação:**
 
 ```javascript
-import { registerInteraction } from '../context/mcp/index';
+import { registerInteraction } from '../context/mcp/index'
 
 // Isso automaticamente cria edge no Identity Graph
 registerInteraction({
@@ -94,8 +95,8 @@ registerInteraction({
   type: 'collaboration',
   actionHash: '0xabc...',
   impact: 10,
-  weight: 0.8
-});
+  weight: 0.8,
+})
 ```
 
 ---
@@ -105,21 +106,21 @@ registerInteraction({
 ### **Grau de um Nó**
 
 ```javascript
-const degree = graph.getDegree('node_123');
+const degree = graph.getDegree('node_123')
 // Retorna número de conexões
 ```
 
 ### **Peso Total**
 
 ```javascript
-const totalWeight = graph.getTotalWeight('node_123');
+const totalWeight = graph.getTotalWeight('node_123')
 // Retorna soma dos pesos das edges
 ```
 
 ### **Estatísticas do Grafo**
 
 ```javascript
-const stats = graph.getStats();
+const stats = graph.getStats()
 // {
 //   nodeCount: 10,
 //   edgeCount: 25,
@@ -141,18 +142,18 @@ O Identity Graph persiste automaticamente em `localStorage`:
 ### **Carregar Manualmente**
 
 ```javascript
-const graph = getIdentityGraph();
-graph.load(); // Carrega do localStorage
+const graph = getIdentityGraph()
+graph.load() // Carrega do localStorage
 ```
 
 ### **Exportar/Importar**
 
 ```javascript
 // Exportar
-const data = graph.export();
+const data = graph.export()
 
 // Importar
-graph.import(data);
+graph.import(data)
 ```
 
 ---

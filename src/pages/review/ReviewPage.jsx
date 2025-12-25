@@ -1,10 +1,10 @@
 /**
  * ReviewPage - NEØ Protocol
- * 
+ *
  * Página mínima para aceitar revisão on-chain
  */
 
-import AcceptReview from '../../components/Review/AcceptReview';
+import AcceptReview from '../../components/Review/AcceptReview'
 
 export default function ReviewPage() {
   return (
@@ -13,5 +13,5 @@ export default function ReviewPage() {
         <AcceptReview />
       </div>
     </div>
-  );
+  )
 }

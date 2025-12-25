@@ -100,10 +100,10 @@ Isso **filtra 80%** imediatamente.
 Você **já tem** o formato correto:
 
 ```yaml
-identity: ""
-domain: ""
-intent: "apresentacao"
-version: "1.0"
+identity: ''
+domain: ''
+intent: 'apresentacao'
+version: '1.0'
 ```
 
 **Não chame isso de "formulário".**  
@@ -117,7 +117,7 @@ Chame de:
 
 O "explicar o que é NHIP-000" **não fica no fluxo**.
 
-Ele fica **fora**, para quem *já* executa:
+Ele fica **fora**, para quem _já_ executa:
 
 - ✅ Documento técnico (`docs/nhip-000.md`)
 - ✅ Repositório (README)
@@ -133,11 +133,13 @@ Ele fica **fora**, para quem *já* executa:
 ### **No Site / Hub**
 
 **Botão Principal:**
+
 ```
 Executar NHIP-000
 ```
 
 **Link Secundário (Discreto, Quase Escondido):**
+
 ```
 NHIP-000.spec
 ```
@@ -153,13 +155,13 @@ NHIP-000.spec
 
 ```jsx
 function NHIP000Entry() {
-  const [thresholdPassed, setThresholdPassed] = useState(false);
+  const [thresholdPassed, setThresholdPassed] = useState(false)
   const [declaration, setDeclaration] = useState({
-    identity: "",
-    domain: "",
-    intent: "apresentacao",
-    version: "1.0"
-  });
+    identity: '',
+    domain: '',
+    intent: 'apresentacao',
+    version: '1.0',
+  })
 
   // Camada 2: Frase de Limiar
   if (!thresholdPassed) {
@@ -175,11 +177,9 @@ function NHIP000Entry() {
           <br />
           Se está aqui por colisão, prossiga.
         </p>
-        <button onClick={() => setThresholdPassed(true)}>
-          Prosseguir
-        </button>
+        <button onClick={() => setThresholdPassed(true)}>Prosseguir</button>
       </div>
-    );
+    )
   }
 
   // Camada 3: Declaração de Presença
@@ -188,14 +188,12 @@ function NHIP000Entry() {
       <h2>Declaração de Presença</h2>
       <textarea
         value={yamlFormat(declaration)}
-        onChange={(e) => setDeclaration(parseYaml(e.target.value))}
-        placeholder="identity: &quot;&quot;&#10;domain: &quot;&quot;&#10;intent: &quot;apresentacao&quot;&#10;version: &quot;1.0&quot;"
+        onChange={e => setDeclaration(parseYaml(e.target.value))}
+        placeholder='identity: ""&#10;domain: ""&#10;intent: "apresentacao"&#10;version: "1.0"'
       />
-      <button onClick={() => submitDeclaration(declaration)}>
-        Executar NHIP-000
-      </button>
+      <button onClick={() => submitDeclaration(declaration)}>Executar NHIP-000</button>
     </div>
-  );
+  )
 }
 ```
 

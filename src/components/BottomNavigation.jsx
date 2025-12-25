@@ -1,60 +1,64 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { soundManager } from '../utils/sounds';
-import { useDeviceDetection } from '../hooks/useDeviceDetection';
-import { useActiveAccount } from 'thirdweb/react';
-import { ConnectButton as ThirdwebConnectButton, useDisconnect, useActiveWallet } from 'thirdweb/react';
-import { useThirdwebClient } from '../providers/X402Provider';
+import React, { useState, useEffect, useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { soundManager } from '../utils/sounds'
+import { useDeviceDetection } from '../hooks/useDeviceDetection'
+import { useActiveAccount } from 'thirdweb/react'
+import {
+  ConnectButton as ThirdwebConnectButton,
+  useDisconnect,
+  useActiveWallet,
+} from 'thirdweb/react'
+import { useThirdwebClient } from '../providers/X402Provider'
 
 export default function BottomNavigation() {
-  const location = useLocation();
-  const { isMobile } = useDeviceDetection();
-  const account = useActiveAccount();
-  const wallet = useActiveWallet();
-  const disconnectHook = useDisconnect();
-  const client = useThirdwebClient();
-  
+  const location = useLocation()
+  const { isMobile } = useDeviceDetection()
+  const account = useActiveAccount()
+  const wallet = useActiveWallet()
+  const disconnectHook = useDisconnect()
+  const client = useThirdwebClient()
+
   // Verificar se disconnect é uma função (pode ser undefined em alguns casos)
-  const disconnect = typeof disconnectHook === 'function' ? disconnectHook : null;
-  const [showWalletMenu, setShowWalletMenu] = useState(false);
-  const menuRef = useRef(null);
-  
+  const disconnect = typeof disconnectHook === 'function' ? disconnectHook : null
+  const [showWalletMenu, setShowWalletMenu] = useState(false)
+  const menuRef = useRef(null)
+
   const handleDisconnect = () => {
     if (wallet && disconnect && typeof disconnect === 'function') {
-      soundManager.playClick();
+      soundManager.playClick()
       try {
-        disconnect(wallet);
-        setShowWalletMenu(false);
+        disconnect(wallet)
+        setShowWalletMenu(false)
       } catch (error) {
-        console.error('Erro ao desconectar wallet:', error);
+        console.error('Erro ao desconectar wallet:', error)
       }
     } else {
-      console.warn('Disconnect não disponível ou wallet não encontrada');
+      console.warn('Disconnect não disponível ou wallet não encontrada')
     }
-  };
+  }
 
   // Fechar menu ao clicar fora
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowWalletMenu(false);
+        setShowWalletMenu(false)
       }
-    };
+    }
 
     if (showWalletMenu) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [showWalletMenu]);
-  
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [showWalletMenu])
+
   // Não renderizar em desktop
   if (!isMobile) {
-    return null;
+    return null
   }
 
   // Partículas NΞØ conforme biblioteca de símbolos
@@ -64,10 +68,10 @@ export default function BottomNavigation() {
     { path: '/manifesto', particle: '⦙', label: 'DOCS', accent: '#7B5DFF' }, // Signal.Violet - divisor singular
     { path: '/register', particle: '◉', label: 'CADASTRO', accent: '#22C55E' }, // Green - registro/cadastro
     { path: '/boot', particle: '⊘', label: 'TERM', accent: '#34E1FF' }, // Glitch.Cyan - LiveTerminal
-  ];
+  ]
 
   return (
-    <nav 
+    <nav
       className="fixed bottom-0 left-0 right-0"
       style={{
         zIndex: 100,
@@ -79,13 +83,15 @@ export default function BottomNavigation() {
         paddingRight: 'env(safe-area-inset-right)',
       }}
     >
-      <div className="flex items-center justify-around px-4" style={{ gap: '8px' }}> {/* 2x cluster */}
-        {navItems.map((item) => {
-          const isActive = item.clickable !== false && location.pathname === item.path;
-          const accentColor = item.accent;
-          
+      <div className="flex items-center justify-around px-4" style={{ gap: '8px' }}>
+        {' '}
+        {/* 2x cluster */}
+        {navItems.map(item => {
+          const isActive = item.clickable !== false && location.pathname === item.path
+          const accentColor = item.accent
+
           const content = (
-            <div 
+            <div
               className="relative flex flex-col items-center justify-center flex-1 transition-all"
               style={{
                 paddingTop: '6px', // 1x
@@ -96,7 +102,7 @@ export default function BottomNavigation() {
               }}
             >
               {/* Partícula NΞØ */}
-              <span 
+              <span
                 className="mb-3"
                 style={{
                   fontSize: '18px',
@@ -108,9 +114,9 @@ export default function BottomNavigation() {
               >
                 {item.particle}
               </span>
-              
+
               {/* Label */}
-              <span 
+              <span
                 className="uppercase"
                 style={{
                   fontSize: '9px',
@@ -123,10 +129,10 @@ export default function BottomNavigation() {
               >
                 {item.label}
               </span>
-              
+
               {/* Indicador de estado ativo - linha fraturada */}
               {isActive && (
-                <div 
+                <div
                   className="absolute -top-0 left-1/2 transform -translate-x-1/2"
                   style={{
                     width: '24px', // 4x
@@ -137,8 +143,8 @@ export default function BottomNavigation() {
                 ></div>
               )}
             </div>
-          );
-          
+          )
+
           return (
             <div key={item.path || item.label} className="flex items-center flex-1">
               {item.clickable !== false ? (
@@ -146,9 +152,9 @@ export default function BottomNavigation() {
                   to={item.path}
                   onClick={() => {
                     if (!isActive) {
-                      soundManager.playNavigate();
+                      soundManager.playNavigate()
                     } else {
-                      soundManager.playClick();
+                      soundManager.playClick()
                     }
                   }}
                   className="w-full"
@@ -160,24 +166,31 @@ export default function BottomNavigation() {
                 content
               )}
             </div>
-          );
+          )
         })}
-        
         {/* Wallet Button - Compacto para BottomNavigation */}
         <div className="flex items-center flex-1" ref={menuRef}>
-          <div className="relative flex flex-col items-center justify-center w-full transition-all" style={{ paddingTop: '6px', paddingBottom: '6px' }}>
+          <div
+            className="relative flex flex-col items-center justify-center w-full transition-all"
+            style={{ paddingTop: '6px', paddingBottom: '6px' }}
+          >
             {account ? (
               // Conectado: mostrar menu com opção de desconectar
               <>
                 <button
                   onClick={() => {
-                    setShowWalletMenu(!showWalletMenu);
-                    soundManager.playClick();
+                    setShowWalletMenu(!showWalletMenu)
+                    soundManager.playClick()
                   }}
                   className="flex flex-col items-center w-full"
-                  style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                  }}
                 >
-                  <span 
+                  <span
                     className="mb-3"
                     style={{
                       fontSize: '18px',
@@ -189,7 +202,7 @@ export default function BottomNavigation() {
                   >
                     ●
                   </span>
-                  <span 
+                  <span
                     className="uppercase"
                     style={{
                       fontSize: '9px',
@@ -201,7 +214,7 @@ export default function BottomNavigation() {
                   >
                     WALLET
                   </span>
-                  <div 
+                  <div
                     className="absolute -top-0 left-1/2 transform -translate-x-1/2"
                     style={{
                       width: '24px',
@@ -211,10 +224,10 @@ export default function BottomNavigation() {
                     }}
                   ></div>
                 </button>
-                
+
                 {/* Menu de desconexão */}
                 {showWalletMenu && (
-                  <div 
+                  <div
                     className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50"
                     style={{
                       backdropFilter: 'blur(8px)',
@@ -222,7 +235,9 @@ export default function BottomNavigation() {
                     }}
                   >
                     <div className="p-3 border-b border-gray-700">
-                      <div className="text-[10px] text-gray-400 mb-1 uppercase tracking-wider">WALLET CONECTADA</div>
+                      <div className="text-[10px] text-gray-400 mb-1 uppercase tracking-wider">
+                        WALLET CONECTADA
+                      </div>
                       <div className="font-mono text-xs text-green-400 break-all">
                         {account.address.slice(0, 8)}...{account.address.slice(-6)}
                       </div>
@@ -240,23 +255,26 @@ export default function BottomNavigation() {
             ) : client ? (
               // Desconectado: ícone minimalista que abre modal
               <div className="flex flex-col items-center w-full">
-                <div className="mb-3 flex items-center justify-center" style={{ minHeight: '18px' }}>
+                <div
+                  className="mb-3 flex items-center justify-center"
+                  style={{ minHeight: '18px' }}
+                >
                   <ThirdwebConnectButton
                     client={client}
                     connectModal={{
-                      size: "wide",
-                      title: "Conectar Wallet",
+                      size: 'wide',
+                      title: 'Conectar Wallet',
                       welcomeScreen: {
-                        title: "Bem-vindo ao NΞØ Protocol",
-                        subtitle: "Conecte sua wallet para começar"
-                      }
+                        title: 'Bem-vindo ao NΞØ Protocol',
+                        subtitle: 'Conecte sua wallet para começar',
+                      },
                     }}
                     connectButton={{
-                      label: "",
-                      className: "p-0 border-0 bg-transparent min-w-0"
+                      label: '',
+                      className: 'p-0 border-0 bg-transparent min-w-0',
                     }}
                   >
-                    <span 
+                    <span
                       style={{
                         fontSize: '18px',
                         fontFamily: 'Inter, sans-serif',
@@ -272,7 +290,7 @@ export default function BottomNavigation() {
                     </span>
                   </ThirdwebConnectButton>
                 </div>
-                <span 
+                <span
                   className="uppercase"
                   style={{
                     fontSize: '9px',
@@ -296,6 +314,5 @@ export default function BottomNavigation() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
-

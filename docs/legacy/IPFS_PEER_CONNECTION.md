@@ -21,6 +21,7 @@ Esta conexão é **opcional** e serve para:
 ### ✅ Mas não é necessário para funcionar
 
 O conteúdo já está acessível via:
+
 - `neoprotocol.eth` (via navegadores com suporte ENS)
 - `neoprotocol.eth.link`
 - `https://ipfs.io/ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1`
@@ -53,6 +54,7 @@ Adicione a conexão se:
 O formato `neoprotocol.eth.limo` é um gateway ENS que resolve para o IPFS. O `.limo` é um gateway público que resolve domínios ENS.
 
 **Alternativas:**
+
 - `neoprotocol.eth.limo` (gateway público)
 - `neoprotocol.eth.link` (outro gateway público)
 - Diretamente via CID: `/ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1`
@@ -64,6 +66,7 @@ O formato `neoprotocol.eth.limo` é um gateway ENS que resolve para o IPFS. O `.
 Você **NÃO precisa** adicionar essa conexão agora. O domínio já funciona sem isso.
 
 Adicione apenas se:
+
 - Você planeja manter um node IPFS ativo
 - Você quer otimizar a descoberta na rede
 - Você está fazendo testes de performance
@@ -73,4 +76,3 @@ Adicione apenas se:
 1. ✅ Configure o **Content Hash** no ENS (o mais importante!)
 2. ✅ Teste o acesso via `neoprotocol.eth` ou `neoprotocol.eth.link`
 3. ⚪ Adicione a conexão peer (opcional, apenas se quiser otimizar)
-

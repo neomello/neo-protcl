@@ -34,27 +34,35 @@
 Quando os contratos forem deployados, adicione os endereços:
 
 #### **1. NodeDesignerReview.sol**
+
 ```
 0x[ENDEREÇO_DO_CONTRATO]
 ```
+
 **Função:** Revisões de design/sistema antes da admissão
 
 #### **2. ReputationBootstrap.sol**
+
 ```
 0x[ENDEREÇO_DO_CONTRATO]
 ```
+
 **Função:** Armazenamento mínimo de reputação on-chain
 
 #### **3. NodeAdmission.sol**
+
 ```
 0x[ENDEREÇO_DO_CONTRATO]
 ```
+
 **Função:** Admissão de nós baseada em reputação
 
 #### **4. NodeRegistry.sol**
+
 ```
 0x[ENDEREÇO_DO_CONTRATO]
 ```
+
 **Função:** Registro principal de nós do protocolo
 
 ---
@@ -103,6 +111,7 @@ Quando os contratos forem deployados, adicione os endereços:
 **Status:** Contratos ainda não deployados
 
 **Ação:**
+
 - ❌ **Deixe desabilitado** por enquanto
 - ✅ Ou habilite e adicione endereços vazios (será atualizado depois)
 
@@ -111,6 +120,7 @@ Quando os contratos forem deployados, adicione os endereços:
 **Status:** Contratos deployados
 
 **Ação:**
+
 - ✅ **Habilite a restrição**
 - ✅ Adicione todos os endereços dos contratos
 - ✅ Teste transações gasless
@@ -120,6 +130,7 @@ Quando os contratos forem deployados, adicione os endereços:
 **Status:** Novos contratos deployados
 
 **Ação:**
+
 - ✅ Adicione novos endereços conforme necessário
 - ✅ Remova endereços de contratos descontinuados
 
@@ -143,11 +154,13 @@ Quando os contratos forem deployados, adicione os endereços:
 ```
 
 **Formato correto:**
+
 - ✅ `0x` seguido de 40 caracteres hexadecimais
 - ✅ Um endereço por linha
 - ✅ Sem comentários ou placeholders
 
 **Exemplo incorreto (NÃO faça isso):**
+
 ```
 ❌ 0x[ENDEREÇO_NODE_DESIGNER_REVIEW]
 ❌ 0x[ENDEREÇO_REPUTATION_BOOTSTRAP]
@@ -221,11 +234,13 @@ Quando os contratos forem deployados, adicione os endereços:
 **✅ SIM, é recomendado habilitar** após deploy dos contratos.
 
 **Por quê?**
+
 - 🔒 Segurança
 - 💰 Controle de custos
 - 🎯 Foco no protocolo NΞØ
 
 **Quando?**
+
 - ⏳ **Agora:** Pode deixar desabilitado (contratos não deployados)
 - ✅ **Após deploy:** Habilite e adicione os endereços
 

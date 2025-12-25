@@ -8,4 +8,3 @@ export default {
     cssnano: false, // Vite já minifica, não precisa cssnano
   }),
 }
-

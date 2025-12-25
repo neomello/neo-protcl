@@ -24,7 +24,7 @@
 
 /**
  * IdentityGraph - Estrutura de grafo para relacionamentos entre nós
- * 
+ *
  * Funcionalidades:
  * - Adicionar nós ao grafo
  * - Criar relacionamentos (edges) entre nós
@@ -35,16 +35,16 @@
 export class IdentityGraph {
   constructor() {
     /** @type {Map<string, NodeData>} */
-    this.nodes = new Map();
-    
+    this.nodes = new Map()
+
     /** @type {Map<string, EdgeData>} */
-    this.edges = new Map();
-    
+    this.edges = new Map()
+
     /** @type {Map<string, Set<string>>} - Adjacency list: nodeId -> Set of connected nodeIds */
-    this.adjacencyList = new Map();
-    
+    this.adjacencyList = new Map()
+
     /** @type {string} - Chave para persistência */
-    this.storageKey = 'neo_identity_graph';
+    this.storageKey = 'neo_identity_graph'
   }
 
   /**
@@ -56,22 +56,22 @@ export class IdentityGraph {
   addNode(nodeId, nodeData) {
     if (this.nodes.has(nodeId)) {
       // Atualiza nó existente
-      const existing = this.nodes.get(nodeId);
-      this.nodes.set(nodeId, { ...existing, ...nodeData });
-      return this.nodes.get(nodeId);
+      const existing = this.nodes.get(nodeId)
+      this.nodes.set(nodeId, { ...existing, ...nodeData })
+      return this.nodes.get(nodeId)
     }
 
     const node = {
       id: nodeId,
       acknowledgedAt: Date.now(),
-      ...nodeData
-    };
+      ...nodeData,
+    }
 
-    this.nodes.set(nodeId, node);
-    this.adjacencyList.set(nodeId, new Set());
-    
-    this.persist();
-    return node;
+    this.nodes.set(nodeId, node)
+    this.adjacencyList.set(nodeId, new Set())
+
+    this.persist()
+    return node
   }
 
   /**
@@ -81,33 +81,33 @@ export class IdentityGraph {
    */
   removeNode(nodeId) {
     if (!this.nodes.has(nodeId)) {
-      return false;
+      return false
     }
 
     // Remove todas as edges conectadas
-    const connectedNodes = this.adjacencyList.get(nodeId) || new Set();
-    
+    const connectedNodes = this.adjacencyList.get(nodeId) || new Set()
+
     // Remove edges de saída
     for (const targetId of connectedNodes) {
-      this.removeEdge(nodeId, targetId);
+      this.removeEdge(nodeId, targetId)
     }
 
     // Remove edges de entrada
     for (const [edgeId, edge] of this.edges.entries()) {
       if (edge.to === nodeId) {
-        this.edges.delete(edgeId);
-        const sourceAdj = this.adjacencyList.get(edge.from);
+        this.edges.delete(edgeId)
+        const sourceAdj = this.adjacencyList.get(edge.from)
         if (sourceAdj) {
-          sourceAdj.delete(nodeId);
+          sourceAdj.delete(nodeId)
         }
       }
     }
 
-    this.nodes.delete(nodeId);
-    this.adjacencyList.delete(nodeId);
-    
-    this.persist();
-    return true;
+    this.nodes.delete(nodeId)
+    this.adjacencyList.delete(nodeId)
+
+    this.persist()
+    return true
   }
 
   /**
@@ -122,22 +122,22 @@ export class IdentityGraph {
   addEdge(fromId, toId, type = 'interaction', metadata = {}, weight = 0.5) {
     // Valida que ambos os nós existem
     if (!this.nodes.has(fromId)) {
-      throw new Error(`Node ${fromId} does not exist`);
+      throw new Error(`Node ${fromId} does not exist`)
     }
     if (!this.nodes.has(toId)) {
-      throw new Error(`Node ${toId} does not exist`);
+      throw new Error(`Node ${toId} does not exist`)
     }
 
     // Não permite self-loops
     if (fromId === toId) {
-      throw new Error('Self-loops are not allowed');
+      throw new Error('Self-loops are not allowed')
     }
 
     // Valida peso
-    const normalizedWeight = Math.max(0, Math.min(1, weight));
+    const normalizedWeight = Math.max(0, Math.min(1, weight))
 
-    const edgeId = `${fromId}->${toId}:${type}:${Date.now()}`;
-    
+    const edgeId = `${fromId}->${toId}:${type}:${Date.now()}`
+
     const edge = {
       id: edgeId,
       from: fromId,
@@ -145,19 +145,19 @@ export class IdentityGraph {
       type,
       weight: normalizedWeight,
       timestamp: Date.now(),
-      metadata
-    };
-
-    this.edges.set(edgeId, edge);
-    
-    // Atualiza adjacency list
-    const fromAdj = this.adjacencyList.get(fromId);
-    if (fromAdj) {
-      fromAdj.add(toId);
+      metadata,
     }
 
-    this.persist();
-    return edge;
+    this.edges.set(edgeId, edge)
+
+    // Atualiza adjacency list
+    const fromAdj = this.adjacencyList.get(fromId)
+    if (fromAdj) {
+      fromAdj.add(toId)
+    }
+
+    this.persist()
+    return edge
   }
 
   /**
@@ -168,13 +168,13 @@ export class IdentityGraph {
    * @returns {boolean} true se removida, false se não existia
    */
   removeEdge(fromId, toId, type = null) {
-    let removed = false;
+    let removed = false
 
     for (const [edgeId, edge] of this.edges.entries()) {
       if (edge.from === fromId && edge.to === toId) {
         if (!type || edge.type === type) {
-          this.edges.delete(edgeId);
-          removed = true;
+          this.edges.delete(edgeId)
+          removed = true
         }
       }
     }
@@ -182,20 +182,20 @@ export class IdentityGraph {
     // Atualiza adjacency list se não há mais edges
     const remainingEdges = Array.from(this.edges.values()).some(
       e => e.from === fromId && e.to === toId
-    );
-    
+    )
+
     if (!remainingEdges) {
-      const fromAdj = this.adjacencyList.get(fromId);
+      const fromAdj = this.adjacencyList.get(fromId)
       if (fromAdj) {
-        fromAdj.delete(toId);
+        fromAdj.delete(toId)
       }
     }
 
     if (removed) {
-      this.persist();
+      this.persist()
     }
 
-    return removed;
+    return removed
   }
 
   /**
@@ -204,7 +204,7 @@ export class IdentityGraph {
    * @returns {NodeData|null} Dados do nó ou null se não existe
    */
   getNode(nodeId) {
-    return this.nodes.get(nodeId) || null;
+    return this.nodes.get(nodeId) || null
   }
 
   /**
@@ -212,7 +212,7 @@ export class IdentityGraph {
    * @returns {NodeData[]} Array de nós
    */
   getAllNodes() {
-    return Array.from(this.nodes.values());
+    return Array.from(this.nodes.values())
   }
 
   /**
@@ -221,7 +221,7 @@ export class IdentityGraph {
    * @returns {EdgeData[]} Array de edges de saída
    */
   getOutgoingEdges(nodeId) {
-    return Array.from(this.edges.values()).filter(edge => edge.from === nodeId);
+    return Array.from(this.edges.values()).filter(edge => edge.from === nodeId)
   }
 
   /**
@@ -230,7 +230,7 @@ export class IdentityGraph {
    * @returns {EdgeData[]} Array de edges de entrada
    */
   getIncomingEdges(nodeId) {
-    return Array.from(this.edges.values()).filter(edge => edge.to === nodeId);
+    return Array.from(this.edges.values()).filter(edge => edge.to === nodeId)
   }
 
   /**
@@ -239,10 +239,7 @@ export class IdentityGraph {
    * @returns {EdgeData[]} Array de todas as edges conectadas
    */
   getEdges(nodeId) {
-    return [
-      ...this.getOutgoingEdges(nodeId),
-      ...this.getIncomingEdges(nodeId)
-    ];
+    return [...this.getOutgoingEdges(nodeId), ...this.getIncomingEdges(nodeId)]
   }
 
   /**
@@ -251,19 +248,19 @@ export class IdentityGraph {
    * @returns {string[]} Array de IDs de nós conectados
    */
   getConnectedNodes(nodeId) {
-    const connected = new Set();
-    
+    const connected = new Set()
+
     // Outgoing
     for (const edge of this.getOutgoingEdges(nodeId)) {
-      connected.add(edge.to);
+      connected.add(edge.to)
     }
-    
+
     // Incoming
     for (const edge of this.getIncomingEdges(nodeId)) {
-      connected.add(edge.from);
+      connected.add(edge.from)
     }
-    
-    return Array.from(connected);
+
+    return Array.from(connected)
   }
 
   /**
@@ -273,9 +270,7 @@ export class IdentityGraph {
    * @returns {EdgeData[]} Array de edges entre os nós
    */
   getRelationships(fromId, toId) {
-    return Array.from(this.edges.values()).filter(
-      edge => edge.from === fromId && edge.to === toId
-    );
+    return Array.from(this.edges.values()).filter(edge => edge.from === fromId && edge.to === toId)
   }
 
   /**
@@ -284,7 +279,7 @@ export class IdentityGraph {
    * @returns {number} Grau do nó
    */
   getDegree(nodeId) {
-    return this.getConnectedNodes(nodeId).length;
+    return this.getConnectedNodes(nodeId).length
   }
 
   /**
@@ -293,8 +288,8 @@ export class IdentityGraph {
    * @returns {number} Soma dos pesos das edges
    */
   getTotalWeight(nodeId) {
-    const edges = this.getEdges(nodeId);
-    return edges.reduce((sum, edge) => sum + edge.weight, 0);
+    const edges = this.getEdges(nodeId)
+    return edges.reduce((sum, edge) => sum + edge.weight, 0)
   }
 
   /**
@@ -304,7 +299,7 @@ export class IdentityGraph {
    * @returns {boolean} true se conectados
    */
   areConnected(fromId, toId) {
-    return this.getRelationships(fromId, toId).length > 0;
+    return this.getRelationships(fromId, toId).length > 0
   }
 
   /**
@@ -315,13 +310,16 @@ export class IdentityGraph {
     return {
       nodeCount: this.nodes.size,
       edgeCount: this.edges.size,
-      averageDegree: this.nodes.size > 0 
-        ? Array.from(this.nodes.keys()).reduce((sum, id) => sum + this.getDegree(id), 0) / this.nodes.size
-        : 0,
-      averageWeight: this.edges.size > 0
-        ? Array.from(this.edges.values()).reduce((sum, e) => sum + e.weight, 0) / this.edges.size
-        : 0
-    };
+      averageDegree:
+        this.nodes.size > 0
+          ? Array.from(this.nodes.keys()).reduce((sum, id) => sum + this.getDegree(id), 0) /
+            this.nodes.size
+          : 0,
+      averageWeight:
+        this.edges.size > 0
+          ? Array.from(this.edges.values()).reduce((sum, e) => sum + e.weight, 0) / this.edges.size
+          : 0,
+    }
   }
 
   /**
@@ -334,15 +332,15 @@ export class IdentityGraph {
         edges: Array.from(this.edges.entries()),
         adjacencyList: Array.from(this.adjacencyList.entries()).map(([id, set]) => [
           id,
-          Array.from(set)
+          Array.from(set),
         ]),
         version: '1.0.0',
-        persistedAt: Date.now()
-      };
-      
-      localStorage.setItem(this.storageKey, JSON.stringify(serialized));
+        persistedAt: Date.now(),
+      }
+
+      localStorage.setItem(this.storageKey, JSON.stringify(serialized))
     } catch (error) {
-      console.error('[IdentityGraph] Persistence error:', error);
+      console.error('[IdentityGraph] Persistence error:', error)
     }
   }
 
@@ -352,28 +350,28 @@ export class IdentityGraph {
    */
   load() {
     try {
-      const saved = localStorage.getItem(this.storageKey);
+      const saved = localStorage.getItem(this.storageKey)
       if (!saved) {
-        return false;
+        return false
       }
 
-      const data = JSON.parse(saved);
-      
+      const data = JSON.parse(saved)
+
       // Restaura nodes
-      this.nodes = new Map(data.nodes || []);
-      
+      this.nodes = new Map(data.nodes || [])
+
       // Restaura edges
-      this.edges = new Map(data.edges || []);
-      
+      this.edges = new Map(data.edges || [])
+
       // Restaura adjacency list
       this.adjacencyList = new Map(
         (data.adjacencyList || []).map(([id, arr]) => [id, new Set(arr)])
-      );
+      )
 
-      return true;
+      return true
     } catch (error) {
-      console.error('[IdentityGraph] Load error:', error);
-      return false;
+      console.error('[IdentityGraph] Load error:', error)
+      return false
     }
   }
 
@@ -381,10 +379,10 @@ export class IdentityGraph {
    * Limpa todo o grafo
    */
   clear() {
-    this.nodes.clear();
-    this.edges.clear();
-    this.adjacencyList.clear();
-    localStorage.removeItem(this.storageKey);
+    this.nodes.clear()
+    this.edges.clear()
+    this.adjacencyList.clear()
+    localStorage.removeItem(this.storageKey)
   }
 
   /**
@@ -396,8 +394,8 @@ export class IdentityGraph {
       nodes: Array.from(this.nodes.values()),
       edges: Array.from(this.edges.values()),
       stats: this.getStats(),
-      exportedAt: Date.now()
-    };
+      exportedAt: Date.now(),
+    }
   }
 
   /**
@@ -405,35 +403,35 @@ export class IdentityGraph {
    * @param {Object} data - Dados para importar
    */
   import(data) {
-    this.clear();
-    
+    this.clear()
+
     // Importa nodes
     if (data.nodes && Array.isArray(data.nodes)) {
       for (const node of data.nodes) {
-        this.nodes.set(node.id, node);
-        this.adjacencyList.set(node.id, new Set());
+        this.nodes.set(node.id, node)
+        this.adjacencyList.set(node.id, new Set())
       }
     }
-    
+
     // Importa edges
     if (data.edges && Array.isArray(data.edges)) {
       for (const edge of data.edges) {
-        this.edges.set(edge.id, edge);
-        
+        this.edges.set(edge.id, edge)
+
         // Atualiza adjacency list
-        const fromAdj = this.adjacencyList.get(edge.from);
+        const fromAdj = this.adjacencyList.get(edge.from)
         if (fromAdj) {
-          fromAdj.add(edge.to);
+          fromAdj.add(edge.to)
         }
       }
     }
-    
-    this.persist();
+
+    this.persist()
   }
 }
 
 // Instância singleton do Identity Graph
-let identityGraphInstance = null;
+let identityGraphInstance = null
 
 /**
  * Obtém a instância singleton do Identity Graph
@@ -441,24 +439,24 @@ let identityGraphInstance = null;
  */
 export function getIdentityGraph() {
   if (!identityGraphInstance) {
-    identityGraphInstance = new IdentityGraph();
+    identityGraphInstance = new IdentityGraph()
     // Tenta carregar estado persistido
-    identityGraphInstance.load();
+    identityGraphInstance.load()
   }
-  return identityGraphInstance;
+  return identityGraphInstance
 }
 
 /**
  * Exportação direta da instância para uso simplificado (Singleton)
  */
-export const identityGraph = getIdentityGraph();
+export const identityGraph = getIdentityGraph()
 
 /**
  * Reseta a instância singleton (útil para testes)
  */
 export function resetIdentityGraph() {
   if (identityGraphInstance) {
-    identityGraphInstance.clear();
+    identityGraphInstance.clear()
   }
-  identityGraphInstance = null;
+  identityGraphInstance = null
 }

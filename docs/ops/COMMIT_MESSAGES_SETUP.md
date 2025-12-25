@@ -3,11 +3,13 @@
 ## 📝 Templates Criados
 
 ### 1. Merge Commit Message
+
 **Arquivo:** `.github/merge_message_template.md`
 
 Usado quando você faz merge de um PR (não squash).
 
 **Formato:**
+
 ```
 Merge pull request #$NUMBER from $AUTHOR
 
@@ -24,11 +26,13 @@ Changes are allowed, inconsistency is not.
 ```
 
 ### 2. Squash Merge Message
+
 **Arquivo:** `.github/squash_merge_message_template.md`
 
 Usado quando você faz squash merge de um PR.
 
 **Formato:**
+
 ```
 $TITLE
 
@@ -69,6 +73,7 @@ Os templates já estão nos arquivos `.github/` e podem ser referenciados.
 ## 📋 Exemplo de Uso
 
 ### Merge Commit:
+
 ```
 Merge pull request #42 from contributor/feature-x
 
@@ -85,6 +90,7 @@ Changes are allowed, inconsistency is not.
 ```
 
 ### Squash Merge:
+
 ```
 feat: adicionar nova funcionalidade X
 
@@ -106,4 +112,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

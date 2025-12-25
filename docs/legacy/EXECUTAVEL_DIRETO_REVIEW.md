@@ -53,6 +53,7 @@ npx hardhat run scripts/inviteReviewer.js --network polygon
 ```
 
 **Output:**
+
 ```
 ✅ Review invited successfully!
 Deadline: 2025-02-03T12:00:00.000Z
@@ -61,17 +62,20 @@ Deadline: 2025-02-03T12:00:00.000Z
 ### **Passo 4: Revisor aceita (via UI ou script)**
 
 **Opção A: Via UI (recomendado)**
+
 1. Acessar `/review`
 2. Conectar wallet
 3. Clicar "Accept Review"
 4. Confirmar transação
 
 **Opção B: Via Script**
+
 ```bash
 npx hardhat run scripts/acceptReview.js --network polygon
 ```
 
 **Output:**
+
 ```
 🟢 Review accepted. Analysis officially started.
 ```
@@ -103,6 +107,7 @@ Silêncio operacional
 **Rota:** `/review`
 
 **Funcionalidades:**
+
 - ✅ Conectar wallet
 - ✅ Verificar status
 - ✅ Aceitar revisão (se `INVITED`)

@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useActiveAccount } from 'thirdweb/react';
-import Navbar from '../../components/Navbar';
-import BottomNavigation from '../../components/BottomNavigation';
-import Footer from '../../components/Footer';
-import CommandInput from '../../components/CommandInput';
-import { getMCPState, initMCP } from '../../context/mcp';
-import { thirdwebClient, x402Config } from '../../providers/X402Provider';
-import { processCommand } from '../../utils/commandProcessor';
+import React, { useEffect, useState, useRef } from 'react'
+import { useActiveAccount } from 'thirdweb/react'
+import Navbar from '../../components/Navbar'
+import BottomNavigation from '../../components/BottomNavigation'
+import Footer from '../../components/Footer'
+import CommandInput from '../../components/CommandInput'
+import { getMCPState, initMCP } from '../../context/mcp'
+import { thirdwebClient, x402Config } from '../../providers/X402Provider'
+import { processCommand } from '../../utils/commandProcessor'
 
 /**
  * NeoProtocolMobile - Protocol Shell Frame
@@ -14,148 +14,155 @@ import { processCommand } from '../../utils/commandProcessor';
  * Alvo: Home Mobile
  */
 export default function NeoProtocolMobile() {
-  const account = useActiveAccount();
-  const [mcp, setMcp] = useState(getMCPState());
+  const account = useActiveAccount()
+  const [mcp, setMcp] = useState(getMCPState())
   const [events, setEvents] = useState(() => {
-    const saved = localStorage.getItem('neo_shell_events_mobile');
-    return saved ? JSON.parse(saved) : [
-      { id: 1, text: 'Bootstrap complete.' },
-      { id: 2, text: 'Shell active.' }
-    ];
-  });
+    const saved = localStorage.getItem('neo_shell_events_mobile')
+    return saved
+      ? JSON.parse(saved)
+      : [
+          { id: 1, text: 'Bootstrap complete.' },
+          { id: 2, text: 'Shell active.' },
+        ]
+  })
 
   useEffect(() => {
-    localStorage.setItem('neo_shell_events_mobile', JSON.stringify(events));
-  }, [events]);
-  const [pullDistance, setPullDistance] = useState(0);
-  const touchStartY = useRef(0);
-  const containerRef = useRef(null);
-  const eventsContainerRef = useRef(null);
-  const isUserScrollingRef = useRef(false);
-  const autoScrollEnabledRef = useRef(true);
+    localStorage.setItem('neo_shell_events_mobile', JSON.stringify(events))
+  }, [events])
+  const [pullDistance, setPullDistance] = useState(0)
+  const touchStartY = useRef(0)
+  const containerRef = useRef(null)
+  const eventsContainerRef = useRef(null)
+  const isUserScrollingRef = useRef(false)
+  const autoScrollEnabledRef = useRef(true)
 
   useEffect(() => {
-    const state = initMCP();
-    setMcp({ ...state });
-  }, []);
+    const state = initMCP()
+    setMcp({ ...state })
+  }, [])
 
-  const handleCommand = (cmd) => {
+  const handleCommand = cmd => {
     const context = {
       mcpConnected: mcp.connected,
       identity: account ? 'AUTHENTICATED' : 'ANONYMOUS',
       address: account?.address,
       hasClient: !!thirdwebClient,
-      x402Ready: x402Config.isConfigured
-    };
+      x402Ready: x402Config.isConfigured,
+    }
 
-    const result = processCommand(cmd, context);
-    
+    const result = processCommand(cmd, context)
+
     if (result.type === 'CLEAR') {
-      setEvents([]);
-      return;
+      setEvents([])
+      return
     }
 
     const newEvents = [
       { id: Date.now(), text: `CMD: ${cmd.toUpperCase()}` },
-      ...result.messages.map((msg, i) => ({ id: Date.now() + i + 1, text: msg }))
-    ];
-    
+      ...result.messages.map((msg, i) => ({ id: Date.now() + i + 1, text: msg })),
+    ]
+
     // Garantir que auto-scroll está ativo quando o usuário executa um comando
-    autoScrollEnabledRef.current = true;
-    isUserScrollingRef.current = false;
-    
-    setEvents(prev => [...prev, ...newEvents]);
-  };
+    autoScrollEnabledRef.current = true
+    isUserScrollingRef.current = false
+
+    setEvents(prev => [...prev, ...newEvents])
+  }
 
   // Auto-scroll para a última linha quando novos eventos são adicionados
   useEffect(() => {
     if (eventsContainerRef.current) {
-      const container = eventsContainerRef.current;
+      const container = eventsContainerRef.current
       // Usar requestAnimationFrame para garantir que o DOM foi atualizado
       requestAnimationFrame(() => {
         if (autoScrollEnabledRef.current && !isUserScrollingRef.current) {
-          container.scrollTop = container.scrollHeight;
+          container.scrollTop = container.scrollHeight
         }
-      });
+      })
     }
-  }, [events]);
+  }, [events])
 
   // Detectar quando o usuário está rolando manualmente
   const handleScroll = () => {
-    if (!eventsContainerRef.current) return;
-    
-    const container = eventsContainerRef.current;
-    const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 5;
-    
+    if (!eventsContainerRef.current) return
+
+    const container = eventsContainerRef.current
+    const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 5
+
     // Se o usuário está no final, reativar auto-scroll
     if (isAtBottom) {
-      autoScrollEnabledRef.current = true;
-      isUserScrollingRef.current = false;
+      autoScrollEnabledRef.current = true
+      isUserScrollingRef.current = false
     } else {
       // Se o usuário está rolando para cima, desabilitar auto-scroll
-      autoScrollEnabledRef.current = false;
-      isUserScrollingRef.current = true;
+      autoScrollEnabledRef.current = false
+      isUserScrollingRef.current = true
     }
-  };
+  }
 
-  const networkStatus = thirdwebClient ? 'OK' : 'OFF';
-  const identityStatus = account ? `${account.address.slice(0, 4)}..${account.address.slice(-2)}` : 'NONE';
-  const mcpStatus = mcp.connected ? 'ACTIVE' : 'OFF';
+  const networkStatus = thirdwebClient ? 'OK' : 'OFF'
+  const identityStatus = account
+    ? `${account.address.slice(0, 4)}..${account.address.slice(-2)}`
+    : 'NONE'
+  const mcpStatus = mcp.connected ? 'ACTIVE' : 'OFF'
 
   // Pull to Refresh logic (infrastructure maintained)
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const container = containerRef.current
+    if (!container) return
 
-    const handleTouchStart = (e) => {
+    const handleTouchStart = e => {
       if (window.scrollY === 0) {
-        touchStartY.current = e.touches[0].clientY;
+        touchStartY.current = e.touches[0].clientY
       }
-    };
+    }
 
-    const handleTouchMove = (e) => {
+    const handleTouchMove = e => {
       if (window.scrollY === 0 && touchStartY.current > 0) {
-        const distance = e.touches[0].clientY - touchStartY.current;
+        const distance = e.touches[0].clientY - touchStartY.current
         if (distance > 0) {
-          setPullDistance(Math.min(distance, 80));
+          setPullDistance(Math.min(distance, 80))
         }
       }
-    };
+    }
 
     const handleTouchEnd = () => {
       if (pullDistance > 50) {
-        window.location.reload();
+        window.location.reload()
       }
-      setPullDistance(0);
-      touchStartY.current = 0;
-    };
+      setPullDistance(0)
+      touchStartY.current = 0
+    }
 
-    container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchmove', handleTouchMove, { passive: true });
-    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchstart', handleTouchStart, { passive: true })
+    container.addEventListener('touchmove', handleTouchMove, { passive: true })
+    container.addEventListener('touchend', handleTouchEnd)
 
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [pullDistance]);
+      container.removeEventListener('touchstart', handleTouchStart)
+      container.removeEventListener('touchmove', handleTouchMove)
+      container.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [pullDistance])
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="min-h-screen bg-black text-gray-100 overflow-x-hidden pb-16 safe-area-inset relative font-mono"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
       {/* Background Layer: Infrastructure Grid */}
       <div className="fixed inset-0 z-0 opacity-[0.20] pointer-events-none">
-        <div className="absolute inset-0" style={{ 
-          backgroundImage: `
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
             linear-gradient(to right, #555 1px, transparent 1px),
             linear-gradient(to bottom, #555 1px, transparent 1px)
           `,
-          backgroundSize: '30px 30px' 
-        }}></div>
+            backgroundSize: '30px 30px',
+          }}
+        ></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
       </div>
 
@@ -165,20 +172,21 @@ export default function NeoProtocolMobile() {
 
         {/* Main Operational Area */}
         <main className="flex-1 flex flex-col p-4 pt-safe overflow-hidden">
-          
           {/* Mobile Telemetry Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6 text-[9px] uppercase tracking-widest text-gray-400">
             <div className="flex flex-col border-l border-gray-700 pl-2">
               <span className="text-gray-300 mb-0.5">network</span>
-              <span className={thirdwebClient ? "text-cyan-400" : "text-red-400"}>{networkStatus}</span>
+              <span className={thirdwebClient ? 'text-cyan-400' : 'text-red-400'}>
+                {networkStatus}
+              </span>
             </div>
             <div className="flex flex-col border-l border-gray-700 pl-2">
               <span className="text-gray-300 mb-0.5">mcp</span>
-              <span className={mcp.connected ? "text-cyan-400" : "text-gray-500"}>{mcpStatus}</span>
+              <span className={mcp.connected ? 'text-cyan-400' : 'text-gray-500'}>{mcpStatus}</span>
             </div>
             <div className="flex flex-col border-l border-gray-700 pl-2">
               <span className="text-gray-300 mb-0.5">identity</span>
-              <span className={account ? "text-cyan-400" : "text-gray-500"}>{identityStatus}</span>
+              <span className={account ? 'text-cyan-400' : 'text-gray-500'}>{identityStatus}</span>
             </div>
             <div className="flex flex-col border-l border-gray-700 pl-2">
               <span className="text-gray-300 mb-0.5">events</span>
@@ -199,15 +207,18 @@ export default function NeoProtocolMobile() {
           {/* Bottom Event Log */}
           <div className="mt-6 border-t border-gray-800 pt-3 mb-4">
             <div className="flex justify-between items-center mb-2">
-              <div className="text-[9px] text-gray-300 uppercase tracking-[0.15em]">System Stream</div>
+              <div className="text-[9px] text-gray-300 uppercase tracking-[0.15em]">
+                System Stream
+              </div>
               <div className="flex items-center gap-2">
                 {!autoScrollEnabledRef.current && (
                   <button
                     onClick={() => {
-                      autoScrollEnabledRef.current = true;
-                      isUserScrollingRef.current = false;
+                      autoScrollEnabledRef.current = true
+                      isUserScrollingRef.current = false
                       if (eventsContainerRef.current) {
-                        eventsContainerRef.current.scrollTop = eventsContainerRef.current.scrollHeight;
+                        eventsContainerRef.current.scrollTop =
+                          eventsContainerRef.current.scrollHeight
                       }
                     }}
                     className="text-[8px] text-cyan-400 hover:text-cyan-300 uppercase tracking-wider transition-colors px-2 py-0.5 border border-cyan-400/30 rounded"
@@ -221,29 +232,25 @@ export default function NeoProtocolMobile() {
                 </div>
               </div>
             </div>
-            <div 
+            <div
               ref={eventsContainerRef}
               onScroll={handleScroll}
               className="space-y-1 text-[10px] h-32 overflow-y-auto scroll-smooth"
               style={{
                 scrollbarWidth: 'thin',
-                scrollbarColor: 'rgba(52, 225, 255, 0.3) transparent'
+                scrollbarColor: 'rgba(52, 225, 255, 0.3) transparent',
               }}
             >
               {events.map(event => {
-                const isUserCommand = event.text.startsWith('CMD:');
+                const isUserCommand = event.text.startsWith('CMD:')
                 return (
-                  <div 
-                    key={event.id}
-                    className={isUserCommand ? 'text-cyan-400' : 'text-gray-400'}
-                  >
+                  <div key={event.id} className={isUserCommand ? 'text-cyan-400' : 'text-gray-400'}>
                     &gt; {event.text}
                   </div>
-                );
+                )
               })}
             </div>
           </div>
-
         </main>
 
         <Footer />
@@ -252,5 +259,5 @@ export default function NeoProtocolMobile() {
       {/* Persistent Navigation */}
       <BottomNavigation />
     </div>
-  );
+  )
 }

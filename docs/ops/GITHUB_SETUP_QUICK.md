@@ -5,6 +5,7 @@ Guia rápido para configurar tudo que o GitHub sugere.
 ## ✅ 1. Issue Templates (JÁ CONFIGURADO)
 
 Os templates já estão criados em `.github/ISSUE_TEMPLATE/`:
+
 - ✅ `bug_report.md`
 - ✅ `feature_request.md`
 - ✅ `config.yml` (com links para Discussions)
@@ -14,12 +15,14 @@ Os templates já estão criados em `.github/ISSUE_TEMPLATE/`:
 ## ✅ 2. Discussions (CONFIGURAR NO GITHUB)
 
 ### Passo 1: Ativar Discussions
+
 1. Acesse: https://github.com/NEO-PROTOCOL/neo-protcl/settings
 2. Role até "Features"
 3. Ative "Discussions"
 4. Clique em "Set up discussions"
 
 ### Passo 2: Configurar Categorias
+
 Após ativar, crie estas categorias:
 
 1. **General** (Discussões Gerais)
@@ -32,6 +35,7 @@ Após ativar, crie estas categorias:
    - Template: Usar `.github/DISCUSSION_TEMPLATE/ideas.yml`
 
 **Templates criados:**
+
 - ✅ `.github/DISCUSSION_TEMPLATE/general.yml`
 - ✅ `.github/DISCUSSION_TEMPLATE/q-and-a.yml`
 - ✅ `.github/DISCUSSION_TEMPLATE/ideas.yml`
@@ -39,6 +43,7 @@ Após ativar, crie estas categorias:
 ## ✅ 3. Default Commit Messages (CONFIGURAR NO GITHUB)
 
 ### Passo 1: Acessar Configurações
+
 1. Acesse: https://github.com/NEO-PROTOCOL/neo-protcl/settings
 2. Role até "Pull Requests"
 3. Encontre "Default commit message"
@@ -88,16 +93,19 @@ Changes are allowed, inconsistency is not.
 ## 📋 Checklist Completo
 
 ### Issue Templates
+
 - [x] Templates criados
 - [x] Config.yml com links
 - [ ] GitHub detectará automaticamente após commit
 
 ### Discussions
+
 - [x] Templates criados
 - [ ] Ativar Discussions no GitHub (Settings > Features)
 - [ ] Configurar categorias
 
 ### Commit Messages
+
 - [x] Templates criados
 - [ ] Configurar no GitHub (Settings > Pull Requests)
 
@@ -121,4 +129,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

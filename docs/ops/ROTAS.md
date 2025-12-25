@@ -166,7 +166,7 @@ Landing page minimalista para IPFS/ENS. Versão standalone HTML da página de br
 - Grid background animado
 - Efeito glow que segue o mouse
 - Animações fadeInDown e fadeInScale
-- Links externos seguros (target="_blank", rel="noopener noreferrer")
+- Links externos seguros (target="\_blank", rel="noopener noreferrer")
 - Botão para iniciar boot sequence
 
 **Características:**
@@ -231,13 +231,15 @@ Todas as rotas React Router ativas possuem proteção contra acesso desktop impl
 **Arquivo:** `src/hooks/useDesktopBlock.js`
 
 **Funcionamento:**
-1. Detecta se é desktop através de:
 
+1. Detecta se é desktop através de:
    - Largura da janela > 768px
    - Ausência de suporte a touch (`ontouchstart` e `navigator.maxTouchPoints === 0`)
+
 2. Se detectado desktop, redireciona para `/desktop-redirect.html`
 
 **Aplicado em:**
+
 - ✅ `/` (NeoProtocol)
 - ✅ `/neo-protocol` (NeoProtocol)
 - ✅ `/manifesto` (ManifestoPage)
@@ -259,14 +261,15 @@ Todas as rotas React Router ativas possuem proteção contra acesso desktop impl
 
 **Rotas disponíveis na navegação inferior:**
 
-| Partícula | Rota | Label | Accent Color |
-|-----------|------|-------|--------------|
-| `⟡` | `/` | HOME | `#34E1FF` (Glitch.Cyan) |
-| `⦾` | `/nos` | NODES | `#1A9AF7` (Anomaly.Blue) |
-| `⦙` | `/manifesto` | DOCS | `#7B5DFF` (Signal.Violet) |
-| `⊘` | `null` | NEEO | `#34E1FF` (não clicável) |
+| Partícula | Rota         | Label | Accent Color              |
+| --------- | ------------ | ----- | ------------------------- |
+| `⟡`       | `/`          | HOME  | `#34E1FF` (Glitch.Cyan)   |
+| `⦾`       | `/nos`       | NODES | `#1A9AF7` (Anomaly.Blue)  |
+| `⦙`       | `/manifesto` | DOCS  | `#7B5DFF` (Signal.Violet) |
+| `⊘`       | `null`       | NEEO  | `#34E1FF` (não clicável)  |
 
 **Características:**
+
 - Navegação fixa no bottom
 - Safe area insets (iOS)
 - Som de navegação
@@ -278,29 +281,29 @@ Todas as rotas React Router ativas possuem proteção contra acesso desktop impl
 
 ### Rotas Ativas (React Router)
 
-| Rota | Componente | Status | Proteção Desktop |
-|------|------------|--------|------------------|
-| `/` | `NeoProtocol` | ✅ Ativa | ✅ Sim |
-| `/neo-protocol` | `NeoProtocol` | ✅ Ativa | ✅ Sim |
-| `/manifesto` | `ManifestoPage` | ✅ Ativa | ✅ Sim |
-| `/nos` | `NosPage` | ✅ Ativa | ✅ Sim |
-| `/boot` | `IntelligenceBoot` | ✅ Ativa | ✅ Sim |
-| `/x402-example` | `X402Example` | ✅ Ativa | ✅ Sim |
-| `/sdk-example` | `SDKExample` | ✅ Ativa | ✅ Sim |
+| Rota            | Componente         | Status   | Proteção Desktop |
+| --------------- | ------------------ | -------- | ---------------- |
+| `/`             | `NeoProtocol`      | ✅ Ativa | ✅ Sim           |
+| `/neo-protocol` | `NeoProtocol`      | ✅ Ativa | ✅ Sim           |
+| `/manifesto`    | `ManifestoPage`    | ✅ Ativa | ✅ Sim           |
+| `/nos`          | `NosPage`          | ✅ Ativa | ✅ Sim           |
+| `/boot`         | `IntelligenceBoot` | ✅ Ativa | ✅ Sim           |
+| `/x402-example` | `X402Example`      | ✅ Ativa | ✅ Sim           |
+| `/sdk-example`  | `SDKExample`       | ✅ Ativa | ✅ Sim           |
 
 ### Rotas HTML Estáticas
 
-| Rota | Arquivo | Status | Descrição |
-|------|---------|--------|-----------|
-| `/desktop-redirect.html` | `public/desktop-redirect.html` | ✅ Ativa | Redirecionamento desktop |
-| `/branding-pure.html` | `public/branding-pure.html` | ✅ Ativa | Landing IPFS |
-| `/boot.html` | `boot.html` | ⚠️ Verificar | Boot estático |
-| `/branding.html` | `branding.html` | ⚠️ Build | Build IPFS |
+| Rota                     | Arquivo                        | Status       | Descrição                |
+| ------------------------ | ------------------------------ | ------------ | ------------------------ |
+| `/desktop-redirect.html` | `public/desktop-redirect.html` | ✅ Ativa     | Redirecionamento desktop |
+| `/branding-pure.html`    | `public/branding-pure.html`    | ✅ Ativa     | Landing IPFS             |
+| `/boot.html`             | `boot.html`                    | ⚠️ Verificar | Boot estático            |
+| `/branding.html`         | `branding.html`                | ⚠️ Build     | Build IPFS               |
 
 ### Rotas Desabilitadas
 
-| Rota | Componente | Status | Motivo |
-|------|------------|--------|--------|
+| Rota   | Componente   | Status       | Motivo                |
+| ------ | ------------ | ------------ | --------------------- |
 | `/mcp` | `MCPConsole` | ❌ Comentado | Será instruído depois |
 
 ---
@@ -319,19 +322,20 @@ O servidor Vite iniciará na porta padrão **5173** (ou próxima disponível).
 
 ### URLs Disponíveis
 
-| Rota | URL Local |
-|------|-----------|
-| Home | `http://localhost:5173/` |
-| Home (alias) | `http://localhost:5173/neo-protocol` |
-| Manifesto | `http://localhost:5173/manifesto` |
-| Nós | `http://localhost:5173/nos` |
-| Boot | `http://localhost:5173/boot` |
-| x402 Example | `http://localhost:5173/x402-example` |
-| SDK Example | `http://localhost:5173/sdk-example` |
+| Rota             | URL Local                                     |
+| ---------------- | --------------------------------------------- |
+| Home             | `http://localhost:5173/`                      |
+| Home (alias)     | `http://localhost:5173/neo-protocol`          |
+| Manifesto        | `http://localhost:5173/manifesto`             |
+| Nós              | `http://localhost:5173/nos`                   |
+| Boot             | `http://localhost:5173/boot`                  |
+| x402 Example     | `http://localhost:5173/x402-example`          |
+| SDK Example      | `http://localhost:5173/sdk-example`           |
 | Desktop Redirect | `http://localhost:5173/desktop-redirect.html` |
 
 **Nota:**  
 ⚠️ Todas as rotas React Router têm proteção desktop ativa. Para testar em desktop, você precisará:
+
 1. Desabilitar temporariamente o hook `useDesktopBlock()` no componente
 2. Ou usar o modo mobile do DevTools do navegador (F12 → Toggle Device Toolbar)
 
@@ -360,17 +364,16 @@ O servidor Vite iniciará na porta padrão **5173** (ou próxima disponível).
 
 ```jsx
 // src/App.jsx
-import NovaPage from './pages/nova/NovaPage';
-
-<Route path="/nova" element={<NovaPage />} />
+import NovaPage from './pages/nova/NovaPage'
+;<Route path="/nova" element={<NovaPage />} />
 ```
 
 ```jsx
 // src/pages/nova/NovaPage.jsx
-import { useDesktopBlock } from '../../hooks/useDesktopBlock';
+import { useDesktopBlock } from '../../hooks/useDesktopBlock'
 
 export default function NovaPage() {
-  useDesktopBlock();
+  useDesktopBlock()
   // ... resto do componente
 }
 ```
@@ -379,4 +382,3 @@ export default function NovaPage() {
 
 **Documento mantido por:** NΞØ Protocol Team  
 **Versão:** 1.0
-

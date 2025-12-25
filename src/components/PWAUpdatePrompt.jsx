@@ -1,13 +1,13 @@
-import { usePWAUpdate } from '../hooks/usePWAUpdate';
+import { usePWAUpdate } from '../hooks/usePWAUpdate'
 
 /**
  * Componente para exibir prompt de atualização do PWA
  * Aparece quando há uma nova versão disponível
  */
 export default function PWAUpdatePrompt() {
-  const { needRefresh, isUpdating, update, dismiss } = usePWAUpdate();
+  const { needRefresh, isUpdating, update, dismiss } = usePWAUpdate()
 
-  if (!needRefresh) return null;
+  if (!needRefresh) return null
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50">
@@ -19,9 +19,7 @@ export default function PWAUpdatePrompt() {
             </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-white mb-1">
-              Nova versão disponível!
-            </h3>
+            <h3 className="text-sm font-semibold text-white mb-1">Nova versão disponível!</h3>
             <p className="text-xs text-gray-400 mb-3">
               Uma nova versão deste webapp foi lançada. Atualize para obter as últimas melhorias.
             </p>
@@ -45,5 +43,5 @@ export default function PWAUpdatePrompt() {
         </div>
       </div>
     </div>
-  );
+  )
 }

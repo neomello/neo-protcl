@@ -16,7 +16,7 @@ O erro clássico seria transformar PoI em "formulário on-chain".
 O desenho correto é:
 
 > **PoI é um protocolo híbrido**  
-> *off-chain semântico → validação contextual → ancoragem on-chain*
+> _off-chain semântico → validação contextual → ancoragem on-chain_
 
 ---
 
@@ -39,7 +39,7 @@ O **NHIP-000** governa **essa camada**.
 
 Ele responde à pergunta:
 
-> "Essa entidade *merece* existir como nó?"
+> "Essa entidade _merece_ existir como nó?"
 
 **Características:**
 
@@ -173,7 +173,7 @@ Critérios técnicos, não ideológicos:
 **Importante:**
 
 O NHIP-000 **não depende da chain**.  
-Ele apenas exige que *exista* uma.
+Ele apenas exige que _exista_ uma.
 
 ---
 

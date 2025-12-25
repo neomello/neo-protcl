@@ -13,7 +13,7 @@ export default function WalletIconButton() {
   // const connectionStatus = useConnectionStatus();
 
   // Componente desabilitado - wallet não está sendo usada
-  return null;
+  return null
 
   /* Código original comentado:
   if (address) {

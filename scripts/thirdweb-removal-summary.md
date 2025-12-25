@@ -58,6 +58,7 @@ Os seguintes arquivos ainda têm referências ao Thirdweb, mas estão comentadas
 Se precisar reativar o Thirdweb:
 
 1. **Instalar dependências**:
+
    ```bash
    npm install @thirdweb-dev/chains @thirdweb-dev/react @thirdweb-dev/sdk thirdweb
    ```
@@ -73,10 +74,10 @@ Se precisar reativar o Thirdweb:
    - `/sdk-example`
 
 4. **Restaurar provider** em `src/main.jsx`:
+
    ```jsx
-   import TWProvider from './providers/ThirdwebProvider';
-   
-   <TWProvider>
+   import TWProvider from './providers/ThirdwebProvider'
+   ;<TWProvider>
      <App />
    </TWProvider>
    ```
@@ -108,6 +109,7 @@ npm run build      # Deve compilar sem erros
 ## 🎉 Conclusão
 
 Remoção concluída com sucesso! O projeto agora está:
+
 - ✅ Sem vulnerabilidades
 - ✅ Mais leve (menos dependências)
 - ✅ Código do Thirdweb preservado (comentado) para reativação futura

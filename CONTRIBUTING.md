@@ -35,6 +35,7 @@ git commit -m "feat: descrição clara da mudança"
 ```
 
 **Convenção de Commits:**
+
 - `feat:` Nova funcionalidade
 - `fix:` Correção de bug
 - `docs:` Documentação

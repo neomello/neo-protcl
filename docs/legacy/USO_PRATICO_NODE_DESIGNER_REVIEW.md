@@ -44,6 +44,7 @@ inviteReviewer(
 ```
 
 **Isso registra:**
+
 - ✅ Intenção
 - ✅ Escopo
 - ✅ Prazo
@@ -78,12 +79,14 @@ acceptReview()
 ```
 
 **Ou via:**
+
 - ✅ Etherscan (interface direta)
 - ✅ Thirdweb (se integrado)
 - ✅ Script local
 - ✅ Interface mínima (quando quiser)
 
 **No momento que essa tx entra:**
+
 - ✅ O contrato muda para `ACCEPTED`
 - ✅ O PoI vira compromisso
 - ✅ O relógio começa a contar
@@ -219,13 +222,14 @@ O evento `ReviewValidated` é automaticamente capturado pelo `reputationBridge.j
 onReviewValidated(andreAddress) {
   // Adiciona ao Identity Graph
   graph.addNode(reviewerId, { ... });
-  
+
   // Cria edge de validação
   graph.addEdge('neo:protocol', reviewerId, 'review_validated', ...);
 }
 ```
 
 **Resultado:**
+
 - ✅ Revisor entra no Identity Graph
 - ✅ Relacionamento verificável criado
 - ✅ Pronto para consumir em reputação futura
@@ -237,26 +241,18 @@ onReviewValidated(andreAddress) {
 ### **Setup Inicial**
 
 ```javascript
-import { ethers } from 'ethers';
-import { setupEventListeners, initializeNeoProtocolNode } from './services/reputationBridge';
+import { ethers } from 'ethers'
+import { setupEventListeners, initializeNeoProtocolNode } from './services/reputationBridge'
 
 // Inicializar nó do protocolo no Identity Graph
-initializeNeoProtocolNode();
+initializeNeoProtocolNode()
 
 // Setup listeners (quando contratos estiverem deployados)
-const reviewContract = new ethers.Contract(
-  REVIEW_CONTRACT_ADDRESS,
-  REVIEW_ABI,
-  provider
-);
+const reviewContract = new ethers.Contract(REVIEW_CONTRACT_ADDRESS, REVIEW_ABI, provider)
 
-const admissionContract = new ethers.Contract(
-  ADMISSION_CONTRACT_ADDRESS,
-  ADMISSION_ABI,
-  provider
-);
+const admissionContract = new ethers.Contract(ADMISSION_CONTRACT_ADDRESS, ADMISSION_ABI, provider)
 
-setupEventListeners(reviewContract, admissionContract);
+setupEventListeners(reviewContract, admissionContract)
 ```
 
 ### **Convidar Revisor**
@@ -265,44 +261,42 @@ setupEventListeners(reviewContract, admissionContract);
 // Você executa
 const tx = await reviewContract.inviteReviewer(
   andreAddress,
-  "Identity & Visual Coherence",
-  Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60), // 30 dias
-  ethers.utils.keccak256(ethers.utils.toUtf8Bytes("NEØ::NodeDesigner::AndreMainart::PoI"))
-);
+  'Identity & Visual Coherence',
+  Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60, // 30 dias
+  ethers.utils.keccak256(ethers.utils.toUtf8Bytes('NEØ::NodeDesigner::AndreMainart::PoI'))
+)
 
-await tx.wait();
-console.log("Convite enviado on-chain");
+await tx.wait()
+console.log('Convite enviado on-chain')
 ```
 
 ### **Revisor Aceita**
 
 ```javascript
 // Ele executa (via Etherscan ou interface)
-const tx = await reviewContract.acceptReview();
-await tx.wait();
-console.log("Revisão aceita, análise iniciada");
+const tx = await reviewContract.acceptReview()
+await tx.wait()
+console.log('Revisão aceita, análise iniciada')
 ```
 
 ### **Revisor Submete**
 
 ```javascript
 // Ele executa quando terminar
-const proofHash = ethers.utils.keccak256(
-  ethers.utils.toUtf8Bytes("https://notion.so/...")
-);
+const proofHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes('https://notion.so/...'))
 
-const tx = await reviewContract.submitReview(proofHash);
-await tx.wait();
-console.log("Revisão submetida");
+const tx = await reviewContract.submitReview(proofHash)
+await tx.wait()
+console.log('Revisão submetida')
 ```
 
 ### **Você Valida**
 
 ```javascript
 // Você executa após revisar
-const tx = await reviewContract.validateReview(andreAddress);
-await tx.wait();
-console.log("Revisão validada");
+const tx = await reviewContract.validateReview(andreAddress)
+await tx.wait()
+console.log('Revisão validada')
 
 // Automaticamente:
 // - Evento ReviewValidated emitido

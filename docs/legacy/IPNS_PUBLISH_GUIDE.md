@@ -7,20 +7,22 @@ Atualizar o IPNS para apontar para o novo CID após fazer upload do `dist-boot` 
 ## 📋 Pré-requisitos
 
 1. **IPFS instalado e rodando:**
+
    ```bash
    # Verificar se IPFS está instalado
    which ipfs
-   
+
    # Se não estiver instalado:
    # macOS: brew install ipfs
    # Ou baixe de: https://dist.ipfs.tech/#ipfs-update
    ```
 
 2. **IPFS daemon rodando:**
+
    ```bash
    # Iniciar IPFS (se não estiver rodando)
    ipfs daemon
-   
+
    # Deixe rodando em um terminal separado
    ```
 
@@ -41,6 +43,7 @@ ipfs add -r dist-boot
 ```
 
 **Saída esperada:**
+
 ```
 added QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX .gitkeep
 added QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX README_ASSETS.md
@@ -78,6 +81,7 @@ ipfs name publish /ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
 
 **Saída esperada:**
+
 ```
 Published to k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz: /ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
@@ -91,6 +95,7 @@ ipfs name resolve k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
 ```
 
 **Saída esperada:**
+
 ```
 /ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
@@ -128,6 +133,7 @@ ipfs name resolve --recursive k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwn
 ### Erro: "ipfs: command not found"
 
 **Solução:**
+
 ```bash
 # Instalar IPFS no macOS
 
@@ -141,6 +147,7 @@ brew install ipfs
 ### Erro: "daemon is not running"
 
 **Solução:**
+
 ```bash
 # Iniciar IPFS daemon em um terminal separado
 
@@ -153,6 +160,7 @@ ipfs daemon
 ### Erro: "context deadline exceeded"
 
 **Solução:**
+
 - Aguarde alguns minutos e tente novamente
 - Verifique se o IPFS daemon está rodando
 - Verifique sua conexão com a rede IPFS
@@ -195,4 +203,3 @@ ipfs name resolve k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
 ## 🎯 Resultado Final
 
 Após publicar, o IPNS `k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz` apontará para o novo CID, e o ENS `neoprotocol.eth` (configurado com IPNS) mostrará a página atualizada.
-

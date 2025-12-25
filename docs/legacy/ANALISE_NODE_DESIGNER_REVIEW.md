@@ -84,12 +84,14 @@ O contrato não expande nodes. Ele apenas registra missões de revisão.
 ### **Quando PRIORIDADE 1 (Reputação mínima) estiver completa:**
 
 O status `VALIDATED` pode ser consumido para:
+
 - Calcular reputação inicial baseada em revisões validadas
 - Estender `NodeRegistry.sol` com campo `reputation` baseado em missões
 
 ### **Quando PRIORIDADE 2 (Loop reputacional) estiver completa:**
 
 O status `VALIDATED` pode ser consumido para:
+
 - Registrar ações executadas (revisões validadas)
 - Calcular impacto baseado em revisões
 - Atualizar reputação automaticamente

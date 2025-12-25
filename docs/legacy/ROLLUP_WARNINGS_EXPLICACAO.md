@@ -20,10 +20,10 @@ Indica que uma função/expressão é **"pura"** (sem efeitos colaterais), permi
 
 ```javascript
 // Sem @__PURE__
-const result = expensiveFunction();
+const result = expensiveFunction()
 
 // Com @__PURE__
-const result = /* @__PURE__ */ expensiveFunction();
+const result = /* @__PURE__ */ expensiveFunction()
 ```
 
 O bundler sabe que pode remover `expensiveFunction()` se `result` não for usado.
@@ -35,9 +35,10 @@ O bundler sabe que pode remover `expensiveFunction()` se `result` não for usado
 O Rollup (usado pelo Vite) **não consegue interpretar** esses comentários quando estão em **posições específicas** no código.
 
 **Mensagem típica:**
+
 ```
-A comment "/* @__PURE__ */" contains an annotation that Rollup cannot 
-interpret due to the position of the comment. The comment will be 
+A comment "/* @__PURE__ */" contains an annotation that Rollup cannot
+interpret due to the position of the comment. The comment will be
 removed to avoid issues.
 ```
 
@@ -49,7 +50,7 @@ O código do `thirdweb` usa esses comentários em posições que o Rollup consid
 
 ## ✅ É um problema?
 
-**NÃO.** 
+**NÃO.**
 
 - ✅ **Não é um erro** — apenas um warning
 - ✅ **Não quebra o build** — o código funciona normalmente
@@ -92,7 +93,7 @@ onwarn(warning, warn) {
 **O que é:** Anotação de otimização do bundler  
 **Por que aparece:** Rollup não interpreta em certas posições  
 **É problema?** Não — apenas warning cosmético  
-**Solução:** Já suprimido no `vite.config.js`  
+**Solução:** Já suprimido no `vite.config.js`
 
 **Pode ignorar com segurança.** ✅
 

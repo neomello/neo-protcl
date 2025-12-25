@@ -1,7 +1,7 @@
-import { CommandHandler } from '../types/protocol';
+import { CommandHandler } from '../types/protocol'
 
 export const tokenCommands: CommandHandler = (command, state, updateState) => {
-  const cmd = command.toLowerCase().trim();
+  const cmd = command.toLowerCase().trim()
 
   if (cmd.includes('$neo') || cmd.includes('token') || cmd === 'neo') {
     return {
@@ -19,7 +19,7 @@ export const tokenCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 1, 10) },
-    };
+    }
   }
 
   if (cmd.startsWith('mint')) {
@@ -31,7 +31,7 @@ export const tokenCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 2, 10) },
-    };
+    }
   }
 
   if (cmd.includes('token status') || cmd === 'status') {
@@ -43,11 +43,10 @@ export const tokenCommands: CommandHandler = (command, state, updateState) => {
         `→ ZONA ATIVA: ${state.zone || 'nenhuma'}`,
       ],
       sound: 'confirm',
-    };
+    }
   }
 
   return {
     output: [],
-  };
-};
-
+  }
+}

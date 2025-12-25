@@ -66,7 +66,7 @@
 
 ```javascript
 // src/services/intentDataCapture.js
-import { upload } from '@lighthouse-web3/sdk';
+import { upload } from '@lighthouse-web3/sdk'
 
 export async function saveIntentToIPFS(intentData, walletAddress) {
   // Anonimizar dados (remover texto livre, manter apenas padrões)
@@ -75,23 +75,20 @@ export async function saveIntentToIPFS(intentData, walletAddress) {
     walletHash: hashWallet(walletAddress), // Hash do wallet (não o endereço completo)
     archetypes: Object.keys(intentData.profileData).map(dim => ({
       dimension: dim,
-      archetype: intentData.profileData[dim].archetype
+      archetype: intentData.profileData[dim].archetype,
     })),
     synergy: {
       name: intentData.synergy.name,
       // Não incluir texto livre (responses)
     },
     dimensions: intentData.selectedDimensions,
-    mermaidHash: hashMermaid(intentData.mermaidDiagram)
-  };
+    mermaidHash: hashMermaid(intentData.mermaidDiagram),
+  }
 
   // Upload para IPFS via Lighthouse
-  const response = await upload(
-    JSON.stringify(anonymizedData),
-    process.env.VITE_LIGHTHOUSE_API_KEY
-  );
+  const response = await upload(JSON.stringify(anonymizedData), process.env.VITE_LIGHTHOUSE_API_KEY)
 
-  return response.data.Hash; // CID do IPFS
+  return response.data.Hash // CID do IPFS
 }
 ```
 
@@ -100,8 +97,8 @@ export async function saveIntentToIPFS(intentData, walletAddress) {
 ```javascript
 // Após handleGenerateMap()
 if (walletAddress) {
-  const cid = await saveIntentToIPFS(result, walletAddress);
-  console.log('Intent salvo no IPFS:', cid);
+  const cid = await saveIntentToIPFS(result, walletAddress)
+  console.log('Intent salvo no IPFS:', cid)
 }
 ```
 
@@ -118,33 +115,33 @@ if (walletAddress) {
 **Implementação:**
 
 ```javascript
-import { upload } from "thirdweb/storage";
+import { upload } from 'thirdweb/storage'
 
 export async function saveIntentToThirdwebStorage(intentData, client) {
   const metadata = {
     name: `Intent Map: ${intentData.synergy.name}`,
     description: intentData.synergy.intent,
-    image: "ipfs://...", // Imagem do diagrama (se gerada)
+    image: 'ipfs://...', // Imagem do diagrama (se gerada)
     attributes: [
       {
-        trait_type: "Archetype Pattern",
-        value: intentData.synergy.name
+        trait_type: 'Archetype Pattern',
+        value: intentData.synergy.name,
       },
       {
-        trait_type: "Dimensions",
-        value: intentData.selectedDimensions.join(", ")
-      }
+        trait_type: 'Dimensions',
+        value: intentData.selectedDimensions.join(', '),
+      },
     ],
     // Dados anonimizados
-    archetypes: Object.values(intentData.profileData).map(p => p.archetype)
-  };
+    archetypes: Object.values(intentData.profileData).map(p => p.archetype),
+  }
 
   const uri = await upload({
     client,
-    files: [new File([JSON.stringify(metadata)], "intent.json")]
-  });
+    files: [new File([JSON.stringify(metadata)], 'intent.json')],
+  })
 
-  return uri;
+  return uri
 }
 ```
 
@@ -167,15 +164,15 @@ export function trackIntentEvent(eventName, data) {
   if (window.gtag) {
     window.gtag('event', eventName, {
       event_category: 'Intent System',
-      ...data
-    });
+      ...data,
+    })
   }
 
   // Plausible (mais privado)
   if (window.plausible) {
     window.plausible(eventName, {
-      props: data
-    });
+      props: data,
+    })
   }
 }
 
@@ -184,7 +181,7 @@ trackIntentEvent('intent_mapped', {
   synergy_name: result.synergy.name,
   dimensions_count: result.selectedDimensions.length,
   // Não incluir texto livre
-});
+})
 ```
 
 ---
@@ -192,11 +189,13 @@ trackIntentEvent('intent_mapped', {
 ### **Opção 4: Smart Contract (Base Chain)**
 
 **Vantagens:**
+
 - ✅ On-chain, imutável
 - ✅ Pode emitir NFT como certificado
 - ✅ Integração com $NEO token
 
 **Implementação:**
+
 ```solidity
 // Contrato: IntentRegistry.sol
 contract IntentRegistry {
@@ -208,7 +207,7 @@ contract IntentRegistry {
     }
 
     mapping(address => IntentMap[]) public userIntents;
-    
+
     function registerIntent(
         string memory synergyName,
         string[] memory archetypes
@@ -224,13 +223,11 @@ contract IntentRegistry {
 ```
 
 **Uso:**
+
 ```javascript
 // Após handleGenerateMap()
-const contract = getContractInstance(INTENT_REGISTRY_ADDRESS);
-await contract.call("registerIntent", [
-  result.synergy.name,
-  Object.values(result.profileData).map(p => p.archetype)
-]);
+const contract = getContractInstance(INTENT_REGISTRY_ADDRESS)
+await contract.call('registerIntent', [result.synergy.name, Object.values(result.profileData).map(p => p.archetype)])
 ```
 
 ---
@@ -238,15 +235,17 @@ await contract.call("registerIntent", [
 ### **Opção 5: Backend Próprio (Opcional, com Consentimento)**
 
 **Vantagens:**
+
 - ✅ Controle total
 - ✅ Análise avançada
 - ✅ Exportação de dados
 
 **Implementação:**
+
 ```javascript
 // src/services/intentBackend.js
 export async function saveIntentToBackend(intentData, consent) {
-  if (!consent) return null;
+  if (!consent) return null
 
   const response = await fetch('https://api.neoprotocol.eth/intent', {
     method: 'POST',
@@ -260,11 +259,11 @@ export async function saveIntentToBackend(intentData, consent) {
       dimensions: intentData.selectedDimensions,
       timestamp: Date.now(),
       // Hash do wallet (não endereço completo)
-      userHash: hashWallet(walletAddress)
-    })
-  });
+      userHash: hashWallet(walletAddress),
+    }),
+  })
 
-  return response.json();
+  return response.json()
 }
 ```
 
@@ -287,24 +286,18 @@ function IntentConsent({ onConsent }) {
   return (
     <div className="p-6 rounded-2xl bg-white border border-[#E5E7EB]">
       <h3 className="text-lg font-semibold mb-3">Privacidade e Dados</h3>
-      <p className="text-sm text-[#4B5563] mb-4">
-        Seus padrões podem ser salvos de forma anonimizada para:
-      </p>
+      <p className="text-sm text-[#4B5563] mb-4">Seus padrões podem ser salvos de forma anonimizada para:</p>
       <ul className="text-sm text-[#4B5563] space-y-2 mb-4">
         <li>• Melhorar o sistema</li>
         <li>• Pesquisa de padrões morfológicos</li>
         <li>• Análise agregada (sem dados pessoais)</li>
       </ul>
       <div className="flex gap-3">
-        <button onClick={() => onConsent(true)}>
-          Permitir (Anonimizado)
-        </button>
-        <button onClick={() => onConsent(false)}>
-          Apenas Local
-        </button>
+        <button onClick={() => onConsent(true)}>Permitir (Anonimizado)</button>
+        <button onClick={() => onConsent(false)}>Apenas Local</button>
       </div>
     </div>
-  );
+  )
 }
 ```
 
@@ -401,4 +394,3 @@ VITE_BACKEND_API_URL=https://api.neoprotocol.eth
 ---
 
 **Status:** Proposta | **Autor:** NΞØ Protocol | **Data:** 2025
-

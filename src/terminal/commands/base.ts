@@ -1,7 +1,7 @@
-import { CommandHandler } from '../types/protocol';
+import { CommandHandler } from '../types/protocol'
 
 export const baseCommands: CommandHandler = (command, state, updateState) => {
-  const cmd = command.toLowerCase().trim();
+  const cmd = command.toLowerCase().trim()
 
   if (cmd === 'init' || cmd.startsWith('init ')) {
     return {
@@ -13,7 +13,7 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'confirm',
       updateState: { resonance: 1 },
-    };
+    }
   }
 
   if (cmd === 'help' || cmd.startsWith('help ')) {
@@ -41,7 +41,7 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
         '→ "Não há ajuda. Há desbloqueio."',
       ],
       sound: 'confirm',
-    };
+    }
   }
 
   if (cmd === 'intent' || cmd.startsWith('intent ')) {
@@ -60,37 +60,29 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 1, 10) },
-    };
+    }
   }
 
   if (cmd === 'morph' || cmd.startsWith('morph ')) {
     return {
-      output: [
-        '→ MORPH ATIVADO',
-        '→ IDENTIDADE EM TRANSFORMAÇÃO',
-        '→ NÓ ADAPTANDO...',
-      ],
+      output: ['→ MORPH ATIVADO', '→ IDENTIDADE EM TRANSFORMAÇÃO', '→ NÓ ADAPTANDO...'],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 1, 10) },
-    };
+    }
   }
 
   if (cmd.startsWith('drop --identity') || cmd === 'drop') {
     return {
-      output: [
-        '→ IDENTIDADE DESCARTADA',
-        '→ RETORNO AO ESTADO BASE',
-        '→ PRONTO PARA NOVA FORMA',
-      ],
+      output: ['→ IDENTIDADE DESCARTADA', '→ RETORNO AO ESTADO BASE', '→ PRONTO PARA NOVA FORMA'],
       sound: 'confirm',
       updateState: { resonance: 0, zone: null },
-    };
+    }
   }
 
   // Comandos de saída - desconectar do terminal
   if (
-    cmd === 'exit' || 
-    cmd === 'quit' || 
+    cmd === 'exit' ||
+    cmd === 'quit' ||
     cmd === 'disconnect' ||
     cmd === 'disconnect.field' ||
     cmd === 'collapse.session' ||
@@ -112,11 +104,10 @@ export const baseCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       navigate: '/', // Flag para navegação (será tratado pelo componente)
-    };
+    }
   }
 
   return {
     output: [],
-  };
-};
-
+  }
+}

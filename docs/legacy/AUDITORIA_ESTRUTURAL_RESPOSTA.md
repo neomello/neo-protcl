@@ -10,16 +10,19 @@
 ### **1. ✅ Nomenclatura Não Escalável — CORRIGIDO**
 
 **Problema Original:**
+
 - `NodeDesignerReview.sol` muito específico
 - Não escala para outros tipos de nó
 
 **Solução Implementada:**
+
 - ✅ Criado `NeoNodeAdmission.sol` (genérico)
 - ✅ Campo `nodeType` adicionado (Designer, Research, Systems, Governance)
 - ✅ Scripts viram presets (`scripts/presets/inviteNodeDesigner.js`)
 - ✅ Review vira tipo de missão, não nome do contrato
 
 **Arquivos:**
+
 - ✅ `contracts/NeoNodeAdmission.sol` - Contrato genérico
 - ✅ `scripts/presets/inviteNodeDesigner.js` - Preset específico
 - ✅ `scripts/acceptMission.js` - Script genérico
@@ -29,16 +32,19 @@
 ### **2. ✅ Scripts Hardhat Não Elegantes — CORRIGIDO**
 
 **Problema Original:**
+
 - Uso de `PRIVATE_KEY` não é elegante
 - `.env` como fonte de verdade conceitual
 
 **Solução Implementada:**
+
 - ✅ Scripts documentam parâmetros (não apenas `.env`)
 - ✅ Exemplos de uso incluídos
 - ✅ Alternativas documentadas (manual, UI)
 - ✅ `.env` é detalhe operacional, não parte do protocolo
 
 **Arquivos:**
+
 - ✅ `docs/SCRIPTS_CONCEITUAIS.md` - Camada conceitual vs operacional
 - ✅ Scripts atualizados com documentação completa
 
@@ -47,16 +53,19 @@
 ### **3. ✅ Eventos Não Tratados como Narrativa — CORRIGIDO**
 
 **Problema Original:**
+
 - Eventos mencionados mas não explorados
 - Falta documentação sobre significado narrativo
 
 **Solução Implementada:**
+
 - ✅ Documentação completa de eventos (`EVENTOS_NARRATIVA_NEØ.md`)
 - ✅ Significado narrativo de cada evento
 - ✅ Guias de indexação e consulta
 - ✅ Integração com Identity Graph documentada
 
 **Arquivos:**
+
 - ✅ `docs/EVENTOS_NARRATIVA_NEØ.md` - Eventos como narrativa
 
 ---
@@ -64,14 +73,17 @@
 ### **4. ✅ Falta Declaração de Versionabilidade — CORRIGIDO**
 
 **Problema Original:**
+
 - Não está explícito que contratos são versionáveis
 
 **Solução Implementada:**
+
 - ✅ Declaração explícita de versionabilidade
 - ✅ Documentação sobre o que persiste (eventos)
 - ✅ Estratégia de migração documentada
 
 **Arquivos:**
+
 - ✅ `docs/VERSIONABILIDADE_CONTRATOS.md` - Declaração formal
 - ✅ Comentário no contrato sobre versionabilidade
 
@@ -138,6 +150,7 @@ docs/
 ## ✅ Checklist de Implementação
 
 ### **Contratos:**
+
 - [x] Criado `NeoNodeAdmission.sol` (genérico)
 - [x] Adicionado campo `nodeType`
 - [x] Eventos atualizados com `nodeType` indexed
@@ -146,18 +159,21 @@ docs/
 - [ ] Decisão sobre `NodeDesignerReview.sol` (manter/remover)
 
 ### **Scripts:**
+
 - [x] Criado `scripts/presets/inviteNodeDesigner.js`
 - [x] Criado `scripts/acceptMission.js` (genérico)
 - [x] Documentação de parâmetros (não apenas `.env`)
 - [x] Instruções para uso manual
 
 ### **Documentação:**
+
 - [x] `EVENTOS_NARRATIVA_NEØ.md` - Criado
 - [x] `VERSIONABILIDADE_CONTRATOS.md` - Criado
 - [x] `SCRIPTS_CONCEITUAIS.md` - Criado
 - [x] `REFATORACAO_ESTRUTURAL.md` - Criado
 
 ### **Bridge e UI:**
+
 - [ ] Atualizar `reputationBridge.js` para `NeoNodeAdmission`
 - [ ] Atualizar `AcceptReview.jsx` para contrato genérico
 - [ ] Criar novo ABI (`neoNodeAdmission.js`)
@@ -195,12 +211,14 @@ docs/
 A auditoria estrutural foi **precisa e necessária**.
 
 **Sistema agora:**
+
 - ✅ Escalável semanticamente
 - ✅ Eventos tratados como narrativa
 - ✅ Versionabilidade declarada
 - ✅ Scripts como exemplos, não obrigatórios
 
 **Sistema está:**
+
 - ✅ Funcional (como estava)
 - ✅ Canônico (como deve ser)
 

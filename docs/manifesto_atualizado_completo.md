@@ -10,13 +10,13 @@ Lançado como uma rede **neural**, o projeto combina elementos de blockchain, we
 
 ### 🔍 De manifesto a infraestrutura viva
 
- Em abril de 2025, O NΞØ nasce da rejeição às plataformas centralizadas e à cultura digital adormecida da web2, trazendo “um pouco de tudo“ que vem sendo construído na web3. Em vez de seguidores, ele forma **validators,**  indivíduos com papel ativo na expansão e execução do protocolo.
+Em abril de 2025, O NΞØ nasce da rejeição às plataformas centralizadas e à cultura digital adormecida da web2, trazendo “um pouco de tudo“ que vem sendo construído na web3. Em vez de seguidores, ele forma **validators,** indivíduos com papel ativo na expansão e execução do protocolo.
 
 ### 🧭 Estrutura estratégica por camadas
 
 O Protocolo é dividido em três grandes frentes:
 
-- **Tecnologia**: contratos inteligentes, oráculos nativos, wallets integradas (*wallet’s embeds), infraestrutura modular com deploy via Neo Toolkit.
+- **Tecnologia**: contratos inteligentes, oráculos nativos, wallets integradas (\*wallet’s embeds), infraestrutura modular com deploy via Neo Toolkit.
 - **Operação**: DevOps para ativação do ecossistema com emissão de passes digitais, áreas gated e gamificação reputacional, e oportunidade para founders.
 - **Monetização**: Token utility, NFTs, royalties automatizados e modelo recorrente com verificação de identidade digital.
 
@@ -25,7 +25,6 @@ Leia material ex`tra sobre:`
 [Wallet’s embedded ](https://www.notion.so/Wallet-s-embedded-2be8c6e83be0807f8ba6c25bb940903c?pvs=21)
 
 ---
-
 
 ```mermaid
 flowchart TD
@@ -61,15 +60,15 @@ flowchart TD
 
 ```
 
-Além disso, o protocolo prevê a o controle de aprovação de entrada Proof of Intention,  onde cada ação realizada (como criação de conteúdo, participação em eventos ou colaborações técnicas) gera impacto reputacional e é registrada na blockchain. Errado, tem que ter mermaid do POI
+Além disso, o protocolo prevê a o controle de aprovação de entrada Proof of Intention, onde cada ação realizada (como criação de conteúdo, participação em eventos ou colaborações técnicas) gera impacto reputacional e é registrada na blockchain. Errado, tem que ter mermaid do POI
 
 ### 🌍 Soberania e independencia digital como princípio
 
-Em tempos de bloqueios judiciais, vigilância financeira e apagões informacionais, o Protocolo levanta uma bandeira clara: 
+Em tempos de bloqueios judiciais, vigilância financeira e apagões informacionais, o Protocolo levanta uma bandeira clara:
 
 <aside>
 
-**Auto custódia é o último protocolo de resistência**. 
+**Auto custódia é o último protocolo de resistência**.
 
 </aside>
 
@@ -77,14 +76,13 @@ Por isso, promove a educação e entrega ferramentas práticas para que seus mem
 
 ## A DAO dos Nós Conscientes
 
-+ Os 8 NÓS da Frequência NEØ
+- Os 8 NÓS da Frequência NEØ
 
 ---
 
 ## INTRODUÇÃO: O CHAMADO
 
 > WE ARE NΞØ
-> 
 
 Entre estar dentro e **se tornar um nó**, existe ruptura:
 
@@ -97,16 +95,14 @@ Entre estar dentro e **se tornar um nó**, existe ruptura:
 ## 🧬 OS 8 NÓS DO PROTOCOLO NΞØ
 
 > O que são os NÓS?
-> 
-> 
+>
 > Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa.
-> 
+>
 > Cada ponto representa uma camada de entendimento, ação e expansão.
-> 
+>
 > Ao atravessar cada um, você não apenas compreende o protocolo: você o encarna o agente NEØ .
-> 
+>
 > Eles não são etapas. São circuitos interligados e com funcionamento autônomo e simultâneos.
-> 
 
 ### 1 · ORIGEM
 
@@ -315,7 +311,6 @@ Se não roda em você,
 não existe.
 
 ////////
-
 
 ---
 

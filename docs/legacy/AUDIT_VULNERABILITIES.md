@@ -68,6 +68,7 @@ npm update @thirdweb-dev/react @thirdweb-dev/sdk thirdweb
 ### 3. **Monitorar atualizações dos fornecedores**
 
 As vulnerabilidades estão principalmente em:
+
 - Bibliotecas Web3 antigas/deprecated
 - Dependências transitivas do ecossistema thirdweb
 
@@ -91,6 +92,7 @@ As vulnerabilidades estão principalmente em:
 ### 5. **Documentar decisão**
 
 Este documento serve como registro de que:
+
 - Vulnerabilidades foram identificadas
 - `--force` foi considerado mas rejeitado por risco de breaking changes
 - Estratégia de mitigação foi implementada
@@ -113,4 +115,3 @@ Este documento serve como registro de que:
 
 **Última atualização:** $(date)
 **Próxima revisão:** Revisar quando novas versões do thirdweb estiverem disponíveis
-

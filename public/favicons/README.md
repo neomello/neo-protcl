@@ -36,6 +36,7 @@ Se quiser adicionar mais tamanhos:
 ## 📱 PWA Icons
 
 Os ícones PWA principais estão configurados:
+
 - `web-app-manifest-192x192.png` (192x192px)
 - `web-app-manifest-512x512.png` (512x512px)
 
@@ -44,6 +45,7 @@ Estes são referenciados no `manifest.json` e `vite.config.js`.
 ## 🔗 Referência ENS
 
 O ENS domain **neoprotocol.eth** pode ser configurado para:
+
 - Resolver para o site principal
 - Metadados de identidade Web3
 - Links diretos via IPFS

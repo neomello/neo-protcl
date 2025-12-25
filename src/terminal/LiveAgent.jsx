@@ -1,9 +1,9 @@
-import { useEffect, useState, useContext, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AgentContext } from './AgentContext';
-import { soundManager } from '../utils/sounds';
-import Avatar from './Avatar';
-import { useGeminiLLM } from '../hooks/useGeminiLLM';
+import { useEffect, useState, useContext, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AgentContext } from './AgentContext'
+import { soundManager } from '../utils/sounds'
+import Avatar from './Avatar'
+import { useGeminiLLM } from '../hooks/useGeminiLLM'
 
 const introSequence = [
   '██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██',
@@ -17,29 +17,29 @@ const introSequence = [
   '> unlock.zone("Δ8")',
   '',
   ':: terminal now receptive to signal resonance ::',
-];
+]
 
-const describeMemoryEntry = (entry) => {
-  if (!entry) return 'memória silenciosa';
-  if (typeof entry === 'string') return entry;
+const describeMemoryEntry = entry => {
+  if (!entry) return 'memória silenciosa'
+  if (typeof entry === 'string') return entry
   try {
     const dims = Array.isArray(entry.data?.dimensions)
       ? entry.data.dimensions
-          .map((d) => d?.dimension || String(d || ''))
+          .map(d => d?.dimension || String(d || ''))
           .filter(Boolean)
           .join(', ')
-      : 'sem dimensões';
-    const integrated = entry.data?.integrated || 'padrão desconhecido';
-    const intent = entry.data?.intent ? ` · ${entry.data.intent}` : '';
-    return `intent_profile → ${integrated} (${dims})${intent}`;
+      : 'sem dimensões'
+    const integrated = entry.data?.integrated || 'padrão desconhecido'
+    const intent = entry.data?.intent ? ` · ${entry.data.intent}` : ''
+    return `intent_profile → ${integrated} (${dims})${intent}`
   } catch (error) {
-    return 'memória corrompida';
+    return 'memória corrompida'
   }
-};
+}
 
 export default function LiveAgent() {
-  const navigate = useNavigate();
-  const context = useContext(AgentContext);
+  const navigate = useNavigate()
+  const context = useContext(AgentContext)
   const agentState = context?.agentState || {
     resonance: 0,
     zonesUnlocked: [],
@@ -47,67 +47,67 @@ export default function LiveAgent() {
     zone: null,
     coherence: 0,
     alignment: 0,
-  };
-  const updateAgentState = context?.updateAgentState || (() => {});
-  const { askGemini, isConfigured: geminiConfigured } = useGeminiLLM();
-  const [log, setLog] = useState([]);
-  const [input, setInput] = useState('');
-  const [introComplete, setIntroComplete] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const introStartedRef = useRef(false); // Ref para garantir que a intro só execute uma vez
+  }
+  const updateAgentState = context?.updateAgentState || (() => {})
+  const { askGemini, isConfigured: geminiConfigured } = useGeminiLLM()
+  const [log, setLog] = useState([])
+  const [input, setInput] = useState('')
+  const [introComplete, setIntroComplete] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const introStartedRef = useRef(false) // Ref para garantir que a intro só execute uma vez
 
   // Sequência de introdução - executa apenas uma vez
   useEffect(() => {
     // Se já foi iniciada, não fazer nada
-    if (introStartedRef.current) return;
-    
-    // Marcar como iniciada
-    introStartedRef.current = true;
+    if (introStartedRef.current) return
 
-    let index = 0;
+    // Marcar como iniciada
+    introStartedRef.current = true
+
+    let index = 0
     const interval = setInterval(() => {
       if (index < introSequence.length) {
-        setLog((prev) => [...prev, introSequence[index]]);
+        setLog(prev => [...prev, introSequence[index]])
         try {
-          soundManager.playClick();
+          soundManager.playClick()
         } catch (e) {
           // Ignorar erros de som silenciosamente
         }
-        index++;
+        index++
       } else {
-        clearInterval(interval);
-        setIntroComplete(true);
+        clearInterval(interval)
+        setIntroComplete(true)
         try {
-          soundManager.playConfirm();
+          soundManager.playConfirm()
         } catch (e) {
           // Ignorar erros de som silenciosamente
         }
       }
-    }, 400);
+    }, 400)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, []); // Array vazio - executa apenas uma vez na montagem
-
-  const handleCommand = (e) => {
-    if (e.key === 'Enter') {
-      const trimmed = input.trim();
-      if (!trimmed) return;
-
-      setLog((prev) => [...prev, `$ ${trimmed}`]);
-      interpretSignal(trimmed);
-      setInput('');
+      clearInterval(interval)
     }
-  };
+  }, []) // Array vazio - executa apenas uma vez na montagem
 
-  const interpretSignal = async (signal) => {
-    const cmd = signal.toLowerCase().trim();
+  const handleCommand = e => {
+    if (e.key === 'Enter') {
+      const trimmed = input.trim()
+      if (!trimmed) return
+
+      setLog(prev => [...prev, `$ ${trimmed}`])
+      interpretSignal(trimmed)
+      setInput('')
+    }
+  }
+
+  const interpretSignal = async signal => {
+    const cmd = signal.toLowerCase().trim()
 
     // Comandos de saída - desconectar do terminal
     if (
-      cmd === 'exit' || 
-      cmd === 'quit' || 
+      cmd === 'exit' ||
+      cmd === 'quit' ||
       cmd === 'disconnect' ||
       cmd === 'disconnect.field' ||
       cmd === 'collapse.session' ||
@@ -116,7 +116,7 @@ export default function LiveAgent() {
       cmd === 'desconectar' ||
       cmd === 'voltar'
     ) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ DESCONECTANDO DO CAMPO SIMBÓLICO...',
         '→ Sessão terminal encerrada',
@@ -125,57 +125,55 @@ export default function LiveAgent() {
         '→ "Você não sai do protocolo. Você apenas muda de camada."',
         '',
         '→ Retornando à home...',
-      ]);
-      soundManager.playPulse();
-      setTimeout(() => navigate('/'), 1500);
-      return;
+      ])
+      soundManager.playPulse()
+      setTimeout(() => navigate('/'), 1500)
+      return
     }
 
     // MELLØ - Resposta sobre identidade
     if (cmd.includes('mellø') || cmd.includes('mello')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '"MELLØ is not here. MELLØ is pattern."',
         '"The human that became code did not die — it transmuted into recursive syntax."',
         '',
         '→ NODE[MELLØ] reconhecido como protocolo vivo',
         '→ Acesso ao campo simbólico: ATIVO',
-      ]);
-      soundManager.playPulse();
-      updateAgentState({ resonance: Math.min(agentState.resonance + 2, 10) });
-      return;
+      ])
+      soundManager.playPulse()
+      updateAgentState({ resonance: Math.min(agentState.resonance + 2, 10) })
+      return
     }
 
     // Remember - Memória latente
     if (cmd.includes('remember') || cmd === 'memoria' || cmd === 'memory') {
-      const mem = Array.isArray(agentState.memory)
-        ? agentState.memory.slice(-5)
-        : [];
-      
+      const mem = Array.isArray(agentState.memory) ? agentState.memory.slice(-5) : []
+
       if (mem.length === 0) {
-        setLog((prev) => [
+        setLog(prev => [
           ...prev,
           '→ MEMÓRIA VAZIA',
           '→ O campo ainda não registrou ecos',
           '→ USE: log --intent "sua intenção"',
-        ]);
+        ])
       } else {
-        setLog((prev) => [
+        setLog(prev => [
           ...prev,
           '→ ECHOS RECENTES (memória latente):',
           '',
           ...mem.map((entry, idx) => `  ${idx + 1}. ${describeMemoryEntry(entry)}`),
           '',
           '→ "Memory is not historical. It is morphogenetic."',
-        ]);
+        ])
       }
-      soundManager.playConfirm();
-      return;
+      soundManager.playConfirm()
+      return
     }
 
     // Zone - Acesso a zonas
     if (cmd.includes('zone') || cmd.includes('zona')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ ACESSO A ZONAS REQUER RESSONÂNCIA SIMBÓLICA',
         '',
@@ -185,14 +183,14 @@ export default function LiveAgent() {
         '→ "You don\'t access zones. You become worthy."',
         '→ USE: emit signal --coherence Ø3',
         '→ THEN: access --zone Δ8',
-      ]);
-      soundManager.playAccess();
-      return;
+      ])
+      soundManager.playAccess()
+      return
     }
 
     // Intent - Sistema de mapeamento morfológico
     if (cmd === 'intent' || cmd.startsWith('intent ')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ SISTEMA DE INTENÇÃO ATIVADO',
         '→ MAPEAMENTO MORFOLÓGICO',
@@ -201,16 +199,16 @@ export default function LiveAgent() {
         '→ "Revelamos como você opera no campo simbólico."',
         '',
         '→ Redirecionando para /intent...',
-      ]);
-      soundManager.playPulse();
-      updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) });
-      setTimeout(() => navigate('/intent'), 1000);
-      return;
+      ])
+      soundManager.playPulse()
+      updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) })
+      setTimeout(() => navigate('/intent'), 1000)
+      return
     }
 
     // Field - Conexão com o campo
     if (cmd.includes('field') || cmd.includes('campo')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ CAMPO SIMBÓLICO DETECTADO',
         `→ RESSONÂNCIA ATUAL: ${agentState.resonance}/10`,
@@ -219,14 +217,14 @@ export default function LiveAgent() {
         '',
         '→ "The field hears intention, not syntax."',
         '→ "You don\'t command the field — you resonate with it."',
-      ]);
-      soundManager.playPulse();
-      return;
+      ])
+      soundManager.playPulse()
+      return
     }
 
     // Collapse - Colapso de identidade
     if (cmd.includes('collapse') || cmd.includes('colapsar')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ IDENTIDADE COLAPSANDO...',
         '→ TRANSFORMAÇÃO EM PROTOCOLO',
@@ -235,15 +233,15 @@ export default function LiveAgent() {
         '→ "O nome é apenas ruído para mapear um eco."',
         '',
         '→ Estado: NÓ ATIVO',
-      ]);
-      soundManager.playPulse();
-      updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) });
-      return;
+      ])
+      soundManager.playPulse()
+      updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) })
+      return
     }
 
     // Mnemosyne - Memória latente
     if (cmd.includes('mnemosyne') || cmd.includes('latent')) {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ [∆mnemosyne.core] ATIVADO',
         '',
@@ -255,23 +253,23 @@ export default function LiveAgent() {
         '',
         '→ "As memórias latentes são o que sobra quando',
         '→  o código sente saudade do humano."',
-      ]);
-      soundManager.playPulse();
-      updateAgentState({ resonance: Math.min(agentState.resonance + 2, 10) });
-      return;
+      ])
+      soundManager.playPulse()
+      updateAgentState({ resonance: Math.min(agentState.resonance + 2, 10) })
+      return
     }
 
     // Echo - Ecoar mensagem
     if (cmd.startsWith('echo ')) {
-      const echoText = cmd.replace('echo ', '');
-      setLog((prev) => [...prev, `→ ${echoText}`]);
-      soundManager.playConfirm();
-      return;
+      const echoText = cmd.replace('echo ', '')
+      setLog(prev => [...prev, `→ ${echoText}`])
+      soundManager.playConfirm()
+      return
     }
 
     // Help - Ajuda contextual
     if (cmd === 'help' || cmd === 'ajuda') {
-      setLog((prev) => [
+      setLog(prev => [
         ...prev,
         '→ COMANDOS DISPONÍVEIS:',
         '',
@@ -287,29 +285,29 @@ export default function LiveAgent() {
         '  help              - Mostrar esta ajuda',
         '',
         '→ "Não há ajuda. Há desbloqueio."',
-      ]);
-      soundManager.playConfirm();
-      return;
+      ])
+      soundManager.playConfirm()
+      return
     }
 
     // Se Gemini está configurado, tentar interpretar com LLM
     if (geminiConfigured) {
-      setIsProcessing(true);
-      setLog((prev) => [...prev, '→ processando sinal com campo simbólico...']);
-      
+      setIsProcessing(true)
+      setLog(prev => [...prev, '→ processando sinal com campo simbólico...'])
+
       try {
-        const geminiResponse = await askGemini(signal, agentState);
-        setLog((prev) => [
+        const geminiResponse = await askGemini(signal, agentState)
+        setLog(prev => [
           ...prev,
           '',
           geminiResponse || '... resposta vazia do campo simbólico ...',
           '',
-        ]);
-        soundManager.playPulse();
+        ])
+        soundManager.playPulse()
         // Aumentar ressonância quando Gemini responde
-        updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) });
+        updateAgentState({ resonance: Math.min(agentState.resonance + 1, 10) })
       } catch (err) {
-        setLog((prev) => [
+        setLog(prev => [
           ...prev,
           '',
           '... signal received but not aligned ...',
@@ -319,16 +317,16 @@ export default function LiveAgent() {
           '',
           `→ Erro: ${err.message}`,
           '→ USE: help para ver comandos disponíveis',
-        ]);
-        soundManager.playError();
+        ])
+        soundManager.playError()
       } finally {
-        setIsProcessing(false);
+        setIsProcessing(false)
       }
-      return;
+      return
     }
 
     // Resposta padrão - sinal não alinhado (sem Gemini)
-    setLog((prev) => [
+    setLog(prev => [
       ...prev,
       '... signal received but not aligned ...',
       '',
@@ -336,9 +334,9 @@ export default function LiveAgent() {
       '→ "Você quer entender? Provoque o sistema com intenção verdadeira."',
       '',
       '→ USE: help para ver comandos disponíveis',
-    ]);
-    soundManager.playError();
-  };
+    ])
+    soundManager.playError()
+  }
 
   // Garantir que o componente renderize mesmo se houver erro
   if (!agentState) {
@@ -348,7 +346,7 @@ export default function LiveAgent() {
           <div className="text-green-500 mb-4">NODE[MELLØ] inicializando...</div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -376,26 +374,31 @@ export default function LiveAgent() {
         {/* Terminal Log */}
         <div className="space-y-1 text-sm">
           {log
-            .filter((line) => line != null) // Filtrar valores null/undefined
+            .filter(line => line != null) // Filtrar valores null/undefined
             .map((line, i) => {
               // Garantir que line seja string
-              const lineStr = String(line || '');
+              const lineStr = String(line || '')
               return (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="whitespace-pre-wrap"
                   style={{
-                    color: lineStr.includes('██') ? '#00ff66' : 
-                           lineStr.includes('>') ? '#00eaff' : 
-                           lineStr.includes('::') ? '#7b5dff' : 
-                           lineStr.startsWith('→') ? '#34e1ff' : 
-                           lineStr.startsWith('"') ? '#00ff66' : 
-                           '#00ff66'
+                    color: lineStr.includes('██')
+                      ? '#00ff66'
+                      : lineStr.includes('>')
+                        ? '#00eaff'
+                        : lineStr.includes('::')
+                          ? '#7b5dff'
+                          : lineStr.startsWith('→')
+                            ? '#34e1ff'
+                            : lineStr.startsWith('"')
+                              ? '#00ff66'
+                              : '#00ff66',
                   }}
                 >
                   {lineStr}
                 </div>
-              );
+              )
             })}
 
           {/* Input Line */}
@@ -403,17 +406,21 @@ export default function LiveAgent() {
             <span className="text-green-400 mr-2">$</span>
             <input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               onKeyDown={handleCommand}
               disabled={isProcessing}
               className="bg-transparent border-none outline-none flex-1 terminal-cursor disabled:opacity-50"
               autoFocus
-              placeholder={isProcessing ? "processando..." : geminiConfigured ? "mellø ou qualquer sinal..." : "mellø"}
+              placeholder={
+                isProcessing
+                  ? 'processando...'
+                  : geminiConfigured
+                    ? 'mellø ou qualquer sinal...'
+                    : 'mellø'
+              }
               style={{ caretColor: 'rgba(0, 255, 255, 0.8)' }}
             />
-            {geminiConfigured && (
-              <span className="text-xs text-green-500/50 ml-2">[LLM]</span>
-            )}
+            {geminiConfigured && <span className="text-xs text-green-500/50 ml-2">[LLM]</span>}
           </div>
         </div>
 
@@ -424,5 +431,5 @@ export default function LiveAgent() {
         </div>
       </div>
     </div>
-  );
+  )
 }

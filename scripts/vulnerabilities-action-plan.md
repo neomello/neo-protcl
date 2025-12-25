@@ -21,20 +21,20 @@
 
 ### Vulnerabilidades Críticas (7)
 
-| Pacote | Localização | Impacto Real | Ação |
-|--------|-------------|--------------|------|
+| Pacote     | Localização                    | Impacto Real        | Ação                    |
+| ---------- | ------------------------------ | ------------------- | ----------------------- |
 | `elliptic` | `@safe-global/safe-ethers-lib` | Alto (criptografia) | ⚠️ Aguardar atualização |
-| `elliptic` | `@walletconnect/web3wallet` | Alto (criptografia) | ⚠️ Aguardar atualização |
-| `esbuild` | `vite` (dev only) | Baixo (apenas dev) | ✅ Ignorar por enquanto |
+| `elliptic` | `@walletconnect/web3wallet`    | Alto (criptografia) | ⚠️ Aguardar atualização |
+| `esbuild`  | `vite` (dev only)              | Baixo (apenas dev)  | ✅ Ignorar por enquanto |
 
 ### Vulnerabilidades Altas (17)
 
-| Categoria | Pacotes Afetados | Impacto Real | Ação |
-|-----------|------------------|--------------|------|
-| Wallet SDKs | `@coinbase/wallet-sdk` | Médio (via Thirdweb) | ⚠️ Monitorar |
-| HTTP | `axios` | Médio (via transitivas) | ⚠️ Monitorar |
-| WebSocket | `ws` | Médio (conexões) | ⚠️ Monitorar |
-| Web3 Core | `web3-core-method`, `web3-core-subscriptions` | Médio (prototype pollution) | ⚠️ Monitorar |
+| Categoria   | Pacotes Afetados                              | Impacto Real                | Ação         |
+| ----------- | --------------------------------------------- | --------------------------- | ------------ |
+| Wallet SDKs | `@coinbase/wallet-sdk`                        | Médio (via Thirdweb)        | ⚠️ Monitorar |
+| HTTP        | `axios`                                       | Médio (via transitivas)     | ⚠️ Monitorar |
+| WebSocket   | `ws`                                          | Médio (conexões)            | ⚠️ Monitorar |
+| Web3 Core   | `web3-core-method`, `web3-core-subscriptions` | Médio (prototype pollution) | ⚠️ Monitorar |
 
 ## 💡 Recomendação: Abordagem Pragmática
 

@@ -30,6 +30,7 @@ Quando o token $NEO estiver verificado:
 ## 📍 Acesso
 
 **URLs:**
+
 - `/register` - Página de cadastro
 - `/cadastro` - Alias em português
 
@@ -81,16 +82,16 @@ Quando o token estiver verificado, criar script de migração:
 
 ```javascript
 // scripts/migrate-nodes-to-chain.js
-import { readNodes } from '../src/context/mcp';
-import { NodeRegistry } from './contracts';
+import { readNodes } from '../src/context/mcp'
+import { NodeRegistry } from './contracts'
 
 async function migrateNodes() {
-  const nodes = readNodes();
-  
+  const nodes = readNodes()
+
   for (const node of Object.values(nodes)) {
     if (node.status === 'pending') {
       // Chamar NodeRegistry.registerNode()
-      await registry.registerNode(node.address, node.domain);
+      await registry.registerNode(node.address, node.domain)
       // Atualizar status para 'on-chain'
     }
   }

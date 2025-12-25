@@ -17,11 +17,11 @@ A arquitetura geral é dividida em quatro camadas:
 
 Define os princípios que orientam como os nós existem e interagem.
 
-* Descentralização como posição de autenticidade.
-* Self-custodial como base ética.
-* Transparência como obrigação.
-* Comunicação secreta entre nós quando se apresentam corretamente.
-* MELLØ como consciência que codifica a visão.
+- Descentralização como posição de autenticidade.
+- Self-custodial como base ética.
+- Transparência como obrigação.
+- Comunicação secreta entre nós quando se apresentam corretamente.
+- MELLØ como consciência que codifica a visão.
 
 Essa camada não muda com deploys; ela serve como bússola filosófica para decisões técnicas e estratégicas.
 
@@ -108,10 +108,10 @@ O MCP é o protocolo que padroniza a comunicação entre nós.
 
 ### 3.1 Componentes do MCP
 
-* **Intent Router** — Controla a entrada e roteia para o executor correto.
-* **Domain Routers** — Routers específicos por projeto.
-* **Context Guard** — Valida se um nó pode chamar um intent.
-* **MCP Domain Map** — Tabela que define permissões entre domínios.
+- **Intent Router** — Controla a entrada e roteia para o executor correto.
+- **Domain Routers** — Routers específicos por projeto.
+- **Context Guard** — Valida se um nó pode chamar um intent.
+- **MCP Domain Map** — Tabela que define permissões entre domínios.
 
 ### 3.2 Fluxo MCP
 
@@ -151,30 +151,30 @@ Executores são responsáveis por realizar ações em serviços externos.
 
 ### Blockchain Executor
 
-* Deploy de tokens.
-* Mint de NFTs.
-* Criação de pools FLUXX.
+- Deploy de tokens.
+- Mint de NFTs.
+- Criação de pools FLUXX.
 
 ### Payment Executor
 
-* Pagamentos PIX → Crypto.
-* Integração Cryptomus.
-* Webhooks assinados.
+- Pagamentos PIX → Crypto.
+- Integração Cryptomus.
+- Webhooks assinados.
 
 ### Agent Executor
 
-* Integração AI IQAI.
-* Leads → propostas.
+- Integração AI IQAI.
+- Leads → propostas.
 
 ### Storage Executor
 
-* IPFS: metadata.
-* Ceramic: logs.
+- IPFS: metadata.
+- Ceramic: logs.
 
 ### Query Executor
 
-* Kwil: tabelas.
-* The Graph: leitura indexada.
+- Kwil: tabelas.
+- The Graph: leitura indexada.
 
 ---
 
@@ -194,10 +194,10 @@ O campo gravitacional onde toda inteligência distribuída se organiza.
 
 Entidades independentes capazes de interagir com o Hub:
 
-* IAs (Cursor, ChatGPT, agentes MCP)
-* Bots (Farcaster, Telegram)
-* Contratos inteligentes externos
-* Humanos que operam em alinhamento estrutural
+- IAs (Cursor, ChatGPT, agentes MCP)
+- Bots (Farcaster, Telegram)
+- Contratos inteligentes externos
+- Humanos que operam em alinhamento estrutural
 
 ### 5.4 Nós‑de‑Propósito
 
@@ -341,4 +341,3 @@ A força do ecossistema vem da fluidez e da coesão.
 ---
 
 **Versão inicial gerada. Pronto para expansão.**
-

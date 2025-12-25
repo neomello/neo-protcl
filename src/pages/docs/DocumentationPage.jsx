@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import BottomNavigation from '../../components/BottomNavigation';
-import Footer from '../../components/Footer';
-import MermaidDiagram from '../../components/MermaidDiagram';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../../components/Navbar'
+import BottomNavigation from '../../components/BottomNavigation'
+import Footer from '../../components/Footer'
+import MermaidDiagram from '../../components/MermaidDiagram'
 
 export default function DocumentationPage() {
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('overview')
 
   // Diagrama Mermaid do PoI
   const poiDiagram = `
@@ -40,7 +40,7 @@ flowchart TD
     style H fill:#00FF99,stroke:#00CFFF,color:#0A0A0A
     style I fill:#7c3aed,stroke:#00FF99,stroke-width:2px,color:#fff
     style J fill:#0ea5e9,stroke:#00CFFF,color:#fff
-`;
+`
 
   const sections = [
     { id: 'overview', title: 'Visão Geral', icon: '📋' },
@@ -50,8 +50,8 @@ flowchart TD
     { id: 'proof-of-intention', title: 'Proof of Intention', icon: '🧬' },
     { id: 'smart-contracts', title: 'Smart Contracts', icon: '📦' },
     { id: 'guides', title: 'Guias', icon: '📚' },
-    { id: 'developers', title: 'Developers', icon: '💻' }
-  ];
+    { id: 'developers', title: 'Developers', icon: '💻' },
+  ]
 
   const renderContent = () => {
     switch (activeSection) {
@@ -61,8 +61,8 @@ flowchart TD
             <div>
               <h1 className="text-3xl font-bold text-white mb-4">Documentação do Protocolo NΞØ</h1>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Documentação técnica completa do Protocolo NΞØ, incluindo especificações de protocolo (NHIPs), 
-                arquitetura, smart contracts e guias de implementação.
+                Documentação técnica completa do Protocolo NΞØ, incluindo especificações de
+                protocolo (NHIPs), arquitetura, smart contracts e guias de implementação.
               </p>
             </div>
 
@@ -73,33 +73,113 @@ flowchart TD
                   Especificações formais do protocolo (NΞØ Hub Intake Protocol)
                 </p>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li>• <Link to="#nhips" onClick={() => setActiveSection('nhips')} className="text-cyan-400 hover:text-cyan-300">NHIP-000</Link> — Hub Intake Protocol</li>
-                  <li>• <Link to="#nhips" onClick={() => setActiveSection('nhips')} className="text-cyan-400 hover:text-cyan-300">NHIP-000a</Link> — PoI Trigger Specification</li>
-                  <li>• <Link to="#nhips" onClick={() => setActiveSection('nhips')} className="text-cyan-400 hover:text-cyan-300">NHIP-001</Link> — NodeRegistry.sol</li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#nhips"
+                      onClick={() => setActiveSection('nhips')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      NHIP-000
+                    </Link>{' '}
+                    — Hub Intake Protocol
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#nhips"
+                      onClick={() => setActiveSection('nhips')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      NHIP-000a
+                    </Link>{' '}
+                    — PoI Trigger Specification
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#nhips"
+                      onClick={() => setActiveSection('nhips')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      NHIP-001
+                    </Link>{' '}
+                    — NodeRegistry.sol
+                  </li>
                 </ul>
               </div>
 
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-white mb-3">🏗️ Arquitetura</h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  Estrutura e design do protocolo
-                </p>
+                <p className="text-gray-400 text-sm mb-4">Estrutura e design do protocolo</p>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li>• <Link to="#architecture" onClick={() => setActiveSection('architecture')} className="text-cyan-400 hover:text-cyan-300">Proof of Intention Architecture</Link></li>
-                  <li>• <Link to="#architecture" onClick={() => setActiveSection('architecture')} className="text-cyan-400 hover:text-cyan-300">MCP Context Guard</Link></li>
-                  <li>• <Link to="#architecture" onClick={() => setActiveSection('architecture')} className="text-cyan-400 hover:text-cyan-300">Camadas do Protocolo</Link></li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#architecture"
+                      onClick={() => setActiveSection('architecture')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Proof of Intention Architecture
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#architecture"
+                      onClick={() => setActiveSection('architecture')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      MCP Context Guard
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#architecture"
+                      onClick={() => setActiveSection('architecture')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Camadas do Protocolo
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-white mb-3">📦 Smart Contracts</h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  Contratos inteligentes do protocolo
-                </p>
+                <p className="text-gray-400 text-sm mb-4">Contratos inteligentes do protocolo</p>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li>• <Link to="#smart-contracts" onClick={() => setActiveSection('smart-contracts')} className="text-cyan-400 hover:text-cyan-300">NodeRegistry.sol</Link></li>
-                  <li>• <Link to="#smart-contracts" onClick={() => setActiveSection('smart-contracts')} className="text-cyan-400 hover:text-cyan-300">Auditoria</Link></li>
-                  <li>• <Link to="#smart-contracts" onClick={() => setActiveSection('smart-contracts')} className="text-cyan-400 hover:text-cyan-300">Deploy</Link></li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#smart-contracts"
+                      onClick={() => setActiveSection('smart-contracts')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      NodeRegistry.sol
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#smart-contracts"
+                      onClick={() => setActiveSection('smart-contracts')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Auditoria
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#smart-contracts"
+                      onClick={() => setActiveSection('smart-contracts')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Deploy
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
@@ -109,27 +189,88 @@ flowchart TD
                   Documentação técnica para desenvolvedores
                 </p>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li>• <Link to="#developers" onClick={() => setActiveSection('developers')} className="text-cyan-400 hover:text-cyan-300">Quick Start</Link></li>
-                  <li>• <Link to="#developers" onClick={() => setActiveSection('developers')} className="text-cyan-400 hover:text-cyan-300">API Reference</Link></li>
-                  <li>• <Link to="#developers" onClick={() => setActiveSection('developers')} className="text-cyan-400 hover:text-cyan-300">SDKs e Bibliotecas</Link></li>
-                  <li>• <Link to="#developers" onClick={() => setActiveSection('developers')} className="text-cyan-400 hover:text-cyan-300">Exemplos de Código</Link></li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#developers"
+                      onClick={() => setActiveSection('developers')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Quick Start
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#developers"
+                      onClick={() => setActiveSection('developers')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      API Reference
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#developers"
+                      onClick={() => setActiveSection('developers')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      SDKs e Bibliotecas
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#developers"
+                      onClick={() => setActiveSection('developers')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Exemplos de Código
+                    </Link>
+                  </li>
                 </ul>
               </div>
 
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-white mb-3">📚 Guias</h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  Guias de implementação e uso
-                </p>
+                <p className="text-gray-400 text-sm mb-4">Guias de implementação e uso</p>
                 <ul className="space-y-2 text-sm text-gray-300">
-                  <li>• <Link to="#guides" onClick={() => setActiveSection('guides')} className="text-cyan-400 hover:text-cyan-300">NHIP-000 Implementation Guide</Link></li>
-                  <li>• <Link to="#guides" onClick={() => setActiveSection('guides')} className="text-cyan-400 hover:text-cyan-300">Mermaid Usage</Link></li>
-                  <li>• <Link to="#guides" onClick={() => setActiveSection('guides')} className="text-cyan-400 hover:text-cyan-300">Intent System</Link></li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#guides"
+                      onClick={() => setActiveSection('guides')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      NHIP-000 Implementation Guide
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#guides"
+                      onClick={() => setActiveSection('guides')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Mermaid Usage
+                    </Link>
+                  </li>
+                  <li>
+                    •{' '}
+                    <Link
+                      to="#guides"
+                      onClick={() => setActiveSection('guides')}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      Intent System
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
-        );
+        )
 
       case 'token':
         return (
@@ -145,15 +286,29 @@ flowchart TD
             <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-white mb-4">What is the token</h2>
               <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                The NEØ token is a verified ERC-20 on the Ethereum Mainnet. It is a reference token 
+                The NEØ token is a verified ERC-20 on the Ethereum Mainnet. It is a reference token
                 of the NEØ Protocol, actively maintained with verified source code on Etherscan.
               </p>
               <div className="bg-black/50 rounded p-3 border border-gray-700">
                 <div className="font-mono text-xs text-gray-300 space-y-1">
-                  <div><span className="text-cyan-400">Contract Address:</span> <span className="text-gray-400">0x53c407bdea9b336b2b15995d0765876e702f16af</span></div>
-                  <div><span className="text-cyan-400">Network:</span> <span className="text-gray-400">Ethereum Mainnet</span></div>
-                  <div><span className="text-cyan-400">Standard:</span> <span className="text-gray-400">ERC-20</span></div>
-                  <div><span className="text-cyan-400">Status:</span> <span className="text-green-400">Verified</span></div>
+                  <div>
+                    <span className="text-cyan-400">Contract Address:</span>{' '}
+                    <span className="text-gray-400">
+                      0x53c407bdea9b336b2b15995d0765876e702f16af
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400">Network:</span>{' '}
+                    <span className="text-gray-400">Ethereum Mainnet</span>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400">Standard:</span>{' '}
+                    <span className="text-gray-400">ERC-20</span>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400">Status:</span>{' '}
+                    <span className="text-green-400">Verified</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,15 +319,24 @@ flowchart TD
               <ul className="space-y-3 text-gray-300 text-sm">
                 <li className="flex items-start gap-3">
                   <span className="text-red-400 mt-1">✗</span>
-                  <span><strong className="text-white">Not a utility token:</strong> The token does not confer usage rights or access to protocol functionalities.</span>
+                  <span>
+                    <strong className="text-white">Not a utility token:</strong> The token does not
+                    confer usage rights or access to protocol functionalities.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400 mt-1">✗</span>
-                  <span><strong className="text-white">Not a governance token:</strong> The token does not confer voting rights or governance over the protocol.</span>
+                  <span>
+                    <strong className="text-white">Not a governance token:</strong> The token does
+                    not confer voting rights or governance over the protocol.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400 mt-1">✗</span>
-                  <span><strong className="text-white">No on-chain ownership model:</strong> The contract does not implement ownership or control functions.</span>
+                  <span>
+                    <strong className="text-white">No on-chain ownership model:</strong> The
+                    contract does not implement ownership or control functions.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -263,15 +427,18 @@ flowchart TD
               </div>
             </div>
           </div>
-        );
+        )
 
       case 'nhips':
         return (
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-4">NHIPs — NΞØ Hub Intake Protocol</h1>
+              <h1 className="text-3xl font-bold text-white mb-4">
+                NHIPs — NΞØ Hub Intake Protocol
+              </h1>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Especificações formais do protocolo. Cada NHIP define um aspecto crítico do funcionamento do NΞØ.
+                Especificações formais do protocolo. Cada NHIP define um aspecto crítico do
+                funcionamento do NΞØ.
               </p>
             </div>
 
@@ -283,16 +450,24 @@ flowchart TD
                     <h2 className="text-2xl font-bold text-white mb-2">NHIP-000</h2>
                     <p className="text-gray-400 text-sm">NΞØ Hub Intake Protocol</p>
                   </div>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">Ativo</span>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
+                    Ativo
+                  </span>
                 </div>
                 <p className="text-gray-300 mb-4 leading-relaxed">
-                  Protocolo Genesis para entrada de nós no ecossistema NΞØ. Define o mecanismo de apresentação, 
-                  validação via MCP Context Guard e handshake em 4 etapas.
+                  Protocolo Genesis para entrada de nós no ecossistema NΞØ. Define o mecanismo de
+                  apresentação, validação via MCP Context Guard e handshake em 4 etapas.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">Off-Chain</span>
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">MCP</span>
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">Handshake</span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    Off-Chain
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    MCP
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    Handshake
+                  </span>
                 </div>
               </div>
 
@@ -301,18 +476,29 @@ flowchart TD
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h2 className="text-2xl font-bold text-white mb-2">NHIP-000a</h2>
-                    <p className="text-gray-400 text-sm">Proof of Intention Trigger Specification</p>
+                    <p className="text-gray-400 text-sm">
+                      Proof of Intention Trigger Specification
+                    </p>
                   </div>
-                  <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full">Congelado</span>
+                  <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full">
+                    Congelado
+                  </span>
                 </div>
                 <p className="text-gray-300 mb-4 leading-relaxed">
-                  Especificação formal do gatilho do PoI. Define os 5 critérios obrigatórios, modelo de threshold 
-                  e relação com NHIP-001. Este documento congela o protocolo contra deriva técnica e social.
+                  Especificação formal do gatilho do PoI. Define os 5 critérios obrigatórios, modelo
+                  de threshold e relação com NHIP-001. Este documento congela o protocolo contra
+                  deriva técnica e social.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">PoI</span>
-                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">Threshold</span>
-                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">Off-Chain</span>
+                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">
+                    PoI
+                  </span>
+                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">
+                    Threshold
+                  </span>
+                  <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded">
+                    Off-Chain
+                  </span>
                 </div>
               </div>
 
@@ -323,16 +509,25 @@ flowchart TD
                     <h2 className="text-2xl font-bold text-white mb-2">NHIP-001</h2>
                     <p className="text-gray-400 text-sm">NodeRegistry.sol</p>
                   </div>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">Implementável</span>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
+                    Implementável
+                  </span>
                 </div>
                 <p className="text-gray-300 mb-4 leading-relaxed">
-                  Contrato inteligente minimalista para registro on-chain de nós. O contrato não valida intenção, 
-                  apenas ancora estados já reconhecidos via NHIP-000. Apenas o Guardian pode registrar.
+                  Contrato inteligente minimalista para registro on-chain de nós. O contrato não
+                  valida intenção, apenas ancora estados já reconhecidos via NHIP-000. Apenas o
+                  Guardian pode registrar.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">On-Chain</span>
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">Solidity</span>
-                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">Guardian</span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    On-Chain
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    Solidity
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-500/10 text-cyan-400 text-xs rounded">
+                    Guardian
+                  </span>
                 </div>
                 <div className="bg-black/50 rounded p-3 font-mono text-xs text-gray-400">
                   <div>contract NodeRegistry</div>
@@ -342,7 +537,7 @@ flowchart TD
               </div>
             </div>
           </div>
-        );
+        )
 
       case 'architecture':
         return (
@@ -350,7 +545,8 @@ flowchart TD
             <div>
               <h1 className="text-3xl font-bold text-white mb-4">Arquitetura do Protocolo</h1>
               <p className="text-gray-300 leading-relaxed mb-6">
-                O Protocolo NΞØ opera em camadas separadas: semântica off-chain, validação contextual e ancoragem on-chain.
+                O Protocolo NΞØ opera em camadas separadas: semântica off-chain, validação
+                contextual e ancoragem on-chain.
               </p>
             </div>
 
@@ -358,23 +554,30 @@ flowchart TD
               <h2 className="text-xl font-semibold text-white mb-4">Arquitetura em 3 Camadas</h2>
               <div className="space-y-4">
                 <div className="border-l-4 border-cyan-400 pl-4">
-                  <h3 className="text-lg font-semibold text-white mb-2">Camada 1 — PoI Semântico (Off-Chain)</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    Camada 1 — PoI Semântico (Off-Chain)
+                  </h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Apresentação, coerência ontológica, MCP Context Guard, validação de intenção real. 
-                    Governado pelo NHIP-000.
+                    Apresentação, coerência ontológica, MCP Context Guard, validação de intenção
+                    real. Governado pelo NHIP-000.
                   </p>
                 </div>
                 <div className="border-l-4 border-green-400 pl-4">
-                  <h3 className="text-lg font-semibold text-white mb-2">Camada 2 — PoI Operacional</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    Camada 2 — PoI Operacional
+                  </h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Handshake, atribuição de role, permissões iniciais, entrada como nó observador. 
+                    Handshake, atribuição de role, permissões iniciais, entrada como nó observador.
                     Determinístico e auditável.
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-400 pl-4">
-                  <h3 className="text-lg font-semibold text-white mb-2">Camada 3 — PoI Ancorado (On-Chain)</h3>
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    Camada 3 — PoI Ancorado (On-Chain)
+                  </h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Smart contract NodeRegistry.sol (NHIP-001). Não decide, apenas sela estados já reconhecidos.
+                    Smart contract NodeRegistry.sol (NHIP-001). Não decide, apenas sela estados já
+                    reconhecidos.
                   </p>
                 </div>
               </div>
@@ -385,28 +588,43 @@ flowchart TD
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
-                  <span><strong className="text-white">Minimalismo radical:</strong> Menos lógica = menos superfícies de ataque</span>
+                  <span>
+                    <strong className="text-white">Minimalismo radical:</strong> Menos lógica =
+                    menos superfícies de ataque
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
-                  <span><strong className="text-white">Separação de camadas:</strong> Semântica fora da blockchain. Estado dentro.</span>
+                  <span>
+                    <strong className="text-white">Separação de camadas:</strong> Semântica fora da
+                    blockchain. Estado dentro.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
-                  <span><strong className="text-white">Autoridade explícita:</strong> Apenas o Nó Guardião pode registrar</span>
+                  <span>
+                    <strong className="text-white">Autoridade explícita:</strong> Apenas o Nó
+                    Guardião pode registrar
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
-                  <span><strong className="text-white">Imutabilidade histórica:</strong> Nada é apagado. Apenas desativado.</span>
+                  <span>
+                    <strong className="text-white">Imutabilidade histórica:</strong> Nada é apagado.
+                    Apenas desativado.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
-                  <span><strong className="text-white">Neutralidade ontológica:</strong> O contrato não julga. Apenas registra.</span>
+                  <span>
+                    <strong className="text-white">Neutralidade ontológica:</strong> O contrato não
+                    julga. Apenas registra.
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
-        );
+        )
 
       case 'proof-of-intention':
         return (
@@ -414,8 +632,9 @@ flowchart TD
             <div>
               <h1 className="text-3xl font-bold text-white mb-4">Proof of Intention (PoI)</h1>
               <p className="text-gray-300 leading-relaxed mb-6">
-                O PoI não é um evento, não é um pedido, não é um direito. É um estado emergente reconhecido 
-                pelo sistema quando uma entidade atravessa um limiar semântico-operacional.
+                O PoI não é um evento, não é um pedido, não é um direito. É um estado emergente
+                reconhecido pelo sistema quando uma entidade atravessa um limiar
+                semântico-operacional.
               </p>
             </div>
 
@@ -426,37 +645,56 @@ flowchart TD
                 <MermaidDiagram diagram={poiDiagram} />
               </div>
               <p className="text-gray-400 text-sm mt-4">
-                O diagrama mostra o fluxo completo: da consciência latente até a execução distribuída, 
-                passando pelo reconhecimento off-chain (NHIP-000) e ancoragem on-chain (NHIP-001).
+                O diagrama mostra o fluxo completo: da consciência latente até a execução
+                distribuída, passando pelo reconhecimento off-chain (NHIP-000) e ancoragem on-chain
+                (NHIP-001).
               </p>
             </div>
 
             {/* Critérios do Gatilho */}
             <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Critérios do Gatilho (NHIP-000a)</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Critérios do Gatilho (NHIP-000a)
+              </h2>
               <p className="text-gray-300 mb-4 text-sm">
-                O gatilho do PoI é ativado quando <strong className="text-white">todos</strong> os critérios abaixo são satisfeitos:
+                O gatilho do PoI é ativado quando <strong className="text-white">todos</strong> os
+                critérios abaixo são satisfeitos:
               </p>
               <ol className="space-y-3 text-gray-300 text-sm">
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 font-bold">1.</span>
-                  <span><strong className="text-white">Declaração de Intent Válida:</strong> Intent permitida declarada explicitamente</span>
+                  <span>
+                    <strong className="text-white">Declaração de Intent Válida:</strong> Intent
+                    permitida declarada explicitamente
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 font-bold">2.</span>
-                  <span><strong className="text-white">Ação Verificável Associada:</strong> Intent ligada a ação real, observável e verificável</span>
+                  <span>
+                    <strong className="text-white">Ação Verificável Associada:</strong> Intent
+                    ligada a ação real, observável e verificável
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 font-bold">3.</span>
-                  <span><strong className="text-white">Coerência de Contexto:</strong> Contexto coerente com domínio, histórico e ontologia</span>
+                  <span>
+                    <strong className="text-white">Coerência de Contexto:</strong> Contexto coerente
+                    com domínio, histórico e ontologia
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 font-bold">4.</span>
-                  <span><strong className="text-white">Ausência de Violação Ontológica:</strong> Nenhuma tentativa de centralizar, burlar ou misturar domínios</span>
+                  <span>
+                    <strong className="text-white">Ausência de Violação Ontológica:</strong> Nenhuma
+                    tentativa de centralizar, burlar ou misturar domínios
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 font-bold">5.</span>
-                  <span><strong className="text-white">Threshold de Impacto Mínimo:</strong> PoI_Threshold ≥ T_min (70)</span>
+                  <span>
+                    <strong className="text-white">Threshold de Impacto Mínimo:</strong>{' '}
+                    PoI_Threshold ≥ T_min (70)
+                  </span>
                 </li>
               </ol>
             </div>
@@ -488,7 +726,7 @@ flowchart TD
               </ul>
             </div>
           </div>
-        );
+        )
 
       case 'smart-contracts':
         return (
@@ -503,8 +741,10 @@ flowchart TD
             <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-white mb-4">NodeRegistry.sol</h2>
               <p className="text-gray-300 mb-4 text-sm">
-                <strong className="text-white">Versão:</strong> Solidity ^0.8.20<br />
-                <strong className="text-white">Compatibilidade:</strong> Base / Polygon / EVM padrão<br />
+                <strong className="text-white">Versão:</strong> Solidity ^0.8.20
+                <br />
+                <strong className="text-white">Compatibilidade:</strong> Base / Polygon / EVM padrão
+                <br />
                 <strong className="text-white">NHIP:</strong> 001
               </p>
 
@@ -535,7 +775,10 @@ flowchart TD
 
               <h3 className="text-lg font-semibold text-white mt-6 mb-3">Eventos</h3>
               <div className="space-y-2 font-mono text-sm text-gray-300">
-                <div>event NodeRegistered(address indexed nodeAddress, string domain, uint256 registeredAt)</div>
+                <div>
+                  event NodeRegistered(address indexed nodeAddress, string domain, uint256
+                  registeredAt)
+                </div>
                 <div>event NodeDeactivated(address indexed nodeAddress, uint256 deactivatedAt)</div>
               </div>
 
@@ -552,7 +795,7 @@ flowchart TD
               </div>
             </div>
           </div>
-        );
+        )
 
       case 'guides':
         return (
@@ -566,14 +809,18 @@ flowchart TD
 
             <div className="space-y-4">
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
-                <h2 className="text-xl font-semibold text-white mb-3">NHIP-000 Implementation Guide</h2>
+                <h2 className="text-xl font-semibold text-white mb-3">
+                  NHIP-000 Implementation Guide
+                </h2>
                 <p className="text-gray-300 text-sm mb-4">
-                  Guia completo para implementar o ponto de entrada do NHIP-000. O NHIP-000 não ensina, ele testa.
+                  Guia completo para implementar o ponto de entrada do NHIP-000. O NHIP-000 não
+                  ensina, ele testa.
                 </p>
                 <div className="bg-yellow-500/10 border border-yellow-500/20 rounded p-3 text-sm">
                   <p className="text-yellow-400 font-semibold mb-2">⚠️ Princípio Fundamental</p>
                   <p className="text-gray-300">
-                    Se alguém precisa de um botão "o que é", ainda não é um nó. O NHIP-000 não converte. Ele reconhece.
+                    Se alguém precisa de um botão "o que é", ainda não é um nó. O NHIP-000 não
+                    converte. Ele reconhece.
                   </p>
                 </div>
               </div>
@@ -581,8 +828,8 @@ flowchart TD
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-3">Mermaid Usage</h2>
                 <p className="text-gray-300 text-sm mb-4">
-                  Como usar diagramas Mermaid no projeto. O componente MermaidDiagram já está configurado 
-                  com o tema escuro do NΞØ Protocol.
+                  Como usar diagramas Mermaid no projeto. O componente MermaidDiagram já está
+                  configurado com o tema escuro do NΞØ Protocol.
                 </p>
                 <div className="bg-black/50 rounded p-3 font-mono text-xs text-gray-400">
                   <div>import MermaidDiagram from '../components/MermaidDiagram';</div>
@@ -593,8 +840,8 @@ flowchart TD
               <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-3">Intent System</h2>
                 <p className="text-gray-300 text-sm mb-4">
-                  Sistema de mapeamento morfológico de intenções. Não mapeia quem você é, 
-                  revela como você opera no campo simbólico.
+                  Sistema de mapeamento morfológico de intenções. Não mapeia quem você é, revela
+                  como você opera no campo simbólico.
                 </p>
                 <ul className="text-gray-300 text-sm space-y-2">
                   <li>• Três dimensões: Resolução, Colaboração, Criação</li>
@@ -605,7 +852,7 @@ flowchart TD
               </div>
             </div>
           </div>
-        );
+        )
 
       case 'developers':
         return (
@@ -613,7 +860,8 @@ flowchart TD
             <div>
               <h1 className="text-3xl font-bold text-white mb-4">Documentação para Developers</h1>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Recursos técnicos, APIs, SDKs e exemplos de código para integrar com o Protocolo NΞØ.
+                Recursos técnicos, APIs, SDKs e exemplos de código para integrar com o Protocolo
+                NΞØ.
               </p>
             </div>
 
@@ -645,7 +893,7 @@ flowchart TD
               <p className="text-gray-300 text-sm mb-4">
                 Referência completa da API do Protocolo NΞØ.
               </p>
-              
+
               <div className="space-y-4">
                 <div className="border-l-4 border-cyan-400 pl-4">
                   <h3 className="text-lg font-semibold text-white mb-2">MCP Context Guard API</h3>
@@ -699,9 +947,7 @@ flowchart TD
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-white mb-2">JavaScript/TypeScript</h3>
-                  <p className="text-gray-400 text-sm mb-3">
-                    SDK oficial para Node.js e browsers
-                  </p>
+                  <p className="text-gray-400 text-sm mb-3">SDK oficial para Node.js e browsers</p>
                   <div className="font-mono text-xs text-gray-300">
                     <div>npm: @neoprotocol/sdk</div>
                     <div className="text-gray-500 mt-1">Status: Em desenvolvimento</div>
@@ -710,9 +956,7 @@ flowchart TD
 
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-white mb-2">Python</h3>
-                  <p className="text-gray-400 text-sm mb-3">
-                    SDK para integração Python
-                  </p>
+                  <p className="text-gray-400 text-sm mb-3">SDK para integração Python</p>
                   <div className="font-mono text-xs text-gray-300">
                     <div>pip: neoprotocol-sdk</div>
                     <div className="text-gray-500 mt-1">Status: Planejado</div>
@@ -721,9 +965,7 @@ flowchart TD
 
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-white mb-2">Rust</h3>
-                  <p className="text-gray-400 text-sm mb-3">
-                    SDK nativo em Rust
-                  </p>
+                  <p className="text-gray-400 text-sm mb-3">SDK nativo em Rust</p>
                   <div className="font-mono text-xs text-gray-300">
                     <div>cargo: neoprotocol</div>
                     <div className="text-gray-500 mt-1">Status: Planejado</div>
@@ -732,9 +974,7 @@ flowchart TD
 
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-white mb-2">React Hooks</h3>
-                  <p className="text-gray-400 text-sm mb-3">
-                    Hooks React para integração frontend
-                  </p>
+                  <p className="text-gray-400 text-sm mb-3">Hooks React para integração frontend</p>
                   <div className="font-mono text-xs text-gray-300">
                     <div>npm: @neoprotocol/react</div>
                     <div className="text-gray-500 mt-1">Status: Em desenvolvimento</div>
@@ -752,10 +992,12 @@ flowchart TD
 
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Registrar Nó (MCP Context)</h3>
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    Registrar Nó (MCP Context)
+                  </h3>
                   <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
                     <pre className="text-xs text-gray-300 font-mono overflow-x-auto">
-{`import { acknowledgeNodeOffChain } from '@neoprotocol/mcp';
+                      {`import { acknowledgeNodeOffChain } from '@neoprotocol/mcp';
 
 const node = await acknowledgeNodeOffChain({
   identity: 'my-node',
@@ -770,10 +1012,12 @@ console.log('Nó reconhecido:', node.id);`}
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Verificar Registro On-Chain</h3>
+                  <h3 className="text-lg font-semibold text-white mb-3">
+                    Verificar Registro On-Chain
+                  </h3>
                   <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
                     <pre className="text-xs text-gray-300 font-mono overflow-x-auto">
-{`import { NodeRegistry } from '@neoprotocol/contracts';
+                      {`import { NodeRegistry } from '@neoprotocol/contracts';
 
 const registry = new NodeRegistry(contractAddress);
 const isRegistered = await registry.isRegistered(nodeAddress);
@@ -789,7 +1033,7 @@ console.log('Dados:', nodeData);`}
                   <h3 className="text-lg font-semibold text-white mb-3">Analisar Intenção</h3>
                   <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
                     <pre className="text-xs text-gray-300 font-mono overflow-x-auto">
-{`import { analyzeText } from '@neoprotocol/intent';
+                      {`import { analyzeText } from '@neoprotocol/intent';
 
 const result = await analyzeText({
   text: 'Desmonto o problema em partes...',
@@ -823,17 +1067,19 @@ console.log('Intenção:', result.intent);`}
                 </div>
 
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
-                  <h3 className="text-base font-semibold text-white mb-2">Integração com Next.js</h3>
-                  <p className="text-gray-400 text-sm">
-                    Setup completo para projetos Next.js
-                  </p>
+                  <h3 className="text-base font-semibold text-white mb-2">
+                    Integração com Next.js
+                  </h3>
+                  <p className="text-gray-400 text-sm">Setup completo para projetos Next.js</p>
                   <span className="inline-block mt-2 px-2 py-1 bg-blue-500/10 text-blue-400 text-xs rounded">
                     Em breve
                   </span>
                 </div>
 
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
-                  <h3 className="text-base font-semibold text-white mb-2">Integração com Smart Contracts</h3>
+                  <h3 className="text-base font-semibold text-white mb-2">
+                    Integração com Smart Contracts
+                  </h3>
                   <p className="text-gray-400 text-sm">
                     Como interagir com NodeRegistry.sol via Web3
                   </p>
@@ -906,7 +1152,8 @@ console.log('Intenção:', result.intent);`}
                 <div className="bg-black/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-base font-semibold text-white mb-2">Propondo NHIPs</h3>
                   <p className="text-gray-400 text-sm">
-                    Para propor melhorias ao protocolo, siga o formato NHIP e abra uma issue no repositório.
+                    Para propor melhorias ao protocolo, siga o formato NHIP e abra uma issue no
+                    repositório.
                   </p>
                 </div>
 
@@ -919,12 +1166,12 @@ console.log('Intenção:', result.intent);`}
               </div>
             </div>
           </div>
-        );
+        )
 
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-black text-gray-100 pb-16 safe-area-inset">
@@ -937,7 +1184,7 @@ console.log('Intenção:', result.intent);`}
             <div className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-4 sticky top-20">
               <h2 className="text-lg font-semibold text-white mb-4">Documentação</h2>
               <nav className="space-y-1">
-                {sections.map((section) => (
+                {sections.map(section => (
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
@@ -969,5 +1216,5 @@ console.log('Intenção:', result.intent);`}
 
       <BottomNavigation />
     </div>
-  );
+  )
 }

@@ -28,10 +28,12 @@ function registerNode(
 **Verificação:**
 
 O contrato recebe apenas:
+
 - `address nodeAddress` — endereço criptográfico
 - `string calldata domain` — domínio declarado
 
 Não há:
+
 - Validação de intenção semântica
 - Análise de coerência ontológica
 - Verificação de "merecimento" do nó
@@ -45,12 +47,14 @@ Não há:
 **Verificação:**
 
 O contrato não processa:
+
 - Texto livre
 - Narrativas
 - Intenções expressas em linguagem natural
 - Dados semânticos complexos
 
 Apenas recebe:
+
 - `address` — tipo primitivo (bytes20)
 - `string domain` — string simples (não processada semanticamente)
 
@@ -128,6 +132,7 @@ Motor que processa intenções e avalia coerência.
 ### **4. Orquestrador que Observa Ações Reais**
 
 Sistema que monitora:
+
 - Ações executadas
 - Impacto gerado
 - Coerência ontológica
@@ -142,13 +147,13 @@ Sistema que monitora:
 // Está no orquestrador off-chain (MCP Router, Node.js, etc.)
 
 if (
-  intent === "apresentacao" &&
+  intent === 'apresentacao' &&
   action.isReal === true &&
   context.isCoherent === true &&
   reputation.delta > threshold
 ) {
   // Apenas aqui, após validação off-chain completa
-  await nodeRegistry.registerNode(address, domain);
+  await nodeRegistry.registerNode(address, domain)
 }
 ```
 

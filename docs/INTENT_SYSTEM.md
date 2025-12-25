@@ -30,63 +30,63 @@ O sistema opera através de três dimensões fundamentais de operação no campo
 
 ### **🧩 Resolução de Problemas** (`problem_solving`)
 
-*Como você navega o caos*
+_Como você navega o caos_
 
 **Prompt de Ressonância:**  
-*"O que acontece dentro de você nos primeiros momentos de um quebra-cabeça crítico?"*
+_"O que acontece dentro de você nos primeiros momentos de um quebra-cabeça crítico?"_
 
 **Arquétipos Disponíveis:**
 
 - **Engenheiro** — Estruturar o caos através da razão  
-  *Keywords: desmontar, partes, sistema, mapa, lógica, padrão, eficiente*
+  _Keywords: desmontar, partes, sistema, mapa, lógica, padrão, eficiente_
 - **Contador de Histórias** — Encontrar narrativa para navegar  
-  *Keywords: história, analogia, significado, exemplo, metáfora, sentido*
+  _Keywords: história, analogia, significado, exemplo, metáfora, sentido_
 - **Cirurgião** — Eliminar disfunção com precisão  
-  *Keywords: isolar, cortar, intervir, rápido, núcleo, pressão*
+  _Keywords: isolar, cortar, intervir, rápido, núcleo, pressão_
 - **Jardineiro** — Cultivar emergência orgânica  
-  *Keywords: nutrir, ambiente, crescer, paciência, ecossistema, processo*
+  _Keywords: nutrir, ambiente, crescer, paciência, ecossistema, processo_
 - **Jogador** — Transformar caos em competição  
-  *Keywords: desafio, regras, estratégia, vencer, tática, recompensa*
+  _Keywords: desafio, regras, estratégia, vencer, tática, recompensa_
 
 ### **🌐 Conexão & Colaboração** (`collaboration`)
 
-*Como você se vincula ao campo*
+_Como você se vincula ao campo_
 
 **Prompt de Ressonância:**  
-*"Qual é seu papel natural em uma teia de trabalho compartilhado?"*
+_"Qual é seu papel natural em uma teia de trabalho compartilhado?"_
 
 **Arquétipos Disponíveis:**
 
 - **Catalisador** — Acelerar clareza através da tensão  
-  *Keywords: pergunta, apontar, inconsistência, desafiar, atrito, verdade*
+  _Keywords: pergunta, apontar, inconsistência, desafiar, atrito, verdade_
 - **Costureiro** — Tecer redes de significado  
-  *Keywords: conectar, harmonia, ouvidos, ponte, traduzir, sentir*
+  _Keywords: conectar, harmonia, ouvidos, ponte, traduzir, sentir_
 - **Estrategista** — Otimizar rendimento coletivo  
-  *Keywords: meta, dividir, eficiência, prazo, função, recursos*
+  _Keywords: meta, dividir, eficiência, prazo, função, recursos_
 - **Especialista Reserva** — Ofertar excelência pontual  
-  *Keywords: retaguarda, observar, técnico, específico, autonomia*
+  _Keywords: retaguarda, observar, técnico, específico, autonomia_
 - **Guardião** — Salvaguardar o essencial  
-  *Keywords: proteger, cuidar, alerta, integridade, valores, lealdade*
+  _Keywords: proteger, cuidar, alerta, integridade, valores, lealdade_
 
 ### **✨ Criação & Geração** (`creation`)
 
-*Como você manifesta no campo*
+_Como você manifesta no campo_
 
 **Prompt de Ressonância:**  
-*"De onde vem o impulso criativo? Como ele cresce até se tornar real?"*
+_"De onde vem o impulso criativo? Como ele cresce até se tornar real?"_
 
 **Arquétipos Disponíveis:**
 
 - **Visionário** — Materializar visão interna  
-  *Keywords: imagem, visão, insight, traduzir, forma, fidelidade*
+  _Keywords: imagem, visão, insight, traduzir, forma, fidelidade_
 - **Alquimista** — Criar pela fusão improvável  
-  *Keywords: fusão, colisão, cacos, soldar, hibridização, conexão*
+  _Keywords: fusão, colisão, cacos, soldar, hibridização, conexão_
 - **Agricultor** — Cultivar maturação profunda  
-  *Keywords: fermentar, semente, alimentar, amadurecer, colher, processo*
+  _Keywords: fermentar, semente, alimentar, amadurecer, colher, processo_
 - **Artesão da Jaula** — Libertar-se dentro dos limites  
-  *Keywords: restrição, limite, puzzle, jogo, dançar, estrutura*
+  _Keywords: restrição, limite, puzzle, jogo, dançar, estrutura_
 - **Explosivo** — Liberar em catálise súbita  
-  *Keywords: pressão, explosão, urgência, catártico, potência, fluxo*
+  _Keywords: pressão, explosão, urgência, catártico, potência, fluxo_
 
 ---
 
@@ -211,6 +211,7 @@ Quando uma intenção é mapeada com alta coerência, o sistema pode emitir um p
 ### **Zonas Desbloqueáveis**
 
 Padrões integrados raros podem desbloquear zonas:
+
 ```
 → PADRÃO INTEGRADO DETECTADO: [Nome]
 → ZONA DESBLOQUEADA: ZONE_Δ8
@@ -318,12 +319,12 @@ Se integrado ao LiveAgent ou IPFS:
 
 ```jsx
 const NeoIntentSystem = () => {
-  const [phase, setPhase] = useState('intro');
-  const [selectedDimensions, setSelectedDimensions] = useState([]);
-  const [responses, setResponses] = useState({});
-  const [result, setResult] = useState(null);
+  const [phase, setPhase] = useState('intro')
+  const [selectedDimensions, setSelectedDimensions] = useState([])
+  const [responses, setResponses] = useState({})
+  const [result, setResult] = useState(null)
   // ...
-};
+}
 ```
 
 **Fases:**

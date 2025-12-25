@@ -55,21 +55,21 @@
 // - Implementar type safety manualmente
 
 // Com Thirdweb:
-import { getContract } from "thirdweb";
-import { readContract, sendTransaction } from "thirdweb";
+import { getContract } from 'thirdweb'
+import { readContract, sendTransaction } from 'thirdweb'
 
 const contract = getContract({
   client: thirdwebClient,
   chain: base,
-  address: nodeRegistryAddress
-});
+  address: nodeRegistryAddress,
+})
 
 // Type-safe, com retry automático, gas estimation automático
 const isRegistered = await readContract({
   contract,
-  method: "function isRegistered(address) view returns (bool)",
-  params: [nodeAddress]
-});
+  method: 'function isRegistered(address) view returns (bool)',
+  params: [nodeAddress],
+})
 ```
 
 **Ganho de tempo**: 60-70% menos código boilerplate para operações blockchain
@@ -138,16 +138,16 @@ const isRegistered = await readContract({
 // Registrar nó após PoI validado:
 await sendTransaction({
   contract: nodeRegistry,
-  method: "function registerNode(address, string)",
-  params: [nodeAddress, domain]
-});
+  method: 'function registerNode(address, string)',
+  params: [nodeAddress, domain],
+})
 
 // Verificar status de nó:
 const node = await readContract({
   contract: nodeRegistry,
-  method: "function getNode(address) view returns (Node memory)",
-  params: [nodeAddress]
-});
+  method: 'function getNode(address) view returns (Node memory)',
+  params: [nodeAddress],
+})
 ```
 
 **Ganho**: Integração limpa com contratos existentes
@@ -168,21 +168,21 @@ const node = await readContract({
 const token = await deployERC20({
   client: thirdwebClient,
   chain: base,
-  name: "NEO Protocol Token",
-  symbol: "NEO",
+  name: 'NEO Protocol Token',
+  symbol: 'NEO',
   // ...
-});
+})
 
 // Mint de NFT para Proof of Intention:
 const nft = await mintNFT({
   contract: poiNFTContract,
   to: nodeAddress,
   metadata: {
-    name: "Proof of Intention",
-    description: "Nó reconhecido pelo NΞØ Protocol",
-    image: ipfsCID
-  }
-});
+    name: 'Proof of Intention',
+    description: 'Nó reconhecido pelo NΞØ Protocol',
+    image: ipfsCID,
+  },
+})
 ```
 
 **Ganho**: Implementação rápida de tokenomics e NFTs
@@ -262,16 +262,16 @@ const nft = await mintNFT({
 // src/services/blockchain/BlockchainService.js
 export class BlockchainService {
   constructor(provider = 'thirdweb') {
-    this.provider = provider;
+    this.provider = provider
     // Pode trocar implementação sem mudar código que usa
   }
-  
+
   async registerNode(address, domain) {
     if (this.provider === 'thirdweb') {
-      return this.thirdwebRegister(address, domain);
+      return this.thirdwebRegister(address, domain)
     }
     // Fallback para ethers.js direto
-    return this.ethersRegister(address, domain);
+    return this.ethersRegister(address, domain)
   }
 }
 ```
@@ -283,11 +283,13 @@ export class BlockchainService {
 #### Análise Filosófica:
 
 **Princípios NΞØ:**
+
 - Descentralização como posição de autenticidade
 - Zero intermediários
 - Transparência por padrão
 
 **Thirdweb:**
+
 - ✅ Embedded Wallets são self-custodial (chaves do usuário)
 - ✅ Smart contracts são on-chain (transparentes)
 - ⚠️ Infraestrutura MPC é centralizada (servidores Thirdweb)
@@ -300,6 +302,7 @@ export class BlockchainService {
 É uma **ferramenta**, não um **princípio**.
 
 **Analogia:**
+
 - Usar GitHub não torna seu código centralizado
 - Usar AWS não torna sua arquitetura centralizada
 - Usar Thirdweb não torna seu protocolo centralizado
@@ -354,14 +357,14 @@ export class BlockchainService {
 
 ## 📊 MATRIZ DE IMPACTO
 
-| Funcionalidade | Impacto | Alinhamento | Risco | Prioridade |
-|----------------|---------|-------------|-------|------------|
-| **Blockchain Executor** | 🔥 Alto | ✅ Alto | 🟡 Médio | 🔴 Crítico |
-| **x402 Payments** | 🔥 Alto | ✅ Alto | 🟡 Médio | 🔴 Crítico |
-| **Embedded Wallets** | 🔥 Alto | ✅ Alto | 🔴 Alto | 🟡 Importante |
-| **Smart Contract SDK** | 🔥 Alto | ✅ Alto | 🟡 Médio | 🔴 Crítico |
-| **Token/NFT Management** | 🟡 Médio | ✅ Médio | 🟡 Médio | 🟢 Futuro |
-| **Analytics Dashboard** | 🟢 Baixo | ⚠️ Baixo | 🟢 Baixo | 🟢 Opcional |
+| Funcionalidade           | Impacto  | Alinhamento | Risco    | Prioridade    |
+| ------------------------ | -------- | ----------- | -------- | ------------- |
+| **Blockchain Executor**  | 🔥 Alto  | ✅ Alto     | 🟡 Médio | 🔴 Crítico    |
+| **x402 Payments**        | 🔥 Alto  | ✅ Alto     | 🟡 Médio | 🔴 Crítico    |
+| **Embedded Wallets**     | 🔥 Alto  | ✅ Alto     | 🔴 Alto  | 🟡 Importante |
+| **Smart Contract SDK**   | 🔥 Alto  | ✅ Alto     | 🟡 Médio | 🔴 Crítico    |
+| **Token/NFT Management** | 🟡 Médio | ✅ Médio    | 🟡 Médio | 🟢 Futuro     |
+| **Analytics Dashboard**  | 🟢 Baixo | ⚠️ Baixo    | 🟢 Baixo | 🟢 Opcional   |
 
 ---
 
@@ -372,16 +375,19 @@ export class BlockchainService {
 #### Implementação Gradual:
 
 **Fase 1 — MVP (Crítico):**
+
 1. ✅ Reativar x402 Payments (já estava funcionando)
 2. ✅ Implementar Blockchain Executor básico (NodeRegistry interaction)
 3. ✅ Manter fallback para wallets tradicionais
 
 **Fase 2 — Expansão (Importante):**
+
 1. ✅ Adicionar Embedded Wallets (com fallback)
 2. ✅ Implementar token deployment ($NEO)
 3. ✅ NFT mint para Proof of Intention
 
 **Fase 3 — Otimização (Futuro):**
+
 1. ⚠️ Analytics e dashboard (se necessário)
 2. ⚠️ Marketplace integration (se necessário)
 
@@ -389,16 +395,12 @@ export class BlockchainService {
 
 ```javascript
 // Estrutura recomendada:
-src/
-  services/
-    blockchain/
-      BlockchainService.js      // Interface abstrata
-      ThirdwebBlockchain.js     // Implementação Thirdweb
-      EthersBlockchain.js       // Fallback direto
-    payments/
-      PaymentService.js         // Interface abstrata
-      X402Payment.js            // Implementação x402
-      // Futuro: outras implementações
+src / services / blockchain / BlockchainService.js // Interface abstrata
+ThirdwebBlockchain.js // Implementação Thirdweb
+EthersBlockchain.js // Fallback direto
+payments / PaymentService.js // Interface abstrata
+X402Payment.js // Implementação x402
+// Futuro: outras implementações
 ```
 
 #### Monitoramento de Segurança:

@@ -7,12 +7,12 @@
 
 ### Dependências Modificadas
 
-| Pacote | Versão Anterior | Versão Atual | Mudança |
-|--------|----------------|--------------|---------|
-| `@thirdweb-dev/react` | `^4.9.4` | `^3.10.3` | ⬇️ Downgrade (Breaking) |
-| `@thirdweb-dev/sdk` | `^4.0.99` | `^4.0.73` | ⬇️ Downgrade (Breaking) |
-| `vite` | `^5.0.8` | `^7.3.0` | ⬆️ Upgrade (Major) |
-| `vite-plugin-pwa` | `^0.17.4` | `^1.2.0` | ⬆️ Upgrade (Major) |
+| Pacote                | Versão Anterior | Versão Atual | Mudança                 |
+| --------------------- | --------------- | ------------ | ----------------------- |
+| `@thirdweb-dev/react` | `^4.9.4`        | `^3.10.3`    | ⬇️ Downgrade (Breaking) |
+| `@thirdweb-dev/sdk`   | `^4.0.99`       | `^4.0.73`    | ⬇️ Downgrade (Breaking) |
+| `vite`                | `^5.0.8`        | `^7.3.0`     | ⬆️ Upgrade (Major)      |
+| `vite-plugin-pwa`     | `^0.17.4`       | `^1.2.0`     | ⬆️ Upgrade (Major)      |
 
 ## ⚠️ Impacto Potencial
 

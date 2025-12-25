@@ -9,13 +9,13 @@
  * @returns {string} Hash hexadecimal
  */
 function hashString(str) {
-  let hash = 0;
+  let hash = 0
   for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32bit integer
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32bit integer
   }
-  return Math.abs(hash).toString(16);
+  return Math.abs(hash).toString(16)
 }
 
 /**
@@ -24,12 +24,12 @@ function hashString(str) {
  * @returns {string} Hash anonimizado
  */
 function hashWallet(walletAddress) {
-  if (!walletAddress) return null;
+  if (!walletAddress) return null
   // Usar apenas primeiros 6 e últimos 4 caracteres + hash
-  const prefix = walletAddress.substring(0, 6);
-  const suffix = walletAddress.substring(walletAddress.length - 4);
-  const hash = hashString(walletAddress);
-  return `${prefix}...${suffix}_${hash.substring(0, 8)}`;
+  const prefix = walletAddress.substring(0, 6)
+  const suffix = walletAddress.substring(walletAddress.length - 4)
+  const hash = hashString(walletAddress)
+  return `${prefix}...${suffix}_${hash.substring(0, 8)}`
 }
 
 /**
@@ -38,8 +38,8 @@ function hashWallet(walletAddress) {
  * @returns {string} Hash do código
  */
 function hashMermaid(mermaidCode) {
-  if (!mermaidCode) return null;
-  return hashString(mermaidCode).substring(0, 16);
+  if (!mermaidCode) return null
+  return hashString(mermaidCode).substring(0, 16)
 }
 
 /**
@@ -52,8 +52,14 @@ function hashMermaid(mermaidCode) {
  * @param {boolean} includeRawText - Se true, inclui respostas em texto livre
  * @returns {Object} Dados anonimizados
  */
-export function anonymizeIntentData(intentData, walletAddress = null, complete = false, contactData = null, includeRawText = true) {
-  const timestamp = intentData?.timestamp || Date.now();
+export function anonymizeIntentData(
+  intentData,
+  walletAddress = null,
+  complete = false,
+  contactData = null,
+  includeRawText = true
+) {
+  const timestamp = intentData?.timestamp || Date.now()
 
   const anonymized = {
     version: '1.0',
@@ -64,11 +70,11 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
       consentGiven: true,
       completeMapping: complete,
     },
-  };
+  }
 
   // Hash do wallet (anonimizado)
   if (walletAddress) {
-    anonymized.userHash = hashWallet(walletAddress);
+    anonymized.userHash = hashWallet(walletAddress)
   }
 
   // Dados de contato (se fornecidos - apenas para "Ver Completo")
@@ -77,24 +83,28 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
       emailHash: contactData.email ? hashString(contactData.email.toLowerCase()) : null,
       phoneHash: contactData.phone ? hashString(contactData.phone) : null,
       githubHash: contactData.github ? hashString(contactData.github.toLowerCase()) : null,
-    };
-    anonymized.complete = true;
+    }
+    anonymized.complete = true
   } else if (intentData.userData) {
     // Compatibilidade com formato antigo
     anonymized.contact = {
-      emailHash: intentData.userData.email ? hashString(intentData.userData.email.toLowerCase()) : null,
+      emailHash: intentData.userData.email
+        ? hashString(intentData.userData.email.toLowerCase())
+        : null,
       phoneHash: intentData.userData.phone ? hashString(intentData.userData.phone) : null,
-      githubHash: intentData.userData.github ? hashString(intentData.userData.github.toLowerCase()) : null,
-    };
-    anonymized.complete = true;
+      githubHash: intentData.userData.github
+        ? hashString(intentData.userData.github.toLowerCase())
+        : null,
+    }
+    anonymized.complete = true
   }
 
   // Arquétipos identificados (sem texto livre)
   anonymized.archetypes = Object.keys(intentData.profileData || {}).map(dimId => ({
     dimension: dimId,
     archetype: intentData.profileData[dimId]?.archetype || null,
-    intent: intentData.profileData[dimId]?.intent || null
-  }));
+    intent: intentData.profileData[dimId]?.intent || null,
+  }))
 
   // Padrão integrado (synergy)
   if (intentData.synergy) {
@@ -103,16 +113,16 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
       intent: intentData.synergy.intent,
       power: intentData.synergy.power,
       alert: intentData.synergy.alert,
-      metaphor: intentData.synergy.metaphor
-    };
+      metaphor: intentData.synergy.metaphor,
+    }
   }
 
   // Dimensões selecionadas
-  anonymized.dimensions = intentData.selectedDimensions || [];
+  anonymized.dimensions = intentData.selectedDimensions || []
 
   // Hash do código Mermaid (não o código completo)
   if (intentData.mermaidDiagram) {
-    anonymized.mermaidHash = hashMermaid(intentData.mermaidDiagram);
+    anonymized.mermaidHash = hashMermaid(intentData.mermaidDiagram)
   }
 
   // Dados crus (somente se permitido)
@@ -126,10 +136,10 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
       selectedDimensions: intentData.selectedDimensions || [],
       runId: intentData.runId || null,
       timestamp,
-    };
+    }
   }
 
-  return anonymized;
+  return anonymized
 }
 
 /**
@@ -141,93 +151,105 @@ export function anonymizeIntentData(intentData, walletAddress = null, complete =
  * @param {boolean} includeRawText - Se true, inclui respostas em texto livre
  * @returns {Promise<string>} CID do IPFS
  */
-export async function saveIntentToIPFS(intentData, walletAddress = null, complete = false, contactData = null, includeRawText = true) {
-  const lighthouseApiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY;
+export async function saveIntentToIPFS(
+  intentData,
+  walletAddress = null,
+  complete = false,
+  contactData = null,
+  includeRawText = true
+) {
+  const lighthouseApiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY
 
   if (!lighthouseApiKey) {
-    throw new Error('VITE_LIGHTHOUSE_API_KEY não configurada. Configure no .env');
+    throw new Error('VITE_LIGHTHOUSE_API_KEY não configurada. Configure no .env')
   }
 
   try {
-    console.log('📤 Iniciando upload para IPFS...');
-    
+    console.log('📤 Iniciando upload para IPFS...')
+
     // Anonimizar ou não, conforme flag
-    const anonymizedData = anonymizeIntentData(intentData, walletAddress, complete, contactData, includeRawText);
+    const anonymizedData = anonymizeIntentData(
+      intentData,
+      walletAddress,
+      complete,
+      contactData,
+      includeRawText
+    )
 
     // Converter para JSON
-    const jsonData = JSON.stringify(anonymizedData, null, 2);
+    const jsonData = JSON.stringify(anonymizedData, null, 2)
     console.log('📋 Dados anonimizados preparados:', {
       version: anonymizedData.version,
       timestamp: anonymizedData.timestamp,
       archetypes: anonymizedData.archetypes?.length || 0,
       hasSynergy: !!anonymizedData.synergy,
-      complete: anonymizedData.complete || false
-    });
+      complete: anonymizedData.complete || false,
+    })
 
     // Buffer já está disponível globalmente via main.jsx
     // Não é necessário import dinâmico aqui
 
     // Importar SDK do Lighthouse
-    const lighthouse = await import('@lighthouse-web3/sdk');
-    console.log('✅ SDK do Lighthouse importado');
+    const lighthouse = await import('@lighthouse-web3/sdk')
+    console.log('✅ SDK do Lighthouse importado')
 
     // Criar Blob do JSON
-    const blob = new Blob([jsonData], { type: 'application/json' });
+    const blob = new Blob([jsonData], { type: 'application/json' })
     const file = new File([blob], `intent-${Date.now()}.json`, {
-      type: 'application/json'
-    });
-    console.log('📦 Arquivo criado:', file.name, `(${(file.size / 1024).toFixed(2)} KB)`);
+      type: 'application/json',
+    })
+    console.log('📦 Arquivo criado:', file.name, `(${(file.size / 1024).toFixed(2)} KB)`)
 
     // Fazer upload para IPFS
-    console.log('🚀 Fazendo upload para Lighthouse...');
+    console.log('🚀 Fazendo upload para Lighthouse...')
     // SDK no browser espera um FileList/array; enviar array evita erro "files2 is not iterable"
-    const response = await lighthouse.upload(
-      [file],
-      lighthouseApiKey
-    );
+    const response = await lighthouse.upload([file], lighthouseApiKey)
 
     console.log('📥 Resposta do Lighthouse recebida:', {
       hasData: !!response.data,
       hasHash: !!response.Hash,
-      keys: Object.keys(response)
-    });
+      keys: Object.keys(response),
+    })
 
     // Extrair CID da resposta
-    const cid = response.data?.Hash || 
-                response.Hash || 
-                response.cid || 
-                response.data?.cid ||
-                response.data?.hash;
+    const cid =
+      response.data?.Hash ||
+      response.Hash ||
+      response.cid ||
+      response.data?.cid ||
+      response.data?.hash
 
     if (!cid) {
-      console.error('❌ Resposta completa do Lighthouse:', JSON.stringify(response, null, 2));
-      throw new Error(`CID não encontrado na resposta do Lighthouse. Estrutura: ${Object.keys(response).join(', ')}`);
+      console.error('❌ Resposta completa do Lighthouse:', JSON.stringify(response, null, 2))
+      throw new Error(
+        `CID não encontrado na resposta do Lighthouse. Estrutura: ${Object.keys(response).join(', ')}`
+      )
     }
 
-    console.log('✅ Intent salvo no IPFS:', cid);
-    console.log('🔗 Acesse:', `https://cloudflare-ipfs.com/ipfs/${cid}`);
+    console.log('✅ Intent salvo no IPFS:', cid)
+    console.log('🔗 Acesse:', `https://cloudflare-ipfs.com/ipfs/${cid}`)
 
-    return cid;
-
+    return cid
   } catch (error) {
-    console.error('❌ Erro ao salvar Intent no IPFS:', error);
-    
+    console.error('❌ Erro ao salvar Intent no IPFS:', error)
+
     // Melhorar mensagem de erro para o usuário
-    let errorMessage = 'Erro ao salvar no IPFS';
-    
+    let errorMessage = 'Erro ao salvar no IPFS'
+
     if (error.message.includes('401') || error.message.includes('Unauthorized')) {
-      errorMessage = 'API Key inválida ou expirada. Verifique VITE_LIGHTHOUSE_API_KEY';
+      errorMessage = 'API Key inválida ou expirada. Verifique VITE_LIGHTHOUSE_API_KEY'
     } else if (error.message.toLowerCase().includes('trial')) {
-      errorMessage = 'Trial do Lighthouse expirou. Gere uma nova API Key em lighthouse.storage e atualize VITE_LIGHTHOUSE_API_KEY';
+      errorMessage =
+        'Trial do Lighthouse expirou. Gere uma nova API Key em lighthouse.storage e atualize VITE_LIGHTHOUSE_API_KEY'
     } else if (error.message.includes('Network') || error.message.includes('fetch')) {
-      errorMessage = 'Erro de conexão. Verifique sua internet e tente novamente';
+      errorMessage = 'Erro de conexão. Verifique sua internet e tente novamente'
     } else if (error.message.includes('CID não encontrado')) {
-      errorMessage = 'Resposta inesperada do Lighthouse. Tente novamente';
+      errorMessage = 'Resposta inesperada do Lighthouse. Tente novamente'
     } else {
-      errorMessage = error.message || 'Erro desconhecido ao salvar no IPFS';
+      errorMessage = error.message || 'Erro desconhecido ao salvar no IPFS'
     }
-    
-    throw new Error(errorMessage);
+
+    throw new Error(errorMessage)
   }
 }
 
@@ -236,7 +258,7 @@ export async function saveIntentToIPFS(intentData, walletAddress = null, complet
  * @returns {boolean} true se configurado
  */
 export function isLighthouseConfigured() {
-  return !!import.meta.env.VITE_LIGHTHOUSE_API_KEY;
+  return !!import.meta.env.VITE_LIGHTHOUSE_API_KEY
 }
 
 /**
@@ -246,18 +268,18 @@ export function isLighthouseConfigured() {
  * @returns {string} URL do gateway
  */
 export function getIPFSGatewayUrl(cid) {
-  if (!cid) return '';
-  
+  if (!cid) return ''
+
   // Limpar CID se vier com prefixo ipfs://
-  const cleanCid = cid.replace('ipfs://', '');
-  
-  const pinataGateway = import.meta.env.VITE_PINATA_GATEWAY;
-  
+  const cleanCid = cid.replace('ipfs://', '')
+
+  const pinataGateway = import.meta.env.VITE_PINATA_GATEWAY
+
   // Se houver gateway dedicado configurado, usa ele
   if (pinataGateway && pinataGateway.trim().length > 0) {
-    return `https://${pinataGateway}/ipfs/${cleanCid}`;
+    return `https://${pinataGateway}/ipfs/${cleanCid}`
   }
-  
+
   // Fallback para Cloudflare (Público)
-  return `https://cloudflare-ipfs.com/ipfs/${cleanCid}`;
+  return `https://cloudflare-ipfs.com/ipfs/${cleanCid}`
 }

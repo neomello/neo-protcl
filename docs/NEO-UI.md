@@ -3,7 +3,8 @@
 **Sistema visual do Protocolo NΞØ**
 Autoria: MELLØ + NΞØ:One
 Status: Genesis Build
----------------------
+
+---
 
 # ◉ 1. Princípios Fundamentais
 
@@ -260,10 +261,10 @@ Usar sempre **interpretações fractalizadas do Ø**.
 
 Variações canônicas:
 
-1. `⊘`  — vazio ativo
-2. `⦵`  — Ø expandido
-3. `⦷`  — Ø instável
-4. `⦶`  — Ø foco total
+1. `⊘` — vazio ativo
+2. `⦵` — Ø expandido
+3. `⦷` — Ø instável
+4. `⦶` — Ø foco total
 5. Ø corrompido (imagem azul glitch)
 
 ---

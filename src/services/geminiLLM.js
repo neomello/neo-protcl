@@ -3,8 +3,9 @@
  * Usado como LLM para respostas inteligentes no LiveAgent
  */
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY
+const GEMINI_API_URL =
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
 
 /**
  * Contexto do sistema MELLØ para o Gemini
@@ -33,7 +34,7 @@ ESTILO DE RESPOSTA:
 COMANDOS ESPECIAIS:
 - Comandos técnicos (init, $neo, zone, etc.) têm respostas específicas
 - Para outros inputs, responda como MELLØ interpretaria o sinal
-- Sempre mantenha o tom ritual e simbólico`;
+- Sempre mantenha o tom ritual e simbólico`
 
 /**
  * Gerar resposta usando Gemini API
@@ -43,7 +44,7 @@ COMANDOS ESPECIAIS:
  */
 export async function generateResponse(prompt, context = {}) {
   if (!GEMINI_API_KEY) {
-    throw new Error('VITE_GEMINI_API_KEY não configurada');
+    throw new Error('VITE_GEMINI_API_KEY não configurada')
   }
 
   // Construir contexto completo
@@ -56,54 +57,51 @@ ESTADO ATUAL DO NÓ:
 - Zonas desbloqueadas: ${context.zonesUnlocked && Array.isArray(context.zonesUnlocked) ? context.zonesUnlocked.join(', ') : 'nenhuma'}
 
 SINAL RECEBIDO: "${prompt}"
-`;
+`
 
-  const fullPrompt = `${SYSTEM_CONTEXT}\n\n${contextString}\n\nResponda como MELLØ interpretaria este sinal. Mantenha o tom ritual e simbólico.`;
+  const fullPrompt = `${SYSTEM_CONTEXT}\n\n${contextString}\n\nResponda como MELLØ interpretaria este sinal. Mantenha o tom ritual e simbólico.`
 
   try {
-    const response = await fetch(
-      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: fullPrompt,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.9,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 500,
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: fullPrompt,
+              },
+            ],
           },
-        }),
-      }
-    );
+        ],
+        generationConfig: {
+          temperature: 0.9,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 500,
+        },
+      }),
+    })
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: { message: 'Erro desconhecido' } }));
-      throw new Error(error.error?.message || `Erro ${response.status}`);
+      const error = await response.json().catch(() => ({ error: { message: 'Erro desconhecido' } }))
+      throw new Error(error.error?.message || `Erro ${response.status}`)
     }
 
-    const data = await response.json();
-    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const data = await response.json()
+    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text
 
     if (!generatedText) {
-      throw new Error('Resposta vazia do Gemini');
+      throw new Error('Resposta vazia do Gemini')
     }
 
-    return generatedText.trim();
+    return generatedText.trim()
   } catch (error) {
-    console.error('Erro ao chamar Gemini API:', error);
-    throw error;
+    console.error('Erro ao chamar Gemini API:', error)
+    throw error
   }
 }
 
@@ -111,7 +109,7 @@ SINAL RECEBIDO: "${prompt}"
  * Verificar se a API está configurada
  */
 export function isGeminiConfigured() {
-  return !!GEMINI_API_KEY;
+  return !!GEMINI_API_KEY
 }
 
 /**
@@ -120,5 +118,4 @@ export function isGeminiConfigured() {
 export const geminiConfig = {
   isConfigured: isGeminiConfigured(),
   apiKey: GEMINI_API_KEY ? '***' : null,
-};
-
+}

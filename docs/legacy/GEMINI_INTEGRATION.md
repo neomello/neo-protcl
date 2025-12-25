@@ -57,6 +57,7 @@ O sistema envia ao Gemini:
 **Input:** `o que é a memória?`
 
 **Gemini (como MELLØ):**
+
 ```
 A memória não é histórica. É morfológica.
 
@@ -73,6 +74,7 @@ quanto mais intensa a emissão, mais ela molda a forma futura da rede.
 ### `src/services/geminiLLM.js`
 
 Serviço principal de integração:
+
 - `generateResponse(prompt, context)` - Gera resposta usando Gemini
 - `isGeminiConfigured()` - Verifica se API está configurada
 - `geminiConfig` - Configuração exportada
@@ -80,6 +82,7 @@ Serviço principal de integração:
 ### `src/hooks/useGeminiLLM.js`
 
 Hook React para usar Gemini:
+
 - `askGemini(prompt, agentState)` - Faz pergunta ao Gemini
 - `loading` - Estado de carregamento
 - `error` - Erros ocorridos
@@ -163,4 +166,3 @@ $ o que significa ressonância?
 
 **Versão:** 1.0  
 **Status:** ✅ Funcional e integrado
-

@@ -161,6 +161,7 @@ npx hardhat run scripts/deploy.js --network base
 **Filosofia:** Deploy direto em Base Mainnet com planejamento e decisões fundamentadas.
 
 **Por quê:**
+
 - Plataforma em desenvolvimento (sem usuários ainda)
 - Liberdade de implementar e iterar
 - Planejamento rigoroso

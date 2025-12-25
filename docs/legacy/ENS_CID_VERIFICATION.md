@@ -19,11 +19,13 @@ Você tem **dois CIDs** que representam o **mesmo conteúdo**, mas em formatos d
 ### Teste 1: Verificar CIDv0
 
 No campo "CID, Multihash, IPNS Name, or DNSLink", cole:
+
 ```
 Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ```
 
 **O que verificar:**
+
 - ✅ O conteúdo deve ser recuperável
 - ✅ Deve mostrar a listagem do diretório
 - ✅ Deve confirmar que está na rede IPFS
@@ -31,22 +33,26 @@ Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1
 ### Teste 2: Verificar CIDv1
 
 Cole:
+
 ```
 bafybeifz2j6c4d2bqjn27qpfmjph56qsp3yjrhwugqvplnjhlimqqpdvsa
 ```
 
 **O que verificar:**
+
 - ✅ Deve retornar o mesmo conteúdo
 - ✅ Deve confirmar que ambos os CIDs são equivalentes
 
 ### Teste 3: Verificar boot.html diretamente
 
 Teste se o arquivo específico está acessível:
+
 ```
 https://ipfs.io/ipfs/bafybeifz2j6c4d2bqjn27qpfmjph56qsp3yjrhwugqvplnjhlimqqpdvsa/boot.html
 ```
 
 Ou:
+
 ```
 https://ipfs.io/ipfs/Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1/boot.html
 ```
@@ -64,11 +70,13 @@ ipfs://bafybeifz2j6c4d2bqjn27qpfmjph56qsp3yjrhwugqvplnjhlimqqpdvsa/boot.html
 ```
 
 **Vantagens:**
+
 - ✅ Funciona imediatamente
 - ✅ Não precisa fazer novo upload
 - ✅ Abre diretamente o boot.html
 
 **Como fazer:**
+
 1. Acesse [app.ens.domains](https://app.ens.domains)
 2. Vá em `neoprotocol.eth` → **Records** → **Content**
 3. Configure o Content Hash como o valor acima
@@ -93,14 +101,16 @@ Para uma solução mais limpa, crie um `index.html` que redireciona:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="refresh" content="0; url=boot.html">
-    <script>window.location.href = 'boot.html';</script>
+  <head>
+    <meta http-equiv="refresh" content="0; url=boot.html" />
+    <script>
+      window.location.href = 'boot.html'
+    </script>
     <title>NΞØ Protocol // Boot</title>
-</head>
-<body>
+  </head>
+  <body>
     <p>Redirecionando... <a href="boot.html">Clique aqui</a></p>
-</body>
+  </body>
 </html>
 ```
 
@@ -132,13 +142,12 @@ Após configurar o Content Hash no ENS:
 
 ## 📝 Resumo das Opções
 
-| Opção | Content Hash | Vantagem | Desvantagem |
-|-------|-------------|----------|-------------|
-| **A** | `ipfs://bafybe.../boot.html` | Funciona agora | URL mais longa |
-| **B** | `ipfs://Qmar.../boot.html` | Usa CID atual | Pode não funcionar em todos os gateways |
-| **C** | `ipfs://NOVO_CID` | Mais limpo | Requer novo upload |
+| Opção | Content Hash                 | Vantagem       | Desvantagem                             |
+| ----- | ---------------------------- | -------------- | --------------------------------------- |
+| **A** | `ipfs://bafybe.../boot.html` | Funciona agora | URL mais longa                          |
+| **B** | `ipfs://Qmar.../boot.html`   | Usa CID atual  | Pode não funcionar em todos os gateways |
+| **C** | `ipfs://NOVO_CID`            | Mais limpo     | Requer novo upload                      |
 
 ## ✅ Recomendação
 
 **Use a Opção A** para resolver imediatamente, depois considere a **Opção C** para uma solução mais permanente.
-

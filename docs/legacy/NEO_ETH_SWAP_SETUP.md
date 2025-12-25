@@ -35,14 +35,14 @@ O arquivo `src/config/tokens.js` já está configurado com:
 ### 3. Usar o Componente de Swap
 
 ```jsx
-import NEOSwapWidget from './components/Swap/NEOSwapWidget';
+import NEOSwapWidget from './components/Swap/NEOSwapWidget'
 
 function MyPage() {
   return (
     <div>
       <NEOSwapWidget />
     </div>
-  );
+  )
 }
 ```
 
@@ -65,7 +65,7 @@ function MyPage() {
 ## 📝 Exemplo de Uso com API Thirdweb
 
 ```javascript
-import { thirdwebClient } from './providers/X402Provider';
+import { thirdwebClient } from './providers/X402Provider'
 
 // Fazer swap usando API do Thirdweb
 const swapResult = await fetch('https://api.thirdweb.com/v1/bridge/swap', {
@@ -86,7 +86,7 @@ const swapResult = await fetch('https://api.thirdweb.com/v1/bridge/swap', {
     },
     from: walletAddress,
   }),
-});
+})
 ```
 
 ## ⚠️ Importante

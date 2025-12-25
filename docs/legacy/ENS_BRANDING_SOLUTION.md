@@ -79,10 +79,12 @@ A página de branding inclui:
 Após configurar o ENS:
 
 1. **Raiz do domínio:**
+
    ```
    https://neoprotocol.eth.limo/
    neoprotocol.eth
    ```
+
    → Deve mostrar página de branding
 
 2. **Boot sequence:**
@@ -115,4 +117,3 @@ Você pode personalizar a página de branding editando:
 - **Tempo de redirecionamento:** Mude `3000` (3 segundos) para outro valor
 - **Cores e efeitos:** Ajuste os estilos inline
 - **Texto:** Modifique os textos exibidos
-

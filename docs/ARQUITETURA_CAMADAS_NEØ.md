@@ -43,6 +43,7 @@ Ele **emite evento**.
 O off-chain **escuta, interpreta e escreve**.
 
 Isso mantém:
+
 - ✅ Determinismo on-chain
 - ✅ Flexibilidade off-chain
 - ✅ Auditabilidade completa
@@ -52,6 +53,7 @@ Isso mantém:
 **Contrato:** `contracts/NodeDesignerReview.sol`
 
 **Evento:**
+
 ```solidity
 event ReviewValidated(address indexed reviewer);
 ```
@@ -62,13 +64,14 @@ event ReviewValidated(address indexed reviewer);
 onReviewValidated(reviewerAddress) {
   // Garante nó no grafo
   graph.addNode(reviewerId, { ... });
-  
+
   // Cria edge simbólica de validação
   graph.addEdge('neo:protocol', reviewerId, 'review_validated', ...);
 }
 ```
 
 **Resultado:**
+
 - ✅ Revisor entra no grafo
 - ✅ Sem reputação ainda
 - ✅ Mas já com relacionamento verificável
@@ -83,6 +86,7 @@ Reputação **não nasce do nada**.
 Ela nasce de **eventos off-chain validados**.
 
 Este contrato:
+
 - ❌ Não calcula grafo
 - ❌ Não decide impacto
 - ✅ **Apenas recebe deltas autorizados**
@@ -92,6 +96,7 @@ Este contrato:
 **Contrato:** `contracts/ReputationBootstrap.sol`
 
 **Função Core:**
+
 ```solidity
 function updateReputation(
     address _node,
@@ -102,6 +107,7 @@ function updateReputation(
 
 **Quem chama:**
 Um **Reputation Oracle off-chain**, que:
+
 - Lê IdentityGraph
 - Avalia impacto
 - Decide delta
@@ -123,6 +129,7 @@ Node **atinge condição mínima**.
 **Contrato:** `contracts/NodeAdmission.sol`
 
 **Critério:**
+
 ```solidity
 int256 public constant ADMISSION_THRESHOLD = 10;
 
@@ -134,6 +141,7 @@ function admit() external {
 ```
 
 **Resultado:**
+
 - ✅ Admissão sem subjetividade
 - ✅ Admissão sem amizade
 - ✅ Admissão sem narrativa
@@ -152,6 +160,7 @@ Congelar cedo demais cria dívida ontológica.
 ### **Condição para Liberar SBT**
 
 Somente quando existir:
+
 - ✅ IdentityGraph ativo
 - ✅ ReputationBootstrap alimentado automaticamente
 - ✅ Loop fechado: `ação → impacto → grafo → reputação → ação`
@@ -165,6 +174,7 @@ mint ISBTMinteiro
 ```
 
 O SBT passa a representar:
+
 - ✅ Estado acumulado
 - ❌ Não intenção
 - ❌ Não promessa
@@ -263,6 +273,7 @@ O SBT passa a representar:
 **Arquivo:** `src/services/reputationBridge.js`
 
 **Funções:**
+
 - `onReviewValidated()` - Conecta evento on-chain ao Identity Graph
 - `onNodeAdmitted()` - Conecta admissão ao Identity Graph
 - `setupEventListeners()` - Configura listeners de eventos

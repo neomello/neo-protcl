@@ -55,9 +55,11 @@ drop_console: true, // Mudar para true em produção
 ### ⚠️ Dependências Críticas
 
 **Mínimas para funcionar:**
+
 - `VITE_THIRDWEB_CLIENT_ID` - **RECOMENDADO** (wallet connect)
 
 **Opcionais mas importantes:**
+
 - `VITE_THIRDWEB_SECRET_KEY` + `VITE_X402_SERVER_WALLET_ADDRESS` - x402 Payments
 - `VITE_LIGHTHOUSE_API_KEY` - Uploads IPFS
 - `VITE_GEMINI_API_KEY` - LiveAgent inteligente
@@ -117,6 +119,7 @@ drop_console: true, // Mudar para true em produção
    - Testes de integração de wallet
 
 2. **Configurar framework de testes:**
+
    ```bash
    npm install --save-dev vitest @testing-library/react
    ```
@@ -138,6 +141,7 @@ drop_console: true, // Mudar para true em produção
 **Encontrados:** 36 ocorrências de `console.log` em 12 arquivos
 
 **Arquivos principais:**
+
 - `src/main.jsx` - Error boundary (aceitável)
 - `src/services/intentDataCapture.js` - 8 logs
 - `src/components/Swap/NEOSwapWidget.jsx` - 3 logs
@@ -146,14 +150,16 @@ drop_console: true, // Mudar para true em produção
 ### 🔧 Ações Recomendadas
 
 1. **Remover console.logs de produção:**
+
    ```javascript
    // vite.config.js
    drop_console: true
    ```
 
 2. **Usar logger condicional:**
+
    ```javascript
-   const log = import.meta.env.DEV ? console.log : () => {};
+   const log = import.meta.env.DEV ? console.log : () => {}
    ```
 
 3. **Manter apenas logs críticos:**
@@ -303,4 +309,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

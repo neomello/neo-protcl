@@ -3,6 +3,7 @@
 ## ✅ Situação Atual
 
 Você já tem:
+
 - ✅ IPNS configurado: `k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz`
 - ✅ IPNS apontando para: `Qmar2He46w4Muwen5qdYzu45gypGbZBMw6MYhLpqA4heX1`
 - ✅ Build configurado com caminhos relativos
@@ -65,6 +66,7 @@ npm run build:boot
 ```
 
 Isso:
+
 - ✅ Faz build com caminhos relativos (`base: './'`)
 - ✅ Cria `index.html` automaticamente
 - ✅ Prepara `dist-boot` para upload
@@ -72,16 +74,19 @@ Isso:
 ### 3. Upload para IPFS
 
 **Opção A: Via Pinata (Interface Web)**
+
 1. Acesse [pinata.cloud](https://pinata.cloud)
 2. Faça upload da pasta `dist-boot`
 3. Copie o CID retornado
 
 **Opção B: Via Script**
+
 ```bash
 npm run deploy:pinata
 ```
 
 **Opção C: Via IPFS Local**
+
 ```bash
 ipfs add -r dist-boot
 # Copie o CID do diretório (última linha)
@@ -97,6 +102,7 @@ ipfs name publish /ipfs/NOVO_CID
 ```
 
 **Resposta esperada:**
+
 ```
 Published to k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz: /ipfs/NOVO_CID
 ```
@@ -106,6 +112,7 @@ Published to k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz: /ip
 Após alguns minutos (propagação do IPNS):
 
 1. **Via IPNS direto:**
+
    ```
    https://ipfs.io/ipns/k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
    ```
@@ -152,6 +159,7 @@ Deve abrir `index.html` automaticamente e os assets devem carregar.
 **Sintoma:** Tela branca, erros 404 nos assets
 
 **Solução:**
+
 - Verifique se o build foi feito com `base: './'`
 - Verifique se os caminhos no HTML são relativos (`./assets/...`)
 
@@ -160,6 +168,7 @@ Deve abrir `index.html` automaticamente e os assets devem carregar.
 **Sintoma:** Timeout ao acessar via IPNS
 
 **Solução:**
+
 - Aguarde alguns minutos (propagação)
 - Verifique se o IPNS foi publicado: `ipfs name resolve k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz`
 - Tente republicar: `ipfs name publish /ipfs/CID`
@@ -169,6 +178,7 @@ Deve abrir `index.html` automaticamente e os assets devem carregar.
 **Sintoma:** `neoprotocol.eth` não abre
 
 **Solução:**
+
 - Verifique se o Content Hash está configurado como `ipns://...`
 - Aguarde alguns minutos (propagação)
 - Teste via `neoprotocol.eth.link`
@@ -181,4 +191,3 @@ Após configurar tudo:
 - ✅ `neoprotocol.eth.link` → Abre a página de boot
 - ✅ Assets carregam corretamente
 - ✅ Funciona em todos os gateways IPFS
-

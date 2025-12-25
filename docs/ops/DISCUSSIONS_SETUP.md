@@ -12,18 +12,22 @@
 Após ativar, configure as seguintes categorias:
 
 ### 1. General
+
 - Para discussões gerais sobre o protocolo
 - Template: `general.yml`
 
 ### 2. Q&A
+
 - Para perguntas e respostas
 - Template: `q-and-a.yml`
 
 ### 3. Ideas
+
 - Para compartilhar ideias e sugestões
 - Template: `ideas.yml`
 
 ### 4. Show and tell (opcional)
+
 - Para mostrar projetos relacionados
 - Sem template específico
 
@@ -44,4 +48,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

@@ -17,23 +17,23 @@ Criamos um componente helper para renderizar diagramas Mermaid em React:
 ### Uso Básico
 
 ```jsx
-import MermaidDiagram from '../components/MermaidDiagram';
+import MermaidDiagram from '../components/MermaidDiagram'
 
 function MyComponent() {
   const diagram = `
     graph TD
         A[Início] --> B[Processo]
         B --> C[Fim]
-  `;
+  `
 
-  return <MermaidDiagram diagram={diagram} />;
+  return <MermaidDiagram diagram={diagram} />
 }
 ```
 
 ### Exemplo: Diagrama do Sistema de Intenção
 
 ```jsx
-import MermaidDiagram from '../components/MermaidDiagram';
+import MermaidDiagram from '../components/MermaidDiagram'
 
 function IntentSystemResult({ profileData, synergy }) {
   const diagram = `
@@ -55,16 +55,14 @@ function IntentSystemResult({ profileData, synergy }) {
         style INTEGRADO fill:#00CFFF,stroke:#00FF99,stroke-width:3px,color:#0A0A0A,font-weight:bold
         style POW fill:#00FF99,stroke:#00CFFF,color:#0A0A0A
         style ALT fill:#FF6B6B,stroke:#00CFFF,color:#fff
-  `;
+  `
 
   return (
     <div className="p-6 bg-[#0A0A0A] rounded-xl">
-      <h3 className="text-2xl font-bold text-[#F0F0F0] mb-4">
-        Seu Mapa Integrado
-      </h3>
+      <h3 className="text-2xl font-bold text-[#F0F0F0] mb-4">Seu Mapa Integrado</h3>
       <MermaidDiagram diagram={diagram} />
     </div>
-  );
+  )
 }
 ```
 
@@ -134,4 +132,3 @@ Para mais informações sobre sintaxe e tipos de diagramas:
 
 **Documento mantido por:** NΞØ Protocol Team  
 **Versão:** 1.0
-

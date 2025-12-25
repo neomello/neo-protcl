@@ -29,11 +29,11 @@ build: {
 ### **2. Otimização de Nomes de Arquivos CSS**
 
 ```javascript
-assetFileNames: (assetInfo) => {
+assetFileNames: assetInfo => {
   if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-    return 'assets/css/[name]-[hash][extname]';
+    return 'assets/css/[name]-[hash][extname]'
   }
-  return 'assets/[name]-[hash][extname]';
+  return 'assets/[name]-[hash][extname]'
 }
 ```
 

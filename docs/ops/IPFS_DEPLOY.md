@@ -120,22 +120,22 @@ Você pode usar este CID diretamente no ENS ou configurar IPNS (veja [IPNS_SETUP
 ### Usando Ethers.js (JavaScript)
 
 ```javascript
-import { ethers } from 'ethers';
+import { ethers } from 'ethers'
 
 // Conectar à wallet
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+const signer = provider.getSigner()
 
 // Resolver do ENS
-const resolver = await provider.getResolver('neoprotocol.eth');
+const resolver = await provider.getResolver('neoprotocol.eth')
 
 // Converter hash IPFS para contenthash
-const ipfsHash = 'QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'; // Seu hash
-const contentHash = `ipfs://${ipfsHash}`;
+const ipfsHash = 'QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' // Seu hash
+const contentHash = `ipfs://${ipfsHash}`
 
 // Configurar contenthash
-const tx = await resolver.setContenthash(contentHash);
-await tx.wait();
+const tx = await resolver.setContenthash(contentHash)
+await tx.wait()
 ```
 
 ### Usando ENS App (Interface Web)
@@ -165,6 +165,7 @@ Após configurar o contenthash, você pode acessar:
 ## 🎯 Estrutura do Build
 
 O build gera:
+
 ```
 dist/
 ├── index.html          # Página principal (pode ser configurada para /boot)
@@ -193,10 +194,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: './boot.html' // HTML customizado que renderiza apenas IntelligenceBoot
-      }
-    }
-  }
+        main: './boot.html', // HTML customizado que renderiza apenas IntelligenceBoot
+      },
+    },
+  },
 })
 ```
 
@@ -228,4 +229,3 @@ Para atualizar:
 - [ENS Documentation](https://docs.ens.domains/)
 - [IPFS Documentation](https://docs.ipfs.tech/)
 - [Content Hash Format](https://github.com/ensdomains/content-hash)
-

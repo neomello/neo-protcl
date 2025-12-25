@@ -86,4 +86,3 @@ VITE_LIGHTHOUSE_API_KEY=sua_api_key_aqui
 
 - `docs/INTENT_DATA_CAPTURE.md` - Detalhes sobre captura de dados
 - `docs/IPFS_DEPLOY.md` - Guia de deploy para IPFS
-

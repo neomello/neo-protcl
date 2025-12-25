@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import BottomNavigation from '../../components/BottomNavigation';
-import Footer from '../../components/Footer';
-import { useDesktopBlock } from '../../hooks/useDesktopBlock';
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../../components/Navbar'
+import BottomNavigation from '../../components/BottomNavigation'
+import Footer from '../../components/Footer'
+import { useDesktopBlock } from '../../hooks/useDesktopBlock'
 
 export default function ProjectPage() {
-  useDesktopBlock();
+  useDesktopBlock()
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-black relative overflow-hidden pb-16 safe-area-inset"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
@@ -30,7 +30,6 @@ export default function ProjectPage() {
 
         {/* Main Content */}
         <main className="container mx-auto px-4 py-6 pt-safe">
-          
           {/* Hero Section - Project Info */}
           <div className="ios-card mb-4 p-6 spring-in">
             <div className="flex flex-col items-center text-center mb-6">
@@ -38,7 +37,7 @@ export default function ProjectPage() {
               <p className="ios-body text-gray-400 mb-4">
                 Verified ERC-20 project. Actively maintained.
               </p>
-              
+
               <div className="flex flex-wrap justify-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full border border-green-500/30">
                   Active
@@ -55,9 +54,9 @@ export default function ProjectPage() {
                 </div>
                 <div className="flex items-center justify-between py-2 border-b border-gray-800">
                   <span className="text-sm text-gray-400">Contract</span>
-                  <a 
-                    href="https://etherscan.io/address/0x53c407bdea9b336b2b15995d0765876e702f16af" 
-                    target="_blank" 
+                  <a
+                    href="https://etherscan.io/address/0x53c407bdea9b336b2b15995d0765876e702f16af"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-cyan-400 hover:text-cyan-300 font-mono break-all"
                   >
@@ -71,7 +70,7 @@ export default function ProjectPage() {
           {/* Identity Proof Section */}
           <div className="ios-card mb-4 p-6 spring-in" style={{ animationDelay: '0.1s' }}>
             <h2 className="text-lg font-semibold text-white mb-4">On-Chain Identity Proof</h2>
-            
+
             <div className="bg-black/50 rounded-lg p-4 border border-gray-800 mb-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm text-gray-400">ENS</span>
@@ -98,7 +97,7 @@ export default function ProjectPage() {
           {/* Verification & References */}
           <div className="ios-card mb-4 p-6 spring-in" style={{ animationDelay: '0.2s' }}>
             <h2 className="text-lg font-semibold text-white mb-4">Verification & References</h2>
-            
+
             <div className="space-y-3 mb-4">
               <a
                 href="https://etherscan.io/address/0x53c407bdea9b336b2b15995d0765876e702f16af#code"
@@ -109,7 +108,7 @@ export default function ProjectPage() {
                 <span className="text-sm text-white">Etherscan – Contract (verified source)</span>
                 <span className="text-cyan-400">→</span>
               </a>
-              
+
               <a
                 href="https://app.ens.domains/neoprotocol.eth"
                 target="_blank"
@@ -130,7 +129,8 @@ export default function ProjectPage() {
           <div className="ios-card mb-4 p-6 spring-in" style={{ animationDelay: '0.3s' }}>
             <h2 className="text-lg font-semibold text-white mb-4">Maintainer Statement</h2>
             <p className="text-sm text-gray-300 leading-relaxed font-mono">
-              This contract does not implement ownership. NEØ Protocol maintains documentation, metadata and public references.
+              This contract does not implement ownership. NEØ Protocol maintains documentation,
+              metadata and public references.
             </p>
           </div>
 
@@ -147,7 +147,6 @@ export default function ProjectPage() {
 
           {/* Footer Spacer */}
           <div className="h-4"></div>
-
         </main>
       </div>
 
@@ -157,5 +156,5 @@ export default function ProjectPage() {
       {/* Bottom Navigation */}
       <BottomNavigation />
     </div>
-  );
+  )
 }

@@ -33,12 +33,14 @@ event NodeInvited(
 ```
 
 **Significado Narrativo:**
+
 - O protocolo NΞØ **convidou** um candidato
 - Tipo de nó especificado (Designer, Research, Systems, etc.)
 - PoI registrado on-chain
 - Prazo estabelecido
 
 **Uso no Identity Graph:**
+
 - Cria edge `invited_by` de `neo:protocol` para `node:{address}`
 - Peso: 0.2 (intenção inicial)
 
@@ -54,11 +56,13 @@ event NodeAccepted(
 ```
 
 **Significado Narrativo:**
+
 - Candidato **aceitou** a missão
 - Compromisso formal registrado
 - Missão oficialmente iniciada
 
 **Uso no Identity Graph:**
+
 - Atualiza edge com status `accepted`
 - Peso: 0.3 (compromisso assumido)
 
@@ -75,11 +79,13 @@ event NodeSubmitted(
 ```
 
 **Significado Narrativo:**
+
 - Candidato **entregou** a missão
 - Proof of Delivery registrado (hash de material)
 - Missão concluída pelo candidato
 
 **Uso no Identity Graph:**
+
 - Cria edge `submitted` com proofOfDelivery
 - Peso: 0.5 (entrega realizada)
 
@@ -95,11 +101,13 @@ event NodeValidated(
 ```
 
 **Significado Narrativo:**
+
 - Missão **validada** pelo architect
 - Competência comprovada
 - Elegibilidade para admissão estabelecida
 
 **Uso no Identity Graph:**
+
 - Cria edge `validated_by` de `neo:protocol` para `node:{address}`
 - Peso: 0.7 (validação oficial)
 - **Trigger para:** ReputationBootstrap.updateReputation()
@@ -116,11 +124,13 @@ event NodeExpired(
 ```
 
 **Significado Narrativo:**
+
 - Missão **expirada** (prazo ultrapassado)
 - Candidato não completou no prazo
 - Estado final registrado
 
 **Uso no Identity Graph:**
+
 - Marca edge como `expired`
 - Peso: 0.0 (sem impacto positivo)
 
@@ -132,29 +142,22 @@ event NodeExpired(
 
 ```javascript
 // Exemplo: Indexar eventos do contrato
-const contract = new ethers.Contract(address, abi, provider);
+const contract = new ethers.Contract(address, abi, provider)
 
 // Filtrar por tipo de nó
-const designerEvents = await contract.queryFilter(
-  contract.filters.NodeValidated(null, "Designer")
-);
+const designerEvents = await contract.queryFilter(contract.filters.NodeValidated(null, 'Designer'))
 
 // Filtrar por candidato
-const candidateEvents = await contract.queryFilter(
-  contract.filters.NodeValidated(candidateAddress, null)
-);
+const candidateEvents = await contract.queryFilter(contract.filters.NodeValidated(candidateAddress, null))
 
 // Filtrar por período
-const recentEvents = await contract.queryFilter(
-  contract.filters.NodeValidated(),
-  startBlock,
-  endBlock
-);
+const recentEvents = await contract.queryFilter(contract.filters.NodeValidated(), startBlock, endBlock)
 ```
 
 ### **Consultas Úteis:**
 
 1. **Histórico completo de um nó:**
+
    ```javascript
    // Todos os eventos de um candidato
    const allEvents = await contract.queryFilter(
@@ -162,22 +165,19 @@ const recentEvents = await contract.queryFilter(
      contract.filters.NodeAccepted(candidateAddress),
      contract.filters.NodeSubmitted(candidateAddress),
      contract.filters.NodeValidated(candidateAddress)
-   );
+   )
    ```
 
 2. **Todos os nós validados de um tipo:**
+
    ```javascript
-   const validatedDesigners = await contract.queryFilter(
-     contract.filters.NodeValidated(null, "Designer")
-   );
+   const validatedDesigners = await contract.queryFilter(contract.filters.NodeValidated(null, 'Designer'))
    ```
 
 3. **Timeline de admissões:**
    ```javascript
    // Ordenar por blockNumber para timeline
-   const timeline = events.sort((a, b) => 
-     a.blockNumber - b.blockNumber
-   );
+   const timeline = events.sort((a, b) => a.blockNumber - b.blockNumber)
    ```
 
 ---
@@ -186,13 +186,13 @@ const recentEvents = await contract.queryFilter(
 
 ### **Mapeamento Event → Graph:**
 
-| Evento | Ação no Graph | Edge Type | Peso |
-|--------|---------------|-----------|------|
-| `NodeInvited` | Adiciona nó + edge | `invited_by` | 0.2 |
-| `NodeAccepted` | Atualiza edge | `accepted` | 0.3 |
-| `NodeSubmitted` | Adiciona edge | `submitted` | 0.5 |
-| `NodeValidated` | Adiciona edge + trigger reputação | `validated_by` | 0.7 |
-| `NodeExpired` | Marca como expirado | `expired` | 0.0 |
+| Evento          | Ação no Graph                     | Edge Type      | Peso |
+| --------------- | --------------------------------- | -------------- | ---- |
+| `NodeInvited`   | Adiciona nó + edge                | `invited_by`   | 0.2  |
+| `NodeAccepted`  | Atualiza edge                     | `accepted`     | 0.3  |
+| `NodeSubmitted` | Adiciona edge                     | `submitted`    | 0.5  |
+| `NodeValidated` | Adiciona edge + trigger reputação | `validated_by` | 0.7  |
+| `NodeExpired`   | Marca como expirado               | `expired`      | 0.0  |
 
 ### **Exemplo de Bridge:**
 
@@ -203,20 +203,26 @@ contract.on('NodeValidated', (candidate, nodeType, event) => {
   graph.addNode(`node:${candidate}`, {
     address: candidate,
     nodeType: nodeType,
-    validatedAt: event.blockNumber
-  });
-  
+    validatedAt: event.blockNumber,
+  })
+
   // 2. Criar edge
-  graph.addEdge('neo:protocol', `node:${candidate}`, 'validated_by', {
-    contract: 'NeoNodeAdmission',
-    event: 'NodeValidated',
-    blockNumber: event.blockNumber,
-    txHash: event.transactionHash
-  }, 0.7);
-  
+  graph.addEdge(
+    'neo:protocol',
+    `node:${candidate}`,
+    'validated_by',
+    {
+      contract: 'NeoNodeAdmission',
+      event: 'NodeValidated',
+      blockNumber: event.blockNumber,
+      txHash: event.transactionHash,
+    },
+    0.7
+  )
+
   // 3. Trigger reputação (se aplicável)
   // updateReputation(candidate, +10, 'NodeValidated');
-});
+})
 ```
 
 ---
@@ -243,6 +249,7 @@ event NodeValidated(
 ```
 
 **Permite consultas como:**
+
 - "Todos os Designers validados"
 - "Todos os Research nodes"
 - "Estatísticas por tipo de nó"
@@ -321,12 +328,14 @@ Para cada evento, documentar:
 ## 🎯 Resumo
 
 **Eventos são:**
+
 - ✅ Narrativa do protocolo
 - ✅ Base do Identity Graph
 - ✅ Prova pública permanente
 - ✅ Indexáveis para sempre
 
 **Não são:**
+
 - ❌ Apenas logs técnicos
 - ❌ Informação descartável
 - ❌ Detalhes de implementação

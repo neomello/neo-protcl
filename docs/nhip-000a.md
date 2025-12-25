@@ -183,7 +183,7 @@ Onde:
 ### 4.2 Valores de Referência (inicial)
 
 | Componente | Intervalo |
-|------------|-----------|
+| ---------- | --------- |
 | A          | 0 – 60    |
 | C          | 0 – 30    |
 | R          | 0 – 10    |

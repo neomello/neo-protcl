@@ -10,6 +10,7 @@
 > **".env é detalhe operacional, não parte do protocolo."**
 
 Scripts devem documentar:
+
 - ✅ **Parâmetros** (o que é necessário)
 - ✅ **Exemplos** (como usar)
 - ❌ **NÃO assumir .env como camada conceitual**
@@ -27,6 +28,7 @@ Scripts devem documentar:
 - `validateMission.js` - Validar missão (architect)
 
 **Características:**
+
 - ✅ Genéricos (não específicos de tipo de nó)
 - ✅ Documentam parâmetros necessários
 - ✅ Exemplos de uso
@@ -42,6 +44,7 @@ Scripts devem documentar:
 - `inviteNodeGovernance.js` - Preset para Governance (futuro)
 
 **Características:**
+
 - ✅ Exemplos específicos
 - ✅ Valores padrão para tipo de nó
 - ✅ Facilita uso comum
@@ -56,6 +59,7 @@ Scripts devem documentar:
 **Filosofia:** Scripts são **exemplos**, não a única forma de usar.
 
 **Uso:**
+
 ```bash
 # Ver o script para entender parâmetros
 cat scripts/presets/inviteNodeDesigner.js
@@ -68,6 +72,7 @@ cat scripts/presets/inviteNodeDesigner.js
 **Filosofia:** Scripts podem ser executados, mas não são obrigatórios.
 
 **Uso:**
+
 ```bash
 # Configurar variáveis inline (não apenas .env)
 CANDIDATE_ADDRESS=0x... MISSION_SCOPE="..." \
@@ -79,6 +84,7 @@ npx hardhat run scripts/presets/inviteNodeDesigner.js --network base
 **Filosofia:** Usar wallet padrão (MetaMask) + Hardhat impersonation ou UI.
 
 **Uso:**
+
 1. Conectar wallet no app
 2. Usar UI para chamar `inviteNode()`
 3. Assinar transação com wallet
@@ -112,28 +118,28 @@ Cada script deve documentar:
 ```javascript
 /**
  * Preset: Invite Node Designer
- * 
+ *
  * PARÂMETROS:
  * - CANDIDATE_ADDRESS (obrigatório): Endereço do candidato
  * - MISSION_SCOPE (opcional): Escopo da missão (padrão: "Identity & Visual Coherence")
  * - DEADLINE_DAYS (opcional): Prazo em dias (padrão: 7)
  * - PROOF_OF_INTENT (opcional): PoI hash (gerado automaticamente se não fornecido)
- * 
+ *
  * EXEMPLOS:
- * 
+ *
  * 1. Mínimo:
  *    CANDIDATE_ADDRESS=0x... npx hardhat run scripts/presets/inviteNodeDesigner.js --network base
- * 
+ *
  * 2. Completo:
  *    CANDIDATE_ADDRESS=0x... MISSION_SCOPE="..." DEADLINE_DAYS=14 \
  *    npx hardhat run scripts/presets/inviteNodeDesigner.js --network base
- * 
+ *
  * 3. Manual (via UI):
  *    - Conectar wallet no app
  *    - Navegar para página de admissão
  *    - Preencher formulário
  *    - Assinar transação
- * 
+ *
  * NOTA: .env é detalhe operacional. Parâmetros podem ser passados de qualquer forma.
  */
 ```
@@ -153,19 +159,19 @@ Uso de `PRIVATE_KEY` em scripts funciona, mas não é elegante.
 ```javascript
 // Impersonar endereço específico
 await hre.network.provider.request({
-  method: "hardhat_impersonateAccount",
-  params: [address]
-});
+  method: 'hardhat_impersonateAccount',
+  params: [address],
+})
 
-const signer = await ethers.getSigner(address);
+const signer = await ethers.getSigner(address)
 ```
 
 #### **2. Wallet Padrão (Produção)**
 
 ```javascript
 // Usar wallet conectada (MetaMask, etc.)
-const provider = new ethers.BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
+const provider = new ethers.BrowserProvider(window.ethereum)
+const signer = await provider.getSigner()
 ```
 
 #### **3. Scripts Apenas para Leitura**
@@ -173,8 +179,8 @@ const signer = await provider.getSigner();
 ```javascript
 // Scripts que apenas leem estado (não escrevem)
 // Não precisam de signer
-const contract = await ethers.getContractAt("NeoNodeAdmission", address, provider);
-const status = await contract.getStatus(candidateAddress);
+const contract = await ethers.getContractAt('NeoNodeAdmission', address, provider)
+const status = await contract.getStatus(candidateAddress)
 ```
 
 ---
@@ -236,16 +242,19 @@ docs/
 ## 🎯 Resumo
 
 **Scripts são:**
+
 - ✅ Exemplos de uso
 - ✅ Referência de parâmetros
 - ✅ Ferramentas opcionais
 
 **Scripts NÃO são:**
+
 - ❌ Única forma de usar
 - ❌ Parte do protocolo
 - ❌ Dependentes de .env
 
 **.env é:**
+
 - ✅ Detalhe operacional
 - ✅ Uma forma de configurar
 - ❌ Não é camada conceitual

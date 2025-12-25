@@ -70,4 +70,3 @@ Para um PWA iOS completo, você precisa criar splash screens para todos os taman
 ## 💡 Dica
 
 Use ferramentas como [PWA Asset Generator](https://github.com/elegantapp/pwa-asset-generator) para gerar automaticamente todos os tamanhos.
-

@@ -97,4 +97,3 @@ Após configurar, teste:
 
 - [Thirdweb Dashboard](https://thirdweb.com/dashboard)
 - [Thirdweb Documentation](https://portal.thirdweb.com)
-

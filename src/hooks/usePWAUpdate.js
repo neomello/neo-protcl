@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useRegisterSW } from 'virtual:pwa-register/react';
+import { useState } from 'react'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 
 /**
  * Hook para gerenciar atualizações do PWA
@@ -11,41 +11,41 @@ export function usePWAUpdate() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered(r) {
-      console.log('[PWA] Service Worker registrado:', r);
+      console.log('[PWA] Service Worker registrado:', r)
     },
     onRegisterError(error) {
-      console.error('[PWA] Erro ao registrar Service Worker:', error);
+      console.error('[PWA] Erro ao registrar Service Worker:', error)
     },
     onNeedRefresh() {
-      console.log('[PWA] Nova versão disponível');
+      console.log('[PWA] Nova versão disponível')
     },
     onOfflineReady() {
-      console.log('[PWA] App pronto para uso offline');
+      console.log('[PWA] App pronto para uso offline')
     },
-  });
+  })
 
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false)
 
   const update = async () => {
-    setIsUpdating(true);
+    setIsUpdating(true)
     try {
-      await updateServiceWorker(true);
+      await updateServiceWorker(true)
       // Recarregar a página após atualização
-      window.location.reload();
+      window.location.reload()
     } catch (error) {
-      console.error('[PWA] Erro ao atualizar:', error);
-      setIsUpdating(false);
+      console.error('[PWA] Erro ao atualizar:', error)
+      setIsUpdating(false)
     }
-  };
+  }
 
   const dismiss = () => {
-    setNeedRefresh(false);
-  };
+    setNeedRefresh(false)
+  }
 
   return {
     needRefresh,
     isUpdating,
     update,
     dismiss,
-  };
+  }
 }

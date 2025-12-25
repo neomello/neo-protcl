@@ -5,7 +5,7 @@
 ### Tempos de Propagação
 
 - **Transação na blockchain**: ~1-2 minutos
-- **Propagação básica do ENS**: 2-5 minutos  
+- **Propagação básica do ENS**: 2-5 minutos
 - **Propagação completa**: 10-30 minutos
 - **Cache dos gateways**: Pode levar até 1 hora
 
@@ -28,7 +28,7 @@ make check-ens
 Teste diferentes gateways:
 
 1. **ENS Link**: https://neoprotocol.eth.link
-2. **ENS Limo**: https://neoprotocol.eth.limo  
+2. **ENS Limo**: https://neoprotocol.eth.limo
 3. **Brave Browser**: Digite `neoprotocol.eth` diretamente
 4. **MetaMask**: Digite `neoprotocol.eth` no navegador
 
@@ -54,6 +54,7 @@ Teste diferentes gateways:
 Se aparecer "Content Unreachable":
 
 1. **Verifique o CID diretamente no IPFS:**
+
    ```
    https://ipfs.io/ipfs/SEU_CID
    https://gateway.lighthouse.storage/ipfs/SEU_CID
@@ -79,14 +80,17 @@ Se aparecer "Content Unreachable":
 ## 🎯 Formato Correto do Content Hash
 
 **✅ CORRETO:**
+
 ```
 ipfs://QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 **❌ ERRADO:**
+
 ```
 QmXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
+
 (Sem o prefixo `ipfs://`)
 
 ## 📞 Ainda com problemas?
@@ -97,4 +101,3 @@ Se após 1 hora ainda não funcionar:
 2. Teste o CID diretamente nos gateways IPFS
 3. Verifique se o upload foi concluído com sucesso
 4. Considere fazer um novo upload e atualizar o CID
-

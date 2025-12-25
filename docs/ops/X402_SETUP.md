@@ -32,14 +32,13 @@ VITE_X402_SERVER_WALLET_ADDRESS=0x765B22a98F101a82c071D4C36980B51213B98d4C
 ### Componente PaymentButton
 
 ```jsx
-import PaymentButton from "../components/X402/PaymentButton";
-
-<PaymentButton
+import PaymentButton from '../components/X402/PaymentButton'
+;<PaymentButton
   resourceUrl="https://api.example.com/premium-content"
   price="$0.01"
   method="GET"
-  onSuccess={(result) => console.log("Sucesso:", result)}
-  onError={(error) => console.error("Erro:", error)}
+  onSuccess={result => console.log('Sucesso:', result)}
+  onError={error => console.error('Erro:', error)}
 >
   Pagar $0.01
 </PaymentButton>
@@ -48,17 +47,17 @@ import PaymentButton from "../components/X402/PaymentButton";
 ### Hook useX402Payment
 
 ```jsx
-import { useX402Payment } from "../hooks/useX402Payment";
+import { useX402Payment } from '../hooks/useX402Payment'
 
-const { processPayment, fetchWithPayment, loading, error, isConfigured } = useX402Payment();
+const { processPayment, fetchWithPayment, loading, error, isConfigured } = useX402Payment()
 
 // Processar pagamento
 const result = await processPayment({
-  resourceUrl: "https://api.example.com/resource",
-  method: "GET",
-  paymentData: "header-x-payment-value",
-  price: "$0.01"
-});
+  resourceUrl: 'https://api.example.com/resource',
+  method: 'GET',
+  paymentData: 'header-x-payment-value',
+  price: '$0.01',
+})
 ```
 
 ## 🔌 Uso no Backend (Recomendado)
@@ -88,36 +87,36 @@ curl -X POST "https://api.thirdweb.com/v1/transactions" \
 ### Exemplo com settlePayment (Node.js/Edge)
 
 ```javascript
-import { createThirdwebClient } from "thirdweb";
-import { facilitator, settlePayment } from "thirdweb/x402";
-import { arbitrumSepolia } from "thirdweb/chains";
+import { createThirdwebClient } from 'thirdweb'
+import { facilitator, settlePayment } from 'thirdweb/x402'
+import { arbitrumSepolia } from 'thirdweb/chains'
 
-const client = createThirdwebClient({ 
-  secretKey: process.env.THIRDWEB_SECRET_KEY 
-});
+const client = createThirdwebClient({
+  secretKey: process.env.THIRDWEB_SECRET_KEY,
+})
 
 const thirdwebX402Facilitator = facilitator({
   client,
   serverWalletAddress: process.env.X402_SERVER_WALLET_ADDRESS,
-});
+})
 
 export async function GET(request) {
   const result = await settlePayment({
-    resourceUrl: "https://api.example.com/premium-content",
-    method: "GET",
-    paymentData: request.headers.get("x-payment"),
+    resourceUrl: 'https://api.example.com/premium-content',
+    method: 'GET',
+    paymentData: request.headers.get('x-payment'),
     network: arbitrumSepolia,
-    price: "$0.01",
+    price: '$0.01',
     facilitator: thirdwebX402Facilitator,
-  });
+  })
 
   if (result.status === 200) {
-    return Response.json({ data: "premium content" });
+    return Response.json({ data: 'premium content' })
   } else {
     return Response.json(result.responseBody, {
       status: result.status,
       headers: result.responseHeaders,
-    });
+    })
   }
 }
 ```
@@ -144,4 +143,3 @@ O projeto está configurado para usar a rede **Base** (`base`). Se precisar muda
 
 - [Thirdweb x402 Documentation](https://portal.thirdweb.com/x402)
 - [Thirdweb API Reference](https://portal.thirdweb.com/references)
-

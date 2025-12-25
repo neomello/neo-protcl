@@ -27,6 +27,7 @@ Se você descobriu uma vulnerabilidade de segurança, **NÃO** abra uma issue p�
 ### Escopo
 
 Esta política se aplica a:
+
 - Código do repositório `neo-protcl`
 - Contratos Solidity
 - Infraestrutura de deploy
@@ -57,6 +58,7 @@ Esta política se aplica a:
 ## 📊 Status de Vulnerabilidades
 
 Para informações sobre vulnerabilidades conhecidas em dependências, consulte:
+
 - `docs/ops/vulnerabilities-status.md`
 - `npm audit` para verificação local
 
@@ -82,4 +84,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

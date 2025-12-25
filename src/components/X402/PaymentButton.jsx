@@ -1,23 +1,25 @@
-import { useState } from "react";
-import { useX402Payment } from "../../hooks/useX402Payment";
+import { useState } from 'react'
+import { useX402Payment } from '../../hooks/useX402Payment'
 
-export default function PaymentButton({ 
-  resourceUrl, 
-  price = "$0.01", 
-  method = "GET",
+export default function PaymentButton({
+  resourceUrl,
+  price = '$0.01',
+  method = 'GET',
   paymentData: externalPaymentData,
   onSuccess,
   onError,
   children,
-  className = ""
+  className = '',
 }) {
-  const { fetchWithPayment, generatePaymentData, loading, error, isConfigured } = useX402Payment();
-  const [paymentData] = useState(externalPaymentData || generatePaymentData(price));
+  const { fetchWithPayment, generatePaymentData, loading, error, isConfigured } = useX402Payment()
+  const [paymentData] = useState(externalPaymentData || generatePaymentData(price))
 
   const handlePayment = async () => {
     if (!isConfigured) {
-      alert("x402 Payments não está configurado. Configure VITE_THIRDWEB_SECRET_KEY e VITE_X402_SERVER_WALLET_ADDRESS no .env");
-      return;
+      alert(
+        'x402 Payments não está configurado. Configure VITE_THIRDWEB_SECRET_KEY e VITE_X402_SERVER_WALLET_ADDRESS no .env'
+      )
+      return
     }
 
     try {
@@ -26,27 +28,25 @@ export default function PaymentButton({
       const response = await fetchWithPayment(resourceUrl, {
         method,
         paymentData,
-        price
-      });
+        price,
+      })
 
       if (response.ok) {
-        const data = await response.json();
-        onSuccess?.(data);
+        const data = await response.json()
+        onSuccess?.(data)
       } else {
-        const errorData = await response.json().catch(() => ({ status: response.status }));
-        onError?.(errorData);
+        const errorData = await response.json().catch(() => ({ status: response.status }))
+        onError?.(errorData)
       }
     } catch (err) {
-      onError?.(err);
+      onError?.(err)
     }
-  };
+  }
 
   if (!isConfigured) {
     return (
-      <div className="text-xs text-gray-400 p-4 text-center">
-        ✶ x402 Payments não configurado
-      </div>
-    );
+      <div className="text-xs text-gray-400 p-4 text-center">✶ x402 Payments não configurado</div>
+    )
   }
 
   return (
@@ -56,12 +56,9 @@ export default function PaymentButton({
         disabled={loading || !paymentData}
         className={`px-6 py-3 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-colors touch-manipulation w-full ${className}`}
       >
-        {loading ? "Processando..." : children || `Pagar ${price}`}
+        {loading ? 'Processando...' : children || `Pagar ${price}`}
       </button>
-      {error && (
-        <p className="text-xs text-red-400 text-center">{error}</p>
-      )}
+      {error && <p className="text-xs text-red-400 text-center">{error}</p>}
     </div>
-  );
+  )
 }
-

@@ -1,10 +1,10 @@
-import { useDeviceDetection } from '../hooks/useDeviceDetection';
+import { useDeviceDetection } from '../hooks/useDeviceDetection'
 
 export default function Footer() {
-  const { isMobile } = useDeviceDetection();
+  const { isMobile } = useDeviceDetection()
 
   return (
-    <footer 
+    <footer
       className="relative z-10 border-t border-gray-900 py-6 mt-8 w-full"
       style={isMobile ? { marginBottom: '80px' } : {}}
     >
@@ -13,5 +13,5 @@ export default function Footer() {
         <p className="text-xs text-gray-400">Site: https://www.neoprotocol.space</p>
       </center>
     </footer>
-  );
+  )
 }

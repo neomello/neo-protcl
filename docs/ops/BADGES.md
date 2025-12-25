@@ -22,7 +22,7 @@ O resto é ruído decorativo de README que envelhece mal.
 
 ### CAMADA 1 — Estado Operacional (obrigatória)
 
-Esses dizem: *o sistema está vivo e íntegro agora?*
+Esses dizem: _o sistema está vivo e íntegro agora?_
 
 **Badges ativos:**
 
@@ -37,7 +37,7 @@ Esses dizem: *o sistema está vivo e íntegro agora?*
 
 ### CAMADA 2 — Estado Evolutivo (obrigatória)
 
-Esses respondem: *isso anda ou está morto?*
+Esses respondem: _isso anda ou está morto?_
 
 **Badges ativos:**
 
@@ -51,7 +51,7 @@ Esses respondem: *isso anda ou está morto?*
 
 ### CAMADA 3 — Contrato Cognitivo do Projeto (essencial)
 
-Esses badges não dizem *o que é*, dizem *como pensar sobre*.
+Esses badges não dizem _o que é_, dizem _como pensar sobre_.
 
 **Badges ativos:**
 
@@ -180,16 +180,19 @@ Bonito, mas sem documentação pública clara vira símbolo vazio.
 #### 1. Usando Shields.io (Recomendado)
 
 **Formato básico:**
+
 ```
 https://img.shields.io/badge/{label}-{message}-{color}
 ```
 
 **Exemplo customizado:**
+
 ```markdown
 ![NΞØ Protocol](https://img.shields.io/badge/NΞØ-Protocol-black?style=for-the-badge&logo=data:image/svg+xml;base64,...)
 ```
 
 **Parâmetros disponíveis:**
+
 - `label` - Texto do lado esquerdo
 - `message` - Texto do lado direito
 - `color` - Cor do badge (blue, green, red, yellow, orange, purple, etc.)
@@ -226,16 +229,19 @@ jobs:
 #### 3. Badges com Dados do Projeto
 
 **Versão do package.json:**
+
 ```markdown
 ![Version](https://img.shields.io/npm/v/neo-protocol-webapp)
 ```
 
 **Status do site:**
+
 ```markdown
 ![Website](https://img.shields.io/website?url=https://neoprotocol.space)
 ```
 
 **Uptime (se tiver monitoramento):**
+
 ```markdown
 ![Uptime](https://img.shields.io/uptimerobot/ratio/mYOUR_MONITOR_ID)
 ```
@@ -304,4 +310,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

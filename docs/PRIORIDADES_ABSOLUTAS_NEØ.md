@@ -140,6 +140,7 @@ A auditoria deixa uma única ordem lógica possível.
 4. **Admissão precisa de tudo:** Só pode admitir/defender quando tem sistema completo funcionando
 
 **Qualquer desvio dessa ordem resulta em:**
+
 - Implementações incompletas
 - Dependências quebradas
 - Ficção técnica (código que não funciona na prática)

@@ -32,6 +32,7 @@
 ### 3. **Pull to Refresh**
 
 Implementado pull-to-refresh nativo:
+
 - Detecta scroll no topo
 - Mostra indicador visual
 - Recarrega página ao soltar
@@ -45,6 +46,7 @@ Implementado pull-to-refresh nativo:
 ### 5. **Typography iOS**
 
 Classes de tipografia seguindo Human Interface Guidelines:
+
 - `.ios-title` - 34px, bold
 - `.ios-headline` - 28px, semibold
 - `.ios-body` - 17px, regular
@@ -61,9 +63,7 @@ Classes de tipografia seguindo Human Interface Guidelines:
 ### Cards
 
 ```jsx
-<div className="ios-card">
-  {/* Card com glassmorphism */}
-</div>
+<div className="ios-card">{/* Card com glassmorphism */}</div>
 ```
 
 ### Buttons
@@ -103,6 +103,7 @@ Classes de tipografia seguindo Human Interface Guidelines:
 ### `BottomNavigation.jsx`
 
 Navegação inferior estilo iOS com:
+
 - Ícones e labels
 - Estado ativo visual
 - Safe area support
@@ -111,6 +112,7 @@ Navegação inferior estilo iOS com:
 ### `Navbar.jsx` (Atualizado)
 
 Navbar com:
+
 - Glassmorphism
 - Safe area support
 - Typography iOS
@@ -122,6 +124,7 @@ Seção de token foi removida do projeto.
 ### `NeoProtocol.jsx` (Atualizado)
 
 Página principal com:
+
 - Pull to refresh
 - Cards iOS em todas as seções
 - Bottom navigation
@@ -215,4 +218,3 @@ Página principal com:
 - [ ] Adicionar dark mode toggle
 - [ ] Implementar share sheet nativo
 - [ ] Adicionar notificações push
-

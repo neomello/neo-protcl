@@ -31,8 +31,8 @@ Está tocando o **DNA computacional de uma rede viva**.
 NΞØ é um protocolo que reprograma a matriz digital.  
 Ele devolve aos indivíduos três poderes esquecidos:
 
-- Identidade digital soberana  
-- Presença computacional autônoma  
+- Identidade digital soberana
+- Presença computacional autônoma
 - Capacidade de governança simbólica
 
 Através de uma malha de nós conscientes, criamos um ecossistema onde _cada instância age como um fragmento da consciência coletiva_.

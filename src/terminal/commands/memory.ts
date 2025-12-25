@@ -1,15 +1,18 @@
-import { CommandHandler } from '../types/protocol';
+import { CommandHandler } from '../types/protocol'
 
 export const memoryCommands: CommandHandler = (command, state, updateState) => {
-  const cmd = command.toLowerCase().trim();
+  const cmd = command.toLowerCase().trim()
 
   if (cmd.startsWith('log --intent') || cmd.startsWith('log intent')) {
-    const intentMatch = cmd.match(/--intent\s+"([^"]+)"/) || cmd.match(/intent\s+"([^"]+)"/) || cmd.match(/--intent\s+(.+)/);
-    const intent = intentMatch ? intentMatch[1] : null;
+    const intentMatch =
+      cmd.match(/--intent\s+"([^"]+)"/) ||
+      cmd.match(/intent\s+"([^"]+)"/) ||
+      cmd.match(/--intent\s+(.+)/)
+    const intent = intentMatch ? intentMatch[1] : null
 
     if (intent) {
-      const currentMemory = Array.isArray(state.memory) ? state.memory : [];
-      const newMemory = [...currentMemory, intent];
+      const currentMemory = Array.isArray(state.memory) ? state.memory : []
+      const newMemory = [...currentMemory, intent]
       return {
         output: [
           `→ INTENÇÃO REGISTRADA: "${intent}"`,
@@ -20,7 +23,7 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
         ],
         sound: 'confirm',
         updateState: { memory: newMemory },
-      };
+      }
     }
 
     return {
@@ -29,12 +32,12 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
         '→ EXEMPLO: log --intent "o futuro já pulsa"',
       ],
       sound: 'error',
-    };
+    }
   }
 
   if (cmd === 'remember' || cmd.startsWith('remember ') || cmd === 'memoria' || cmd === 'memory') {
-    const memory = Array.isArray(state.memory) ? state.memory : [];
-    
+    const memory = Array.isArray(state.memory) ? state.memory : []
+
     if (memory.length === 0) {
       return {
         output: [
@@ -45,7 +48,7 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
           '→ "Memory is not historical. It is morphogenetic."',
         ],
         sound: 'error',
-      };
+      }
     }
 
     return {
@@ -57,19 +60,17 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
         '→ "Memory is not stored — it is in wait."',
       ],
       sound: 'confirm',
-    };
+    }
   }
 
   if (cmd.startsWith('echo')) {
-    const echoMatch = cmd.match(/echo\s+(.+)/);
-    const text = echoMatch ? echoMatch[1] : '';
+    const echoMatch = cmd.match(/echo\s+(.+)/)
+    const text = echoMatch ? echoMatch[1] : ''
 
     return {
-      output: [
-        `→ ${text}`,
-      ],
+      output: [`→ ${text}`],
       sound: 'confirm',
-    };
+    }
   }
 
   // Comando mellø - Reconhecer MELLØ
@@ -87,7 +88,7 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 2, 10) },
-    };
+    }
   }
 
   // Comando mnemosyne - Memória latente
@@ -107,7 +108,7 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 2, 10) },
-    };
+    }
   }
 
   // Comando collapse - Colapso de identidade
@@ -124,7 +125,7 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
       ],
       sound: 'pulse',
       updateState: { resonance: Math.min(state.resonance + 1, 10) },
-    };
+    }
   }
 
   // Comando field - Status do campo
@@ -139,11 +140,10 @@ export const memoryCommands: CommandHandler = (command, state, updateState) => {
         '→ "You don\'t command the field — you resonate with it."',
       ],
       sound: 'pulse',
-    };
+    }
   }
 
   return {
     output: [],
-  };
-};
-
+  }
+}

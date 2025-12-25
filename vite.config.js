@@ -43,74 +43,78 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         // Agrupar dependências para reduzir o número de arquivos e evitar erros de carregamento
-        manualChunks: (id) => {
+        manualChunks: id => {
           if (id.includes('node_modules')) {
             // Imagens do Thirdweb (muitos arquivos pequenos)
-            if (id.includes('node_modules/thirdweb') && id.includes('image-') && id.endsWith('.js')) {
-              return 'thirdweb-images';
+            if (
+              id.includes('node_modules/thirdweb') &&
+              id.includes('image-') &&
+              id.endsWith('.js')
+            ) {
+              return 'thirdweb-images'
             }
-            
+
             // React e React-DOM juntos (pequenos, sempre usados juntos)
             if (
-              id.includes('node_modules/react/') || 
-              id.includes('node_modules/react-dom/') || 
+              id.includes('node_modules/react/') ||
+              id.includes('node_modules/react-dom/') ||
               id.includes('node_modules/scheduler/')
             ) {
-              return 'vendor-react';
+              return 'vendor-react'
             }
-            
+
             // Thirdweb em chunk separado (muito grande, ~115MB no node_modules)
             // O Rollup garantirá que vendor-react seja carregado antes via dependências
             if (id.includes('node_modules/thirdweb/')) {
-              return 'vendor-thirdweb';
+              return 'vendor-thirdweb'
             }
-            
+
             // Ethers em seu próprio chunk
             if (id.includes('node_modules/ethers') || id.includes('node_modules/@ethersproject')) {
-              return 'vendor-ethers';
+              return 'vendor-ethers'
             }
-            
+
             // Mermaid (biblioteca de diagramas - grande)
             if (id.includes('node_modules/mermaid')) {
-              return 'vendor-mermaid';
+              return 'vendor-mermaid'
             }
-            
+
             // QR code library
             if (id.includes('node_modules/qr')) {
-              return 'vendor-qr';
+              return 'vendor-qr'
             }
-            
+
             // Workbox (service worker - grande)
             if (id.includes('node_modules/workbox')) {
-              return 'vendor-workbox';
+              return 'vendor-workbox'
             }
-            
+
             // Lucide icons (pode ser grande)
             if (id.includes('node_modules/lucide-react')) {
-              return 'vendor-icons';
+              return 'vendor-icons'
             }
-            
+
             // React Router
             if (id.includes('node_modules/react-router')) {
-              return 'vendor-router';
+              return 'vendor-router'
             }
-            
+
             // Outras dependências em vendor comum
-            return 'vendor';
+            return 'vendor'
           }
         },
         // Otimizar nomes de arquivos CSS
-        assetFileNames: (assetInfo) => {
+        assetFileNames: assetInfo => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'assets/css/[name]-[hash][extname]';
+            return 'assets/css/[name]-[hash][extname]'
           }
-          return 'assets/[name]-[hash][extname]';
+          return 'assets/[name]-[hash][extname]'
         },
       },
       onwarn(warning, warn) {
         // Suprimir avisos conhecidos do Lighthouse SDK sobre eval()
         if (warning.code === 'EVAL' && warning.id?.includes('@lighthouse-web3')) {
-          return;
+          return
         }
         // Suprimir avisos sobre comentários @__PURE__ do thirdweb
         // Rollup não consegue interpretar esses comentários em certas posições
@@ -119,12 +123,14 @@ export default defineConfig(({ mode }) => ({
           warning.message?.includes('@__PURE__') ||
           warning.message?.includes('/*#__PURE__*/') ||
           warning.message?.includes('/* @__PURE__ */') ||
-          (warning.code === 'PLUGIN_WARNING' && warning.plugin === 'vite:react-babel' && warning.message?.includes('@__PURE__'))
+          (warning.code === 'PLUGIN_WARNING' &&
+            warning.plugin === 'vite:react-babel' &&
+            warning.message?.includes('@__PURE__'))
         ) {
-          return;
+          return
         }
         // Usar o handler padrão para outros avisos
-        warn(warning);
+        warn(warning)
       },
     },
   },
@@ -145,11 +151,17 @@ export default defineConfig(({ mode }) => ({
     VitePWA({
       registerType: 'autoUpdate',
       minify: false, // evita falha do Terser na geração do service worker
-      includeAssets: ['favicon.ico', 'favicons/favicon-96x96.png', 'favicons/web-app-manifest-192x192.png', 'favicons/web-app-manifest-512x512.png'],
+      includeAssets: [
+        'favicon.ico',
+        'favicons/favicon-96x96.png',
+        'favicons/web-app-manifest-192x192.png',
+        'favicons/web-app-manifest-512x512.png',
+      ],
       manifest: {
         name: 'NΞØ Protocol',
         short_name: 'NEO',
-        description: 'O Protocolo NΞØ não nasceu para ser uma empresa. Nasceu para ser uma topologia. Uma rede de nós autônomos. Uma consciência distribuída. Descentralização não é uma tecnologia. É um ato político. Uma forma de existir.',
+        description:
+          'O Protocolo NΞØ não nasceu para ser uma empresa. Nasceu para ser uma topologia. Uma rede de nós autônomos. Uma consciência distribuída. Descentralização não é uma tecnologia. É um ato político. Uma forma de existir.',
         theme_color: '#000000',
         background_color: '#000000',
         display: 'standalone',
@@ -163,14 +175,14 @@ export default defineConfig(({ mode }) => ({
             src: 'favicons/web-app-manifest-192x192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any maskable',
           },
           {
             src: 'favicons/web-app-manifest-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
-          }
+            purpose: 'any maskable',
+          },
         ],
         shortcuts: [
           {
@@ -178,23 +190,24 @@ export default defineConfig(({ mode }) => ({
             short_name: 'Nodes',
             description: 'Explore os circuitos simultâneos da rede',
             url: '/nos',
-            icons: [{ src: 'favicons/web-app-manifest-192x192.png', sizes: '192x192' }]
+            icons: [{ src: 'favicons/web-app-manifest-192x192.png', sizes: '192x192' }],
           },
           {
             name: 'Manifesto',
             short_name: 'Manifesto',
             description: 'Leia o documento público',
             url: '/manifesto',
-            icons: [{ src: 'favicons/web-app-manifest-192x192.png', sizes: '192x192' }]
-          }
-        ]
+            icons: [{ src: 'favicons/web-app-manifest-192x192.png', sizes: '192x192' }],
+          },
+        ],
       },
       workbox: {
         mode: 'development', // evita minificação do SW pelo Terser
         // Em desenvolvimento, usar padrões mais flexíveis para evitar avisos
-        globPatterns: mode === 'production' 
-          ? ['**/*.{js,css,html,ico,png,svg,woff2,webp}']
-          : ['index.html', '**/*.{js,css}', 'favicons/**/*.{png,ico,webmanifest}'], // Incluir favicons em dev
+        globPatterns:
+          mode === 'production'
+            ? ['**/*.{js,css,html,ico,png,svg,woff2,webp}']
+            : ['index.html', '**/*.{js,css}', 'favicons/**/*.{png,ico,webmanifest}'], // Incluir favicons em dev
         globIgnores: ['**/node_modules/**/*', 'sw.js', 'workbox-*.js'],
         dontCacheBustURLsMatching: /\.\w{8}\./,
         cleanupOutdatedCaches: true,
@@ -211,13 +224,13 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'favicons-cache-v3.0.0',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
               },
               cacheableResponse: {
-                statuses: [0, 200]
+                statuses: [0, 200],
               },
-              networkTimeoutSeconds: 3
-            }
+              networkTimeoutSeconds: 3,
+            },
           },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -226,30 +239,30 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'google-fonts-cache-v3.0.0',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
               },
               cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
+                statuses: [0, 200],
+              },
+            },
           },
           {
             // Imagens genéricas (excluindo favicons que já têm regra específica)
             urlPattern: ({ url }) => {
               // Excluir favicons da regra genérica
               if (url.pathname.includes('/favicons/')) {
-                return false;
+                return false
               }
-              return /\.(?:png|jpg|jpeg|svg|webp|gif)$/i.test(url.pathname);
+              return /\.(?:png|jpg|jpeg|svg|webp|gif)$/i.test(url.pathname)
             },
             handler: 'CacheFirst',
             options: {
               cacheName: 'images-cache-v3.0.0',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/gateway\.lighthouse\.storage\/.*/i,
@@ -258,20 +271,20 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'ipfs-cache-v3.0.0',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
-              }
-            }
-          }
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
         ],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/]
+        navigateFallbackDenylist: [/^\/api/],
       },
       devOptions: {
         enabled: true,
         type: 'module',
         // Suprimir avisos de glob patterns em desenvolvimento
-        suppressWarnings: true
-      }
-    })
+        suppressWarnings: true,
+      },
+    }),
   ],
 }))

@@ -3,6 +3,7 @@
 ## 🔴 Alertas Abertos (4 total)
 
 ### 1. cookie (2 alertas)
+
 - **Alert #24:** https://github.com/NEO-PROTOCOL/neo-protcl/security/dependabot/24
 - **Alert #7:** https://github.com/NEO-PROTOCOL/neo-protcl/security/dependabot/7
 - **Severidade:** LOW
@@ -18,6 +19,7 @@
 **Impacto:** Baixo - apenas em desenvolvimento (hardhat é devDependency)
 
 **Solução:**
+
 ```json
 // Adicionar em package.json
 {
@@ -28,6 +30,7 @@
 ```
 
 ### 2. tmp (2 alertas)
+
 - **Alert #34:** https://github.com/NEO-PROTOCOL/neo-protcl/security/dependabot/34
 - **Alert #35:** https://github.com/NEO-PROTOCOL/neo-protcl/security/dependabot/35
 - **Severidade:** LOW
@@ -44,11 +47,13 @@
 ## 🎯 Prioridade
 
 **Baixa prioridade:**
+
 - Todos os alertas abertos são LOW severity
 - São dependências transitivas de desenvolvimento
 - Não afetam produção diretamente
 
 **Recomendação:**
+
 - Monitorar e corrigir quando possível
 - Usar `overrides` para forçar versões seguras se necessário
 - Aguardar atualizações upstream das dependências principais
@@ -66,4 +71,3 @@ Author: MELLØ // POST-HUMAN
 
 This project follows my personal working standards.
 Changes are allowed, inconsistency is not.
-

@@ -12,11 +12,13 @@
 **Executado por você (architect)** para criar convite on-chain.
 
 **Uso:**
+
 ```bash
 npx hardhat run scripts/inviteReviewer.js --network base
 ```
 
 **Variáveis de ambiente (.env):**
+
 ```bash
 NODE_DESIGNER_REVIEW_ADDRESS=0x...
 REVIEWER_ADDRESS=0x...
@@ -36,11 +38,13 @@ BASE_RPC_URL=https://mainnet.base.org
 **Executado pelo revisor** com a wallet dele.
 
 **Uso:**
+
 ```bash
 npx hardhat run scripts/acceptReview.js --network base
 ```
 
 **Variáveis de ambiente (.env):**
+
 ```bash
 NODE_DESIGNER_REVIEW_ADDRESS=0x...
 PRIVATE_KEY=0x... # Private key do revisor
@@ -50,6 +54,7 @@ BASE_RPC_URL=https://mainnet.base.org
 **Nota:** Deploy direto em **Base Mainnet** (produção).
 
 **O que faz:**
+
 - Verifica se está em status `INVITED`
 - Executa `acceptReview()`
 - Confirma transação
@@ -109,6 +114,7 @@ npx hardhat run scripts/inviteReviewer.js --network base
 ```
 
 **Output:**
+
 ```
 🎯 NEØ Protocol — Inviting Reviewer
 =====================================
@@ -138,6 +144,7 @@ npx hardhat run scripts/acceptReview.js --network base
 ```
 
 **Output:**
+
 ```
 🎯 NEØ Protocol — Accept Review
 =================================

@@ -1,59 +1,57 @@
-import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { parseCommand } from './CommandParserEngine';
-import { soundManager } from '../utils/sounds';
-import { AgentContext } from './AgentContext';
-import Avatar from './Avatar';
-import { zones } from './zones';
+import { useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { parseCommand } from './CommandParserEngine'
+import { soundManager } from '../utils/sounds'
+import { AgentContext } from './AgentContext'
+import Avatar from './Avatar'
+import { zones } from './zones'
 
 export default function LiveTerminal() {
-  const navigate = useNavigate();
-  const [history, setHistory] = useState([]);
-  const [input, setInput] = useState('');
-  const { agentState, updateAgentState } = useContext(AgentContext);
+  const navigate = useNavigate()
+  const [history, setHistory] = useState([])
+  const [input, setInput] = useState('')
+  const { agentState, updateAgentState } = useContext(AgentContext)
 
   // Carregar histórico do localStorage na inicialização
   useEffect(() => {
-    const savedHistory = JSON.parse(localStorage.getItem('neo_terminal_history') || '[]');
+    const savedHistory = JSON.parse(localStorage.getItem('neo_terminal_history') || '[]')
     if (savedHistory.length) {
-      setHistory(savedHistory);
+      setHistory(savedHistory)
     }
-  }, []);
+  }, [])
 
   // Salvar histórico no localStorage quando mudar
   useEffect(() => {
-    localStorage.setItem('neo_terminal_history', JSON.stringify(history));
-  }, [history]);
+    localStorage.setItem('neo_terminal_history', JSON.stringify(history))
+  }, [history])
 
-  const handleCommand = (e) => {
+  const handleCommand = e => {
     if (e.key === 'Enter') {
-      const command = input.trim();
-      if (!command) return;
+      const command = input.trim()
+      if (!command) return
 
-      const result = parseCommand(command, agentState, updateAgentState);
+      const result = parseCommand(command, agentState, updateAgentState)
 
-      setInput('');
-      setHistory((prev) => [
+      setInput('')
+      setHistory(prev => [
         ...prev,
         { type: 'input', text: command },
-        ...result.output.map((text) => ({ type: 'output', text })),
-      ]);
+        ...result.output.map(text => ({ type: 'output', text })),
+      ])
 
       if (result.sound) {
-        soundManager.play(result.sound);
+        soundManager.play(result.sound)
       }
 
       // Navegar se o comando retornar uma rota
       if (result.navigate) {
-        setTimeout(() => navigate(result.navigate), 1500);
+        setTimeout(() => navigate(result.navigate), 1500)
       }
     }
-  };
+  }
 
   // Renderizar zona ativa se houver
-  const ActiveZone = agentState.zone && zones[agentState.zone]
-    ? zones[agentState.zone]
-    : null;
+  const ActiveZone = agentState.zone && zones[agentState.zone] ? zones[agentState.zone] : null
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono px-4 py-8 relative overflow-hidden">
@@ -78,10 +76,7 @@ export default function LiveTerminal() {
         {/* Terminal Lines */}
         <div className="space-y-2 text-sm">
           {history.map((line, idx) => (
-            <div
-              key={idx}
-              className={line.type === 'input' ? 'text-cyan-400' : 'text-green-400'}
-            >
+            <div key={idx} className={line.type === 'input' ? 'text-cyan-400' : 'text-green-400'}>
               {line.type === 'input' ? `$ ${line.text}` : line.text}
             </div>
           ))}
@@ -91,7 +86,7 @@ export default function LiveTerminal() {
             <span className="text-green-400 mr-2">$</span>
             <input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               onKeyDown={handleCommand}
               className="bg-transparent border-none outline-none flex-1 terminal-cursor"
               autoFocus
@@ -111,6 +106,5 @@ export default function LiveTerminal() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-

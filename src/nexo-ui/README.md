@@ -53,23 +53,22 @@ import { Button } from '@/nexo-ui';
 ### Divider
 
 ```jsx
-import { Divider } from '@/nexo-ui';
-
-<Divider />
+import { Divider } from '@/nexo-ui'
+;<Divider />
 ```
 
 ## 🔤 Partículas
 
 ```jsx
-import { particles } from '@/nexo-ui';
+import { particles } from '@/nexo-ui'
 
-particles.nucleus   // ⟡
-particles.focus     // ⦾
-particles.null      // ⊘
-particles.active    // ⊚
-particles.xi        // Ξ
-particles.theta     // Ø
-particles.neo       // NΞØ
+particles.nucleus // ⟡
+particles.focus // ⦾
+particles.null // ⊘
+particles.active // ⊚
+particles.xi // Ξ
+particles.theta // Ø
+particles.neo // NΞØ
 ```
 
 ## 🎨 Cores
@@ -92,6 +91,7 @@ particles.neo       // NΞØ
 ## 📏 Spacing Fractal
 
 Use as unidades do sistema:
+
 - `p-u1` / `m-u1` - 6px
 - `p-u2` / `m-u2` - 12px
 - `p-u3` / `m-u3` - 18px
@@ -104,17 +104,15 @@ Use as unidades do sistema:
 ### cn (className merge)
 
 ```jsx
-import { cn } from '@/nexo-ui';
-
-<div className={cn("base-class", condition && "conditional-class")} />
+import { cn } from '@/nexo-ui'
+;<div className={cn('base-class', condition && 'conditional-class')} />
 ```
 
 ### glitch (microinterferência)
 
 ```jsx
-import { glitch } from '@/nexo-ui';
-
-<div style={glitch()} />
+import { glitch } from '@/nexo-ui'
+;<div style={glitch()} />
 ```
 
 ## 📋 Guia de Uso
@@ -122,11 +120,13 @@ import { glitch } from '@/nexo-ui';
 ### Quando usar cada variante:
 
 **Card:**
+
 - `default`: Cards informativos, listas
 - `glass`: Cards principais, hero sections
 - `minimal`: Cards secundários, backgrounds
 
 **Button:**
+
 - `primary`: Ações principais (com glow)
 - `secondary`: Ações secundárias
 - `signal`: Ações especiais/sinais
@@ -140,4 +140,3 @@ Para migrar componentes existentes:
 2. Substitua botões customizados por `<Button variant="primary">`
 3. Use `particles` ao invés de emojis
 4. Use spacing fractal (`u1`, `u2`, etc.) ao invés de valores fixos
-

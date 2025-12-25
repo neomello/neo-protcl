@@ -7,15 +7,18 @@ Guia completo para ativar, proteger e preparar a organização para colaboraçõ
 ### 1. Configurações da Organização
 
 #### A. Acessar Configurações
+
 - URL: https://github.com/organizations/NEO-PROTOCOL/settings
 
 #### B. Profile Settings
+
 - [ ] Adicionar descrição completa
 - [ ] Adicionar website: `neoprotocol.eth.link`
 - [ ] Adicionar localização: Brazil
 - [ ] Upload de logo/avatar da organização
 
 #### C. Member Privileges
+
 - [ ] Configurar permissões padrão para membros
 - [ ] Definir base permissions (Read, Write, Admin)
 - [ ] Ativar "Allow members to create repositories"
@@ -24,15 +27,18 @@ Guia completo para ativar, proteger e preparar a organização para colaboraçõ
 ### 2. Repository Settings (neo-protcl)
 
 #### A. General Settings
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings
 
 **Description:**
+
 ```
-Protocol for symbolic presence, trustless interaction and autonomous identity. 
+Protocol for symbolic presence, trustless interaction and autonomous identity.
 Each mint is a signal. Powered by $NEO
 ```
 
 **Topics (adicionar):**
+
 - `blockchain`
 - `web3`
 - `protocol`
@@ -46,6 +52,7 @@ Each mint is a signal. Powered by $NEO
 **Website:** `https://neoprotocol.space`
 
 #### B. Features
+
 - [x] Issues (ativar)
 - [x] Projects (ativar)
 - [x] Wiki (opcional)
@@ -55,6 +62,7 @@ Each mint is a signal. Powered by $NEO
 ### 3. Branch Protection Rules
 
 #### A. Proteger Branch `main`
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/branches
 
 **Configurações recomendadas:**
@@ -66,7 +74,6 @@ Each mint is a signal. Powered by $NEO
      - [x] Require approvals: **1** (ou mais)
      - [x] Dismiss stale pull request approvals when new commits are pushed
      - [x] Require review from Code Owners (se configurado)
-   
    - [x] Require status checks to pass before merging
      - [x] Require branches to be up to date before merging
      - Adicionar status checks específicos:
@@ -74,13 +81,9 @@ Each mint is a signal. Powered by $NEO
        - `build` - Build do projeto
        - `compile-contracts` - Compilação de contratos Hardhat
        - `security` - Verificação de segurança
-   
    - [x] Require conversation resolution before merging
-   
    - [x] Require signed commits (opcional, mas recomendado)
-   
    - [x] Require linear history (opcional)
-   
    - [x] Include administrators (recomendado para manter padrões)
 
 3. **Restrict who can push to matching branches:**
@@ -92,9 +95,11 @@ Each mint is a signal. Powered by $NEO
 ### 4. Security Settings
 
 #### A. Code Security and Analysis
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/security_analysis
 
 **Ativar:**
+
 - [x] Dependency graph
 - [x] Dependabot alerts
 - [x] Dependabot security updates
@@ -102,9 +107,11 @@ Each mint is a signal. Powered by $NEO
 - [x] Secret scanning
 
 #### B. Secrets and Variables
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/secrets/actions
 
 **Secrets necessários (adicionar quando necessário):**
+
 - `VITE_THIRDWEB_CLIENT_ID`
 - `VITE_THIRDWEB_SECRET_KEY`
 - `VITE_X402_SERVER_WALLET_ADDRESS`
@@ -113,9 +120,11 @@ Each mint is a signal. Powered by $NEO
 ### 5. Collaborators & Teams
 
 #### A. Adicionar Collaborators
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/access
 
 **Níveis de acesso:**
+
 - **Read:** Visualização apenas
 - **Triage:** Pode gerenciar issues/PRs
 - **Write:** Pode fazer push em branches (exceto main protegida)
@@ -123,32 +132,39 @@ Each mint is a signal. Powered by $NEO
 - **Admin:** Acesso completo
 
 #### B. Teams (se necessário)
+
 - Criar teams para diferentes níveis de acesso
 - Exemplo: `developers`, `reviewers`, `maintainers`
 
 ### 6. Actions & CI/CD
 
 #### A. Habilitar GitHub Actions
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/actions
 
 **Configurações:**
+
 - [x] Allow all actions and reusable workflows
 - [ ] Allow local actions and reusable workflows (se necessário)
 - [x] Allow actions created by GitHub
 - [x] Allow Marketplace actions
 
 #### B. Workflow Permissions
+
 - [x] Read and write permissions (para deploy automático)
 - [x] Allow GitHub Actions to create and approve pull requests
 
 #### C. Configurar CI Workflow
+
 Criar `.github/workflows/ci.yml` com jobs para:
+
 - Lint & Format Check
 - Build Check (app principal + boot ritual)
 - Compile Smart Contracts
 - Security Check (npm audit)
 
 **Status checks gerados pelo workflow:**
+
 - `lint` - Verificação de código e formatação
 - `build` - Build do projeto
 - `compile-contracts` - Compilação de contratos
@@ -177,9 +193,11 @@ Criar arquivo `.github/CODEOWNERS`:
 ### 8. Issue & PR Templates
 
 #### A. Issue Template
+
 Criar `.github/ISSUE_TEMPLATE/bug_report.md` e `feature_request.md`
 
 #### B. PR Template
+
 Criar `.github/pull_request_template.md`
 
 ### 9. Contributing Guidelines
@@ -193,16 +211,19 @@ Criar `SECURITY.md` na raiz do repositório.
 ## ⧉ Segurança Adicional
 
 ### Two-Factor Authentication
+
 - [ ] Exigir 2FA para todos os membros da organização
 - URL: https://github.com/organizations/NEO-PROTOCOL/settings/security
 
 ### Webhooks (se necessário)
+
 - Configurar webhooks para integrações externas
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/settings/hooks
 
 ## ⨀ Monitoring & Insights
 
 ### Insights
+
 - URL: https://github.com/NEO-PROTOCOL/neo-protcl/insights
 - Monitorar: Traffic, Commits, Contributors, Community
 

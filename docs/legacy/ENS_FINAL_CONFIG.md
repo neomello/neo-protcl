@@ -33,6 +33,7 @@ Vá para: [app.ens.domains](https://app.ens.domains)
 ### 5. Configure o Content Hash
 
 - No campo **Content Hash**, cole:
+
   ```
   ipns://k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
   ```
@@ -48,26 +49,33 @@ Vá para: [app.ens.domains](https://app.ens.domains)
 ## ⚠️ Formato Correto
 
 **✅ CORRETO:**
+
 ```
 ipns://k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
 ```
 
 **❌ ERRADO:**
+
 ```
 k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
 ```
+
 (Sem o prefixo `ipns://`)
 
 **❌ ERRADO:**
+
 ```
 ipfs://k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz
 ```
+
 (Usando `ipfs://` em vez de `ipns://`)
 
 **❌ ERRADO:**
+
 ```
 ipns://k51qzi5uqu5dla3pz2kb3xc2w51x2k8jbnxhp4p02dxj28qfwnpmp8zk6wo4kz/index.html
 ```
+
 (ENS não aceita caminho no contenthash)
 
 ## 🧪 Testar Após Configurar
@@ -118,4 +126,3 @@ Após configurar corretamente:
 - ✅ `neoprotocol.eth.link` → Resolve para o IPNS
 - ✅ IPNS aponta para o CID mais recente
 - ✅ CID contém `index.html` que abre a página de boot
-

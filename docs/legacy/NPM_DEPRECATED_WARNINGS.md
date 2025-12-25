@@ -136,11 +136,13 @@ Mas **não é necessário** neste caso.
 **Ignorar esses warnings por enquanto.**
 
 Eles são:
+
 - ✅ Cosméticos (não afetam funcionalidade)
 - ✅ Transitivos (não estão no seu controle)
 - ✅ Temporários (serão resolvidos quando dependências atualizarem)
 
 **Foco em:**
+
 - ✅ Funcionalidade do código
 - ✅ Build funcionando
 - ✅ Testes passando

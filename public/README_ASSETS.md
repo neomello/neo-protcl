@@ -89,4 +89,3 @@ Antes de adicionar imagens grandes, considere:
 - Comprimir com ferramentas como TinyPNG, ImageOptim
 - Converter para WebP quando possível
 - Usar diferentes tamanhos para mobile/desktop se necessário
-

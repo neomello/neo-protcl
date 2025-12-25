@@ -31,9 +31,9 @@ Closes #(issue)
 
 Passos para testar as mudanças:
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## ◯ Screenshots (se aplicável)
 

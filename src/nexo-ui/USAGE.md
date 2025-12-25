@@ -7,9 +7,9 @@ Padronizar o design system do projeto para manter consistência durante a evolu�
 ## 🚀 Quick Start
 
 ```jsx
-import { Card, Button, Divider, particles } from '@/nexo-ui';
+import { Card, Button, Divider, particles } from '@/nexo-ui'
 // ou
-import { Card, Button, Divider, particles } from '../nexo-ui';
+import { Card, Button, Divider, particles } from '../nexo-ui'
 ```
 
 ## 📦 Componentes
@@ -42,6 +42,7 @@ import { Card, Button, Divider, particles } from '../nexo-ui';
 ### Button
 
 **Variantes disponíveis:**
+
 - `primary` - Ação principal (glitch/cyan)
 - `secondary` - Ação secundária (anomaly/blue)
 - `signal` - Ação especial (signal/violet)
@@ -69,22 +70,22 @@ import { Card, Button, Divider, particles } from '../nexo-ui';
 ## 🔤 Partículas (Símbolos)
 
 ```jsx
-import { particles } from '@/nexo-ui';
+import { particles } from '@/nexo-ui'
 
 // Partículas disponíveis
-particles.nucleus      // ⟡ - Núcleo/Essência
-particles.focus       // ⦾ - Foco/Presença Ativa
-particles.null        // ⊘ - Identidade Nula
-particles.active      // ⊚ - Ativo
+particles.nucleus // ⟡ - Núcleo/Essência
+particles.focus // ⦾ - Foco/Presença Ativa
+particles.null // ⊘ - Identidade Nula
+particles.active // ⊚ - Ativo
 particles.interference // ⌁ - Interferência
-particles.event       // ✶ - Evento
+particles.event // ✶ - Evento
 particles.propagation // ⟴ - Propagação
-particles.loop_in     // ⟲ - Loop Entrada
-particles.loop_out    // ⟳ - Loop Saída
-particles.divider     // ⦙ - Divisor
-particles.xi          // Ξ - Xi (caractere especial)
-particles.theta       // Ø - Theta (caractere especial)
-particles.neo         // NΞØ - Logo completo
+particles.loop_in // ⟲ - Loop Entrada
+particles.loop_out // ⟳ - Loop Saída
+particles.divider // ⦙ - Divisor
+particles.xi // Ξ - Xi (caractere especial)
+particles.theta // Ø - Theta (caractere especial)
+particles.neo // NΞØ - Logo completo
 ```
 
 ## 🎨 Cores do Sistema
@@ -93,19 +94,19 @@ particles.neo         // NΞØ - Logo completo
 
 ```jsx
 // Backgrounds
-className="bg-void"      // #000000 - Preto absoluto
-className="bg-depth"    // #0B0D10 - Cinza escuro
-className="bg-carbon"   // #13161A - Cinza médio
+className = 'bg-void' // #000000 - Preto absoluto
+className = 'bg-depth' // #0B0D10 - Cinza escuro
+className = 'bg-carbon' // #13161A - Cinza médio
 
 // Textos
-className="text-anomaly" // #1A9AF7 - Azul
-className="text-glitch"  // #34E1FF - Ciano
-className="text-signal"  // #7B5DFF - Violeta
+className = 'text-anomaly' // #1A9AF7 - Azul
+className = 'text-glitch' // #34E1FF - Ciano
+className = 'text-signal' // #7B5DFF - Violeta
 
 // Glassmorphism
-className="bg-anomaly-glass" // Azul com opacity
-className="bg-glitch-glass"  // Ciano com opacity
-className="bg-signal-glass"  // Violeta com opacity
+className = 'bg-anomaly-glass' // Azul com opacity
+className = 'bg-glitch-glass' // Ciano com opacity
+className = 'bg-signal-glass' // Violeta com opacity
 ```
 
 ## 📏 Spacing Fractal
@@ -114,21 +115,21 @@ Use sempre as unidades do sistema:
 
 ```jsx
 // Padding
-className="p-u1"  // 6px
-className="p-u2"  // 12px
-className="p-u3"  // 18px
-className="p-u5"  // 30px
-className="p-u8"  // 48px
-className="p-u13" // 78px
+className = 'p-u1' // 6px
+className = 'p-u2' // 12px
+className = 'p-u3' // 18px
+className = 'p-u5' // 30px
+className = 'p-u8' // 48px
+className = 'p-u13' // 78px
 
 // Margin
-className="m-u1"
-className="m-u2"
+className = 'm-u1'
+className = 'm-u2'
 // etc...
 
 // Gap
-className="gap-u1"
-className="gap-u2"
+className = 'gap-u1'
+className = 'gap-u2'
 // etc...
 ```
 
@@ -137,13 +138,13 @@ className="gap-u2"
 ### Substituir ios-card
 
 **Antes:**
+
 ```jsx
-<div className="ios-card p-5">
-  Conteúdo
-</div>
+<div className="ios-card p-5">Conteúdo</div>
 ```
 
 **Depois:**
+
 ```jsx
 <Card variant="glass" className="p-u5">
   Conteúdo
@@ -153,13 +154,13 @@ className="gap-u2"
 ### Substituir botões customizados
 
 **Antes:**
+
 ```jsx
-<button className="px-6 py-3 border-2 border-cyan-400/50 bg-gray-800/50">
-  Clique
-</button>
+<button className="px-6 py-3 border-2 border-cyan-400/50 bg-gray-800/50">Clique</button>
 ```
 
 **Depois:**
+
 ```jsx
 <Button variant="primary">Clique</Button>
 ```
@@ -167,11 +168,13 @@ className="gap-u2"
 ### Usar partículas ao invés de emojis
 
 **Antes:**
+
 ```jsx
 <span>🏠 Home</span>
 ```
 
 **Depois:**
+
 ```jsx
 <span>{particles.nucleus} Home</span>
 ```
@@ -199,7 +202,9 @@ Ao criar novos componentes, siga:
     <h1 className="text-3xl font-bold">NΞØ Protocol</h1>
   </div>
   <p className="text-gray-300 mb-u5">Descrição do protocolo</p>
-  <Button variant="primary" glow>Começar</Button>
+  <Button variant="primary" glow>
+    Começar
+  </Button>
 </Card>
 ```
 
@@ -226,10 +231,11 @@ Ao criar novos componentes, siga:
   <form className="space-y-u3">
     <input className="w-full p-u2 bg-carbon border border-anomaly/40 rounded-neo" />
     <div className="flex gap-u2">
-      <Button variant="primary" type="submit">Entrar</Button>
+      <Button variant="primary" type="submit">
+        Entrar
+      </Button>
       <Button variant="secondary">Cancelar</Button>
     </div>
   </form>
 </Card>
 ```
-

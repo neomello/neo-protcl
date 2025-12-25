@@ -16,14 +16,17 @@ O código executado estava **funcional**, mas **cristalizou cedo demais um caso 
 ### **1. Contrato Genérico Criado**
 
 **Antes:**
+
 - `NodeDesignerReview.sol` - Específico para Designer
 
 **Depois:**
+
 - `NeoNodeAdmission.sol` - Genérico para qualquer tipo de nó
 - Campo `nodeType` (Designer, Research, Systems, Governance, etc.)
 - Eventos com `nodeType` indexed
 
 **Escalabilidade:**
+
 - ✅ Suporta Designer (agora)
 - ✅ Suporta Research (futuro)
 - ✅ Suporta Systems (futuro)
@@ -35,15 +38,18 @@ O código executado estava **funcional**, mas **cristalizou cedo demais um caso 
 ### **2. Scripts como Presets**
 
 **Antes:**
+
 - `inviteReviewer.js` - Específico, assume `.env` como fonte de verdade
 
 **Depois:**
+
 - `scripts/presets/inviteNodeDesigner.js` - Preset específico
 - `scripts/acceptMission.js` - Genérico
 - Documentação de parâmetros (não apenas `.env`)
 - Alternativas documentadas (manual, UI)
 
 **Filosofia:**
+
 - ✅ Scripts são **exemplos**, não obrigatórios
 - ✅ `.env` é detalhe operacional, não parte do protocolo
 - ✅ Parâmetros podem ser passados de qualquer forma
@@ -53,16 +59,19 @@ O código executado estava **funcional**, mas **cristalizou cedo demais um caso 
 ### **3. Eventos como Narrativa**
 
 **Antes:**
+
 - Eventos mencionados mas não explorados
 - Falta documentação narrativa
 
 **Depois:**
+
 - ✅ `EVENTOS_NARRATIVA_NEØ.md` - Documentação completa
 - ✅ Significado narrativo de cada evento
 - ✅ Guias de indexação e consulta
 - ✅ Integração com Identity Graph documentada
 
 **Eventos são:**
+
 - 📜 Log histórico do NΞØ
 - 🔗 Base futura do Identity Graph
 - ✅ Prova pública de admissão
@@ -73,14 +82,17 @@ O código executado estava **funcional**, mas **cristalizou cedo demais um caso 
 ### **4. Versionabilidade Declarada**
 
 **Antes:**
+
 - Não estava explícito que contratos são versionáveis
 
 **Depois:**
+
 - ✅ `VERSIONABILIDADE_CONTRATOS.md` - Declaração formal
 - ✅ Comentário no contrato sobre versionabilidade
 - ✅ Estratégia de migração documentada
 
 **Declaração:**
+
 > "Contratos nesta fase são versionáveis e substituíveis. O que persiste é o registro de eventos e estados."
 
 ---
@@ -194,12 +206,14 @@ docs/
 A auditoria estrutural foi **precisa e necessária**.
 
 **Correções implementadas:**
+
 - ✅ Escalabilidade semântica
 - ✅ Eventos como narrativa
 - ✅ Versionabilidade declarada
 - ✅ Scripts como exemplos
 
 **Sistema agora está:**
+
 - ✅ Funcional
 - ✅ Canônico
 - ✅ Escalável

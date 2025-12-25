@@ -23,19 +23,19 @@ Foi criado um `useEffect` no componente `ConnectButton` que:
 ```jsx
 useEffect(() => {
   const fixDialogTitle = () => {
-    const dialogs = document.querySelectorAll('[role="dialog"]');
-    dialogs.forEach((dialog) => {
+    const dialogs = document.querySelectorAll('[role="dialog"]')
+    dialogs.forEach(dialog => {
       // Verifica e adiciona título acessível se necessário
       // ...
-    });
-  };
+    })
+  }
 
-  fixDialogTitle();
-  const observer = new MutationObserver(() => fixDialogTitle());
-  observer.observe(document.body, { childList: true, subtree: true });
-  
-  return () => observer.disconnect();
-}, []);
+  fixDialogTitle()
+  const observer = new MutationObserver(() => fixDialogTitle())
+  observer.observe(document.body, { childList: true, subtree: true })
+
+  return () => observer.disconnect()
+}, [])
 ```
 
 ## Classe CSS `.sr-only`
@@ -66,4 +66,3 @@ Adicionada ao `src/index.css` para ocultar visualmente mas manter acessível:
 ## Nota
 
 O `modalTitle` já está sendo passado para o `ConnectWallet`, mas o Radix UI pode não estar usando corretamente. Esta solução garante que sempre haverá um título acessível, mesmo que o Thirdweb não o passe corretamente para o Radix UI.
-

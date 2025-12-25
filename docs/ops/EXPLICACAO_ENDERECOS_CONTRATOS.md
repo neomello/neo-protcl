@@ -144,11 +144,13 @@ Endereços: ✅ (agora existem e podem ser usados)
 ## ⚠️ Importante
 
 ### **NÃO são:**
+
 - ❌ Contratos de token (ERC-20, ERC-721)
 - ❌ Contratos de terceiros
 - ❌ Placeholders como `[ENDEREÇO_DO_CONTRATO]`
 
 ### **SÃO:**
+
 - ✅ Contratos do protocolo NΞØ
 - ✅ Contratos que você mesmo vai fazer deploy
 - ✅ Endereços reais após o deploy (formato `0x` + 40 hex)
@@ -192,12 +194,14 @@ O projeto NΞØ Protocol usa **Base** como rede principal, **NÃO Ethereum Mainn
 ### **Redes Disponíveis:**
 
 #### **1. Base Sepolia (Testnet)**
+
 - **Chain ID:** 84532
 - **Moeda nativa:** ETH (testnet)
 - **Uso:** Testes e desenvolvimento
 - **Custo:** Gratuito (ETH de teste)
 
 #### **2. Base (Mainnet)**
+
 - **Chain ID:** 8453
 - **Moeda nativa:** ETH (real)
 - **Uso:** Produção
