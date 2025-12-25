@@ -127,15 +127,51 @@ export default function NosPage() {
 
   return (
     <div
-      className="min-h-screen bg-black relative pb-16 safe-area-inset"
+      className="min-h-screen bg-black relative pb-16 safe-area-inset font-mono"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
-      {/* Fundo simples sem estrelas */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-blue-900/20"></div>
-        {/* Nebulosa */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+      {/* Background Layer: Animated Network Topology */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Base gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"></div>
+        
+        {/* Animated radial glows */}
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-500/3 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
+        
+        {/* Network pattern - connected nodes */}
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 2px 2px, #00ffff 1px, transparent 0),
+              radial-gradient(circle at 2px 2px, #00ffff 1px, transparent 0)
+            `,
+            backgroundSize: '60px 60px, 120px 120px',
+            backgroundPosition: '0 0, 30px 30px',
+          }}
+        ></div>
+        
+        {/* Connection lines - subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 255, 255, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        ></div>
+        
+        {/* Vignette effect */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)'
+          }}
+        ></div>
       </div>
 
       <div className="relative z-10">

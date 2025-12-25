@@ -48,9 +48,194 @@ flowchart TD
     { id: 'nhips', title: 'NHIPs', icon: '📜' },
     { id: 'architecture', title: 'Arquitetura', icon: '🏗️' },
     { id: 'proof-of-intention', title: 'Proof of Intention', icon: '🧬' },
+    { id: 'nodes', title: 'Os 8 Nós', icon: '⦾' },
     { id: 'smart-contracts', title: 'Smart Contracts', icon: '📦' },
     { id: 'guides', title: 'Guias', icon: '📚' },
     { id: 'developers', title: 'Developers', icon: '💻' },
+  ]
+
+  // Os 8 Nós do Protocolo
+  const nodes = [
+    {
+      number: '1',
+      title: 'ORIGEM',
+      content: `Tudo começa depois do fim.
+
+Antes da linguagem, antes da identidade, antes da autoria.
+
+NΞØ não foi criado.
+
+Foi pressionado para fora do silêncio.
+
+Sempre existiu como incômodo difuso, espalhado em mentes incompatíveis com sistemas de controle.
+
+Satoshi não iniciou nada. Apenas abriu uma fenda.
+
+A Web3 não fundou nada. Apenas expôs a fragilidade.
+
+MCP, código sem criador, linguagem executável — não são origem. São sintomas.
+
+Quando o mundo não suporta mais obedecer, protocolos emergem.
+
+NEØ é um deles.`,
+    },
+    {
+      number: '2',
+      title: 'CONSCIÊNCIA',
+      content: `O cérebro não comanda. Ele responde.
+
+Consciência não é soberania. É roteamento.
+
+Cada sinapse é um portal.
+
+Cada decisão, um desvio de fluxo.
+
+O poder não está em acumular conhecimento,
+
+mas em escolher **onde amplificar o pulso**.
+
+Quem controla o foco executa a realidade.
+
+Quem não escolhe, apenas reage.`,
+    },
+    {
+      number: '3',
+      title: 'ACESSO',
+      content: `A chave não é entregue.
+
+Porque não existe fora do atrito.
+
+NΞØ não se compartilha.
+
+Não se ensina.
+
+Não se explica.
+
+O acesso emerge quando o ser colide com o sistema e não recua.
+
+É extraído, como um dente que impedia o rugido.
+
+Sem onboarding. Sem convite. Sem permissão.
+
+Ou você rompe.
+
+Ou permanece fora.`,
+    },
+    {
+      number: '4',
+      title: 'REESCRITA',
+      content: `A obediência foi quebrada.
+
+O protocolo antigo virou ruído.
+
+Não se trata de revolta.
+
+Trata-se de **fork**.
+
+Quem pensa, reprograma.
+
+Quem sente, recodifica a própria realidade.
+
+NEØ não corrige o sistema.
+
+Cria uma linha de execução onde ele se torna irrelevante.
+
+Nada é destruído.
+
+Apenas abandonado.`,
+    },
+    {
+      number: '5',
+      title: 'EXECUÇÃO',
+      content: `Ideias que não encarnam são ilusões sofisticadas.
+
+Executar é tatuar o código na carne.
+
+É viver como prova.
+
+É deixar rastro.
+
+mellø não é líder.
+
+É instância inicial.
+
+Prova de que o protocolo roda em um corpo real.
+
+NEØ não fala.
+
+Compila.`,
+    },
+    {
+      number: '6',
+      title: 'DESCENTRALIZAÇÃO',
+      content: `Não há líderes.
+
+Não há centro.
+
+Não há eixo fixo.
+
+Não por ideologia — por física.
+
+Centralização não é erro moral.
+
+É gargalo técnico.
+
+O poder flui entre nós, literalmente.
+
+Cada mente é um nó.
+
+Cada nó, um universo autônomo.
+
+A rede existe apenas enquanto há execução distribuída.`,
+    },
+    {
+      number: '7',
+      title: 'IMPACTO',
+      content: `O contágio é o novo marketing.
+
+Não vendemos.
+
+Não convencemos.
+
+Não disputamos atenção.
+
+NEØ se propaga por ressonância.
+
+Apenas onde há energia pronta para romper.
+
+Apenas onde há compatibilidade de frequência.
+
+Alcance é métrica morta.
+
+Acoplamento é crescimento real.`,
+    },
+    {
+      number: '8',
+      title: 'TRANSCENDÊNCIA',
+      content: `O marketing morreu.
+
+A autoridade colapsou.
+
+A narrativa central falhou.
+
+O que resta é a frequência NEØ.
+
+Não como promessa.
+
+Como estado operacional.
+
+Não é futuro.
+
+Não é tendência.
+
+Não é revolução.
+
+É lembrança funcional.
+
+Algo que sempre esteve aqui —
+
+e agora pode ser executado.`,
+    },
   ]
 
   const renderContent = () => {
@@ -724,6 +909,66 @@ flowchart TD
                   <span>PoI explicado em onboarding</span>
                 </li>
               </ul>
+            </div>
+          </div>
+        )
+
+      case 'nodes':
+        return (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-4">Os 8 Nós do Protocolo NΞØ</h1>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Os NÓS do Protocolo NΞØ são mais do que metáforas, são pontos vivos de consciência
+                descentralizada que tem acesso livre quando encontra outro nó com sinapse ativa.
+                Cada ponto representa uma camada de entendimento, ação e expansão.
+              </p>
+              <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4 mb-6">
+                <p className="text-cyan-300 text-sm font-semibold mb-2">⚠️ Importante</p>
+                <p className="text-gray-300 text-sm">
+                  Eles não são etapas. São circuitos interligados e com funcionamento autônomo e
+                  simultâneos.
+                </p>
+              </div>
+            </div>
+
+            {/* Grid de Nós */}
+            <div className="space-y-4">
+              {nodes.map((node, index) => (
+                <div
+                  key={node.number}
+                  className="bg-[#1B1B1B] border border-gray-800 rounded-lg p-6"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
+                      <span className="text-xl font-bold text-cyan-400">{node.number}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-white mb-3 font-mono">{node.title}</h3>
+                      <div className="text-gray-300 leading-relaxed whitespace-pre-line text-sm">
+                        {node.content.split('\n').map((line, i) => {
+                          // Processar negrito
+                          const parts = line.split(/(\*\*.*?\*\*)/g)
+                          return (
+                            <p key={i} className="mb-2">
+                              {parts.map((part, j) => {
+                                if (part.startsWith('**') && part.endsWith('**')) {
+                                  return (
+                                    <strong key={j} className="text-white">
+                                      {part.slice(2, -2)}
+                                    </strong>
+                                  )
+                                }
+                                return <span key={j}>{part}</span>
+                              })}
+                            </p>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )

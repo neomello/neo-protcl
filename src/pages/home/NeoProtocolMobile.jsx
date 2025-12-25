@@ -151,19 +151,47 @@ export default function NeoProtocolMobile() {
       className="min-h-screen bg-black text-gray-100 overflow-x-hidden pb-16 safe-area-inset relative font-mono"
       style={{ paddingBottom: `calc(80px + env(safe-area-inset-bottom))` }}
     >
-      {/* Background Layer: Infrastructure Grid */}
-      <div className="fixed inset-0 z-0 opacity-[0.20] pointer-events-none">
+      {/* Background Layer: Animated Network Topology */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Base gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black"></div>
+        
+        {/* Animated radial glows - mobile optimized */}
+        <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] bg-blue-500/5 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
+        
+        {/* Network pattern - connected nodes */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-[0.12]"
           style={{
             backgroundImage: `
-            linear-gradient(to right, #555 1px, transparent 1px),
-            linear-gradient(to bottom, #555 1px, transparent 1px)
-          `,
-            backgroundSize: '30px 30px',
+              radial-gradient(circle at 2px 2px, #00ffff 1px, transparent 0),
+              radial-gradient(circle at 2px 2px, #00ffff 1px, transparent 0)
+            `,
+            backgroundSize: '50px 50px, 100px 100px',
+            backgroundPosition: '0 0, 25px 25px',
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+        
+        {/* Connection lines - subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 255, 255, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+        ></div>
+        
+        {/* Vignette effect */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 50%, black 100%)'
+          }}
+        ></div>
       </div>
 
       <div className="relative z-10 flex flex-col min-h-screen">

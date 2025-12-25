@@ -231,7 +231,7 @@ class SoundManager {
       // Envelope muito curto (tick rápido)
       const now = this.audioContext.currentTime
       gainNode.gain.setValueAtTime(0, now)
-      gainNode.gain.linearRampToValueAtTime(this.volume * 0.12, now + 0.001)
+      gainNode.gain.linearRampToValueAtTime(this.volume * 0.25, now + 0.001)
       gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.008)
 
       oscillator.connect(filter)
