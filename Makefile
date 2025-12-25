@@ -59,11 +59,15 @@ dev-boot: ## Inicia servidor de desenvolvimento (boot ritual)
 ##@ Build
 
 build: ## Constrói o app principal para produção
+	@echo "$(CYAN)🎨 Formatando código com Prettier...$(RESET)"
+	@npx prettier --write "**/*.{js,jsx,ts,tsx,json,md}" || true
 	@echo "$(CYAN)🔨 Construindo app principal...$(RESET)"
 	@npm run build
 	@echo "$(GREEN)✅ Build concluído em $(DIST)/$(RESET)"
 
 build-boot: ## Constrói o boot ritual para produção
+	@echo "$(CYAN)🎨 Formatando código com Prettier...$(RESET)"
+	@npx prettier --write "**/*.{js,jsx,ts,tsx,json,md}" || true
 	@echo "$(CYAN)🔨 Construindo boot ritual...$(RESET)"
 	@npm run build:boot
 	@echo "$(GREEN)✅ Build concluído em $(DIST_BOOT)/$(RESET)"
