@@ -135,7 +135,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    include: ['buffer', '@lighthouse-web3/sdk', 'react', 'react-dom'],
+    include: ['buffer', '@lighthouse-web3/sdk', 'react', 'react-dom', 'react/jsx-runtime'],
     exclude: [
       // Excluir wallets não usadas do Thirdweb para reduzir bundle
       // Manter apenas o que é necessário (Embedded Wallets)
