@@ -16,7 +16,6 @@
     "deploy:lighthouse": "npm run build:boot && node scripts/upload-to-lighthouse.js",
     "prepare:lighthouse": "npm run build:boot && node scripts/prepare-for-lighthouse.js",
     "check:ens": "node scripts/check-ens-status.js",
-    "compile": "hardhat compile",
     "analyze": "node scripts/analyze-code.js",
     "monitor:vulns": "node scripts/monitor-vulnerabilities.js",
     "preview": "vite preview",
@@ -35,7 +34,6 @@
   },
   "devDependencies": {
     "@lighthouse-web3/sdk": "^0.4.3",
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
@@ -43,7 +41,6 @@
     "autoprefixer": "^10.4.16",
     "dotenv": "^17.2.3",
     "form-data": "^4.0.5",
-    "hardhat": "^2.19.0",
     "mermaid": "^11.12.2",
     "node-fetch": "^3.3.2",
     "postcss": "^8.4.32",
