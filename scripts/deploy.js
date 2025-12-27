@@ -44,8 +44,7 @@ async function main() {
 
   // Guardian: endereço que controlará o registro
   // Pode ser o deployer ou outro endereço confiável
-  const GUARDIAN_ADDRESS =
-    process.env.NODE_REGISTRY_GUARDIAN || deployer.address
+  const GUARDIAN_ADDRESS = process.env.NODE_REGISTRY_GUARDIAN || deployer.address
 
   console.log(`   Guardian: ${GUARDIAN_ADDRESS}`)
 
@@ -62,17 +61,13 @@ async function main() {
   // ============================================
   console.log('📝 Deployando ReputationBootstrap...')
 
-  const ReputationBootstrap = await hreEthers.getContractFactory(
-    'ReputationBootstrap'
-  )
+  const ReputationBootstrap = await hreEthers.getContractFactory('ReputationBootstrap')
   const reputationBootstrap = await ReputationBootstrap.deploy()
 
   await reputationBootstrap.deployed()
   const reputationBootstrapAddress = reputationBootstrap.address
 
-  console.log(
-    `✅ ReputationBootstrap deployed to: ${reputationBootstrapAddress}\n`
-  )
+  console.log(`✅ ReputationBootstrap deployed to: ${reputationBootstrapAddress}\n`)
 
   // ============================================
   // 3. NodeAdmission (depende de ReputationBootstrap)
@@ -80,9 +75,7 @@ async function main() {
   console.log('📝 Deployando NodeAdmission...')
 
   const NodeAdmission = await hreEthers.getContractFactory('NodeAdmission')
-  const nodeAdmission = await NodeAdmission.deploy(
-    reputationBootstrapAddress
-  )
+  const nodeAdmission = await NodeAdmission.deploy(reputationBootstrapAddress)
 
   await nodeAdmission.deployed()
   const nodeAdmissionAddress = nodeAdmission.address
@@ -94,34 +87,26 @@ async function main() {
   // ============================================
   console.log('📝 Deployando NodeDesignerReview...')
 
-  const NodeDesignerReview = await hreEthers.getContractFactory(
-    'NodeDesignerReview'
-  )
+  const NodeDesignerReview = await hreEthers.getContractFactory('NodeDesignerReview')
   const nodeDesignerReview = await NodeDesignerReview.deploy()
 
   await nodeDesignerReview.deployed()
   const nodeDesignerReviewAddress = nodeDesignerReview.address
 
-  console.log(
-    `✅ NodeDesignerReview deployed to: ${nodeDesignerReviewAddress}\n`
-  )
+  console.log(`✅ NodeDesignerReview deployed to: ${nodeDesignerReviewAddress}\n`)
 
   // ============================================
   // 5. NeoNodeAdmission
   // ============================================
   console.log('📝 Deployando NeoNodeAdmission...')
 
-  const NeoNodeAdmission = await hreEthers.getContractFactory(
-    'NeoNodeAdmission'
-  )
+  const NeoNodeAdmission = await hreEthers.getContractFactory('NeoNodeAdmission')
   const neoNodeAdmission = await NeoNodeAdmission.deploy()
 
   await neoNodeAdmission.deployed()
   const neoNodeAdmissionAddress = neoNodeAdmission.address
 
-  console.log(
-    `✅ NeoNodeAdmission deployed to: ${neoNodeAdmissionAddress}\n`
-  )
+  console.log(`✅ NeoNodeAdmission deployed to: ${neoNodeAdmissionAddress}\n`)
 
   // ============================================
   // Resumo Final
@@ -147,16 +132,10 @@ async function main() {
   console.log('💾 Copie os endereços acima para seu .env ou .env.local:')
   console.log('')
   console.log(`NODE_REGISTRY_ADDRESS=${nodeRegistryAddress}`)
-  console.log(
-    `REPUTATION_BOOTSTRAP_ADDRESS=${reputationBootstrapAddress}`
-  )
+  console.log(`REPUTATION_BOOTSTRAP_ADDRESS=${reputationBootstrapAddress}`)
   console.log(`NODE_ADMISSION_ADDRESS=${nodeAdmissionAddress}`)
-  console.log(
-    `NODE_DESIGNER_REVIEW_ADDRESS=${nodeDesignerReviewAddress}`
-  )
-  console.log(
-    `NEO_NODE_ADMISSION_ADDRESS=${neoNodeAdmissionAddress}`
-  )
+  console.log(`NODE_DESIGNER_REVIEW_ADDRESS=${nodeDesignerReviewAddress}`)
+  console.log(`NEO_NODE_ADMISSION_ADDRESS=${neoNodeAdmissionAddress}`)
   console.log('')
   console.log('⚠️  IMPORTANTE: Guarde esses endereços com segurança!')
   console.log('')
@@ -168,4 +147,3 @@ main()
     console.error('❌ Erro no deploy:', error)
     process.exit(1)
   })
-

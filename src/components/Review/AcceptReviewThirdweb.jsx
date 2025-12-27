@@ -15,8 +15,7 @@ import { STATUS, STATUS_NAMES } from '../../abi/nodeDesignerReview'
 
 // Endereço do contrato deployado (Base Mainnet)
 const CONTRACT_ADDRESS =
-  import.meta.env.VITE_NODE_DESIGNER_REVIEW_ADDRESS ||
-  '0x426542498Ab03246DaDe955dF25845e446a13C2B'
+  import.meta.env.VITE_NODE_DESIGNER_REVIEW_ADDRESS || '0x426542498Ab03246DaDe955dF25845e446a13C2B'
 
 export default function AcceptReviewThirdweb() {
   const account = useActiveAccount()
@@ -350,4 +349,3 @@ export default function AcceptReviewThirdweb() {
     </div>
   )
 }
-

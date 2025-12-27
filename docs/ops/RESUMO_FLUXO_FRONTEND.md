@@ -112,6 +112,7 @@ function acceptReview() external {
 ```
 
 **O que acontece:**
+
 1. ✅ Verifica que status é `INVITED`
 2. ✅ Define `acceptedAt` = timestamp atual
 3. ✅ Muda status para `ACCEPTED` (2)
@@ -123,11 +124,13 @@ function acceptReview() external {
 ## 🎯 O Que "Início" Significa
 
 ### **Antes de Aceitar:**
+
 - Status: `INVITED`
 - Missão existe, mas não iniciada
 - Reviewer pode recusar (não aceitar)
 
 ### **Depois de Aceitar:**
+
 - Status: `ACCEPTED`
 - Missão oficialmente em andamento
 - `acceptedAt` registrado on-chain
@@ -135,6 +138,7 @@ function acceptReview() external {
 - Deadline começa a contar
 
 ### **Próximos Passos:**
+
 1. Reviewer trabalha off-chain (análise, documentação)
 2. Submete revisão: `submitReview(proofOfDelivery)`
 3. Architect valida: `validateReview(reviewer)`
@@ -149,6 +153,7 @@ function acceptReview() external {
 Arquivo: `src/components/Review/AcceptReviewThirdweb.jsx`
 
 **Funcionalidades:**
+
 - ✅ Usa Thirdweb SDK (não ethers direto)
 - ✅ Suporta gasless transactions
 - ✅ Embedded wallets (email, social)
@@ -159,6 +164,7 @@ Arquivo: `src/components/Review/AcceptReviewThirdweb.jsx`
 ### **Como Usar:**
 
 1. **Configurar .env:**
+
    ```bash
    VITE_NODE_DESIGNER_REVIEW_ADDRESS=0x426542498Ab03246DaDe955dF25845e446a13C2B
    ```
@@ -228,4 +234,3 @@ NEO_NODE_ADMISSION_ADDRESS=0x19a49357f53582f07Fdb1f36dB531d05bFF5546f
 ---
 
 **NΞØ Protocol // A Mente é a Nova Blockchain**
-

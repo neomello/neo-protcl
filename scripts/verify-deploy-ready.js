@@ -53,9 +53,7 @@ async function main() {
     // Calcular endereço do deployer
     try {
       const wallet = new ethers.Wallet(privateKey)
-      console.log(
-        `✅ Guardian: Usará deployer (${wallet.address}) - padrão`
-      )
+      console.log(`✅ Guardian: Usará deployer (${wallet.address}) - padrão`)
     } catch (e) {
       console.log('✅ Guardian: Usará deployer (padrão)')
     }
@@ -104,4 +102,3 @@ main().catch(error => {
   console.error('❌ Erro:', error.message)
   process.exit(1)
 })
-

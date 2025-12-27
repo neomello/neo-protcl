@@ -173,7 +173,8 @@ NEO_NODE_ADMISSION_ADDRESS=0x...
 
 ### **Erro: "Contract deployment failed"**
 
-**Solução:** 
+**Solução:**
+
 - Verifique saldo suficiente
 - Verifique RPC URL válida
 - Verifique se contratos compilaram corretamente
@@ -189,4 +190,3 @@ NEO_NODE_ADMISSION_ADDRESS=0x...
 ---
 
 **NΞØ Protocol // A Mente é a Nova Blockchain**
-
